@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Conditions et Logique de Décision</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Logic</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Conditions</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#if-else" class="nav-link active">1. If / Else</a>
+                <a href="#nested" class="nav-link">2. Nested</a>
+                <a href="#switch" class="nav-link">3. Switch</a>
+                <a href="#ternary" class="nav-link">4. Ternaire (Bonus)</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="if-else" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Les Conditions (If / Else)</h3>
+                </div>
+                <p>
+                    Le bloc <code>if</code> est un embranchement. L'ordinateur arrive devant une question (la condition)
+                    :
+                    si la réponse est <strong>VRAIE</strong>, il prend un chemin. Sinon, il continue ou prend le chemin
+                    <code>else</code>.
+                </p>
+
+                <p>
+                    De plus, pour grouper les instructions dans un if,
+                    nous utilisons les <strong>blocs</strong> délimités par des accolades <code>{}</code>.
+                </p>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="git-branch"></i></div>
+                        <h4>if (si)</h4>
+                        <p>Le bloc s'exécute uniquement si le résultat entre parenthèses est <code>true</code>.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="git-branch-plus"></i></div>
+                        <h4>else if (sinon si)</h4>
+                        <p>Si le premier test a échoué, on tente une deuxième question spécifique.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="corner-down-right"></i></div>
+                        <h4>else (sinon)</h4>
+                        <p>Le "filet de sécurité" : s'exécute si <strong>absolument rien</strong> d'autre n'était vrai.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Système de points de vie">
+                    <textarea class="source-code" hidden>
+let hp = 0;
+
+if (hp > 75) {
+    console.log("État : Excellent");
+} else if (hp > 0) {
+    console.log("État : Blessé");
+} else {
+    console.log("État : Game Over");
+}
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Détecteur de collision">
+                    <textarea class="source-code" hidden>
+// Imagine un personnage qui s'approche d'un mur
+let distanceObstacle = 5; // Essaie de changer pour 25 ou 0
+
+// TODO: Si distanceObstacle est plus petite que 10, affiche "DANGER : Freinage d'urgence !"
+// TODO: Sinon si distanceObstacle est plus petite que 20, affiche "Attention : Ralentir."
+// TODO: Sinon, affiche "Route libre."
+
+// Ajoute tes 'if', 'else if' et 'else' ici...
+</textarea>
+                    <textarea class="solution-code" hidden>
+let distanceObstacle = 5;
+
+if (distanceObstacle < 10) {
+    console.log("DANGER : Freinage d'urgence !");
+} else if (distanceObstacle < 20) {
+    console.log("Attention : Ralentir.");
+} else {
+    console.log("Route libre.");
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="nested" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Imbrication</h3>
+                </div>
+                <p>
+                    La logique n'est pas toujours linéaire. Parfois, une décision en entraîne une autre.
+                    C'est l'<strong>imbrication</strong> (nesting).
+                </p>
+
+                <div class="info-box tip">
+                    <h4><i data-lucide="layers"></i>Imbrication (Nesting)</h4>
+                    <p>C'est mettre un <code>if</code> à l'intérieur d'un autre <code>if</code>.
+                        Comme ouvrir une porte pour trouver un coffre, qui lui-même doit être ouvert.</p>
+                </div>
+
+                <div class="playground-container" data-type="example"
+                    data-title="Exemple : Accès sécurisé (Imbrication)">
+                    <textarea class="source-code" hidden>
+let estConnecte = true;
+let estAdmin = false;
+
+if (estConnecte) {
+    console.log("Bienvenue utilisateur !");
+
+    // Ce if ne s'exécute que si le premier est VRAI
+    if (estAdmin) {
+        console.log("Accès au panneau de contrôle accordé.");
+    } else {
+        console.log("Accès restreint : Vous n'êtes pas admin.");
+    }
+
+} else {
+    console.log("Veuillez vous connecter.");
+}
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : La Météo et la Tenue">
+                    <textarea class="source-code" hidden>
+let ilPleut = true;
+let ilFaitFroid = false;
+
+// TODO: Crée une logique imbriquée
+// 1. Si ilPleut est vrai :
+//    - Affiche "Prends un parapluie."
+//    - Ensuite, vérifie SI ilFaitFroid :
+//         - Si oui : affiche "Mets aussi un manteau."
+//         - Sinon : affiche "Un imperméable suffira."
+// 2. Sinon (s'il ne pleut pas) :
+//    - Affiche "Bonne journée !"
+
+if (ilPleut) {
+    // Écris ton code ici...
+} else {
+    
+}
+</textarea>
+                    <textarea class="solution-code" hidden>
+let ilPleut = true;
+let ilFaitFroid = false;
+
+if (ilPleut) {
+    console.log("Prends un parapluie.");
+    
+    if (ilFaitFroid) {
+        console.log("Mets aussi un manteau.");
+    } else {
+        console.log("Un imperméable suffira.");
+    }
+} else {
+    console.log("Bonne journée !");
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="switch" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Le Switch</h3>
+                </div>
+                <p>
+                    Le <code>switch</code> est une structure de contrôle qui permet de comparer une variable à une liste
+                    de valeurs possibles.
+                    C'est beaucoup plus lisible qu'une longue suite de <code>else if</code> quand on teste toujours la
+                    même donnée.
+                </p>
+
+                <div class="info-box info">
+                    <h4><i data-lucide="help-circle"></i> Le fonctionnement</h4>
+                    <ul class="code-list">
+                        <li><strong>switch (x):</strong> On pose la variable que l'on veut comparer.</li>
+                        <li><strong>case x:</strong> On compare avec une valeur précise (égalité stricte
+                            <code>===</code>).
+                        </li>
+                        <li><strong>break :</strong> On sort immédiatement du switch. </li>
+                        <li><strong>default :</strong> L'option par défaut si aucun cas ne correspond (équivalent du
+                            <code>else</code>).
+                        </li>
+                    </ul>
+                </div>
+                <div class="info-box error">
+                    <h4><i data-lucide="shield-alert"></i> Attention au "Fall-through"</h4>
+                    <p>Si vous oubliez le <code>break;</code>, JavaScript ne s'arrête pas ! Il va exécuter le code
+                        du <code>case</code> suivant, même s'il ne correspond pas. C'est une erreur classique.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="info-box info">
+                        <h4>If / Else if</h4>
+                        <pre><code>let itemSelectionne = "Epee";
+
+if (itemSelectionne === "Epee") {
+    console.log("Attaque : +10");
+} else if (itemSelectionne === "Bouclier") {
+    console.log("Défense : +5");
+} else if (itemSelectionne === "Baguette") {
+    console.log("Magie : +20");
+} else {
+    console.log("Aucun bonus.");
+}</code></pre>
+                    </div>
+                    <div class="info-box info">
+                        <h4>Switch</h4>
+                        <pre><code>let itemSelectionne = "Epee";
+
+switch (itemSelectionne) {
+    case "Epee":
+        console.log("Attaque : +10");
+        break;
+    case "Bouclier":
+        console.log("Défense : +5");
+        break;
+    case "Baguette":
+        console.log("Magie : +20");
+        break;
+    default:
+        console.log("Aucun bonus.");
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Système d'inventaire">
+                    <textarea class="source-code" hidden>
+let itemSelectionne = "Epee";
+
+switch (itemSelectionne) {
+    case "Epee":
+        console.log("Attaque : +10");
+        break;
+    case "Bouclier":
+        console.log("Défense : +5");
+        break;
+    case "Baguette":
+        console.log("Magie : +20");
+        break;
+    default:
+        console.log("Aucun bonus.");
+}
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Contrôleur de touches">
+                    <textarea class="source-code" hidden>
+// Simule une touche pressée sur un clavier
+let touchePressee = "ArrowUp"; 
+
+// TODO: Crée un switch qui vérifie 'touchePressee'
+// - cas "ArrowUp" -> affiche "Le personnage monte"
+// - cas "ArrowDown" -> affiche "Le personnage descend"
+// - default -> affiche "Aucun mouvement"
+
+switch (?) {
+    // Écris tes cases ici...
+}
+</textarea>
+                    <textarea class="solution-code" hidden>
+let touchePressee = "ArrowUp"; 
+
+switch (touchePressee) {
+    case "ArrowUp":
+        console.log("Le personnage monte");
+        break;
+    case "ArrowDown":
+        console.log("Le personnage descend");
+        break;
+    default:
+        console.log("Aucun mouvement");
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="ternary" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>L'Opérateur Ternaire</h3>
+                </div>
+                <p>
+                    L'opérateur ternaire est une <strong>alternative compacte</strong> au bloc <code>if...else</code>
+                    traditionnel.
+                    Il permet d'évaluer une condition et de retourner une valeur immédiatement, le tout sur une
+                    <strong>seule ligne de code</strong>.
+                </p>
+
+                <div class="grid-2">
+                    <div class="info-box info">
+                        <h4>La Question (Ternaire)</h4>
+                        <p><code>condition ? vrai : faux</code></p>
+                    </div>
+                    <div class="info-box info">
+                        <h4>Pourquoi l'utiliser ?</h4>
+                        <p>Pour gagner de la place et éviter de créer des structures <code>if</code> lourdes pour des
+                            petits choix.</p>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="UI : Bouton Jouer/Pause">
+                    <textarea class="source-code" hidden>
+let musiqueEnCours = true;
+
+// On change le texte du bouton selon l'état de la musique
+let texteBouton = musiqueEnCours ? "PAUSE" : "PLAY";
+
+console.log("Bouton :", texteBouton);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Traduire en Ternaire">
+                    <textarea class="source-code" hidden>
+let estVivant = true;
+
+/* TODO : Traduis ce bloc IF/ELSE en une seule ligne 
+   en utilisant l'opérateur ternaire ( ? : )
+   
+   if (estVivant) {
+       status = "Prêt au combat";
+   } else {
+       status = "Game Over";
+   }
+*/
+
+let status = ?;
+
+console.log("État du héros :", status);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let estVivant = true;
+
+// Traduction en une ligne :
+let status = estVivant ? "Prêt au combat" : "Game Over";
+
+console.log("État du héros :", status);
+</textarea>
+                </div>
+
+                <script src="scripts/script.js"></script>
+</body>
+
+</html>

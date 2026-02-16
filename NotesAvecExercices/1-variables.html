@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours JavaScript - Introduction et variables</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Intro</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Introduction et variables</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#intro" class="nav-link active">Introduction</a>
+                <a href="#output" class="nav-link">1. Affichage</a>
+                <a href="#variables" class="nav-link">2. Variables</a>
+                <a href="#types" class="nav-link">3. Types de Données</a>
+                <a href="#naming" class="nav-link">4. Nommage</a>
+                <a href="#erreurs-frequentes" class="nav-link">5. Erreurs fréquentes</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <h2 class="section-title">Introduction</h2>
+                <p>
+                    JavaScript est le langage de programmation du Web. Contrairement au HTML (contenu) et au CSS
+                    (style), JavaScript permet de créer la <strong>logique</strong> et l'<strong>interactivité</strong>.
+                </p>
+                <div class="info-box info">
+                    <strong>Note importante :</strong> Le code s'exécute ligne par ligne, de haut en bas.
+                </div>
+                <div class="info-box tip">
+                    <h4>Le point-virgule <code>;</code></h4>
+                    <p>
+                        Il marque la <strong>fin d'une instruction</strong>. C'est comme le point « . » dans une phrase.
+                        Prenez l'habitude de toujours le mettre.
+                    </p>
+                </div>
+            </section>
+
+            <section id="output" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Afficher des données</h3>
+                </div>
+                <p>Le développeur utilise la console pour afficher et vérifier son code en utilisant
+                    <code>console.log()</code>.
+                </p>
+
+                <div class="info-box info">
+                    <h3><i data-lucide="monitor"></i> Où voir le résultat ?</h3>
+
+                    <p><strong>1. Dans ces notes de cours :</strong><br>
+                        Pour faciliter l'apprentissage, le résultat s'affiche directement dans la <strong>console du
+                            simulateur</strong></p>
+
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 10px 0;">
+
+                    <p><strong>2. Dans la « vraie vie » (Navigateur) :</strong><br>
+                        Normalement, le résultat est caché. Pour le voir, le développeur doit ouvrir les outils de
+                        débogage :</p>
+                    <ul>
+                        <li><strong>Clavier :</strong> Appuyez sur la touche <code>F12</code>.</li>
+                        <li><strong>Souris :</strong> Faites un Clic-droit > <strong>Inspecter</strong>.</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">
+                        Cherchez ensuite l'onglet <strong>Console</strong> (<code
+                            style="background-color: #333; color: white; padding: 2px 5px; border-radius: 3px;">&gt;_</code>).
+                    </p>
+                    <img style="max-width: 500px" src="img/cours 1/console.png"></img>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : La virgule magique">
+                    <textarea class="source-code" hidden>
+// 1. Afficher un message simple
+console.log("Système prêt.");
+
+// 2. Afficher plusieurs arguments
+let pointsDeVie = 100;
+console.log("État du joueur :", "En vie", "| HP :", pointsDeVie);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Journal de quête" data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de la ligne !">
+                    <textarea class="source-code" hidden>
+// TODO 1: Affiche "Nouvelle quête activée: Trouver l'épée"
+
+// TODO 2: Affiche "Récompense:" suivi du nombre 500 et du mot "écus"
+// Utilise 3 arguments séparés par des virgules dans le log
+// Exemple: Récompense: 500 écus
+
+</textarea>
+                    <textarea class="solution-code" hidden>
+console.log("Quête activée: Trouver l'épée");
+console.log("Récompense:", 500, "écus");
+</textarea>
+                </div>
+            </section>
+
+            <section id="variables" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Les Variables</h3>
+                </div>
+
+                <p>Une variable est un espace réservé dans la mémoire de l'ordinateur.</p>
+                <p>Imaginez une <strong>boîte</strong> avec une étiquette.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="box"></i></div>
+                        <span class="concept-tag">Étape 1</span>
+                        <h4>Déclaration</h4>
+                        <code>let score;</code>
+                        <ul style="text-align: left;">
+                            <li>L'ordinateur <strong>réserve un bloc de mémoire</strong></li>
+                            <li>Il lui donne le nom "score".</li>
+                            <li>À ce stade, la boîte est vide, sa valeur est <code>undefined</code>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="download"></i></div>
+                        <span class="concept-tag">Étape 2</span>
+                        <h4>Assignation</h4>
+                        <code>score = 10;</code>
+                        <ul style="text-align: left;">
+                            <li>On place la valeur <code>10</code> dans la boîte.</li>
+                            <li>Si on change la valeur plus tard,
+                                <strong>l'ancienne est écrasée</strong> et perdue à jamais.
+                            </li>
+                            </p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="eye"></i></div>
+                        <span class="concept-tag">Étape 3</span>
+                        <h4>Lecture / Usage</h4>
+                        <code>console.log(score);</code>
+                        <ul style="text-align: left;">
+                            <li>L'ordinateur va lire le contenu de la boîte</li>
+                            <li>Il va ensuite remplacer <code>score</code> dans le code par sa valeur <code>10</code>
+                            </li>
+                            <li>Pour l'ordinateur <code>console.log(score);</code> devient <code>console.log(10);</code>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Modification de valeur">
+                    <textarea class="source-code" hidden>
+// Déclaration: Crée la variable
+let vie;
+console.log("La variable est crée, mais vide:", vie)
+
+// Assignation: Mets 100 à l'intérieur de la variable
+vie = 100;
+console.log("Vie au départ :", vie);
+
+//Assignation: Mets 50 à l'intérieur de la variable
+vie = 50;
+console.log("Modification de la vie :", vie)
+
+//Déclaration et assignation en une seule instruction
+let nomPersonnage = "Link";
+console.log("Mon personnage s'appelle :", nomPersonnage);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Changement d'équipement">
+                    <textarea class="source-code" hidden>
+// 1. Déclare une variable 'armePrincipale' et donne lui la valeur "Arc"
+
+// 2. Affiche : "Arme équipée : Arc" en utilisant la variable
+
+// 3. Le joueur ramasse une autre arme. Change la valeur pour "Épée de feu"
+
+// 4. Affiche à nouveau l'arme équipée pour vérifier le changement
+</textarea>
+                    <textarea class="solution-code" hidden>
+let armePrincipale = "Arc";
+console.log("Arme équipée :", armePrincipale);
+
+armePrincipale = "Épée de feu";
+console.log("Arme équipée :", armePrincipale);
+</textarea>
+                </div>
+
+                </section>
+                <section>
+                 <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Les Constantes</h3>
+                </div>
+                <p>Il existe deux façons modernes de déclarer une variable :</p>
+
+                <div class="grid-2">
+                    <div class="info-box tip">
+                        <h4><code>let</code></h4>
+                        <p>Pour une valeur qui <strong>peut changer</strong> (score, vie, position).</p>
+                        <pre style="margin-top:5px; background:rgba(0,0,0,0.2); padding:5px;">let vie = 3;</pre>
+                    </div>
+                    <div class="info-box tip">
+                        <h4><code>const</code></h4>
+                        <p>Pour une valeur <strong>fixe</strong> (nom du jeu, gravité, pi).</p>
+                        <pre style="margin-top:5px; background:rgba(0,0,0,0.2); padding:5px;">const GRAVITE = 9.81;</pre>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4><i data-lucide="shield-check"></i> Utilisez <code>const</code> par défaut</h4>
+                    <p>
+                        Partez du principe que votre variable ne changera pas. C'est plus sûr et ça évite les bugs
+                        accidentels.
+                    </p>
+                    <p>
+                        Si (et seulement si) vous réalisez en codant que la valeur <strong>doit changer</strong>
+                        pendant l'exécution du programme (comme un score ou des PV), alors changez le mot-clé pour
+                        <code>let</code>.
+                    </p>
+                </div>
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Constante fatale">
+                    <textarea class="source-code" hidden>
+// 1. Déclare une constante nommée gainEnergiePotion et assigne lui la valeur 20
+
+// 2. Tente de changer la valeur de gainEnergiePotion pour 10 (cela va causer une erreur !)
+
+// 3. Affiche le gain d'énergie d'une potion dans la console. 
+// Observez l'erreur dans la console si vous tentez de modifier une constante !
+</textarea>
+                    <textarea class="solution-code" hidden>
+const gainEnergiePotion = 20;
+// gainEnergiePotion = 10; // Décommenter cette ligne causera une erreur
+console.log("Le gain d'énergie d'une potion est de  :", gainEnergiePotion);
+</textarea>
+                </div>
+            </section>
+
+            <section id="types" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Types de Données</h3>
+                </div>
+                <p>JavaScript devine le type de données automatiquement.</p>
+
+                <ul class="card-list">
+                    <li><strong>String (Texte) :</strong> Toujours entre guillemets <code>"Bonjour!"</code>.</li>
+                    <li><strong>Number (Nombre) :</strong> Entier ou à virgule <code>3.1416</code></li>
+                    <li><strong>Boolean (Logique) :</strong> Soit <code>true</code> ou <code>false</code></li>
+                </ul>
+
+                <div class="info-box success">
+                    <strong>Astuce :</strong> Utilisez <code>typeof</code> pour demander à l'ordinateur le type d'une
+                    variable.
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Les 3 types essentiels">
+                    <textarea class="source-code" hidden>
+let pseudo = "Victor";   // String
+let niveau = 12;         // Number
+let estEnLigne = true;   // Boolean
+
+console.log(typeof pseudo, typeof niveau, typeof estEnLigne);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Analyse d'interface (UI)">
+                    <textarea class="source-code" hidden>
+// Voici trois variables typiques d'un menu de jeu :
+let volumeSonore = 0.75;
+let nomDuServeur = 'Montreal_Pro_Player';
+let pleinEcran = false;
+
+// TODO: Affiche le TYPE (typeof) de la variable volumeSonore
+// 
+
+// TODO: Affiche le TYPE de nomDuServeur
+// 
+
+// TODO: Affiche le TYPE de pleinEcran
+// 
+</textarea>
+                    <textarea class="solution-code" hidden>
+console.log(typeof volumeSonore); // number
+console.log(typeof nomDuServeur); // string
+console.log(typeof pleinEcran);  // boolean
+</textarea>
+                </div>
+            </section>
+
+            <section id="naming" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Règles de Nommage</h3>
+                </div>
+                <p>On utilise le <strong>camelCase</strong> : premier mot minuscule, majuscule ensuite.</p>
+
+                <div class="grid-2">
+                    <div class="info-box success">
+                        <h4><i data-lucide="check"></i> Correct</h4>
+                        <ul class="code-list">
+                            <li>maVariable</li>
+                            <li>scoreJoueur</li>
+                            <li>prixTotal</li>
+                        </ul>
+                    </div>
+                    <div class="info-box error">
+                        <h4><i data-lucide="x"></i> Incorrect</h4>
+                        <ul class="code-list">
+                            <li>MaVariable (Pas de majuscule au début)</li>
+                            <li>ma_variable (Pas de tiret bas)</li>
+                            <li>1score (Ne commence pas par un chiffre)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section id="erreurs-frequentes" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Erreurs Fréquentes</h3>
+                </div>
+                <p>Voici quelques erreurs fréquentes avec les variables.</p>
+
+                <div class="info-box error">
+                    <h4><i data-lucide="layers-2"></i> La double déclaration</h4>
+                    <p>
+                        Utiliser <code>let</code> deux fois sur le même nom de variable, c'est comme essayer de
+                        contruire la boîte deux fois.
+                    </p>
+                    <pre><code class="language-javascript">let pseudo = "Gamer123";
+let pseudo = "Mario";  // 🚫 ERREUR ! La boîte 'pseudo' existe déjà.</code></pre>
+                    <br />
+                    <pre><code class="language-javascript">let pseudo = "Gamer123";
+pseudo = "Mario";  // ✅ CORRECT ! On utilise seulement que le symbole d'assignation =.</code></pre>
+                </div>
+
+                <div class="info-box error">
+                    <h4><i data-lucide="archive-x"></i> Le piège du <code>undefined</code></h4>
+                    <p>
+                        Si vous essayez d'utiliser (lire) une variable que vous avez <strong>déclarée</strong> mais
+                        jamais
+                        <strong>assignée</strong>, JavaScript retournera <code>undefined</code>. C'est une erreur
+                        commune !
+                    </p>
+                </div>
+<div class="playground-container" data-type="exercise" data-title="Défi : Corrigez l'erreur">
+    
+    <textarea class="source-code" hidden>
+let classe = "Elf";
+let arme1 = "Épée"; 
+let arme2 = "Sceptre";
+let arme3 = "Dague";
+let armePrincipale;
+let armeSecondaire;
+
+let classe = "Guerrier";
+armePrincipale = arme1;
+armeSecondaire = arme3;
+
+console.log("\n classe :", classe, "\n arme principale :", armePrincipale, "\n arme secondaire :", armeSecondaire);
+</textarea>
+    <textarea class="solution-code" hidden>
+let classe = "Elf";
+let arme1 = "Épée"; 
+let arme2 = "Dague";
+let arme3 = "Sceptre";
+let armePrincipale;
+let armeSecondaire;
+
+classe = "Guerrier";
+armePrincipale = arme1;
+armeSecondaire = arme3;
+
+console.log("\n classe :", classe, "\n arme principale :", armePrincipale, "\n arme secondaire :", armeSecondaire);
+</textarea>
+</div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="scripts/script.js"></script>
+    <script>
+        console.log("Ceci est un console.log!");
+    </script>
+</body>
+
+</html>

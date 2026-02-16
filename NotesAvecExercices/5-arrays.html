@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Les Arrays (Tableaux)</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Arrays</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Les Arrays</h1>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#definition" class="nav-link active">1. Définition & Index</a>
+                <a href="#create" class="nav-link">2. Création</a>
+                <a href="#length" class="nav-link">3. Taille (Length)</a>
+                <a href="#read-write" class="nav-link">4. Lire & Modifier</a>
+                <a href="#end-ops" class="nav-link">5. Pile (Push/Pop)</a>
+                <a href="#start-ops" class="nav-link">6. Décalage (Unshift/Shift)</a>
+                <a href="#slice" class="nav-link">7. Découper (Slice)</a>
+                <a href="#parallel" class="nav-link">8. Tableaux Parallèles</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="definition" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Qu'est-ce qu'un Array ?</h3>
+                </div>
+
+                <p>
+                    Un <strong>array</strong> (tableau) est une <strong>liste ordonnée</strong> de valeurs.
+                    On l’utilise quand on veut stocker <strong>plusieurs éléments</strong> dans une seule variable.
+                </p>
+
+                <div class="info-box info">
+                    <h4><i data-lucide="info"></i> Pourquoi c’est utile ?</h4>
+                    <ul>
+                        <li>Une liste de noms d’élèves</li>
+                        <li>Un inventaire d’objets dans un jeu</li>
+                        <li>Une playlist</li>
+                    </ul>
+                </div>
+
+                
+
+                <div class="info-box info">
+                    <h4><i data-lucide="hash"></i> Le concept d'Index</h4>
+                    <p>
+                        En programmation, on commence toujours à compter à partir de <strong>0</strong>.<br>
+                        Donc le <strong>1er élément</strong> est à l’index <code>0</code>.
+                    </p>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Utilisation de tableau.">
+<textarea class="source-code" hidden>
+let cours = ["Développement Web", "Programmation", "Design"];
+//index             //0                 //1           //2
+
+let premierCours = cours[0]; // Sélectionne le premier élément [0] et le met dans la variable premierCours
+let deuxiemeCours = cours[1]; // Sélectionne le deuxième élément [1] et le met dans la variable deuxiemeCours
+
+console.log("Premier cours :", premierCours);
+console.log("Deuxième cours :", deuxiemeCours);
+
+//Regarde si le premier cours est bien le bon (Développement Web)
+if (premierCours === "Développement Web") {
+    console.log("C'est le bon cours !");
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="create" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>La Création</h3>
+                </div>
+
+                <p>Un tableau se crée avec des crochets <code>[]</code>.</p>
+                <p>On peut mettre de tous les types (nombres, chaînes, booléens).</p>
+                <p>On peut aussi mélanger les types, bien que ce soit rare en pratique.</p>
+
+                <div class="grid-2">
+                    <div class="info-box info">
+                        <h4>1. Tableau Vide <code>[]</code></h4>
+                        <pre><code class="language-javascript">let panier = [];</code></pre>
+                    </div>
+
+                    <div class="info-box success">
+                        <h4>2. Tableau Rempli</h4>
+                        <pre><code class="language-javascript">let notes = [15, 12, 18];</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="length" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>La Taille (.length)</h3>
+                </div>
+
+                <p><code>.length</code> retourne le <strong>nombre d’éléments</strong></p>
+
+                <div class="info-box warning">
+                    <h4><i data-lucide="ruler"></i> À retenir</h4>
+                    <p>Le dernier index (dernier élément) est toujours : <code>tableau.length - 1</code>.</p>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Vérifier si c'est vide">
+<textarea class="source-code" hidden>
+let notifications = [];
+
+if (notifications.length === 0) {
+    console.log("Aucune notification.");
+}
+</textarea>
+                </div>
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Nombre de participants">
+<textarea class="source-code" hidden>
+let equipeRouge = ["Jean", "Océane", "Paul", "Roxane", "Adam"];
+let equipeBleu = ["Ariane", "Juliette", "Michaël"];
+
+// TODO1: Calculer le nombre de participants dans l'équipe rouge
+
+// TODO2: Calculer le nombre de participants dans l'équipe bleu
+
+// TODO3: Calculer le nombre total de participants
+
+</textarea>
+<textarea class="solution-code" hidden>
+let equipeRouge = ["Jean", "Océane", "Paul", "Roxane", "Adam"];
+let equipeBleu = ["Ariane", "Juliette", "Michaël"];
+
+let nbParticipantsEquipeRouge = equipeRouge.length;
+console.log("Nombre participants équipe rouge:",nbParticipantsEquipeRouge);
+
+let nbParticipantsEquipeBleu = equipeBleu.length;
+console.log("Nombre participants équipe bleu:", nbParticipantsEquipeBleu);
+
+let nbTotalParticipants = nbParticipantsEquipeRouge + nbParticipantsEquipeBleu;
+console.log("Nombre total de participants:",nbTotalParticipants);
+</textarea>
+                </div>
+            </section>
+
+            <section id="read-write" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Lire & Modifier</h3>
+                </div>
+
+                <p>On accède à un élément en ajoutant <code>[index]</code> après le nom de la variable qui contient le tableau.</p>
+                <p>Exemple: <code>monTableau[2]</code> donne le 3e élément dans le tableau.</p>
+                <p>On peut remplacer l'élément qui se trouve à une position dans le tableau avec <code>=</code>.</p>
+                <p>Exemple: <code>monTableau[2] = 5</code> remplace le 3e élément par 5.</p>
+
+                <div class="info-box error">
+                    <h4><i data-lucide="alert-triangle"></i> Attention aux "trous" !</h4>
+                    <p>
+                        Si vous assignez une valeur à un index trop lointain (ex: <code>monTableau[10] = 2</code> sur un petit tableau), JS crée des <strong>cases vides</strong>.
+                    </p>
+                    <p>Exemple: si le tableau n'a que 2 éléments monTableau[10]=2 donnera [3,1, , , , , , , ,2]</p>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Correction">
+<textarea class="source-code" hidden>
+let scores = [10, 20, 30];
+// TODO: Change le dernier résultat pour 50
+</textarea>
+<textarea class="solution-code" hidden>
+let scores = [10, 20, 30];
+scores[2] = 50;
+console.log(scores);
+</textarea>
+                </div>
+            </section>
+
+            <section id="end-ops" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Ajouter et retirer à la fin : Push & Pop</h3>
+                </div>
+
+                <p>Fonctionne comme une <strong>pile d'assiettes</strong> (Stack).</p>
+
+                <div class="grid-2">
+                    <div class="info-box success">
+                        <h4>push(valeur)</h4>
+                        <p>Ajoute à la fin. Retourne la nouvelle taille.</p>
+                    </div>
+                    <div class="info-box error">
+                        <h4>pop()</h4>
+                        <p>Retire à la fin. <strong>Retourne la valeur retirée.</strong></p>
+                    </div>
+                </div>
+
+                
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Historique (pop)">
+<textarea class="source-code" hidden>
+let historique = ["Accueil", "Contact"];
+let pagePrecedente = historique.pop();
+console.log("Retour de :", pagePrecedente);
+</textarea>
+                </div>
+            </section>
+
+            <section id="start-ops" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">6</span>
+                    <h3>Ajouter et retirer au début : Unshift & Shift</h3>
+                </div>
+
+                <div class="info-box warning">
+                    <h4><i data-lucide="zap"></i> Coût de performance</h4>
+                    <p>C'est <strong>plus lent</strong> que push/pop car l'ordinateur doit décaler tous les index du tableau.</p>
+                </div>
+
+                
+
+                <div class="playground-container" data-type="example" data-title="Exemple : File d'attente (shift)">
+<textarea class="source-code" hidden>
+let file = ["Client 1", "Client 2"];
+let servi = file.shift(); 
+console.log("Servi :", servi);
+</textarea>
+                </div>
+            </section>
+
+            <section id="slice" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">7</span>
+                    <h3>Découper (Slice)</h3>
+                </div>
+
+                <p>Permet de <strong>copier</strong> une partie sans modifier l'original. <code>slice(début, fin_exclue)</code>.</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Top 2">
+<textarea class="source-code" hidden>
+let joueurs = ["Alexandre", "Juliette", "Anne-Marie", "Alan"];
+let podium = joueurs.slice(0, 3); // ["A", "B"]
+console.log(podium);
+</textarea>
+                </div>
+            </section>
+
+            <section id="parallel" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">8</span>
+                    <h3>Les Tableaux Parallèles</h3>
+                </div>
+
+                <p>
+                    Technique utilisant plusieurs tableaux de même taille pour lier des données par leur <strong>indice</strong>.
+                    <strong>Crucial pour votre TP1 !</strong>
+                </p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Informations d'étudisants">
+<textarea class="source-code" hidden>
+// Chaque tableau contient une information et chaque index représente une personne
+let nomsEtudiants = ["Michel", "Alice", "Anthony", "Gabrielle", "Mélanie"];
+let agesEtudiants = ["18", "22", "17", "19", "18"];
+let programmesEtudiants = ["TIM", "Info", "TIM", "TIM", "A3D"];
+
+let indexEtudiant = 2; // Modifier pour tester comment l'intex influence le résultat
+
+console.log("Nom:", nomsEtudiants[indexEtudiant]);
+console.log("Âge:", agesEtudiants[indexEtudiant]);
+console.log("Programme d'étude:", programmesEtudiants[indexEtudiant]);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice: Informations d'align-items">
+<textarea class="source-code" hidden>
+let nomsItems = ["Épée", "Bouclier", "Dague", "Potion vie", "Potion mana];
+let prixItems = [100, 150, 90, 50, 50];
+let descriptionsItems = [
+  "Une épée en acier bien aiguisée, parfaite pour les combats rapprochés.",
+  "Un bouclier lourd et robuste pour parer efficacement les attaques ennemies.",
+  "Une petite lame rapide et discrète, idéale pour les attaques furtives.",
+  "Une fiole rouge qui restaure instantanément une partie de vos points de santé.",
+  "Une fiole bleue qui régénère votre énergie magique."
+];
+
+// TODO: Afficher le nom, le prix, description du premier et 2e élément.
+
+// TODO BONUS: Ajouter un item avec nom: "Bottes du Zéphyr", prix: 250, description: "Enchantées par la magie du vent, elles permettent à leur porteur de survoler le champ de bataille." à la fin du tableau
+// TODO BONUS: Afficher cet élément (indice, length-1)
+</textarea>
+<textarea class="solution-code" hidden>
+// Déclaration des tableaux
+let nomsItems = ["Épée", "Bouclier", "Dague", "Potion vie", "Potion mana"];
+let prixItems = [100, 150, 90, 50, 50];
+let descriptionsItems = [
+  "Une épée en acier bien aiguisée, parfaite pour les combats rapprochés.",
+  "Un bouclier lourd et robuste pour parer efficacement les attaques ennemies.",
+  "Une petite lame rapide et discrète, idéale pour les attaques furtives.",
+  "Une fiole rouge qui restaure instantanément une partie de vos points de santé.",
+  "Une fiole bleue qui régénère votre énergie magique."
+];
+
+// --- TODO: Afficher le nom, le prix et description du 2e élément ---
+// Le deuxième élément est à l'index 1
+console.log("--- 2e éléments ---");
+console.log("Nom :", nomsItems[1]);
+console.log("Prix :", prixItems[1], "pièces d'or");
+console.log("Description :", descriptionsItems[1]);
+
+// --- TODO BONUS: Ajouter l'item "Bottes du Zéphyr" ---
+nomsItems.push("Bottes du Zéphyr");
+prixItems.push(250);
+descriptionsItems.push("Enchantées par la magie du vent, elles permettent à leur porteur de survoler le champ de bataille.");
+
+// --- TODO BONUS: Afficher cet élément avec (length-1) ---
+let dernierIndex = nomsItems.length - 1;
+
+console.log("--- Nouvel Item Ajouté ---");
+console.log("Nom :", nomsItems[dernierIndex]);
+console.log("Prix :", prixItems[dernierIndex], "pièces d'or");
+console.log("Description :", descriptionsItems[dernierIndex]);
+</textarea>
+                </div>
+
+                <div class="info-box info">
+                    <h4><i data-lucide="graduation-cap"></i> Note Pro</h4>
+                    <p>
+                        Dans l'industrie, on utilise des <strong>tableaux d'objets</strong>. Les tableaux parallèles sont toutefois un excellent exercice de logique.
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Pratique - Opérateurs & Logique</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Atelier 02</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">TP</span>
+                <h1>Atelier : Logique</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#maths" class="nav-link active">1. Maths & Stats</a>
+                <a href="#shortcuts" class="nav-link">2. Raccourcis</a>
+                <a href="#comparaisons" class="nav-link">3. Comparaisons</a>
+                <a href="#logique" class="nav-link">4. Logique (ET/OU)</a>
+                <a href="#modulo" class="nav-link">5. Modulo</a>
+                <a href="#boss" class="nav-link">6. Boss Final</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <h2 class="section-title">Logique de Combat</h2>
+                <p>
+                    Dans cet atelier, nous allons programmer les mécaniques mathématiques d'un jeu.
+                </p>
+            </section>
+
+            <section id="maths" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Mathématiques de base</h3>
+                </div>
+                <p>Calculez les statistiques finales du joueur.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Calcul de PV Max" 
+                     data-instructions="Points de vie = (Endurance * 10) + Bonus Armure."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let endurance = 12;
+let bonusArmure = 50;
+
+// TODO: Calculez le total
+let pvMax = ?;
+
+console.log("PV Totaux :", pvMax); // Devrait afficher 170
+</textarea>
+                    <textarea class="solution-code" hidden>
+let endurance = 12;
+let bonusArmure = 50;
+
+let pvMax = (endurance * 10) + bonusArmure;
+
+console.log("PV Totaux :", pvMax);
+</textarea>
+                </div>
+            </section>
+
+            <section id="shortcuts" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Raccourcis (+=, ++)</h3>
+                </div>
+                <p>Modifiez les variables existantes sans répéter leur nom.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Gain d'expérience" 
+                     data-instructions="Utilisez += pour l'XP et ++ pour le niveau."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let experience = 1000;
+let niveau = 5;
+
+// 1. Le joueur tue un dragon : ajoutez 500 à 'experience' avec +=
+
+
+// 2. Le joueur passe un niveau : augmentez 'niveau' de 1 avec ++
+
+
+console.log("Niveau :", niveau, "| XP :", experience);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let experience = 1000;
+let niveau = 5;
+
+experience += 500;
+niveau++;
+
+console.log("Niveau :", niveau, "| XP :", experience);
+</textarea>
+                </div>
+            </section>
+
+            <section id="comparaisons" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Comparaisons (True/False)</h3>
+                </div>
+                <p>Répondez aux questions par <code>true</code> ou <code>false</code> en utilisant les opérateurs (>, <, ===, !==).</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Vérifications d'inventaire" 
+                     data-instructions="Remplacez les points d'interrogation."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let pieces = 50;
+let prixEpee = 100;
+let classeJoueur = "Mage";
+
+// 1. Est-ce que le joueur a assez de pièces ? (pieces plus grand ou égal à prixEpee)
+let peutAcheter = ?;
+
+// 2. Est-ce que le joueur est un "Guerrier" ? (classeJoueur strictement égal à "Guerrier")
+let estGuerrier = ?;
+
+console.log("Achat possible :", peutAcheter);
+console.log("Est Guerrier :", estGuerrier);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let pieces = 50;
+let prixEpee = 100;
+let classeJoueur = "Mage";
+
+let peutAcheter = pieces >= prixEpee;
+let estGuerrier = classeJoueur === "Guerrier";
+
+console.log("Achat possible :", peutAcheter); // false
+console.log("Est Guerrier :", estGuerrier);   // false
+</textarea>
+                </div>
+            </section>
+
+             <section id="logique" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Logique (ET / OU)</h3>
+                </div>
+                <p>Combinez plusieurs conditions pour prendre une décision complexe.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Activation du Bouclier" 
+                     data-instructions="Le bouclier s'active si : (On a de l'énergie ET on appuie sur espace) OU (On a une potion d'invincibilité)."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let energie = 50;
+let toucheEspaceAppuyee = true;
+let potionInvincibilite = false;
+
+// TODO: Écrivez la condition complète
+// Indice : (condition1 && condition2) || condition3
+let bouclierActif = ?;
+
+console.log("Bouclier activé ?", bouclierActif);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let energie = 50;
+let toucheEspaceAppuyee = true;
+let potionInvincibilite = false;
+
+let bouclierActif = (energie > 0 && toucheEspaceAppuyee) || potionInvincibilite;
+
+console.log("Bouclier activé ?", bouclierActif);
+</textarea>
+                </div>
+            </section>
+
+             <section id="modulo" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Le Modulo (%)</h3>
+                </div>
+                <p>Le modulo est utile pour créer des cycles ou vérifier si un nombre est pair/impair.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Distribution de cartes" 
+                     data-instructions="Déterminez à qui est le tour."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let nbJoueurs = 4;
+let tourActuel = 14; 
+
+// TODO: Utilisez le modulo pour savoir quel joueur doit jouer (0, 1, 2 ou 3)
+let joueurActif = ?;
+
+console.log("C'est le tour du joueur #", joueurActif);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let nbJoueurs = 4;
+let tourActuel = 14; 
+
+let joueurActif = tourActuel % nbJoueurs;
+
+console.log("C'est le tour du joueur #", joueurActif);
+</textarea>
+                </div>
+            </section>
+
+            <section id="boss" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">6</span>
+                    <h3>Boss Final : Le Coffre Légendaire</h3>
+                </div>
+                <div class="info-box tip">
+                    <h4><i data-lucide="lock"></i> Mission</h4>
+                    <p>Déterminez si le coffre s'ouvre.</p>
+                </div>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Algorithme d'ouverture" 
+                     data-instructions="Lisez les règles en commentaire."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let niveauCrochetage = 15;
+let aCleMagique = false;
+let coffrePiege = true;
+let intelligence = 8;
+
+/* RÈGLES D'OUVERTURE :
+   Le coffre s'ouvre SI :
+   1. On a la clé magique
+      OU
+   2. (Le niveau de crochetage est > 10 ET le coffre n'est PAS piégé)
+      OU
+   3. (Le coffre est piégé MAIS l'intelligence est > 10 pour désamorcer)
+*/
+
+// Traduisez ces règles en une seule ligne de code :
+let coffreOuvert = ?;
+
+console.log("Le coffre s'ouvre :", coffreOuvert);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let niveauCrochetage = 15;
+let aCleMagique = false;
+let coffrePiege = true;
+let intelligence = 8;
+
+let conditionCrochetage = niveauCrochetage > 10 && !coffrePiege;
+let conditionDesamorcage = coffrePiege && intelligence > 10;
+
+// Version combinée
+let coffreOuvert = aCleMagique || conditionCrochetage || conditionDesamorcage;
+
+console.log("Le coffre s'ouvre :", coffreOuvert);
+</textarea>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

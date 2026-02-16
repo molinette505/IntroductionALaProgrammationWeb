@@ -1,0 +1,275 @@
+/* =========================================
+   0. SCROLLBARS PERSONNALISÉES (Design)
+   ========================================= */
+/* Pour Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-panel); 
+}
+::-webkit-scrollbar-thumb {
+    background: var(--slate-600); 
+    border-radius: 4px;
+    border: 2px solid var(--bg-panel); /* Padding visuel */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--indigo-400); 
+}
+/* Pour Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--slate-600) var(--bg-panel);
+}
+
+/* =========================================
+   1. VARIABLES & SYSTEME DE DESIGN
+   ========================================= */
+:root {
+    --slate-950: #020617; --slate-900: #0f172a; --slate-800: #1e293b; --slate-700: #334155;
+    --slate-600: #475569; /* Ajout pour scrollbar */
+    --drac-bg: #282a36; --drac-bg-dark: #1a1b23; --drac-current: #44475a; --drac-comment: #6272a4;
+    --indigo-400: #818cf8; --indigo-500: #6366f1; --indigo-dim: rgba(129, 140, 248, 0.15);
+    --yellow-400: #facc15; --sky-400: #38bdf8; --green-400: #4ade80; --red-400: #f87171;
+
+    --bg-app: var(--slate-900); --bg-panel: var(--slate-800); --bg-editor: var(--drac-bg);
+    --bg-editor-ui: var(--drac-bg-dark); --bg-toolbar: var(--drac-current); --bg-console: #0f111a;
+    --text-heading: #f1f5f9; --text-body: #cbd5e1; --text-muted: var(--drac-comment); --text-inverse: #020617;
+    --color-primary: var(--indigo-400); --color-primary-hover: var(--indigo-500); --bg-primary-dim: var(--indigo-dim);
+    --accent-exercise: var(--yellow-400); --accent-example: var(--sky-400);
+    --status-success: var(--green-400); --status-error: var(--red-400);
+    --border-light: var(--slate-700); --border-subtle: rgba(255, 255, 255, 0.05); --border-input: var(--drac-current);
+
+    --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-6: 1.5rem;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-pill: 30px;
+    --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.3);
+    --font-sans: 'Inter', system-ui, sans-serif; --font-mono: monospace;
+}
+
+/* =========================================
+   2. RESET & BASE
+   ========================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); background-color: var(--bg-app); color: var(--text-body); line-height: 1.6; }
+
+/* =========================================
+   3. LAYOUT & SIDEBAR
+   ========================================= */
+.app-container { display: flex; min-height: 100vh; }
+.main-content { margin-left: 280px; padding: 3rem; width: 100%; max-width: 1000px; }
+.sidebar { width: 280px; position: fixed; height: 100vh; background: var(--bg-panel); border-right: 1px solid var(--border-light); overflow-y: auto; z-index: 50; }
+.sidebar-header { padding: var(--space-6); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 10px; }
+.js-badge { background: var(--accent-exercise); color: var(--text-inverse); padding: 2px 6px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-weight: bold; font-size: 0.8rem; }
+.sidebar-header h1 { font-size: 1.1rem; color: var(--text-heading); margin: 0; font-weight: 600; }
+.nav-link { display: block; padding: var(--space-3) var(--space-4); color: var(--text-body); text-decoration: none; margin: var(--space-1) var(--space-4); border-radius: var(--radius-md); transition: 0.2s; font-size: 0.95rem; }
+.nav-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+.nav-link.active { background: var(--bg-primary-dim); color: var(--color-primary); }
+
+/* =========================================
+   4. TYPOGRAPHY & SECTIONS
+   ========================================= */
+section { margin-bottom: 5rem; scroll-margin-top: 2rem; }
+h2.section-title { font-size: 2rem; color: var(--text-heading); margin-bottom: var(--space-4); border-bottom: 1px solid var(--border-light); padding-bottom: var(--space-4); }
+h3 { font-size: 1.4rem; color: var(--text-heading); margin: var(--space-6) 0 var(--space-4) 0; }
+p { margin-bottom: 1.25rem; }
+p:last-child { margin-bottom: 0; }
+.section-header { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); padding-bottom: var(--space-2); border-bottom: 1px solid var(--border-light); }
+.step-number { background: var(--bg-primary-dim); color: var(--color-primary); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; font-size: 1rem; }
+
+/* Info Boxes */
+.info-box { padding: var(--space-4); border-radius: var(--radius-lg); margin-bottom: var(--space-6); background: var(--bg-panel); border: 1px solid var(--border-light); }
+.info-box.info { border-left: 4px solid var(--color-primary); }
+.info-box.tip { border-left: 4px solid var(--accent-example); } 
+.info-box.success { border-left: 4px solid var(--status-success); background: rgba(74, 222, 128, 0.05); }
+.info-box.error { border-left: 4px solid var(--status-error); background: rgba(248, 113, 113, 0.05); }
+.info-box h3, .info-box h4 { display: flex; align-items: center; gap: 8px; margin: 0 0 1rem 0; }
+
+/* Listes & Grids */
+ul.card-list, ul.code-list { list-style: none; padding-left: 0; }
+ul.card-list li { background: var(--bg-panel); border: 1px solid var(--border-light); padding: 1rem; margin-bottom: 0.5rem; border-radius: var(--radius-md); }
+ul.code-list li { padding: 8px 12px; margin-bottom: 8px; border-radius: var(--radius-md); background: rgba(0,0,0,0.2); font-family: var(--font-mono); font-size: 0.9rem; border: 1px solid var(--border-subtle); }
+.main-content ul:not([class]) { padding-left: 2rem; margin-bottom: 1.5rem; list-style-type: square; }
+.main-content ul:not([class]) li::marker { color: var(--color-primary); font-size: 1.1em; }
+.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.step-card { background: var(--bg-panel); border: 1px solid var(--border-light); padding: 1.25rem; border-radius: var(--radius-lg); text-align: center; }
+.step-icon { width: 40px; height: 40px; background: var(--bg-primary-dim); color: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem auto; }
+.concept-tag { display: inline-block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 5px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+code { font-family: var(--font-mono); background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; color: #fca5a5; font-size: 0.9em; }
+
+/* =========================================
+   5. PLAYGROUND (INTERFACE EDITEUR)
+   ========================================= */
+.playground-container { margin: 2rem 0; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-editor); box-shadow: var(--shadow-lg); position: relative; }
+
+/* En-tête */
+.editor-header { background: var(--bg-editor-ui); border-bottom: 1px solid #000; display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; height: 48px; }
+.header-left { display: flex; align-items: center; gap: 12px; }
+.header-title { font-size: 0.9rem; font-weight: 500; color: var(--text-heading); }
+.badge-type { font-size: 0.7rem; text-transform: uppercase; font-weight: bold; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; color: var(--text-inverse); }
+.badge-type.example { background: var(--accent-example); }
+.badge-type.exercise { background: var(--accent-exercise); }
+
+/* Tabs */
+.tabs-container { display: flex; background-color: var(--bg-editor-ui); padding: 3px; border-radius: var(--radius-pill); border: 1px solid var(--border-input); gap: 2px; }
+.tab-btn { background: transparent; border: none; color: var(--text-muted); padding: 4px 12px; font-size: 0.8rem; font-weight: 500; border-radius: var(--radius-pill); cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; }
+.tab-btn:hover { color: var(--text-heading); }
+.tab-btn.active { background-color: var(--accent-exercise); color: black; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-weight: 600; }
+
+/* Toolbar */
+.editor-toolbar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-editor); padding: 8px 12px; border-bottom: 1px solid var(--bg-toolbar); }
+.toolbar-info { color: var(--text-heading); font-size: 0.85rem; font-family: 'Inter', sans-serif; }
+.toolbar-actions { display: flex; gap: 10px; }
+.btn-run { background: var(--color-primary); color: #fff; border: none; padding: 4px 12px; border-radius: var(--radius-sm); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: background 0.2s; }
+.btn-run:hover { background: var(--color-primary-hover); }
+.btn-reset { background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary); padding: 5px 10px; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: all 0.2s; }
+.btn-reset:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--text-heading); color: var(--text-heading); }
+.toolbar-secondary { background: var(--bg-toolbar); color: var(--text-heading); padding: 8px 12px; font-size: 0.9rem; border-bottom: 1px solid var(--bg-editor); display: flex; align-items: center; gap: 8px; }
+.toolbar-secondary i { color: var(--accent-example); }
+
+/* =========================================
+   6. ZONE DE CODE & CONSOLE (CORRIGÉ V7 - Scroll Only)
+   ========================================= */
+
+.editor-body {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    height: 300px;
+    overflow: hidden; 
+    transition: height 0.3s ease;
+}
+
+/* --- PARTIE GAUCHE (CODE) --- */
+.editor-input-wrapper {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    overflow: hidden; 
+    display: flex; flex-direction: column;
+}
+
+.CodeMirror {
+    height: 100% !important;
+    font-family: var(--font-mono) !important;
+    font-size: 13px;
+    background-color: var(--bg-editor) !important;
+}
+.CodeMirror-scroll {
+    overflow: auto !important;
+}
+
+/* --- PARTIE DROITE (CONSOLE) --- */
+.console-output {
+    flex: 0 0 0px; 
+    width: 0;
+    padding: 0;
+    
+    /* Fermé : caché et sur une ligne */
+    overflow: hidden !important; 
+    white-space: nowrap; 
+    
+    transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 0 solid var(--bg-toolbar);
+    background: var(--bg-console);
+    
+    display: flex;
+    flex-direction: column;
+}
+
+/* ÉTAT OUVERT */
+.playground-container[data-console-state="open"] .console-output {
+    flex: 0 0 40%; 
+    padding: 1rem;
+    border-left: 1px solid var(--bg-toolbar);
+    
+    /* CHANGEMENT ICI : pre = Pas de wrap automatique, scroll horizontal forcé */
+    white-space: pre; 
+    overflow: auto !important; 
+}
+
+/* Logs */
+.log-entry { 
+    padding: 4px 0; 
+    border-bottom: 1px solid var(--bg-panel); 
+    /* Le texte prend la largeur qu'il veut, sans écraser la boite */
+    min-width: max-content; 
+    font-family: var(--font-mono);
+}
+.log-error { color: var(--status-error); } 
+.log-info { color: var(--text-muted); font-style: italic; }
+
+/* La Poignée (Handle) */
+.console-toggle-handle {
+    position: absolute; 
+    right: 0; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    background: var(--bg-toolbar); 
+    border: 1px solid var(--border-light); 
+    border-right: none;
+    color: var(--text-heading); 
+    padding: 12px 2px; 
+    cursor: pointer; 
+    z-index: 20;
+    border-radius: 4px 0 0 4px; 
+    display: flex; align-items: center; justify-content: center;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.console-toggle-handle:hover { background: var(--bg-editor-ui); color: var(--color-primary); }
+.playground-container[data-console-state="open"] .console-toggle-handle { right: 40%; }
+
+/* --- OPTION AUTO-HEIGHT --- */
+.playground-container[data-auto-height="true"] .editor-body {
+    height: auto !important; 
+    min-height: 100px;
+}
+.playground-container[data-auto-height="true"] .CodeMirror {
+    height: auto !important; 
+}
+
+/* Mobile */
+.mobile-header { display: none; padding: 1rem; background: var(--bg-panel); border-bottom: 1px solid var(--border-light); justify-content: space-between; align-items: center; color: #fff; }
+#menu-btn { background: none; border: none; color: #fff; }
+@media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+    .sidebar.open { transform: translateX(0); }
+    .main-content { margin-left: 0; padding: 1.5rem; }
+    .mobile-header { display: flex; }
+    .editor-input-wrapper { border-right: none; border-bottom: 1px solid var(--border-light); }
+    .grid-2 { grid-template-columns: 1fr; }
+    
+    .playground-container[data-console-state="open"] .console-output { flex: 0 0 150px; width: 100%; border-left: none; border-top: 1px solid var(--bg-toolbar); }
+    .console-toggle-handle { display: none; }
+}
+
+/* =========================================
+   7. BADGE LECTURE SEULE
+   ========================================= */
+.readonly-badge {
+    position: absolute; 
+    top: 10px; 
+    right: 25px; /* Un peu plus à gauche pour ne pas toucher la scrollbar */
+    z-index: 20; /* Au-dessus de CodeMirror (z-index ~2-6) */
+    
+    background: var(--accent-exercise); /* Jaune */
+    color: var(--text-inverse); /* Noir */
+    
+    font-size: 0.7rem; 
+    padding: 2px 8px; 
+    border-radius: 12px; 
+    font-weight: bold; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    
+    pointer-events: none; /* Permet de cliquer à travers */
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* On l'affiche quand la classe .show-badge est ajoutée via JS */
+.show-badge .readonly-badge {
+    opacity: 1;
+}

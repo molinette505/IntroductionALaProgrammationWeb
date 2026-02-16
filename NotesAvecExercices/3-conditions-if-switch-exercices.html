@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Pratique - Conditions</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Atelier 03</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">TP</span>
+                <h1>Atelier : Décisions</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#ex1" class="nav-link active">1. Le Radar (If/Else)</a>
+                <a href="#ex2" class="nav-link">2. Login (Imbriqué)</a>
+                <a href="#ex3" class="nav-link">3. Distributrice (Switch)</a>
+                <a href="#ex4" class="nav-link">4. Mode Sombre (Ternaire)</a>
+                <a href="#boss" class="nav-link">5. Boss Final</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <h2 class="section-title">Programmer l'Intelligence</h2>
+                <p>
+                    Sans conditions, un programme fait toujours la même chose. Avec les conditions, il peut réagir à son environnement.
+                </p>
+            </section>
+
+            <section id="ex1" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Le Radar Routier</h3>
+                </div>
+                <p>Programmez un radar automatique qui donne des amendes selon la vitesse.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Contrôle de vitesse" 
+                     data-instructions="Suivez les règles de vitesse indiquées en commentaires."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let vitesse = 135;
+
+/* TODO:
+   1. Si vitesse > 120 : Affiche "Amende salée (Grand Excès)"
+   2. Sinon, si vitesse > 100 : Affiche "Ticket régulier"
+   3. Sinon : Affiche "Bonne conduite"
+*/
+
+// Écris tes conditions ici :
+</textarea>
+                    <textarea class="solution-code" hidden>
+let vitesse = 135;
+
+if (vitesse > 120) {
+    console.log("Amende salée (Grand Excès)");
+} else if (vitesse > 100) {
+    console.log("Ticket régulier");
+} else {
+    console.log("Bonne conduite");
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex2" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Le Guichet Automatique</h3>
+                </div>
+                <p>Simulez un retrait en préparant vos conditions à l'avance et en utilisant des variables de configuration.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Logique de Retrait" 
+                     data-instructions="Utilisez la variable retraitMaximum pour vérifier la limite."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let montantRetrait = 250;
+let retraitMaximum = 200; // La limite autorisée par la banque
+let gichetFonctionnel = true;
+let soldeCompte = 50;
+let estDirecteur = true; 
+
+// ÉTAPE 1 : Préparez vos conditions (Booléens)
+// - Le montant est-il valide ? (inférieur ou égal au retraitMaximum)
+let montantValide = ?;
+
+// - A-t-on le droit de retirer ? (Assez d'argent OU c'est le directeur)
+let aLesFonds = ?;
+
+
+// ÉTAPE 2 : La logique imbriquée
+/*
+   SI le guichet fonctionne :
+      SI le montant est valide :
+          SI on a les fonds -> Affiche "Retrait autorisé"
+          SINON -> Affiche "Fonds insuffisants"
+      SINON (montant invalide) -> Affiche "Limite dépassée"
+   SINON (guichet brisé) -> Affiche "Guichet Hors Service"
+*/
+</textarea>
+                    <textarea class="solution-code" hidden>
+let montantRetrait = 250;
+let retraitMaximum = 200;
+let gichetFonctionnel = true;
+let soldeCompte = 50;
+let estDirecteur = true; 
+
+// Étape 1 : On compare avec la variable, pas un chiffre magique
+let montantValide = montantRetrait <= retraitMaximum;
+let aLesFonds = (soldeCompte >= montantRetrait) || estDirecteur;
+
+// Étape 2 : Structure logique
+if (gichetFonctionnel) {
+    
+    if (montantValide) {
+        
+        if (aLesFonds) {
+            console.log("Retrait autorisé :", montantRetrait, "$");
+        } else {
+            console.log("Fonds insuffisants");
+        }
+
+    } else {
+        console.log("Limite dépassée (Max:", retraitMaximum, "$)");
+    }
+
+} else {
+    console.log("Guichet Hors Service");
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex3" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Machine Distributrice (Switch)</h3>
+                </div>
+                <p>Gérez la sélection d'un produit avec un code (A1, A2, B1).</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Sélection Produit" 
+                     data-instructions="N'oubliez pas les 'break' !"
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let codeSelection = "A2";
+
+/* TODO: Crée un switch pour 'codeSelection'
+   - "A1" -> Affiche "Chips"
+   - "A2" -> Affiche "Barre chocolatée"
+   - "B1" -> Affiche "Jus d'orange"
+   - default -> Affiche "Code invalide"
+*/
+</textarea>
+                    <textarea class="solution-code" hidden>
+let codeSelection = "A2";
+
+switch (codeSelection) {
+    case "A1":
+        console.log("Chips");
+        break;
+    case "A2":
+        console.log("Barre chocolatée");
+        break;
+    case "B1":
+        console.log("Jus d'orange");
+        break;
+    default:
+        console.log("Code invalide");
+}
+</textarea>
+                </div>
+            </section>
+
+             <section id="ex4" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>L'Opérateur Ternaire (? :)</h3>
+                </div>
+                <p>Transformez un long <code>if/else</code> en une seule ligne élégante.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Thème Sombre / Clair" 
+                     data-instructions="Assignez la couleur de fond en une seule ligne."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let modeSombre = true;
+
+// TODO: Créez une variable 'couleurFond'.
+// Si modeSombre est vrai, la couleur est "black", sinon "white".
+// Utilisez l'opérateur ternaire : condition ? valeurVrai : valeurFaux
+
+let couleurFond = ?;
+
+console.log("Couleur du site :", couleurFond);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let modeSombre = true;
+
+let couleurFond = modeSombre ? "black" : "white";
+
+console.log("Couleur du site :", couleurFond);
+</textarea>
+                </div>
+            </section>
+
+            <section id="boss" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Boss Final : IA d'un Ennemi</h3>
+                </div>
+                <div class="info-box tip">
+                    <h4><i data-lucide="bot"></i> Mission</h4>
+                    <p>Programmez le cerveau d'un monstre de jeu vidéo.</p>
+                </div>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Intelligence Artificielle" 
+                     data-instructions="Combinez if, else if et switch."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let distanceJoueur = 5; // Distance en mètres
+let typeArme = "Arc";   // Arme du monstre
+
+/* RÈGLES DE COMPORTEMENT :
+   1. Si distanceJoueur est < 2 mètres :
+      - Affiche "Attaque coup de poing !" (Trop près pour une arme)
+      
+   2. Sinon (si le joueur est loin) :
+      - Utilise un SWITCH sur 'typeArme' :
+         - case "Arc" -> Affiche "Tir de flèche"
+         - case "Baguette" -> Affiche "Boule de feu"
+         - default -> Affiche "Le monstre vous regarde..."
+*/
+
+// À toi de jouer :
+</textarea>
+                    <textarea class="solution-code" hidden>
+let distanceJoueur = 5; 
+let typeArme = "Arc";   
+
+if (distanceJoueur < 2) {
+    console.log("Attaque coup de poing !");
+} else {
+    // Le joueur est loin, on utilise l'arme
+    switch (typeArme) {
+        case "Arc":
+            console.log("Tir de flèche");
+            break;
+        case "Baguette":
+            console.log("Boule de feu");
+            break;
+        default:
+            console.log("Le monstre vous regarde...");
+    }
+}
+</textarea>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Opérateurs et Logique Complète</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Opérateurs</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Les Opérateurs</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#arithmetic" class="nav-link active">1. Arithmétique</a>
+                <a href="#assignment" class="nav-link">2. Raccourcis</a>
+                <a href="#comparison" class="nav-link">3. Comparaisons</a>
+                <a href="#boolean" class="nav-link">4. Logique</a>
+                <a href="#ultimate" class="nav-link">5. Le Grand Défi</a>
+                <a href="#modulo" class="nav-link">6. Bonus: Opérateur modulo</a>
+                <a href="#erreur-frequente" class="nav-link">7. Erreurs fréquentes</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="arithmetic" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Opérateurs Arithmétiques</h3>
+                </div>
+                <p>JavaScript permet d'effectuer des calculs mathématiques de base.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="plus"></i></div>
+                        <h4>Addition</h4>
+                        <code>+</code>
+                        <div class="tiny-note">Ex: 10 + 5 = 15</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="minus"></i></div>
+                        <h4>Soustraction</h4>
+                        <code>-</code>
+                        <div class="tiny-note">Ex: 10 - 5 = 5</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="asterisk"></i></div>
+                        <h4>Multiplication</h4>
+                        <code>*</code>
+                        <div class="tiny-note">Ex: 10 * 5 = 50</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="divide"></i></div>
+                        <h4>Division</h4>
+                        <code>/</code>
+                        <div class="tiny-note">Ex: 10 / 5 = 2</div>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Calcul de taxes">
+                    <textarea class="source-code" hidden>
+let sousTotal = 100;
+let tps = sousTotal * 0.05;
+let tvq = sousTotal * 0.09975;
+let total = sousTotal + tps + tvq;
+
+console.log("TPS :", tps, "$");
+console.log("TVQ :", tvq, "$");
+console.log("Total :", total, "$");
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Système de dégâts">
+                    <textarea class="source-code" hidden>
+let pointsDeVie = 100;
+let forceAttaque = 20;
+let multiplicateurCritique = 1.5;
+
+// 1. Calcule les dégâts totaux (force * multiplicateur)
+let degats = ?;
+
+// 2. Applique les dégâts à la variable pointsDeVie
+pointsDeVie = ?;
+
+console.log("PV restants :", pointsDeVie);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let pointsDeVie = 100;
+let forceAttaque = 20;
+let multiplicateurCritique = 1.5;
+
+let degats = forceAttaque * multiplicateurCritique;
+pointsDeVie = pointsDeVie - degats;
+
+console.log("PV restants :", pointsDeVie);
+</textarea>
+                </div>
+            </section>
+
+            <section id="assignment" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Raccourcis d'Assignation</h3>
+                </div>
+                <p>En programmation, on veut souvent modifier une variable en utilisant sa propre valeur actuelle.</p>
+
+                <div class="grid-2">
+                    <div class="info-box success">
+                        <h4>Incrémentation</h4>
+                        <p><code>vie++;</code> est le raccourci de <code>vie = vie + 1;</code></p>
+                    </div>
+                    <div class="info-box tip">
+                        <h4>Opérateurs Combinés</h4>
+                        <p><code>score += 10;</code> est le raccourci de <code>score = score + 10;</code></p>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple: Nombre d'ennemis vaincus">
+                    <textarea class="source-code" hidden>
+let nbEnnemisVaincus = 0;
+
+nbEnnemisVaincus = nbEnnemisVaincus + 20;
+console.log("Nombre d'ennemis vaincus", nbEnnemisVaincus);
+
+nbEnnemisVaincus += 20;
+console.log("Nombre d'ennemis vaincus", nbEnnemisVaincus);
+
+nbEnnemisVaincus = nbEnnemisVaincus + 1;
+console.log("Nombre d'ennemis vaincus", nbEnnemisVaincus);
+
+nbEnnemisVaincus += 1;
+console.log("Nombre d'ennemis vaincus", nbEnnemisVaincus);
+
+nbEnnemisVaincus++;
+console.log("Nombre d'ennemis vaincus", nbEnnemisVaincus);
+
+
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Collecte de pièces">
+                    <textarea class="source-code" hidden>
+let pieces = 10;
+
+// TODO: Utilise le raccourci += pour ajouter 5 pièces
+?
+
+console.log("Total pièces :", pieces); // Devrait être 15
+
+// TODO: Utilise l'incrémentation (++) pour ajouter une seule pièce
+?
+
+console.log("Total pièces :", pieces); // Devrait être 16
+</textarea>
+                    <textarea class="solution-code" hidden>
+let pieces = 10;
+pieces += 5;
+console.log("Total pièces :", pieces);
+pieces++;
+console.log("Total pièces :", pieces);
+</textarea>
+                </div>
+            </section>
+
+            <section id="comparison" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Opérateurs de Comparaison</h3>
+                </div>
+                <p>Ces opérateurs comparent deux valeurs et retournent un <strong>booléen</strong> (true ou false).</p>
+
+                <div class="grid-2">
+                    <div class="info-box success">
+                        <h4>Grandeur</h4>
+                        <ul class="code-list">
+                            <li><code>></code> Plus grand que</li>
+                            <li><code><</code> Plus petit que</li>
+                            <li><code>>=</code> Plus grand ou égal</li>
+                            <li><code><=</code> Plus petit ou égal</li>
+                        </ul>
+                    </div>
+                    <div class="info-box error">
+                        <h4>Égalité</h4>
+                        <ul class="code-list">
+                            <li><code>===</code> Strictement égal</li>
+                            <li><code>!==</code> Différent de</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Comparaisons de base">
+                    <textarea class="source-code" hidden>
+console.log("Est-ce que 10 > 5 ?", 10 > 5);   // true
+console.log("Est-ce que 10 === 5 ?", 10 === 5); // false
+console.log("Est-ce que '10' === 10 ?", '10' === 10); // false (type différent)
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Vérification du Boss">
+                    <textarea class="source-code" hidden>
+let bossHP = 0;
+let inventairePlein = true;
+
+// 1. Est-ce que le boss est mort ? (hp égal à 0)
+let estVaincu = ?;
+
+// 2. Est-ce que l'inventaire n'est PAS plein ? (différent de true)
+let peutRamasserLoot = ?;
+
+console.log("Vaincu :", estVaincu);
+console.log("Ramasser :", peutRamasserLoot);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let bossHP = 0;
+let inventairePlein = true;
+
+let estVaincu = bossHP === 0;
+let peutRamasserLoot = inventairePlein !== true;
+
+console.log("Vaincu :", estVaincu);
+console.log("Ramasser :", peutRamasserLoot);
+</textarea>
+                </div>
+            </section>
+
+            <section id="boolean" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Logique Booléenne</h3>
+                </div>
+                <p>Permet de combiner plusieurs conditions ensemble.</p>
+
+                <section id="truth-tables" class="section-spy">
+
+                    <div class="grid-2">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent); margin-bottom: 15px;">
+                                <i data-lucide="check-square"></i> L'oprérateur ET (<code>&&</code>).
+                                <p>Les deux côtés doivent être vrai.</p>
+                            </h4>
+                            <table class="logic-table">
+                                <thead>
+                                    <tr>
+                                        <th>Valeur A</th>
+                                        <th class="op-col">Op</th>
+                                        <th>Valeur B</th>
+                                        <th>Résultat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="val-true">true</span></td>
+                                        <td class="op-col">&&</td>
+                                        <td><span class="val-true">true</span></td>
+                                        <td><b class="val-true">true</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-true">true</span></td>
+                                        <td class="op-col">&&</td>
+                                        <td><span class="val-false">false</span></td>
+                                        <td><b class="val-false">false</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-false">false</span></td>
+                                        <td class="op-col">&&</td>
+                                        <td><span class="val-true">true</span></td>
+                                        <td><b class="val-false">false</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-false">false</span></td>
+                                        <td class="op-col">&&</td>
+                                        <td><span class="val-false">false</span></td>
+                                        <td><b class="val-false">false</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="info-box">
+                            <h4 style="color: var(--accent); margin-bottom: 15px;">
+                                <i data-lucide="layers"></i> L'opérateur OU (<code>||</code>).
+                                <p>Un des deux côtés doit être vrai.</p>
+                            </h4>
+                            <table class="logic-table">
+                                <thead>
+                                    <tr>
+                                        <th>Valeur A</th>
+                                        <th class="op-col">Op</th>
+                                        <th>Valeur B</th>
+                                        <th>Résultat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="val-true">true</span></td>
+                                        <td class="op-col">||</td>
+                                        <td><span class="val-true">true</span></td>
+                                        <td><b class="val-true">true</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-true">true</span></td>
+                                        <td class="op-col">||</td>
+                                        <td><span class="val-false">false</span></td>
+                                        <td><b class="val-true">true</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-false">false</span></td>
+                                        <td class="op-col">||</td>
+                                        <td><span class="val-true">true</span></td>
+                                        <td><b class="val-true">true</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-false">false</span></td>
+                                        <td class="op-col">||</td>
+                                        <td><span class="val-false">false</span></td>
+                                        <td><b class="val-false">false</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 20px; max-width: 400px;">
+                        <h4 style="margin-bottom: 15px;"><i data-lucide="refresh-cw"></i> L'inversion du NON
+                            (<code>!</code>)
+                            <p>Inverse le booléen. <code>true</code> devient <code>false</code></p>
+                        </h4>
+                        <table class="logic-table">
+                            <thead>
+                                <tr>
+                                    <th class="op-col">Op</th>
+                                    <th>Valeur A</th>
+                                    <th>Résultat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="op-col">!</td>
+                                    <td><span class="val-true">true</span></td>
+                                    <td><b class="val-false">false</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="op-col">!</td>
+                                    <td><span class="val-false">false</span></td>
+                                    <td><b class="val-true">true</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <div class="playground-container" data-type="example" data-title="Exemple : La logique en action">
+                    <textarea class="source-code" hidden>
+// 1. L'opérateur ET (&&) : Condition de victoire
+let nbEnnemisVaincus = 2;
+let orbsObtenus = 3;
+
+// Il faut les DEUX conditions pour gagner
+let estPartieReussie = nbEnnemisVaincus >= 5 && orbsObtenus >=3;
+console.log("La partie est-elle réussie ? :", estPartieReussie); // false
+
+// 2. L'opérateur OU (||) : Fin de partie
+let vie = 0;
+let tempsEcoule = true;
+
+// Il suffit d'une seule condition pour perdre
+let estGameOver = (vie === 0) || tempsEcoule;
+console.log("Game Over ? :", estGameOver); // true
+
+// 3. L'opérateur NON (!) : Inverser un état
+let estInvincible = true;
+
+// Si on n'est PAS invincible, on prend des dégâts
+let prendDegats = !estInvincible;
+console.log("Prend des dégâts ? :", prendDegats); // false
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : L'interrupteur (Toggle)">
+    <textarea class="source-code" hidden>
+let modeSombreActif = false;
+console.log("Mode sombre actif ?", modeSombreActif);
+
+// On utilise ! pour inverser la valeur actuelle et la sauvegarder
+modeSombreActif = !modeSombreActif;
+console.log("Bascule 1 :", modeSombreActif); // true
+
+modeSombreActif = !modeSombreActif;
+console.log("Bascule 2 :", modeSombreActif); // false
+
+modeSombreActif = !modeSombreActif;
+console.log("Bascule 3 :", modeSombreActif); // true
+    </textarea>
+</div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Accès Admin">
+                    <textarea class="source-code" hidden>
+let estAdmin = true;
+let aLeCode = false;
+
+// TODO: Accès si l'utilisateur est admin OU s'il a le code
+let accesAutorise = ?;
+
+console.log("Accès :", accesAutorise);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let estAdmin = true;
+let aLeCode = false;
+let accesAutorise = estAdmin || aLeCode;
+console.log("Accès :", accesAutorise);
+</textarea>
+                </div>
+            </section>
+
+            <section id="ultimate" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Le Grand Défi : La Porte du Donjon</h3>
+                </div>
+
+                <p>Combinez tout ce que vous avez appris : arithmétique, comparaison et logique.</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Système de décollage">
+                    <textarea class="source-code" hidden>
+let carburant = 50;
+let moteurOk = true;
+let modeUrgenceActif = false;
+
+// Décollage si (moteur ok ET carburant suffisant) OU si mode urgence actif
+let decollage = (moteurOk && carburant >= 40) || modeUrgenceActif;
+console.log("Vaisseau prêt :", decollage);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise"
+                    data-title="Exercice final : Ouverture de la porte">
+                    <textarea class="source-code" hidden>
+let clesPossedees = 2;
+let clesRequises = 3;
+let niveauJoueur = 15;
+let estVivant = true;
+
+// TODO: La porte peut ouvrir si :
+// Le joueur est vivant 
+// ET (il a assez de clés OU son niveau est supérieur ou égal à 20)
+
+let portePeutOuvrir = ?;
+
+console.log("La porte peut ouvrir? :", portePeutOuvrir);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let clesPossedees = 2;
+let clesRequises = 3;
+let niveauJoueur = 15;
+let estVivant = true;
+
+let portePeutOuvrir = estVivant && (clesPossedees >= clesRequises || niveauJoueur >= 20);
+
+console.log("La porte peut ouvrir? :", porteOuverte);
+</textarea>
+                </div>
+            </section>
+
+            <section id="modulo" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Opérateur Modulo</h3>
+                </div>
+                <div class="step-card" style="width: 200px;">
+                    <div class="step-icon"><i data-lucide="percent"></i></div>
+                    <h4>Modulo</h4>
+                    <code>%</code>
+                    <div class="tiny-note">Reste de la division</div>
+                </div>
+
+                </br>
+
+                <p>Permet de déterminer si un nombre est pair ou impair</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Alterner les styles">
+                    <textarea class="source-code" hidden>
+let indexLigne = 5; 
+
+// Un nombre est pair si le reste de sa division par 2 est 0
+let estPaire = (indexLigne % 2 === 0); 
+let estImpaire = (indexLigne % 2 === 1); 
+
+console.log("La ligne est-elle paire ?", estPaire);
+console.log("La ligne est-elle impaire ?", estImpaire);
+</textarea>
+                </div>
+
+                <p>Permet de créer des cycles (Boucles circulaires)</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Système de tours">
+                    <textarea class="source-code" hidden>
+let tourActuel = 15;
+let nbJoueurs = 4;
+
+// Le résultat sera toujours 0, 1, 2 ou 3
+let joueurQuiJoue = tourActuel % nbJoueurs;
+
+console.log("C'est au tour du joueur n° :", joueurQuiJoue); // 3
+</textarea>
+                </div>
+                <div class="playground-container" data-type="example" data-title="Exemple : Cycle d'équipement (3 armes)">
+    <textarea class="source-code" hidden>
+// On a 3 armes possibles : 0 = Épée, 1 = Hache, 2 = Arc
+let clicCompteur = 0;
+
+// Clic 0
+let armeActuelle = clicCompteur % 3;
+console.log("Clic", clicCompteur, ": Index arme =", armeActuelle); // 0 (Épée)
+
+// Clic 1
+clicCompteur++;
+armeActuelle = clicCompteur % 3;
+console.log("Clic", clicCompteur, ": Index arme =", armeActuelle); // 1 (Hache)
+
+// Clic 2
+clicCompteur++;
+armeActuelle = clicCompteur % 3;
+console.log("Clic", clicCompteur, ": Index arme =", armeActuelle); // 2 (Arc)
+
+// Clic 3 : Le cycle revient au début !
+clicCompteur++;
+armeActuelle = clicCompteur % 3;
+console.log("Clic", clicCompteur, ": Index arme =", armeActuelle); // 0 (Épée)
+    </textarea>
+</div>
+
+                <p>Permet de savoir si c'est un multiple d'un nombre</p>
+                <div class="playground-container" data-type="example"
+                    data-title="Exemple : Bonus périodique (à chaque x niveaux)">
+                    <textarea class="source-code" hidden>
+let niveauAtteint = 20;
+
+// Si le reste de la division par 5 est 0, c'est un multiple de 5
+let donnerBonus = (niveauAtteint % 5 === 0);
+
+console.log("Le joueur reçoit-il un bonus ?", donnerBonus); // true
+            </textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Munitions restantes">
+                    <textarea class="source-code" hidden>
+let ballesTotales = 42;
+let capaciteChargeur = 10;
+
+// TODO: Calculez combien de balles il reste dans le chargeur entamé.
+// (C'est le reste de la division des balles totales par la capacité)
+let ballesDansChargeurActuel = ?;
+
+console.log("Balles dans le chargeur :", ballesDansChargeurActuel); 
+// Devrait afficher 2
+</textarea>
+                    <textarea class="solution-code" hidden>
+let ballesTotales = 42;
+let capaciteChargeur = 10;
+
+let ballesDansChargeurActuel = ballesTotales % capaciteChargeur;
+
+console.log("Balles dans le chargeur :", ballesDansChargeurActuel);
+</textarea>
+                </div>
+            </section>
+            <section id="erreurs-frequentes" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Erreurs Fréquentes</h3>
+                </div>
+                <p>Voici quelques erreurs fréquentes avec les opérateurs.</p>
+
+                <div class="info-box error">
+                    <h4><i data-lucide="archive-restore"></i>Le sens du signe <code>=</code> et <code>===</code></h4>
+                    <ul>
+                        <li>Ce n'est pas comme en mathématiques où <code>=</code> veut dire "est égal à".</li>
+                        <li>En programmation, c'est une <strong>ASSIGNATION</strong> (mettre dedans).</li>
+                        <li>Ça veut dire :<em>"Prends la valeur à droite et force-la dans la boîte à gauche"</em>.</li>
+                        <li>L'équivalent de l'égalité en programmation est le symbole <code>===</code></li>
+                    </ul>
+                </div>
+
+                <div class="info-box error">
+                    <h4><i data-lucide="trash-2"></i> Calculer n'est pas sauvegarder !</h4>
+                    <p>
+                        Si vous écrivez <code>score + 1</code>, l'ordinateur fait le calcul, obtient le résultat,
+                        puis le jette immédiatement à la poubelle si vous ne le stockez pas.
+                    </p>
+                    <p>Pour sauvegarder, il faut <strong>réassigner</strong> le résultat dans la variable :</p>
+                    <code
+                        style="display:block; margin-top:10px; font-size: 1.2em; text-align:center;">score = score + 1;</code>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Incrémentation">
+                    <textarea class="source-code" hidden>
+let or = 10;
+
+// Mauvaise méthode : le calcul est perdu
+or + 5; 
+console.log("Or (après calcul perdu) :", or); // Affiche toujours 10
+
+// Bonne méthode : on écrase l'ancienne valeur avec la nouvelle
+or = or + 5;
+console.log("Or (après assignation) :", or); // Affiche 15
+</textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

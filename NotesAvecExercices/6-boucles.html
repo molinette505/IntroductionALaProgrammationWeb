@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Les Boucles (Loops)</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">Intro à la Programmation</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Les Boucles</h1>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#intro" class="nav-link active">Introduction</a>
+                <a href="#while" class="nav-link">1. Boucle While</a>
+                <a href="#for" class="nav-link">2. Boucle For</a>
+                <a href="#arrays" class="nav-link">3. For & Tableaux</a>
+                <a href="#parallel" class="nav-link">4. Tableaux Parallèles</a>
+                <a href="#break" class="nav-link">5. L'instruction Break</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <div class="section-header">
+                    <i data-lucide="help-circle"></i>
+                    <h3>C'est quoi une boucle ?</h3>
+                </div>
+
+                <p>Les boucles sont des structures de contrôle qui permettent de <strong>répéter un bloc de code</strong> plusieurs fois. C’est ce qui permet d'automatiser des tâches répétitives, comme :</p>
+                
+                <div class="info-box">
+                    <ul>
+                        <li>Traiter chaque étudiant d'une classe.</li>
+                        <li>Vérifier chaque item d'un inventaire de jeu.</li>
+                        <li>Afficher les messages d'une discussion un par un.</li>
+                    </ul>
+                </div>
+                <p>Sans les boucles, si vous deviez afficher 60 élèves d'une classe dans omnivox, vous devriez écrire au minimum 60 lignes de code. Avec une boucle, <strong>quelques lignes suffisent</strong>.</p>
+            </section>
+
+            <section id="while" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>La boucle While (Tant que)</h3>
+                </div>
+
+                <p>La boucle <code>while</code> est la plus simple : elle répète le code <strong>tant que</strong> la condition entre parenthèses est vraie.</p>
+                <p>Très utile lorsqu'on ne sait pas d'avance combien de fois on va boucler.</p>
+                
+                <div class="info-box info">
+                    <p>Pour qu'elle fonctionne sans "geler" le navigateur, elle a besoin de :</p>
+                    <ul>
+                        <li><strong>L'initialisation :</strong> Créer le compteur avant la boucle.</li>
+                        <li><strong>La condition :</strong> Testée avant chaque tour.</li>
+                        <li><strong>L'incrémentation :</strong> Modifier la variable pour que la condition devienne fausse un jour.</li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Compteur While">
+<textarea class="source-code" hidden>
+let compteur = 0; // 1. Initialisation, à l'extérieur de la boucle
+
+while (compteur < 5) { // 2. Condition, à l'entrée de la boucle, comme un if
+    console.log(`Le compteur est à : ${compteur}`); 
+    compteur++; // 3. Incrémentation, à l'intrérieur de la boucle
+}
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Chargement de batterie">
+<textarea class="source-code" hidden>
+let chargeBatterie = 0;
+const capaciteMaximaleBatterie = 150;
+
+// TODO: Créez une boucle 'while' qui s'exécute TANT QUE la charge de la batterie est inférieure à sa capacité maximale.
+// Dans la boucle :
+// 1. Ajoutez 25 de charge à la variable 'chargeBatterie'.
+// 2. Affichez le niveau actuel dans la console (ex: "Batterie à 25%").
+
+console.log("Charge terminée !");
+</textarea>
+<textarea class="solution-code" hidden>
+let chargeBatterie = 0;
+const capaciteMaximaleBatterie = 150;
+
+while (chargeBatterie < capaciteMaximaleBatterie) {
+    chargeBatterie += 25;
+    console.log(`Batterie à : ${chargeBatterie}%`);
+}
+
+console.log("Charge terminée !");
+</textarea>
+</div>
+            </section>
+
+            <section id="for" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>La boucle For (Pour)</h3>
+                </div>
+
+                <p>Elle regroupe l'initialisation, la condition et l'incrémentation sur une seule ligne.</p>
+                <br>
+                <p>Utile lorsqu'on sait d'avance combien de fois on veut boucler.</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Syntaxe compacte">
+<textarea class="source-code" hidden>
+for (let i = 0; i < 5; i++) {
+    console.log(`Itération numéro : ${i}`);
+}
+</textarea>
+                </div>
+                
+                <div class="playground-container" data-type="exercise" data-title="Exercice : La table de multiplication par 5">
+<textarea class="source-code" hidden>
+// Objectif : Afficher la table de multiplication de 5 (de 1 à 10)
+// Résultat attendu dans la console : 
+// "1 x 5 = 5"
+// "2 x 5 = 10" ... jusqu'à 50
+
+// TODO: Créez une boucle 'for' qui commence à 1 et s'arrête à 10.
+for (...) {
+    let resultat = ...;
+    // TODO: Affichez le calcul en utilisant les backticks (ex: `... x 5 = ...`)
+}
+</textarea>
+<textarea class="solution-code" hidden>
+// On commence à 1, on se rend jusqu'à 10 inclusivement (<= 10)
+for (let i = 1; i <= 10; i++) {
+    let resultat = i * 5;
+    
+    // Utilisation des template literals pour un affichage propre
+    console.log(`${i} x 5 = ${resultat}`);
+}
+</textarea>
+</div>
+            </section>
+
+            <section id="arrays" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Parcourir un Tableau</h3>
+                </div>
+
+                <p>On utilise la propriété <code>.length</code> pour dire à la boucle de s'arrêter pile à la fin du tableau.</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Liste d'étudiants">
+<textarea class="source-code" hidden>
+let etudiants = ["Léa", "Antoine", "Sophie", "Marc"];
+
+for (let i = 0; i < etudiants.length; i++) {
+    console.log(`${etudiants[i]} est présent(e).`);
+}
+</textarea>
+                </div>
+
+                <div class="info-box warning">
+                    <h4>Rappel sur les indices</h4>
+                    <p>Si un tableau a 4 éléments, les indices vont de <strong>0 à 3</strong>. L'indice 4 est <code>undefined</code>. C'est pourquoi on utilise <code>i < tableau.length</code>.</p>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Analyse des résultats">
+<textarea class="source-code" hidden>
+let notes = [85, 42, 90, 65, 30];
+
+// Objectif : Afficher chaque note et indiquer si c'est un succès (60+) ou un échec.
+// TODO: Créez une boucle 'for' qui parcourt le tableau 'notes'.
+
+for (let i = 0; ... ; ...) {
+    let noteActuelle = ...;
+    
+    if (noteActuelle >= 60) {
+        console.log(`Note : ${noteActuelle}/100 - Réussite`);
+    } else {
+        console.log(`Note : ${noteActuelle}/100 - Échec`);
+    }
+}
+</textarea>
+<textarea class="solution-code" hidden>
+let notes = [85, 42, 90, 65, 30];
+
+// On utilise i < notes.length pour ne pas dépasser la taille du tableau
+for (let i = 0; i < notes.length; i++) {
+    let noteActuelle = notes[i];
+    
+    if (noteActuelle >= 60) {
+        console.log(`Note : ${noteActuelle}/100 - Réussite`);
+    } else {
+        console.log(`Note : ${noteActuelle}/100 - Échec`);
+    }
+}
+</textarea>
+</div>
+            </section>
+
+            <section id="parallel" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Les Tableaux Parallèles</h3>
+                </div>
+
+                <p>C'est une technique essentielle pour le TP. On utilise l'indice <code>i</code> pour lier des informations entre deux tableaux différents.</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Noms et Notes">
+<textarea class="source-code" hidden>
+let noms = ["Alice", "Bob", "Michel"];
+let notes = [92, 78, 65];
+let groupe = [1, 2, 1];
+
+
+for (let i = 0; i < noms.length; i++) {
+    console.log(`Résultat : ${noms[i]}, étudiant du groupe ${groupe[i]} a obtenu ${notes[i]}/100.`);
+}
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Rapport de ventes">
+<textarea class="source-code" hidden>
+let produits = ["Pomme", "Banane", "Cerise"];
+let prix = [1.50, 0.75, 3.20];
+
+// Objectif : Afficher le nom du produit et son prix sur la même ligne.
+// Résultat attendu : "1. Le produit Pomme coûte 1.50 $"
+
+// TODO: Créez une boucle 'for' qui parcourt le tableau 'produits'.
+// Utilisez l'indice 'i' pour accéder aux DEUX tableaux en même temps.
+
+for (let i = 0; ... ; ...) {
+    // Affichez le message ici en utilisant les backticks
+}
+</textarea>
+<textarea class="solution-code" hidden>
+let produits = ["Pomme", "Banane", "Cerise"];
+let prix = [1.50, 0.75, 3.20];
+
+// On utilise la longueur de l'un des deux tableaux (puisqu'ils sont parallèles)
+for (let i = 0; i < produits.length; i++) {
+    // L'indice 'i' permet d'aller chercher le nom ET le prix correspondant
+    console.log(`${i + 1}. Le produit ${produits[i]} coûte ${prix[i]} $`);
+}
+</textarea>
+</div>
+            </section>
+
+            <section id="break" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>L'instruction Break</h3>
+                </div>
+
+                <p><code>break</code> sert à "casser" la boucle et à en sortir immédiatement, même si la condition de départ est encore vraie. Idéal pour optimiser une recherche.</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Recherche de fruit">
+<textarea class="source-code" hidden>
+let fruits = ["Pomme", "Banane", "Cerise", "Datte"];
+let recherche = "Cerise";
+
+for (let i = 0; i < fruits.length; i++) {
+    console.log(`Vérification case ${i}...`);
+    
+    if (fruits[i] === recherche) {
+        console.log(`Trouvé ! ${recherche} est à l'indice ${i}.`);
+        break; // On arrête tout ici !
+    }
+}
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Scanner de sécurité">
+<textarea class="source-code" hidden>
+let listeColis = ["Colis A", "Colis B", "OBJET_SUSPECT", "Colis D", "Colis E"];
+
+// Objectif : Scanner les colis et s'arrêter immédiatement si on trouve un objet suspect.
+// TODO: Créez une boucle 'for' pour parcourir le tableau 'listeColis'.
+
+for (let i = 0; i < listeColis.length; i++) {
+    // 1. TODO: SI l'élément actuel est égal à "OBJET_SUSPECT"
+    // 2. Affichez "Alerte ! Objet trouvé à l'emplacement " avec son indice.
+    // 3. Utilisez 'break' pour arrêter le scan des autres colis.
+
+}
+</textarea>
+<textarea class="solution-code" hidden>
+let listeColis = ["Colis A", "Colis B", "OBJET_SUSPECT", "Colis D", "Colis E"];
+
+for (let i = 0; i < listeColis.length; i++) {
+    console.log(`Analyse du ${listeColis[i]}...`);
+
+    if (listeColis[i] === "OBJET_SUSPECT") {
+        console.log(`Alerte ! Objet trouvé à l'emplacement ${i}.`);
+        break; // Le scan s'arrête ici : on ne vérifie pas les colis D et E.
+    }
+}
+</textarea>
+</div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="scripts/script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Chasse aux Bugs</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Debug</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">OUTILS</span>
+                <h1>Débogage</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#mindset" class="nav-link active">1. Le Radar (Console)</a>
+                <a href="#syntax" class="nav-link">2. Erreurs de Syntaxe</a>
+                <a href="#reference" class="nav-link">3. Erreurs de Noms</a>
+                <a href="#logic" class="nav-link">4. Technique d'Isolation</a>
+                <a href="#challenge" class="nav-link">5. Réparer le Jeu</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <div class="info-box tip">
+                <h4><i data-lucide="bug"></i> Philosophie du Bug</h4>
+                <p>Une erreur rouge n'est pas un échec. C'est un <strong>indice</strong>. L'ordinateur essaie de vous dire : <em>"Je ne comprends pas ce mot à la ligne 12"</em>.</p>
+            </div>
+
+            <section id="mindset" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Le Radar : La Console</h3>
+                </div>
+                <p>Pour voir les erreurs, il faut ouvrir l'inspecteur (F12 > Console). Apprenons à décrypter un message d'erreur.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card" style="border-left: 4px solid #ff5555;">
+                        <div class="step-icon" style="color:#ff5555"><i data-lucide="alert-circle"></i></div>
+                        <h4>Le Type</h4>
+                        <p>Ex: <code>ReferenceError</code>. <br>Cela vous dit <em>quel genre</em> de problème c'est (faute de frappe, grammaire, etc.).</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="message-square"></i></div>
+                        <h4>Le Message</h4>
+                        <p>Ex: <code>x is not defined</code>. <br>L'ordinateur explique pourquoi il a planté.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="map-pin"></i></div>
+                        <h4>La Localisation</h4>
+                        <p>Ex: <code>script.js:14</code>. <br>C'est le plus important : Ligne 14 ! Allez voir cette ligne (ou celle juste avant).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="syntax" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>SyntaxError (La Grammaire)</h3>
+                </div>
+                <p>Ce sont des fautes d'orthographe du code. Le programme refuse de se lancer tant qu'elles sont là.</p>
+
+                <div class="grid-2">
+                    <div class="info-box error">
+                        <h4>Les classiques</h4>
+                        <ul class="code-list">
+                            <li>Oublier de fermer une parenthèse <code>)</code> ou une accolade <code>}</code>.</li>
+                            <li>Oublier le guillemet fermant d'un texte <code>"</code>.</li>
+                            <li>Oublier une virgule entre des éléments.</li>
+                        </ul>
+                    </div>
+                    <div class="info-box tip">
+                        <h4>L'astuce de la ligne précédente</h4>
+                        <p>Si la console indique une erreur Ligne 10, mais que la ligne 10 semble correcte... regardez la <strong>Ligne 9</strong> ! Il manque souvent un <code>;</code> ou un <code>"</code> à la fin de la ligne d'avant.</p>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Cas Pratique : L'erreur inattendue">
+                    <div class="console-mock">
+                        <span class="error-msg">❌ Uncaught SyntaxError: Invalid or unexpected token</span>
+                        <span class="line-ref">at script.js:2</span>
+                    </div>
+                    <p style="margin: 10px 0; font-size: 0.9em;">Trouvez l'erreur dans ce code :</p>
+                    <textarea class="source-code" hidden>
+let nomJoueur = "Gandalf; // Oups, regardez ici
+let niveau = 5;
+
+console.log("Prêt ?");
+</textarea>
+                    <textarea class="solution-code" hidden>
+// Le guillemet fermant manquait après Gandalf !
+// Tout le reste du code est devenu du texte vert.
+
+let nomJoueur = "Gandalf"; 
+let niveau = 5;
+
+console.log("Prêt ?");
+</textarea>
+                </div>
+            </section>
+
+            <section id="reference" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>ReferenceError (L'identité)</h3>
+                </div>
+                <p>L'ordinateur cherche une variable qui n'existe pas. C'est souvent une faute de frappe.</p>
+
+                <div class="info-box info">
+                    <h4><i data-lucide="case-sensitive"></i> La Casse (Majuscules/Minuscules)</h4>
+                    <p>En JS, <code>Score</code> et <code>score</code> sont deux personnes différentes. C'est la cause n°1 des bugs débutants.</p>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Cas Pratique : L'inconnu">
+                    <div class="console-mock">
+                        <span class="error-msg">❌ Uncaught ReferenceError: scrore is not defined</span>
+                        <span class="line-ref">at script.js:4</span>
+                    </div>
+                    <textarea class="source-code" hidden>
+let score = 100;
+
+// On veut ajouter 50 points
+// Regardez bien l'orthographe ci-dessous
+scrore = score + 50; 
+
+console.log(score);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let score = 100;
+
+// Correction : "scrore" -> "score"
+score = score + 50; 
+
+console.log(score);
+</textarea>
+                </div>
+            </section>
+
+            <section id="logic" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Isoler le problème</h3>
+                </div>
+                <p>Parfois, il n'y a pas d'erreur rouge, mais le jeu ne fait pas ce qu'il faut. C'est un <strong>bug de logique</strong>.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="eye"></i></div>
+                        <h4>L'Espion (console.log)</h4>
+                        <p>Placez des <code>console.log("Ici")</code> ou <code>console.log(maVariable)</code> pour vérifier si le code passe bien par là et ce que valent vos variables.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="scissors"></i></div>
+                        <h4>Diviser pour régner</h4>
+                        <p>Si vous avez 50 lignes et que ça plante, <strong>commentez</strong> (<code>//</code>) la moitié du code. Si ça ne plante plus, l'erreur est dans la partie commentée.</p>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Cas Pratique : Le Silence">
+                    <p style="margin-bottom:10px; font-size: 0.9em;">
+                        Le code ci-dessous ne plante pas, mais le message "BRAVO" ne s'affiche jamais, même avec 100 pièces. Pourquoi ?
+                        <br><em>Indice : Regardez les signes =, ==, ===</em>
+                    </p>
+                    <textarea class="source-code" hidden>
+let pieces = 0;
+
+// ERREUR : Un seul = sert à ASSIGNER (donner une valeur).
+// Pour comparer, il faut ===
+if (pieces = 0) {
+    console.log("Tu es pauvre");
+} else {
+    console.log("BRAVO !");
+}
+
+// Astuce : Faites console.log(pieces) ici pour voir ce qui s'est passé.
+</textarea>
+                    <textarea class="solution-code" hidden>
+let pieces = 0;
+
+// Correction : Utiliser === pour comparer
+if (pieces === 0) {
+    console.log("Tu es pauvre");
+} else {
+    console.log("BRAVO !");
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="challenge" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Défi Final : Le code cassé</h3>
+                </div>
+                <p>Ce code contient <strong>3 erreurs</strong>. Essayez de les repérer sans regarder la solution.</p>
+
+                <div class="playground-container" data-type="exercise" data-title="Mission de réparation">
+                    <textarea class="source-code" hidden>
+let heroVie = 50;
+let potion = 20;
+
+// 1. Erreur de nom de variable
+herovie = heroVie + potion;
+
+// 2. Erreur de syntaxe (parenthèse du if)
+if (heroVie > 60 {
+    console.log("Héros en pleine forme !");
+}
+
+// 3. Erreur de syntaxe (guillemet)
+console.log("Fin du script);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let heroVie = 50;
+let potion = 20;
+
+// Correction 1 : heroVie (avec majuscule V)
+heroVie = heroVie + potion;
+
+// Correction 2 : Ajout de la parenthèse fermante )
+if (heroVie > 60) {
+    console.log("Héros en pleine forme !");
+}
+
+// Correction 3 : Ajout du guillemet fermant "
+console.log("Fin du script");
+</textarea>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

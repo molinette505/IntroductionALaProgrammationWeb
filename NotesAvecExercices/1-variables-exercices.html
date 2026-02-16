@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Pratique - Variables & Types</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Atelier 01</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">TP</span>
+                <h1>Atelier : Variables</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#ex1" class="nav-link active">1. Le Débugueur</a>
+                <a href="#ex2" class="nav-link">2. L'Inventaire</a>
+                <a href="#ex3" class="nav-link">3. Identité Secrète</a>
+                <a href="#ex4" class="nav-link">4. Types de données</a>
+                <a href="#boss" class="nav-link">5. Boss Final</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <h2 class="section-title">Cahier d'exercices</h2>
+                <p>
+                    Bienvenue dans l'atelier pratique. Ici, pas de longue lecture, seulement du code.
+                    Oouvrez la console (F12) ou utilisez le tiroir de droite pour vérifier vos résultats.
+                </p>
+                <div class="info-box info">
+                    <strong>Rappel :</strong> Une erreur de syntaxe arrête l'exécution du script. Si rien ne s'affiche, vérifiez votre code !
+                </div>
+            </section>
+
+            <section id="ex1" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Le Débugueur</h3>
+                </div>
+                <p>Ce code contient <strong>3 erreurs</strong> qui l'empêchent de fonctionner. Trouvez-les et corrigez-les.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Débogage : Message système" 
+                     data-instructions="Le code doit afficher 'Chargement du niveau...' et 'Terminé'."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Il manque quelque chose autour du texte
+console.log(Chargement du niveau...);
+
+// 2. Cette variable est mal déclarée (syntaxe incorrecte)
+let 1progression = 100;
+
+// 3. Il manque le point virgule
+console.log("Terminé")
+</textarea>
+                    <textarea class="solution-code" hidden>
+console.log("Chargement du niveau..."); // Ajout des guillemets
+
+let progression = 100; // Variable ne peut pas commencer par un chiffre
+
+console.log("Terminé"); // Ajout du point-virgule
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex2" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>L'Inventaire (Variables)</h3>
+                </div>
+                <p>Manipulez les variables pour gérer l'or du joueur.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Gestion de l'or" 
+                     data-instructions="Suivez les instructions dans les commentaires."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Déclare une variable 'piecesDor' et initialise-la à 50.
+
+
+// 2. Affiche dans la console : "Bourse actuelle :", suivi de la variable.
+
+
+// 3. Le joueur trouve un coffre. Change la valeur de 'piecesDor' pour 150.
+
+
+// 4. Affiche à nouveau le message "Bourse actuelle :" avec la nouvelle valeur.
+
+</textarea>
+                    <textarea class="solution-code" hidden>
+let piecesDor = 50;
+console.log("Bourse actuelle :", piecesDor);
+
+piecesDor = 150;
+console.log("Bourse actuelle :", piecesDor);
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex3" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Identité (Const vs Let)</h3>
+                </div>
+                <p>Certaines données ne doivent jamais changer. Choisissez le bon mot-clé.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Création de personnage" 
+                     data-instructions="Utilisez const pour ce qui est fixe, let pour ce qui change."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Crée une constante 'NOM_HEROS' avec la valeur "Link".
+
+
+// 2. Crée une variable 'pointsDeVie' avec la valeur 3 (cœurs).
+
+
+// 3. Affiche : "Le héros s'appelle " suivi du nom.
+
+
+// 4. Le héros se fait toucher ! Change 'pointsDeVie' à 2.
+
+// 5. Essaie de changer 'NOM_HEROS' pour "Zelda" (Cela devrait créer une erreur si tu décommentes la ligne, teste-le !)
+// NOM_HEROS = "Zelda";
+</textarea>
+                    <textarea class="solution-code" hidden>
+const NOM_HEROS = "Link";
+let pointsDeVie = 3;
+
+console.log("Le héros s'appelle", NOM_HEROS);
+
+pointsDeVie = 2;
+console.log("Vie restante :", pointsDeVie);
+</textarea>
+                </div>
+            </section>
+
+             <section id="ex4" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Types de données</h3>
+                </div>
+                <p>JavaScript a besoin de savoir quel type de donnée vous manipulez.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Vérification des types" 
+                     data-instructions="Créez 3 variables de types différents."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Variable 'message' (String) -> "Game Over"
+// 2. Variable 'score' (Number) -> 0
+// 3. Variable 'estMort' (Boolean) -> true
+
+// 4. Utilise console.log et typeof pour vérifier le type de 'score'.
+</textarea>
+                    <textarea class="solution-code" hidden>
+let message = "Game Over";
+let score = 0;
+let estMort = true;
+
+console.log(typeof score); // Doit afficher 'number'
+</textarea>
+                </div>
+            </section>
+
+            <section id="boss" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Boss Final : Synthèse</h3>
+                </div>
+                <div class="info-box tip">
+                    <h4><i data-lucide="swords"></i> Mission</h4>
+                    <p>Initialisez le panneau de configuration du vaisseau spatial.</p>
+                </div>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Système de Vaisseau" 
+                     data-instructions="Combinez tout ce que vous avez appris."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+/* TODO:
+   1. Définir une constante 'NOM_VAISSEAU' ("Millennium Falcon")
+   2. Définir une variable 'vitesseLumiere' (false au départ)
+   3. Définir une variable 'carburant' (100)
+   
+   4. Afficher : "Systèmes de [NOM_VAISSEAU] activés."
+   
+   5. Action : On passe en vitesse lumière ! 
+      - Change 'vitesseLumiere' à true
+      - Réduis le 'carburant' à 50
+      
+   6. Afficher l'état final des 3 variables dans un seul console.log
+*/
+</textarea>
+                    <textarea class="solution-code" hidden>
+const NOM_VAISSEAU = "Millennium Falcon";
+let vitesseLumiere = false;
+let carburant = 100;
+
+console.log("Systèmes de", NOM_VAISSEAU, "activés.");
+
+vitesseLumiere = true;
+carburant = 50;
+
+console.log("État:", vitesseLumiere, "| Carburant:", carburant, "| Vaisseau:", NOM_VAISSEAU);
+</textarea>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>
