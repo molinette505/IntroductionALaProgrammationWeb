@@ -49,22 +49,12 @@
 
             <nav class="sidebar-nav">
                 <a href="../../index.html" class="nav-link">Retour</a>
-                <a href="#intro" class="nav-link active">Introduction</a>
-                <a href="#definition" class="nav-link">1. Qu'est-ce que le DOM</a>
-                <a href="#pourquoi" class="nav-link">2. Pourquoi l'utiliser</a>
-                <a href="#cycle" class="nav-link">3. Le cycle DOM</a>
-                <a href="#selection" class="nav-link">4. Sélectionner</a>
-                <a href="#contenu" class="nav-link">5. Modifier le contenu</a>
-                <a href="#templates" class="nav-link">6. Backticks</a>
-                <a href="#apparence" class="nav-link">7. Apparence</a>
-                <a href="#attributs" class="nav-link">8. Attributs</a>
-                <a href="#creation" class="nav-link">9. Création dynamique</a>
             </nav>
         </aside>
 
         <main class="main-content">
 
-            <section id="intro" class="section-spy">
+            <section class="section-spy">
                 <h2 class="section-title">La manipulation du DOM : rendre le Web vivant</h2>
                 <p>
                     Le DOM (Document Object Model) est la représentation du HTML en mémoire. JavaScript peut s'en servir
@@ -76,9 +66,8 @@
                 </div>
             </section>
 
-            <section id="definition" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">1</span>
                     <h3>Qu'est-ce que le DOM ?</h3>
                 </div>
                 <ul class="card-list">
@@ -91,9 +80,8 @@
                 </div>
             </section>
 
-            <section id="pourquoi" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">2</span>
                     <h3>Pourquoi utiliser JavaScript ?</h3>
                 </div>
                 <p>Le web moderne demande de l'interactivité immédiate.</p>
@@ -104,9 +92,8 @@
                 </ul>
             </section>
 
-            <section id="cycle" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">3</span>
                     <h3>Le cycle de manipulation</h3>
                 </div>
                 <div class="steps-grid">
@@ -128,9 +115,8 @@
                 </div>
             </section>
 
-            <section id="selection" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">4</span>
                     <h3>Sélectionner un élément</h3>
                 </div>
                 <p>Avant de modifier, il faut cibler l'élément.</p>
@@ -195,9 +181,8 @@ if (titre && etat && bouton) {
                 </div>
             </section>
 
-            <section id="contenu" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">5</span>
                     <h3>Modifier le contenu</h3>
                 </div>
                 <p>Le texte et le HTML se modifient avec des propriétés simples.</p>
@@ -298,9 +283,8 @@ if (titre && nomInput && classeInput && bouton && zoneRendu) {
                 </div>
             </section>
 
-            <section id="templates" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">6</span>
                     <h3>Lire et remplacer (Backticks)</h3>
                 </div>
                 <p>Les template literals rendent l'affichage dynamique plus propre.</p>
@@ -385,9 +369,8 @@ if (pseudo && niveau && btn && fiche) {
                 </div>
             </section>
 
-            <section id="apparence" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">7</span>
                     <h3>Modifier l'apparence</h3>
                 </div>
                 <p>Préférez <code>classList</code> pour activer/désactiver des styles.</p>
@@ -448,9 +431,8 @@ if (box && btnTheme) {
                 </div>
             </section>
 
-            <section id="attributs" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">8</span>
                     <h3>Modifier les attributs</h3>
                 </div>
                 <p>On peut modifier des attributs comme <code>src</code>, <code>href</code> ou des <code>data-*</code>.</p>
@@ -461,7 +443,6 @@ if (box && btnTheme) {
                      data-title="Exemple : setAttribute et attributs">
 <textarea class="source-code-html" hidden>
 <div class="card-attr">
-  <a id="lien-profil" href="#" target="_blank">Ouvrir le profil</a>
   <button id="btn-link">Configurer le lien</button>
   <p id="etat-lien">Lien actuel : #</p>
 </div>
@@ -508,9 +489,8 @@ if (lien && btn && etat) {
                 </div>
             </section>
 
-            <section id="creation" class="section-spy">
+            <section class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">9</span>
                     <h3>Création dynamique</h3>
                 </div>
                 <p>Pour ajouter des éléments un par un, utilisez <code>createElement</code> et <code>appendChild</code>.</p>

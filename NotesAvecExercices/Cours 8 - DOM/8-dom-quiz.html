@@ -22,17 +22,14 @@
         <div class="sidebar-header"><span class="js-badge">QUIZ</span><h1>DOM</h1></div>
         <nav class="sidebar-nav">
             <a href="../../index.html" class="nav-link">Retour</a>
-            <a href="#q1" class="nav-link active">1. Sélection</a>
-            <a href="#q2" class="nav-link">2. Contenu</a>
-            <a href="#q3" class="nav-link">3. classList</a>
         </nav>
     </aside>
 
     <main class="main-content">
         <section class="section-spy"><h2 class="section-title">Quiz - DOM</h2><p>Sélection, lecture/modification et validation via rendu HTML.</p></section>
 
-        <section id="q1" class="section-spy">
-            <div class="section-header"><span class="step-number">1</span><h3>Sélectionner un élément</h3></div>
+        <section class="section-spy">
+            <div class="section-header"><h3>Sélectionner un élément</h3></div>
             <div class="quiz-template" data-type="single" data-title="getElementById">
                 <p class="quiz-prompt">Quelle méthode cible directement un élément unique par son ID ?</p>
                 <ul class="quiz-options">
@@ -45,8 +42,8 @@
             </div>
         </section>
 
-        <section id="q2" class="section-spy">
-            <div class="section-header"><span class="step-number">2</span><h3>Contenu</h3></div>
+        <section class="section-spy">
+            <div class="section-header"><h3>Contenu</h3></div>
             <div class="quiz-template" data-type="multi" data-title="innerText / innerHTML / value">
                 <p class="quiz-prompt">Quelles affirmations sont correctes ?</p>
                 <ul class="quiz-options">
@@ -60,14 +57,17 @@
             </div>
         </section>
 
-        <section id="q3" class="section-spy">
-            <div class="section-header"><span class="step-number">3</span><h3>classList et modification</h3></div>
-            <div class="quiz-template" data-type="text" data-title="Compléter classList">
-                <p class="quiz-prompt">Complète l'appel suivant pour ajouter la classe <code>success</code> : <code>box.classList.___(\"success\")</code></p>
-                <script type="application/json" class="quiz-config">
-                    { "answers": ["add"], "caseSensitive": true }
-                </script>
-                <textarea class="quiz-solution" hidden>La méthode est classList.add(...). remove(...) retire une classe et toggle(...) bascule son état.</textarea>
+        <section class="section-spy">
+            <div class="section-header"><h3>classList et modification</h3></div>
+            <div class="quiz-template" data-type="mixAndMatch" data-title="Associer propriété et effet">
+                <p class="quiz-prompt">Glisse chaque effet dans la bonne propriété DOM.</p>
+                <ul class="quiz-match-pairs">
+                    <li data-left="innerText">Change le texte visible d'un élément</li>
+                    <li data-left="innerHTML">Injecte des balises HTML dans l'élément</li>
+                    <li data-left="value">Lit ou remplace la valeur d'un champ de formulaire</li>
+                    <li data-left="classList.add()">Ajoute une classe CSS à un élément</li>
+                </ul>
+                <textarea class="quiz-solution" hidden>On choisit la propriété selon ce qu'on veut manipuler: texte (innerText), structure (innerHTML), formulaire (value), style via classes (classList.add).</textarea>
             </div>
         </section>
     </main>

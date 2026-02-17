@@ -69,3 +69,33 @@ Le bouton `Valider` affiche:
   <textarea class="quiz-solution" hidden>Ordre: B -> A -> C</textarea>
 </div>
 ```
+
+## 5) MixAndMatch (drag-and-drop)
+```html
+<div class="quiz-template" data-type="mixAndMatch" data-title="Associer concepts et définitions">
+  <p class="quiz-prompt">Glisse chaque réponse dans la bonne case.</p>
+
+  <!-- Écris les paires dans le bon ordre (solution) -->
+  <ul class="quiz-match-pairs">
+    <li data-left="innerText">Modifie le texte visible d'un élément</li>
+    <li data-left="innerHTML">Injecte du HTML dans l'élément</li>
+    <li data-left="value">Lit/écrit la valeur d'un input</li>
+  </ul>
+
+  <textarea class="quiz-solution" hidden>
+innerText agit sur le texte, innerHTML sur la structure HTML, et value sur les champs de formulaire.
+  </textarea>
+</div>
+```
+
+Alternative supportée (2 listes appariées via `data-id`):
+```html
+<ul class="quiz-match-left">
+  <li data-id="a">innerText</li>
+  <li data-id="b">innerHTML</li>
+</ul>
+<ul class="quiz-match-right">
+  <li data-id="a">Texte visible</li>
+  <li data-id="b">Structure HTML</li>
+</ul>
+```

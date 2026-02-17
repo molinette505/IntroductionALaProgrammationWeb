@@ -57,12 +57,89 @@
         return [];
     };
 
+    const shuffleArray = (list) => {
+        const next = [...list];
+        for (let i = next.length - 1; i > 0; i -= 1) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [next[i], next[j]] = [next[j], next[i]];
+        }
+        return next;
+    };
+
+    const parseMatchPairs = (template, config) => {
+        const fromPairsList = Array.from(template.querySelectorAll('.quiz-match-pairs li')).map((li, index) => {
+            let left = (li.dataset.left || li.dataset.prompt || li.dataset.description || '').trim();
+            let right = (li.dataset.right || li.dataset.answer || '').trim();
+
+            if (!left || !right) {
+                const raw = li.textContent.trim();
+                const separator = raw.includes('::') ? '::' : (raw.includes('=>') ? '=>' : (raw.includes('->') ? '->' : ''));
+                if (separator) {
+                    const parts = raw.split(separator);
+                    if (!left) left = (parts[0] || '').trim();
+                    if (!right) right = parts.slice(1).join(separator).trim();
+                } else {
+                    // Common authoring format: data-left on <li>, answer as plain text content.
+                    if (!right && raw) right = raw;
+                    if (!left && raw) left = raw;
+                }
+            }
+
+            if (!left || !right) return null;
+            return {
+                id: li.dataset.id || `pair-${index + 1}`,
+                left,
+                right
+            };
+        }).filter(Boolean);
+
+        if (fromPairsList.length) return fromPairsList;
+
+        const leftNodes = Array.from(template.querySelectorAll('.quiz-match-left li[data-id], .quiz-match-descriptions li[data-id]'));
+        const rightNodes = Array.from(template.querySelectorAll('.quiz-match-right li[data-id], .quiz-match-answers li[data-id]'));
+
+        if (leftNodes.length && rightNodes.length) {
+            const rightMap = new Map(rightNodes.map((li) => [li.dataset.id, li.textContent.trim()]));
+            const merged = leftNodes.map((li) => {
+                const id = li.dataset.id;
+                if (!id || !rightMap.has(id)) return null;
+                return {
+                    id,
+                    left: li.textContent.trim(),
+                    right: rightMap.get(id)
+                };
+            }).filter(Boolean);
+            if (merged.length) return merged;
+        }
+
+        if (Array.isArray(config.pairs) && config.pairs.length) {
+            return config.pairs.map((pair, index) => {
+                if (!pair) return null;
+                const left = String(pair.left || pair.prompt || pair.description || '').trim();
+                const right = String(pair.right || pair.answer || '').trim();
+                if (!left || !right) return null;
+                return {
+                    id: String(pair.id || `pair-${index + 1}`),
+                    left,
+                    right
+                };
+            }).filter(Boolean);
+        }
+
+        return [];
+    };
+
     const buildQuestionView = (template, type, config) => {
         const view = createEl('div', 'quiz-view');
 
         const promptNode = template.querySelector('.quiz-prompt');
-        const promptText = promptNode ? promptNode.textContent.trim() : 'Question';
-        view.appendChild(createEl('p', 'quiz-prompt-render', promptText));
+        const promptRender = createEl('div', 'quiz-prompt-render');
+        if (promptNode) {
+            promptRender.innerHTML = promptNode.innerHTML.trim();
+        } else {
+            promptRender.textContent = 'Question';
+        }
+        view.appendChild(promptRender);
 
         const feedback = createEl('div', 'quiz-feedback');
         feedback.style.display = 'none';
@@ -324,6 +401,210 @@
             resetHandler = () => {
                 orderedValues = options.map((option) => option.value);
                 renderOrder();
+            };
+        }
+
+        if (type === 'mixandmatch' || type === 'mix-and-match' || type === 'match') {
+            const pairs = parseMatchPairs(template, config);
+            const assignments = new Map();
+            const pairById = new Map(pairs.map((pair) => [pair.id, pair]));
+
+            const container = createEl('div', 'quiz-match-layout');
+            const leftList = createEl('div', 'quiz-match-left-list');
+            const bankPanel = createEl('div', 'quiz-match-bank-panel');
+            const bankTitle = createEl('p', 'quiz-match-bank-title', 'Réponses à glisser');
+            const bank = createEl('div', 'quiz-match-bank');
+            bankPanel.appendChild(bankTitle);
+            bankPanel.appendChild(bank);
+            container.appendChild(leftList);
+            container.appendChild(bankPanel);
+            view.appendChild(container);
+
+            let shuffledCards = shuffleArray(pairs.map((pair) => pair.id));
+            let dragState = null;
+            let rowById = new Map();
+
+            const clearMatchStates = () => {
+                leftList.querySelectorAll('.quiz-match-row').forEach((row) => {
+                    row.classList.remove('is-correct', 'is-wrong');
+                });
+            };
+
+            const unassignCard = (cardId) => {
+                Array.from(assignments.entries()).forEach(([slotId, assignedId]) => {
+                    if (assignedId === cardId) assignments.delete(slotId);
+                });
+            };
+
+            const setDropVisuals = (zone, enabled) => {
+                if (!zone) return;
+                zone.classList.toggle('is-drop-target', Boolean(enabled));
+            };
+
+            const createCard = (cardId, sourceSlotId) => {
+                const pair = pairById.get(cardId);
+                if (!pair) return null;
+                const card = createEl('div', 'quiz-match-card', pair.right);
+                card.draggable = true;
+                card.dataset.cardId = cardId;
+                card.dataset.sourceSlotId = sourceSlotId || '';
+                card.addEventListener('dragstart', (event) => {
+                    dragState = {
+                        cardId,
+                        sourceSlotId: sourceSlotId || ''
+                    };
+                    card.classList.add('is-dragging');
+                    if (event.dataTransfer) {
+                        event.dataTransfer.setData('text/plain', cardId);
+                        event.dataTransfer.effectAllowed = 'move';
+                    }
+                });
+                card.addEventListener('dragend', () => {
+                    dragState = null;
+                    card.classList.remove('is-dragging');
+                    document.querySelectorAll('.quiz-match-dropzone').forEach((zone) => setDropVisuals(zone, false));
+                    setDropVisuals(bank, false);
+                });
+                return card;
+            };
+
+            const renderMatch = () => {
+                leftList.innerHTML = '';
+                bank.innerHTML = '';
+                rowById = new Map();
+
+                pairs.forEach((pair, index) => {
+                    const row = createEl('div', 'quiz-match-row');
+                    row.dataset.slotId = pair.id;
+                    const indexEl = createEl('span', 'quiz-match-index', String(index + 1));
+                    const prompt = createEl('p', 'quiz-match-prompt', pair.left);
+                    const dropzone = createEl('div', 'quiz-match-dropzone');
+                    dropzone.dataset.slotId = pair.id;
+
+                    const assignedCardId = assignments.get(pair.id);
+                    if (assignedCardId && pairById.has(assignedCardId)) {
+                        const assignedCard = createCard(assignedCardId, pair.id);
+                        if (assignedCard) dropzone.appendChild(assignedCard);
+                    } else {
+                        dropzone.appendChild(createEl('span', 'quiz-match-placeholder', 'Dépose ici'));
+                    }
+
+                    dropzone.addEventListener('dragover', (event) => {
+                        event.preventDefault();
+                        setDropVisuals(dropzone, true);
+                    });
+                    dropzone.addEventListener('dragleave', () => setDropVisuals(dropzone, false));
+                    dropzone.addEventListener('drop', (event) => {
+                        event.preventDefault();
+                        setDropVisuals(dropzone, false);
+                        if (!dragState || !pairById.has(dragState.cardId)) return;
+
+                        const sourceSlotId = dragState.sourceSlotId || '';
+                        const targetSlotId = pair.id;
+                        const targetExisting = assignments.get(targetSlotId) || null;
+
+                        if (sourceSlotId) assignments.delete(sourceSlotId);
+
+                        // Swap when dropping a slot card onto an occupied slot.
+                        if (targetExisting && targetExisting !== dragState.cardId && sourceSlotId) {
+                            assignments.set(sourceSlotId, targetExisting);
+                        }
+
+                        // If card came from bank and slot was occupied, old card returns to bank automatically.
+                        unassignCard(dragState.cardId);
+                        assignments.set(targetSlotId, dragState.cardId);
+
+                        renderMatch();
+                    });
+
+                    row.appendChild(indexEl);
+                    row.appendChild(prompt);
+                    row.appendChild(dropzone);
+                    leftList.appendChild(row);
+                    rowById.set(pair.id, row);
+                });
+
+                const assignedIds = new Set(assignments.values());
+                shuffledCards.forEach((cardId) => {
+                    if (assignedIds.has(cardId)) return;
+                    const card = createCard(cardId, '');
+                    if (card) bank.appendChild(card);
+                });
+
+            };
+
+            bank.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                setDropVisuals(bank, true);
+            });
+            bank.addEventListener('dragleave', () => setDropVisuals(bank, false));
+            bank.addEventListener('drop', (event) => {
+                event.preventDefault();
+                setDropVisuals(bank, false);
+                if (!dragState || !dragState.sourceSlotId) return;
+                assignments.delete(dragState.sourceSlotId);
+                renderMatch();
+            });
+
+            renderMatch();
+
+            validateHandler = () => {
+                clearMatchStates();
+
+                if (!pairs.length) {
+                    return {
+                        ok: false,
+                        score: 0,
+                        max: 1,
+                        message: 'Quiz mal configuré: aucune paire détectée.',
+                        expectedText: ''
+                    };
+                }
+
+                let allFilled = true;
+                let allCorrect = true;
+
+                pairs.forEach((pair) => {
+                    const row = rowById.get(pair.id) || null;
+                    const assigned = assignments.get(pair.id);
+                    if (!assigned) {
+                        allFilled = false;
+                        allCorrect = false;
+                    }
+                    if (assigned === pair.id) {
+                        if (row) row.classList.add('is-correct');
+                    } else {
+                        if (row) row.classList.add('is-wrong');
+                        allCorrect = false;
+                    }
+                });
+
+                const expectedText = pairs.map((pair) => `${pair.left} -> ${pair.right}`).join('\n');
+
+                if (!allFilled) {
+                    return {
+                        ok: false,
+                        score: 0,
+                        max: 1,
+                        message: 'Associe toutes les réponses avant de valider.',
+                        expectedText
+                    };
+                }
+
+                return {
+                    ok: allCorrect,
+                    score: allCorrect ? 1 : 0,
+                    max: 1,
+                    message: allCorrect ? 'Associations correctes.' : 'Certaines associations sont incorrectes.',
+                    expectedText
+                };
+            };
+
+            resetHandler = () => {
+                assignments.clear();
+                shuffledCards = shuffleArray(shuffledCards);
+                clearMatchStates();
+                renderMatch();
             };
         }
 
