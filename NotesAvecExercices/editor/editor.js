@@ -403,13 +403,23 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     const buildRenderDoc = (files) => {
         const html = files.html || '';
         const css = files.css || '';
+        const baseCss = `
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+`;
 
         return `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>${css}</style>
+<style>${baseCss}\n${css}</style>
 </head>
 <body>
 ${html}
