@@ -36,8 +36,8 @@
         <main class="main-content">
 
             <section id="demo" class="section-spy">
-                <h2 class="section-title">Démo interactive : Tableaux</h2>
-                <p>Explorez la mémoire contiguë d'un tableau et testez les opérations <code>push</code>, <code>pop</code>, <code>shift</code>, <code>unshift</code> et <code>splice</code>.</p>
+                <h2 class="section-title demo-page-title">Démo interactive : Tableaux</h2>
+                <p class="demo-page-subtitle">Explorez la mémoire contiguë d'un tableau et testez les opérations <code>push</code>, <code>pop</code>, <code>shift</code>, <code>unshift</code> et <code>slice</code>.</p>
 
                 <div class="demo-shell">
                     <div class="demo-header">
@@ -45,7 +45,7 @@
                             <h3 class="demo-title">Visualiseur de Tableaux</h3>
                             <p class="demo-subtitle">Une mémoire contiguë interactive.</p>
                         </div>
-                        <div class="demo-theme">
+                        <div class="demo-theme" id="demo-theme-box">
                             <span class="demo-label">Thème</span>
                             <select id="theme-selector" onchange="changeTheme()" class="demo-select">
                                 <option value="objects">Inventaire (Objets)</option>
@@ -54,6 +54,14 @@
                                 <option value="booleans">États d'activation des portes (Booléens)</option>
                             </select>
                         </div>
+                        <div class="demo-actions">
+                            <button id="demo-reset" class="demo-btn demo-btn-secondary" type="button">Réinitialiser</button>
+                        </div>
+                    </div>
+
+                    <div id="demo-presets" class="demo-presets demo-hidden">
+                        <button class="demo-btn demo-btn-secondary" type="button" data-preset="empty">let scores = [];</button>
+                        <button class="demo-btn demo-btn-secondary" type="button" data-preset="filled">let scores = [15, 10, 25, 30];</button>
                     </div>
 
                     <div id="zoom-overlay" class="demo-overlay demo-hidden" onclick="closeZoom()">
@@ -96,7 +104,7 @@
                     </div>
 
                     <div class="demo-controls">
-                        <div class="demo-panel demo-panel-blue">
+                        <div class="demo-panel demo-panel-blue" data-panel="read-write">
                             <div class="demo-panel-title">Lecture / Écriture</div>
 
                             <div>
@@ -125,13 +133,22 @@
                             </div>
                         </div>
 
-                        <div class="demo-panel demo-panel-green">
+                        <div class="demo-panel demo-panel-blue demo-hidden-panel" data-panel="length">
+                            <div class="demo-panel-title">Taille</div>
+                            <p class="demo-help">Ajoutez ou retirez un élément pour voir <code>.length</code> évoluer.</p>
+                            <div class="demo-row demo-row--center">
+                                <button onclick="lengthAdd()" class="demo-btn demo-btn-success">Ajouter</button>
+                                <button onclick="lengthRemove()" class="demo-btn demo-btn-danger">Enlever</button>
+                            </div>
+                        </div>
+
+                        <div class="demo-panel demo-panel-green" data-panel="add">
                             <div class="demo-panel-title">Ajout</div>
 
                             <div>
                                 <label class="demo-label">À la fin (rapide)</label>
                                 <div class="demo-row">
-                                    <span class="demo-mono demo-muted">.push(</span>
+                                    <span class="demo-mono"><span class="var-name">tab</span><span class="demo-muted">.push(</span></span>
                                     <select id="push-value" class="data-dropdown demo-select demo-select--compact"></select>
                                     <input id="push-value-text" type="text" class="demo-input demo-input--value demo-hidden" value="0">
                                     <span class="demo-mono demo-muted">)</span>
@@ -142,7 +159,7 @@
                             <div>
                                 <label class="demo-label">Au début (lent - décalage)</label>
                                 <div class="demo-row">
-                                    <span class="demo-mono demo-muted">.unshift(</span>
+                                    <span class="demo-mono"><span class="var-name">tab</span><span class="demo-muted">.unshift(</span></span>
                                     <select id="unshift-value" class="data-dropdown demo-select demo-select--compact"></select>
                                     <input id="unshift-value-text" type="text" class="demo-input demo-input--value demo-hidden" value="0">
                                     <span class="demo-mono demo-muted">)</span>
@@ -151,13 +168,13 @@
                             </div>
                         </div>
 
-                        <div class="demo-panel demo-panel-red">
+                        <div class="demo-panel demo-panel-red" data-panel="remove">
                             <div class="demo-panel-title">Retrait</div>
 
                             <div>
                                 <label class="demo-label">À la fin (rapide)</label>
                                 <div class="demo-row">
-                                    <span class="demo-mono demo-muted">.pop()</span>
+                                    <span class="demo-mono"><span class="var-name">tab</span><span class="demo-muted">.pop()</span></span>
                                     <button onclick="popItem()" class="demo-btn demo-btn-danger demo-ml-auto">Go</button>
                                 </div>
                             </div>
@@ -165,26 +182,26 @@
                             <div>
                                 <label class="demo-label">Au début (lent - décalage)</label>
                                 <div class="demo-row">
-                                    <span class="demo-mono demo-muted">.shift()</span>
+                                    <span class="demo-mono"><span class="var-name">tab</span><span class="demo-muted">.shift()</span></span>
                                     <button onclick="shiftItem()" class="demo-btn demo-btn-danger demo-ml-auto">Go</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="demo-panel demo-panel-amber">
-                            <div class="demo-panel-title">Extraction (Splice)</div>
+                        <div class="demo-panel demo-panel-amber" data-panel="slice">
+                            <div class="demo-panel-title">Découper (Slice)</div>
 
                             <div>
-                                <label class="demo-label">Retirer des éléments</label>
+                                <label class="demo-label">Copier une portion</label>
                                 <div class="demo-row">
-                                    <span class="demo-mono demo-muted">.splice(</span>
-                                    <input type="number" id="splice-start" class="demo-input demo-input--small" placeholder="Start" value="1">
+                                    <span class="demo-mono"><span class="var-name">tab</span><span class="demo-muted">.slice(</span></span>
+                                    <input type="number" id="slice-start" class="demo-input demo-input--small" placeholder="Début" value="1">
                                     <span class="demo-muted">,</span>
-                                    <input type="number" id="splice-count" class="demo-input demo-input--small" placeholder="Tout">
+                                    <input type="number" id="slice-end" class="demo-input demo-input--small" placeholder="Fin">
                                     <span class="demo-mono demo-muted">)</span>
-                                    <button onclick="spliceItems()" class="demo-btn demo-btn-warning demo-ml-auto">Go</button>
+                                    <button onclick="sliceItems()" class="demo-btn demo-btn-warning demo-ml-auto">Go</button>
                                 </div>
-                                <p class="demo-help">Modifie le tableau et retourne les éléments retirés.</p>
+                                <p class="demo-help">Copie une portion sans modifier le tableau.</p>
                             </div>
                         </div>
                     </div>

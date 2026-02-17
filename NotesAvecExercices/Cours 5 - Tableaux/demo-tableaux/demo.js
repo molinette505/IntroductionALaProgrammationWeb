@@ -37,9 +37,85 @@ const zoomIndexSpan = document.getElementById('zoom-index');
 const cartArea = document.getElementById('cart-area');
 const cartContainer = document.getElementById('cart-container');
 const cartItems = document.getElementById('cart-items');
+const cartTitle = document.querySelector('.demo-cart-title');
+const resetButton = document.getElementById('demo-reset');
+const presetsBox = document.getElementById('demo-presets');
+const presetButtons = document.querySelectorAll('[data-preset]');
+const consoleBox = document.querySelector('.demo-console');
+const demoStage = document.querySelector('.demo-stage');
+const panelNames = new Set(['read-write', 'add', 'remove', 'slice', 'length']);
+const demoControls = document.querySelector('.demo-controls');
+const defaultCartTitle = cartTitle ? cartTitle.innerText : 'Éléments Retirés';
 
 // Init
-applyTheme('objects');
+const demoConfig = getDemoConfig();
+applyDemoConfig(demoConfig);
+applyTheme(demoConfig.initialTheme);
+
+function getDemoConfig() {
+    const params = new URLSearchParams(window.location.search);
+    const themeParam = params.get('theme');
+    const panelsParam = params.get('panels');
+
+    const parsedPanels = panelsParam
+        ? panelsParam
+            .split(',')
+            .map(panel => panel.trim())
+            .filter(panel => panelNames.has(panel))
+        : [];
+
+    return {
+        embed: params.get('embed') === '1',
+        lockTheme: params.get('lockTheme') === '1',
+        hideTheme: params.get('hideTheme') === '1',
+        hideControls: params.get('controls') === '0',
+        hideConsole: params.get('console') === '0',
+        showPresets: params.get('presets') === '1',
+        hideReset: params.get('reset') === '0',
+        initialTheme: themeParam && THEMES[themeParam] ? themeParam : 'objects',
+        panels: parsedPanels
+    };
+}
+
+function applyDemoConfig(config) {
+    if (config.embed) {
+        document.body.classList.add('demo-embed-mode');
+    }
+
+    const themeSelector = document.getElementById('theme-selector');
+    const themeBox = document.getElementById('demo-theme-box');
+    if (themeSelector) {
+        themeSelector.value = config.initialTheme;
+        themeSelector.disabled = config.lockTheme;
+    }
+    if (themeBox && (config.hideTheme || config.lockTheme)) {
+        themeBox.classList.add('demo-hidden');
+    }
+
+    if (config.panels.length > 0) {
+        document.querySelectorAll('.demo-panel').forEach(panel => {
+            const name = panel.getAttribute('data-panel');
+            panel.classList.toggle('demo-hidden-panel', !config.panels.includes(name));
+        });
+
+        if (demoControls && config.panels.length === 1) {
+            demoControls.classList.add('demo-controls-single');
+        }
+    }
+
+    if (demoControls && config.hideControls) {
+        demoControls.classList.add('demo-hidden');
+    }
+    if (consoleBox && config.hideConsole) {
+        consoleBox.classList.add('demo-hidden');
+    }
+    if (presetsBox) {
+        presetsBox.classList.toggle('demo-hidden', !config.showPresets);
+    }
+    if (resetButton && config.hideReset) {
+        resetButton.classList.add('demo-hidden');
+    }
+}
 
 function changeTheme() {
     if (isAnimating) return;
@@ -74,6 +150,7 @@ function applyTheme(key) {
     codeLog.classList.remove('demo-log-flash');
     returnLog.innerText = '';
     renderLockers();
+    updateResetLabel();
 }
 
 function toggleValueInput(selectId, inputId, useTextInput, theme) {
@@ -105,6 +182,105 @@ function getValueForAction(selectId, inputId) {
     }
     const select = document.getElementById(selectId);
     return select ? select.value : '';
+}
+
+function getRemovalVarName(isMultiple = false) {
+    const names = {
+        objects: { single: 'itemRetire', multiple: 'itemsRetires' },
+        scores: { single: 'scoreRetire', multiple: 'scoresRetires' },
+        names: { single: 'nomRetire', multiple: 'nomsRetires' },
+        booleans: { single: 'etatRetire', multiple: 'etatsRetires' }
+    };
+    const set = names[currentThemeKey] || { single: 'elementRetire', multiple: 'elementsRetires' };
+    return isMultiple ? set.multiple : set.single;
+}
+
+function getSliceVarName() {
+    const names = {
+        objects: 'extrait',
+        scores: 'extrait',
+        names: 'extrait',
+        booleans: 'extrait'
+    };
+    return names[currentThemeKey] || 'extrait';
+}
+
+function setCartLabel(label) {
+    if (!cartTitle) return;
+    cartTitle.innerText = label || defaultCartTitle;
+}
+
+function resetCartLabel() {
+    if (!cartTitle) return;
+    cartTitle.innerText = defaultCartTitle;
+}
+
+function updateResetLabel() {
+    if (!resetButton) return;
+    const baseCount = THEMES[currentThemeKey]?.data?.length ?? 0;
+    resetButton.innerText = `Réinitialiser (${baseCount})`;
+}
+
+function resetDemo() {
+    closeZoom();
+    closeAllDoors();
+    resetCartLabel();
+    const theme = THEMES[currentThemeKey];
+    lockers = [...theme.data];
+    renderLockers();
+    lengthDisplay.innerText = lockers.length;
+    codeLog.innerText = `// Réinitialisé (${theme.varName})`;
+    returnLog.innerText = '';
+}
+
+function applyPreset(preset) {
+    closeZoom();
+    closeAllDoors();
+    resetCartLabel();
+    const theme = THEMES[currentThemeKey];
+    if (preset === 'empty') {
+        lockers = [];
+        codeLog.innerText = `let ${theme.varName} = [];`;
+    } else if (preset === 'filled') {
+        if (currentThemeKey === 'scores') {
+            lockers = [15, 10, 25, 30];
+            codeLog.innerText = `let ${theme.varName} = [15, 10, 25, 30];`;
+        } else {
+            lockers = [...theme.data];
+            codeLog.innerText = `let ${theme.varName} = [${theme.data.map(formatVal).join(', ')}];`;
+        }
+    }
+    returnLog.innerText = '';
+    renderLockers();
+}
+
+if (resetButton) {
+    resetButton.addEventListener('click', () => resetDemo());
+}
+if (presetButtons.length > 0) {
+    presetButtons.forEach(button => {
+        button.addEventListener('click', () => applyPreset(button.dataset.preset));
+    });
+}
+
+function closeAllDoors(exceptIndex = null) {
+    document.querySelectorAll('.locker-door.open').forEach(door => {
+        const doorIndex = Number(door.id.replace('door-', ''));
+        if (exceptIndex === null || doorIndex !== exceptIndex) {
+            door.classList.remove('open');
+        }
+    });
+}
+
+function toggleDoor(index) {
+    const door = document.getElementById(`door-${index}`);
+    if (!door) return;
+
+    const shouldOpen = !door.classList.contains('open');
+    if (shouldOpen) {
+        closeAllDoors(index);
+    }
+    door.classList.toggle('open');
 }
 
 // --- DOM ---
@@ -141,7 +317,18 @@ function createLockerNode(item, index, isEmpty = false) {
     door.appendChild(windowDiv);
     door.appendChild(handle);
 
-    door.onclick = () => { if (!isAnimating) door.classList.toggle('open'); };
+    door.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (isAnimating) return;
+        toggleDoor(index);
+    });
+    lockerDiv.addEventListener('click', (event) => {
+        if (isAnimating) return;
+        if (event.target.closest('.locker-door')) return;
+        if (door.classList.contains('open')) {
+            door.classList.remove('open');
+        }
+    });
 
     lockerDiv.appendChild(innerContent);
     lockerDiv.appendChild(door);
@@ -157,6 +344,14 @@ function renderLockers() {
         container.appendChild(node);
     });
     lengthDisplay.innerText = lockers.length;
+}
+
+if (demoStage) {
+    demoStage.addEventListener('click', (event) => {
+        if (isAnimating) return;
+        if (event.target.closest('#array-container')) return;
+        closeAllDoors();
+    });
 }
 
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
@@ -180,8 +375,19 @@ function toggleControls(enable) {
     else container.classList.add('demo-grayscale');
 }
 
+function lengthAdd() {
+    if (isAnimating) return;
+    pushItem();
+}
+
+function lengthRemove() {
+    if (isAnimating) return;
+    popItem();
+}
+
 // --- CART HELPER ---
-async function prepareCart() {
+async function prepareCart(label = null) {
+    setCartLabel(label || defaultCartTitle);
     cartArea.classList.remove('demo-hidden');
     cartItems.innerHTML = '';
     cartContainer.style.transition = 'transform 0.5s ease-out';
@@ -196,8 +402,9 @@ async function dismissCart() {
     await wait(800);
     cartArea.classList.add('demo-hidden');
     cartContainer.style.transition = 'none';
-    cartContainer.style.transform = "translate(-50%, 40px)";
+    cartContainer.style.transform = "translate(-50%, 0)";
     cartItems.innerHTML = '';
+    resetCartLabel();
 }
 
 // --- MOTEUR PHYSIQUE (FLY) ---
@@ -217,16 +424,42 @@ async function flyItem(content, sourceId, targetId) {
     flyer.innerText = displayValue;
     if (String(displayValue).length > 3) flyer.style.fontSize = "12px";
 
-    flyer.style.width = (sourceLockerRect.width - (inset * 2)) + 'px';
-    flyer.style.height = (sourceLockerRect.height - (inset * 2)) + 'px';
+    const sourceWidth = sourceLockerRect.width - (inset * 2);
+    const sourceHeight = sourceLockerRect.height - (inset * 2);
+    flyer.style.width = sourceWidth + 'px';
+    flyer.style.height = sourceHeight + 'px';
     flyer.style.left = (sourceLockerRect.left + inset) + 'px';
     flyer.style.top = (sourceLockerRect.top + inset) + 'px';
 
     document.body.appendChild(flyer);
     void flyer.offsetWidth;
 
-    flyer.style.left = (targetLockerRect.left + inset) + 'px';
-    flyer.style.top = (targetLockerRect.top + inset) + 'px';
+    let targetWidth = targetLockerRect.width - (inset * 2);
+    let targetHeight = targetLockerRect.height - (inset * 2);
+    let targetLeft = targetLockerRect.left + inset;
+    let targetTop = targetLockerRect.top + inset;
+    const shouldShrink = targetNode.classList.contains('cart-slot')
+        || targetNode.classList.contains('cart-item')
+        || targetId.startsWith('cart-target-');
+
+    if (shouldShrink) {
+        targetWidth = targetLockerRect.width;
+        targetHeight = targetLockerRect.height;
+        targetLeft = targetLockerRect.left;
+        targetTop = targetLockerRect.top;
+    }
+
+    flyer.style.left = targetLeft + 'px';
+    flyer.style.top = targetTop + 'px';
+    if (shouldShrink) {
+        flyer.style.width = targetWidth + 'px';
+        flyer.style.height = targetHeight + 'px';
+        flyer.style.fontSize = '0.7rem';
+    }
+    if (!shouldShrink) {
+        flyer.style.width = targetWidth + 'px';
+        flyer.style.height = targetHeight + 'px';
+    }
 
     return new Promise(resolve => {
         setTimeout(() => {
@@ -361,10 +594,12 @@ async function popItem() {
 
     const lastIdx = lockers.length - 1;
     const removedVal = lockers[lastIdx];
+    const removedVar = getRemovalVarName(false);
+    const logCmd = `let ${removedVar} = ${getVarName()}.pop();`;
 
-    log(`${getVarName()}.pop(); // 1. Préparation retour`);
+    log(logCmd);
 
-    await prepareCart();
+    await prepareCart(removedVar);
 
     const targetPlaceholder = document.createElement('div');
     targetPlaceholder.className = 'cart-slot';
@@ -388,7 +623,7 @@ async function popItem() {
     door.classList.remove('open');
     await wait(400);
 
-    log(`${getVarName()}.pop(); // 2. Suppression mémoire`, formatVal(removedVal));
+    log(logCmd, formatVal(removedVal));
     const lastNode = document.getElementById(`locker-${lastIdx}`);
     lastNode.classList.add('locker-disappear');
 
@@ -463,9 +698,11 @@ async function shiftItem() {
     isAnimating = true; toggleControls(false);
 
     const removedVal = lockers[0];
-    log(`${getVarName()}.shift(); // 1. Préparation`);
+    const removedVar = getRemovalVarName(false);
+    const logCmd = `let ${removedVar} = ${getVarName()}.shift();`;
+    log(logCmd);
 
-    await prepareCart();
+    await prepareCart(removedVar);
     const targetPlaceholder = document.createElement('div');
     targetPlaceholder.className = 'cart-slot';
     targetPlaceholder.id = 'cart-target-shift';
@@ -484,7 +721,7 @@ async function shiftItem() {
     targetPlaceholder.className = 'cart-item';
     targetPlaceholder.innerText = removedVal;
 
-    log(`${getVarName()}.shift(); // 2. Décalage (i -> i-1)`);
+    // Décalage
 
     for (let i = 1; i < lockers.length; i++) {
         const el = document.getElementById(`locker-${i}`).querySelector('.locker-content');
@@ -509,118 +746,71 @@ async function shiftItem() {
 
     dismissCart();
     await wait(500);
-    log(`${getVarName()}.shift(); // 3. Terminé`, formatVal(removedVal));
+    log(logCmd, formatVal(removedVal));
     document.querySelectorAll('.locker-door').forEach(d => d.classList.remove('open'));
 
     isAnimating = false; toggleControls(true);
 }
 
-// 7. SPLICE (Mutation)
-async function spliceItems() {
+// 7. SLICE (Copie)
+async function sliceItems() {
     if (isAnimating) return;
 
-    let startInput = parseInt(document.getElementById('splice-start').value);
-    let countInput = document.getElementById('splice-count').value;
+    const startRaw = document.getElementById('slice-start').value;
+    const endRaw = document.getElementById('slice-end').value;
+    const startInput = startRaw === "" ? 0 : parseInt(startRaw);
+    const endInput = endRaw === "" ? null : parseInt(endRaw);
 
-    // Calculer l'index de départ (gestion des négatifs)
-    let start = startInput < 0 ? lockers.length + startInput : startInput;
+    let start = Number.isNaN(startInput) ? 0 : startInput;
+    let end = endInput === null || Number.isNaN(endInput) ? lockers.length : endInput;
+
+    if (start < 0) start = lockers.length + start;
+    if (end < 0) end = lockers.length + end;
+
     if (start < 0) start = 0;
     if (start > lockers.length) start = lockers.length;
-
-    // Calculer le nombre (gestion du champ vide)
-    let count;
-    if (countInput === "") {
-        count = lockers.length - start;
-    } else {
-        count = parseInt(countInput);
-        if (count < 0) count = 0;
-    }
+    if (end < start) end = start;
+    if (end > lockers.length) end = lockers.length;
 
     document.querySelectorAll('.locker-door').forEach(d => d.classList.remove('open'));
 
     isAnimating = true; toggleControls(false);
-    const actualCount = Math.min(count, lockers.length - start);
-    const endIndex = start + actualCount;
 
-    // Log précis pour montrer ce que l'utilisateur a vraiment demandé
-    let logCmd = `let extrait = ${getVarName()}.splice(${startInput}`;
-    if (countInput !== "") logCmd += `, ${countInput}`;
+    const sliceVar = getSliceVarName();
+    let logCmd = `let ${sliceVar} = ${getVarName()}.slice(${startRaw === "" ? 0 : startRaw}`;
+    if (endRaw !== "") logCmd += `, ${endRaw}`;
     logCmd += `);`;
     log(logCmd);
 
-    // 1. Ouvrir portes
-    document.querySelectorAll('.locker-door').forEach(d => d.classList.add('open'));
-    await wait(600);
+    const extracted = lockers.slice(start, end);
 
-    // 2. Chariot arrive
-    if (actualCount > 0) await prepareCart();
+    if (extracted.length > 0) {
+        await prepareCart(sliceVar);
+        const cartFlights = [];
 
-    // 3. Vol vers Chariot
-    const removedItems = lockers.slice(start, endIndex);
-    const cartFlights = [];
+        for (let i = 0; i < extracted.length; i++) {
+            const sourceIndex = start + i;
+            const itemChar = extracted[i];
 
-    for (let i = 0; i < removedItems.length; i++) {
-        const originalIndex = start + i;
-        const itemChar = removedItems[i];
+            const targetPlaceholder = document.createElement('div');
+            targetPlaceholder.className = 'cart-slot';
+            targetPlaceholder.id = `cart-target-${i}`;
+            cartItems.appendChild(targetPlaceholder);
 
-        const targetPlaceholder = document.createElement('div');
-        targetPlaceholder.className = 'cart-slot';
-        targetPlaceholder.id = `cart-target-${i}`;
-        cartItems.appendChild(targetPlaceholder);
-
-        // Vider
-        const el = document.getElementById(`locker-${originalIndex}`).querySelector('.locker-content');
-        el.innerText = '';
-        const win = document.getElementById(`door-${originalIndex}`).querySelector('.window-glass div');
-        if (win) win.innerText = '';
-
-        // Vol
-        cartFlights.push(
-            flyItem(itemChar, `locker-${originalIndex}`, `cart-target-${i}`).then(() => {
-                targetPlaceholder.className = 'cart-item';
-                targetPlaceholder.innerText = itemChar;
-            })
-        );
-    }
-    await Promise.all(cartFlights);
-    if (actualCount > 0) await wait(200);
-
-    // 4. Shift des éléments restants
-    if (endIndex < lockers.length) {
-        log(`// Décalage pour combler le vide...`);
-
-        for (let i = endIndex; i < lockers.length; i++) {
-            const el = document.getElementById(`locker-${i}`).querySelector('.locker-content');
-            el.innerText = '';
-            const win = document.getElementById(`door-${i}`).querySelector('.window-glass div');
-            if (win) win.innerText = '';
+            cartFlights.push(
+                flyItem(itemChar, `locker-${sourceIndex}`, `cart-target-${i}`).then(() => {
+                    targetPlaceholder.className = 'cart-item';
+                    targetPlaceholder.innerText = itemChar;
+                })
+            );
         }
 
-        const shiftFlights = [];
-        for (let i = endIndex; i < lockers.length; i++) {
-            const targetIdx = i - actualCount;
-            shiftFlights.push(flyItem(lockers[i], `locker-${i}`, `locker-${targetIdx}`));
-        }
-        await Promise.all(shiftFlights);
+        await Promise.all(cartFlights);
+        await wait(700);
+        dismissCart();
     }
 
-    // 5. Update Logique
-    const removed = lockers.splice(start, actualCount);
-    renderLockers();
-
-    // Réouvrir portes
-    const doors = document.querySelectorAll('.locker-door');
-    doors.forEach(d => { d.style.transition = 'none'; d.classList.add('open'); });
-    await wait(50);
-    doors.forEach(d => d.style.transition = '');
-
-    // 6. Fin
-    if (actualCount > 0) dismissCart();
-    await wait(500);
-    document.querySelectorAll('.locker-door').forEach(d => d.classList.remove('open'));
-
-    // Afficher le retour dans le log
-    log(logCmd, `[${removed.map(formatVal).join(', ')}]`);
+    log(logCmd, `[${extracted.map(formatVal).join(', ')}]`);
 
     isAnimating = false; toggleControls(true);
 }

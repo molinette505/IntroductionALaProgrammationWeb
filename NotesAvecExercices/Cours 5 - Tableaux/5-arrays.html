@@ -45,8 +45,8 @@
                 <a href="#create" class="nav-link">2. Création</a>
                 <a href="#length" class="nav-link">3. Taille (Length)</a>
                 <a href="#read-write" class="nav-link">4. Lire & Modifier</a>
-                <a href="#end-ops" class="nav-link">5. Pile (Push/Pop)</a>
-                <a href="#start-ops" class="nav-link">6. Décalage (Unshift/Shift)</a>
+                <a href="#end-ops" class="nav-link">5. Ajouter (Push/Unshift)</a>
+                <a href="#start-ops" class="nav-link">6. Retirer (Pop/Shift)</a>
                 <a href="#slice" class="nav-link">7. Découper (Slice)</a>
                 <a href="#parallel" class="nav-link">8. Tableaux Parallèles</a>
             </nav>
@@ -82,6 +82,13 @@
                         En programmation, on commence toujours à compter à partir de <strong>0</strong>.<br>
                         Donc le <strong>1er élément</strong> est à l’index <code>0</code>.
                     </p>
+                </div>
+
+                <div class="course-demo-embed course-demo-embed--compact">
+                    <iframe
+                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&hideTheme=1&controls=0&console=0&reset=0"
+                        title="Démo tableau de scores (statique)"
+                        loading="lazy"></iframe>
                 </div>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Utilisation de tableau.">
@@ -124,6 +131,13 @@ if (premierCours === "Développement Web") {
                         <pre><code class="language-javascript">let notes = [15, 12, 18];</code></pre>
                     </div>
                 </div>
+
+                <div class="course-demo-embed course-demo-embed--compact">
+                    <iframe
+                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&hideTheme=1&controls=0&console=0&presets=1"
+                        title="Démo création de tableaux (scores)"
+                        loading="lazy"></iframe>
+                </div>
             </section>
 
             <section id="length" class="section-spy">
@@ -137,6 +151,13 @@ if (premierCours === "Développement Web") {
                 <div class="info-box warning">
                     <h4><i data-lucide="ruler"></i> À retenir</h4>
                     <p>Le dernier index (dernier élément) est toujours : <code>tableau.length - 1</code>.</p>
+                </div>
+
+                <div class="course-demo-embed course-demo-embed--medium">
+                    <iframe
+                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&hideTheme=1&panels=length"
+                        title="Démo longueur avec ajouts et retraits (scores)"
+                        loading="lazy"></iframe>
                 </div>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Vérifier si c'est vide">
@@ -195,6 +216,13 @@ console.log("Nombre total de participants:",nbTotalParticipants);
                     <p>Exemple: si le tableau n'a que 2 éléments monTableau[10]=2 donnera [3,1, , , , , , , ,2]</p>
                 </div>
 
+                <div class="course-demo-embed">
+                    <iframe
+                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&panels=read-write"
+                        title="Démo lecture et écriture (scores)"
+                        loading="lazy"></iframe>
+                </div>
+
                 <div class="playground-container" data-type="exercise" data-title="Exercice : Correction">
 <textarea class="source-code" hidden>
 let scores = [10, 20, 30];
@@ -211,23 +239,28 @@ console.log(scores);
             <section id="end-ops" class="section-spy">
                 <div class="section-header">
                     <span class="step-number">5</span>
-                    <h3>Ajouter et retirer à la fin : Push & Pop</h3>
+                    <h3>Ajouter des éléments : Push & Unshift</h3>
                 </div>
 
-                <p>Fonctionne comme une <strong>pile d'assiettes</strong> (Stack).</p>
+                <p>Ces méthodes ajoutent un élément, soit à la fin, soit au début du tableau.</p>
 
                 <div class="grid-2">
                     <div class="info-box success">
                         <h4>push(valeur)</h4>
                         <p>Ajoute à la fin. Retourne la nouvelle taille.</p>
                     </div>
-                    <div class="info-box error">
-                        <h4>pop()</h4>
-                        <p>Retire à la fin. <strong>Retourne la valeur retirée.</strong></p>
+                    <div class="info-box warning">
+                        <h4>unshift(valeur)</h4>
+                        <p>Ajoute au début. Retourne la nouvelle taille.</p>
                     </div>
                 </div>
 
-                
+                <div class="course-demo-embed">
+                    <iframe
+                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&panels=add"
+                        title="Démo ajout push et unshift (scores)"
+                        loading="lazy"></iframe>
+                </div>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Historique (pop)">
 <textarea class="source-code" hidden>
@@ -241,7 +274,18 @@ console.log("Retour de :", pagePrecedente);
             <section id="start-ops" class="section-spy">
                 <div class="section-header">
                     <span class="step-number">6</span>
-                    <h3>Ajouter et retirer au début : Unshift & Shift</h3>
+                    <h3>Retirer des éléments : Pop & Shift</h3>
+                </div>
+
+                <div class="grid-2">
+                    <div class="info-box error">
+                        <h4>pop()</h4>
+                        <p>Retire à la fin. <strong>Retourne la valeur retirée.</strong></p>
+                    </div>
+                    <div class="info-box warning">
+                        <h4>shift()</h4>
+                        <p>Retire au début. Retourne la valeur retirée.</p>
+                    </div>
                 </div>
 
                 <div class="info-box warning">
@@ -249,7 +293,12 @@ console.log("Retour de :", pagePrecedente);
                     <p>C'est <strong>plus lent</strong> que push/pop car l'ordinateur doit décaler tous les index du tableau.</p>
                 </div>
 
-                
+                <div class="course-demo-embed">
+                    <iframe
+                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&panels=remove"
+                        title="Démo retrait pop et shift (scores)"
+                        loading="lazy"></iframe>
+                </div>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : File d'attente (shift)">
 <textarea class="source-code" hidden>
@@ -267,6 +316,13 @@ console.log("Servi :", servi);
                 </div>
 
                 <p>Permet de <strong>copier</strong> une partie sans modifier l'original. <code>slice(début, fin_exclue)</code>.</p>
+
+                <div class="course-demo-embed">
+                    <iframe
+                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&panels=slice"
+                        title="Démo découpe slice (scores)"
+                        loading="lazy"></iframe>
+                </div>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Top 2">
 <textarea class="source-code" hidden>

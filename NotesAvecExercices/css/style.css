@@ -352,3 +352,40 @@ code { font-family: var(--font-mono); background: rgba(0,0,0,0.3); padding: 2px 
 .show-badge .CodeMirror-lines {
     padding-top: 2rem;
 }
+
+.course-demo-embed {
+    margin-top: 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-panel);
+}
+
+.course-demo-embed iframe {
+    width: 100%;
+    min-height: 860px;
+    border: 0;
+    display: block;
+}
+
+.course-demo-embed--medium iframe {
+    min-height: 720px;
+}
+
+.course-demo-embed--compact iframe {
+    min-height: 540px;
+}
+
+@media (max-width: 768px) {
+    .course-demo-embed iframe {
+        min-height: 920px;
+    }
+
+    .course-demo-embed--medium iframe {
+        min-height: 780px;
+    }
+
+    .course-demo-embed--compact iframe {
+        min-height: 620px;
+    }
+}
