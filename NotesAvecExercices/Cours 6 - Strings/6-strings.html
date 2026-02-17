@@ -59,8 +59,7 @@
                     <p>
                         C'est un type de donnée fondamental. Dès que vous voulez afficher une phrase, un nom ou un code postal, vous utilisez une String.
                     </p>
-                </div>
-            </section>
+                </div>            </section>
 
             <section id="syntax" class="section-spy">
                 <div class="section-header">
@@ -107,8 +106,7 @@ let html = `
 
 console.log(html);
 </textarea>
-                </div>
-            </section>
+                </div>            </section>
 
             <section id="concat" class="section-spy">
                 <div class="section-header">
@@ -202,8 +200,7 @@ let html = `
 console.log(html);
 
 </textarea>
-                </div>
-            </section>
+                </div>            </section>
 
             <section id="length" class="section-spy">
                 <div class="section-header">
@@ -260,8 +257,7 @@ if(motDePasse.length >= 8 && motDePasse.length <= 12)
     console.log("Mot de passe invalide");
 }
 </textarea>
-                </div>
-            </section>
+                </div>            </section>
 
             <section id="indexing" class="section-spy">
                 <div class="section-header">
@@ -297,8 +293,7 @@ console.log("Première lettre :", premiereLettre); // "J"
 console.log("5e lettre :", cinquiemeLettre); // "S"
 console.log("Dernière lettre :", derniereLettre); // "t"
 </textarea>
-                </div>
-            </section>
+                </div>            </section>
 
             <section id="methods" class="section-spy">
                 <div class="section-header">
@@ -350,6 +345,48 @@ if(reponseEtudiant.includes(bonneReponse)){
 }
 
 </textarea>
+                </div>                    </textarea>
+
+                    <script type="application/json" class="quiz-config">
+{
+  "checks": [
+    {
+      "type": "variable",
+      "name": "message",
+      "equals": "DRAGON (dra)!",
+      "message": "La variable message doit valoir DRAGON (dra)!"
+    },
+    {
+      "type": "consoleIncludes",
+      "value": "DRAGON (dra)!",
+      "message": "console.log doit afficher DRAGON (dra)!"
+    },
+    {
+      "type": "domText",
+      "selector": "#resultat",
+      "includes": "DRAGON (dra)!",
+      "message": "#resultat doit contenir DRAGON (dra)!"
+    }
+  ]
+}
+                    </script>
+
+                    <textarea class="quiz-validator" hidden>
+return {
+  valid: quizApi.text("#resultat").trim().endsWith("!"),
+  message: "Validation custom: le rendu doit finir par un point d'exclamation."
+};
+                    </textarea>
+
+                    <textarea class="quiz-solution-code" hidden>
+const pseudo = "dragon";
+const version = pseudo.toUpperCase();
+const extrait = pseudo.slice(0, 3);
+
+const message = `${version} (${extrait})!`;
+console.log(message);
+document.querySelector("#resultat").textContent = message;
+                    </textarea>
                 </div>
             </section>
         </main>

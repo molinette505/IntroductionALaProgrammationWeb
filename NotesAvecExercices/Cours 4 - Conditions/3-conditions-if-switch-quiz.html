@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Conditions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
+</head>
+<body>
+<header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">Quiz Conditions</span>
+</header>
+
+<div class="app-container">
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header"><span class="js-badge">QUIZ</span><h1>Conditions</h1></div>
+        <nav class="sidebar-nav">
+            <a href="../../index.html" class="nav-link">Retour</a>
+            <a href="#q1" class="nav-link active">1. if / else</a>
+            <a href="#q2" class="nav-link">2. switch</a>
+            <a href="#q3" class="nav-link">3. Cas pratique</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <section class="section-spy"><h2 class="section-title">Quiz - Conditions</h2><p>Tester des cas avec if/else et switch.</p></section>
+
+        <section id="q1" class="section-spy">
+            <div class="section-header"><span class="step-number">1</span><h3>if / else</h3></div>
+            <div class="quiz-template" data-type="single" data-title="Branchement">
+                <p class="quiz-prompt">Quelle structure exécute un bloc si la condition est fausse ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">if</li>
+                    <li data-value="b">else</li>
+                    <li data-value="c">break</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+                <textarea class="quiz-solution" hidden>Le bloc else s'exécute lorsque le if est faux.</textarea>
+            </div>
+        </section>
+
+        <section id="q2" class="section-spy">
+            <div class="section-header"><span class="step-number">2</span><h3>switch</h3></div>
+            <div class="quiz-template" data-type="multi" data-title="Bonnes pratiques switch">
+                <p class="quiz-prompt">Quelles affirmations sont justes avec <code>switch</code> ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">On compare une valeur à des <code>case</code>.</li>
+                    <li data-value="b">Le <code>break</code> évite le enchaînement des cases.</li>
+                    <li data-value="c">default est obligatoire.</li>
+                    <li data-value="d">On peut remplacer une longue chaîne de if/else.</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d"] }</script>
+                <textarea class="quiz-solution" hidden>default est recommandé mais pas obligatoire.</textarea>
+            </div>
+        </section>
+
+        <section id="q3" class="section-spy">
+            <div class="section-header"><span class="step-number">3</span><h3>Cas pratique</h3></div>
+            <div class="quiz-template" data-type="code" data-title="Vérifier majorité">
+                <p class="quiz-prompt">Si age >= 18 affiche "Majeur", sinon "Mineur".</p>
+                <textarea class="quiz-starter" hidden>
+let age = 17;
+
+// TODO: afficher Majeur ou Mineur
+                </textarea>
+                <script type="application/json" class="quiz-config">
+{
+  "checks": [
+    { "type": "consoleIncludes", "value": "Mineur", "message": "La console doit afficher Mineur avec age=17" }
+  ]
+}
+                </script>
+                <textarea class="quiz-solution-code" hidden>
+let age = 17;
+
+if (age >= 18) {
+  console.log("Majeur");
+} else {
+  console.log("Mineur");
+}
+                </textarea>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="../quiz/quiz.js"></script>
+<script src="../scripts/script.js"></script>
+</body>
+</html>

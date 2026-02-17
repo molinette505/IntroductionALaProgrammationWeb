@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Tableaux</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
+</head>
+<body>
+<header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">Quiz Tableaux</span>
+</header>
+
+<div class="app-container">
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header"><span class="js-badge">QUIZ</span><h1>Tableaux</h1></div>
+        <nav class="sidebar-nav">
+            <a href="../../index.html" class="nav-link">Retour</a>
+            <a href="#q1" class="nav-link active">1. Création</a>
+            <a href="#q2" class="nav-link">2. Accès</a>
+            <a href="#q3" class="nav-link">3. Méthodes</a>
+            <a href="#q4" class="nav-link">4. Pratique</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <section class="section-spy"><h2 class="section-title">Quiz - Tableaux</h2><p>Création, lecture et méthodes push/unshift/pop/shift/slice.</p></section>
+
+        <section id="q1" class="section-spy">
+            <div class="section-header"><span class="step-number">1</span><h3>Création</h3></div>
+            <div class="quiz-template" data-type="single" data-title="Créer un tableau vide">
+                <p class="quiz-prompt">Quelle syntaxe crée un tableau vide nommé <code>scores</code> ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a"><code>let scores = [];</code></li>
+                    <li data-value="b"><code>let scores = {};</code></li>
+                    <li data-value="c"><code>let scores = "";</code></li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+                <textarea class="quiz-solution" hidden>Les crochets [] représentent un tableau.</textarea>
+            </div>
+        </section>
+
+        <section id="q2" class="section-spy">
+            <div class="section-header"><span class="step-number">2</span><h3>Accès par index</h3></div>
+            <div class="quiz-template" data-type="order" data-title="Lire le dernier élément">
+                <p class="quiz-prompt">Ordonne les étapes pour lire le dernier élément d'un tableau.</p>
+                <ul class="quiz-options">
+                    <li data-value="a">Lire <code>tab[indexDernier]</code></li>
+                    <li data-value="b">Calculer <code>indexDernier = tab.length - 1</code></li>
+                    <li data-value="c">Déclarer/avoir le tableau <code>tab</code></li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "order": ["c", "b", "a"] }</script>
+                <textarea class="quiz-solution" hidden>On calcule d'abord l'index final avec length - 1.</textarea>
+            </div>
+        </section>
+
+        <section id="q3" class="section-spy">
+            <div class="section-header"><span class="step-number">3</span><h3>Méthodes</h3></div>
+            <div class="quiz-template" data-type="multi" data-title="Méthodes qui modifient le tableau">
+                <p class="quiz-prompt">Quelles méthodes modifient le tableau original ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">push()</li>
+                    <li data-value="b">slice()</li>
+                    <li data-value="c">unshift()</li>
+                    <li data-value="d">shift()</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
+                <textarea class="quiz-solution" hidden>slice crée une copie de portion; push/unshift/shift modifient le tableau.</textarea>
+            </div>
+        </section>
+
+        <section id="q4" class="section-spy">
+            <div class="section-header"><span class="step-number">4</span><h3>Pratique</h3></div>
+            <div class="quiz-template" data-type="code" data-title="Ajouter puis retirer">
+                <p class="quiz-prompt">Ajoute 20 à la fin de scores, retire ensuite le premier élément et affiche la longueur.</p>
+                <textarea class="quiz-starter" hidden>
+let scores = [10, 15];
+
+// TODO: scores.push(20)
+// TODO: scores.shift()
+// TODO: console.log(scores.length)
+                </textarea>
+                <script type="application/json" class="quiz-config">
+{
+  "checks": [
+    { "type": "variable", "name": "scores", "includes": "15,20", "message": "Le tableau final doit contenir 15 et 20" },
+    { "type": "consoleIncludes", "value": "2", "message": "La console doit afficher la longueur 2" }
+  ]
+}
+                </script>
+                <textarea class="quiz-solution-code" hidden>
+let scores = [10, 15];
+scores.push(20);
+scores.shift();
+console.log(scores.length);
+                </textarea>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="../quiz/quiz.js"></script>
+<script src="../scripts/script.js"></script>
+</body>
+</html>

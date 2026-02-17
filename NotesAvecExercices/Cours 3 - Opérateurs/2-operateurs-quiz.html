@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Opérateurs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
+</head>
+<body>
+<header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">Quiz Opérateurs</span>
+</header>
+
+<div class="app-container">
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header"><span class="js-badge">QUIZ</span><h1>Opérateurs</h1></div>
+        <nav class="sidebar-nav">
+            <a href="../../index.html" class="nav-link">Retour</a>
+            <a href="#q1" class="nav-link active">1. Arithmétique</a>
+            <a href="#q2" class="nav-link">2. Comparaison</a>
+            <a href="#q3" class="nav-link">3. Application</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <section class="section-spy"><h2 class="section-title">Quiz - Opérateurs</h2><p>Calcul, comparaison et opérateurs logiques.</p></section>
+
+        <section id="q1" class="section-spy">
+            <div class="section-header"><span class="step-number">1</span><h3>Arithmétique</h3></div>
+            <div class="quiz-template" data-type="single" data-title="Priorité des opérations">
+                <p class="quiz-prompt">Quel est le résultat de <code>2 + 3 * 4</code> ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">20</li>
+                    <li data-value="b">14</li>
+                    <li data-value="c">24</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+                <textarea class="quiz-solution" hidden>La multiplication passe avant l'addition : 2 + 12 = 14.</textarea>
+            </div>
+        </section>
+
+        <section id="q2" class="section-spy">
+            <div class="section-header"><span class="step-number">2</span><h3>Comparaison</h3></div>
+            <div class="quiz-template" data-type="multi" data-title="Expressions vraies">
+                <p class="quiz-prompt">Quelles expressions retournent <code>true</code> ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a"><code>5 > 2</code></li>
+                    <li data-value="b"><code>3 === "3"</code></li>
+                    <li data-value="c"><code>4 <= 4</code></li>
+                    <li data-value="d"><code>10 != 10</code></li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answers": ["a", "c"] }</script>
+                <textarea class="quiz-solution" hidden>5 > 2 et 4 <= 4 sont vraies. Les autres sont fausses.</textarea>
+            </div>
+        </section>
+
+        <section id="q3" class="section-spy">
+            <div class="section-header"><span class="step-number">3</span><h3>Application logique</h3></div>
+            <div class="quiz-template" data-type="code" data-title="Valider un score">
+                <p class="quiz-prompt">Affiche "Succès" si score est entre 50 et 100 inclus, sinon "Échec".</p>
+                <textarea class="quiz-starter" hidden>
+let score = 72;
+
+// TODO: écrire la condition et afficher Succès ou Échec
+                </textarea>
+                <script type="application/json" class="quiz-config">
+{
+  "checks": [
+    { "type": "consoleIncludes", "value": "Succès", "message": "La console doit afficher Succès" }
+  ]
+}
+                </script>
+                <textarea class="quiz-solution-code" hidden>
+let score = 72;
+
+if (score >= 50 && score <= 100) {
+  console.log("Succès");
+} else {
+  console.log("Échec");
+}
+                </textarea>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="../quiz/quiz.js"></script>
+<script src="../scripts/script.js"></script>
+</body>
+</html>

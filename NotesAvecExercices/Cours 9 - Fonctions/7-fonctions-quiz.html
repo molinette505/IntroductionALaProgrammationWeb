@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Fonctions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
+</head>
+<body>
+<header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">Quiz Fonctions</span>
+</header>
+
+<div class="app-container">
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header"><span class="js-badge">QUIZ</span><h1>Fonctions</h1></div>
+        <nav class="sidebar-nav">
+            <a href="../../index.html" class="nav-link">Retour</a>
+            <a href="#q1" class="nav-link active">1. Définition</a>
+            <a href="#q2" class="nav-link">2. Paramètres</a>
+            <a href="#q3" class="nav-link">3. Return</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <section class="section-spy"><h2 class="section-title">Quiz - Fonctions</h2><p>Déclaration, paramètres et valeur de retour.</p></section>
+
+        <section id="q1" class="section-spy">
+            <div class="section-header"><span class="step-number">1</span><h3>Définition</h3></div>
+            <div class="quiz-template" data-type="single" data-title="Une fonction sert à...">
+                <p class="quiz-prompt">Quel est le rôle principal d'une fonction ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">Répéter du code sans structure.</li>
+                    <li data-value="b">Regrouper des instructions réutilisables.</li>
+                    <li data-value="c">Créer automatiquement du HTML.</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+                <textarea class="quiz-solution" hidden>Une fonction encapsule un comportement réutilisable.</textarea>
+            </div>
+        </section>
+
+        <section id="q2" class="section-spy">
+            <div class="section-header"><span class="step-number">2</span><h3>Paramètres</h3></div>
+            <div class="quiz-template" data-type="multi" data-title="Vrai ou faux">
+                <p class="quiz-prompt">Quelles affirmations sont vraies ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">Les paramètres sont des variables locales de la fonction.</li>
+                    <li data-value="b">On ne peut passer qu'un seul argument.</li>
+                    <li data-value="c">Les arguments sont les valeurs envoyées lors de l'appel.</li>
+                    <li data-value="d">Une fonction peut être appelée plusieurs fois.</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
+                <textarea class="quiz-solution" hidden>On peut passer plusieurs arguments à une fonction.</textarea>
+            </div>
+        </section>
+
+        <section id="q3" class="section-spy">
+            <div class="section-header"><span class="step-number">3</span><h3>Return</h3></div>
+            <div class="quiz-template" data-type="code" data-title="Fonction somme">
+                <p class="quiz-prompt">Crée une fonction <code>somme(a, b)</code> qui retourne la somme et affiche le résultat de <code>somme(2, 3)</code>.</p>
+                <textarea class="quiz-starter" hidden>
+// TODO: écrire somme(a, b)
+// TODO: console.log(somme(2, 3))
+                </textarea>
+                <script type="application/json" class="quiz-config">
+{
+  "checks": [
+    { "type": "consoleIncludes", "value": "5", "message": "La console doit afficher 5" }
+  ]
+}
+                </script>
+                <textarea class="quiz-solution-code" hidden>
+function somme(a, b) {
+  return a + b;
+}
+
+console.log(somme(2, 3));
+                </textarea>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="../quiz/quiz.js"></script>
+<script src="../scripts/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Strings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
+</head>
+<body>
+<header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">Quiz Strings</span>
+</header>
+
+<div class="app-container">
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header"><span class="js-badge">QUIZ</span><h1>Strings</h1></div>
+        <nav class="sidebar-nav">
+            <a href="../../index.html" class="nav-link">Retour</a>
+            <a href="#q1" class="nav-link active">1. Syntaxe</a>
+            <a href="#q2" class="nav-link">2. Concaténation</a>
+            <a href="#q3" class="nav-link">3. Length</a>
+            <a href="#q4" class="nav-link">4. Helpers</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <section class="section-spy"><h2 class="section-title">Quiz - Strings</h2><p>Syntaxe, concaténation, longueur et méthodes utilitaires.</p></section>
+
+        <section id="q1" class="section-spy">
+            <div class="section-header"><span class="step-number">1</span><h3>Syntaxe</h3></div>
+            <div class="quiz-template" data-type="multi" data-title="Guillemets et backticks">
+                <p class="quiz-prompt">Quelles affirmations sont vraies ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">Les backticks permettent l'interpolation ${var}.</li>
+                    <li data-value="b">Une string ne peut pas contenir d'espaces.</li>
+                    <li data-value="c">Les backticks facilitent le multi-ligne.</li>
+                    <li data-value="d">Les guillemets simples et doubles sont valides.</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
+                <textarea class="quiz-solution" hidden>Vrai: a, c, d. Faux: b.</textarea>
+            </div>
+        </section>
+
+        <section id="q2" class="section-spy">
+            <div class="section-header"><span class="step-number">2</span><h3>Concaténation</h3></div>
+            <div class="quiz-template" data-type="text" data-title="Résultat attendu">
+                <p class="quiz-prompt">Avec <code>let nom = "Léa";</code>, que donne <code>`Bonjour ${nom}!`</code> ?</p>
+                <script type="application/json" class="quiz-config">
+                    { "answers": ["Bonjour Léa!", "Bonjour Lea!"], "caseSensitive": false }
+                </script>
+                <textarea class="quiz-solution" hidden>Le résultat est Bonjour Léa!.</textarea>
+            </div>
+        </section>
+
+        <section id="q3" class="section-spy">
+            <div class="section-header"><span class="step-number">3</span><h3>Length</h3></div>
+            <div class="quiz-template" data-type="single" data-title="Compter les caractères">
+                <p class="quiz-prompt">Combien vaut <code>"Code JS".length</code> ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">6</li>
+                    <li data-value="b">7</li>
+                    <li data-value="c">8</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+                <textarea class="quiz-solution" hidden>L'espace compte: 7 caractères.</textarea>
+            </div>
+        </section>
+
+        <section id="q4" class="section-spy">
+            <div class="section-header"><span class="step-number">4</span><h3>Méthodes helpers</h3></div>
+            <div class="quiz-template" data-type="code" data-title="Construire un message">
+                <p class="quiz-prompt">Crée <code>message</code> avec toUpperCase + slice, log et injecte le texte dans #out.</p>
+                <textarea class="quiz-starter" hidden>
+const pseudo = "dragon";
+const version = pseudo.toUpperCase();
+const extrait = pseudo.slice(0, 3);
+
+// TODO: message = DRAGON (dra)!
+// TODO: console.log(message)
+// TODO: document.querySelector("#out").textContent = message
+                </textarea>
+                <textarea class="quiz-html" hidden><div id="out"></div></textarea>
+                <script type="application/json" class="quiz-config">
+{
+  "checks": [
+    { "type": "variable", "name": "message", "equals": "DRAGON (dra)!", "message": "message doit être DRAGON (dra)!" },
+    { "type": "consoleIncludes", "value": "DRAGON (dra)!", "message": "console.log doit afficher DRAGON (dra)!" },
+    { "type": "domText", "selector": "#out", "includes": "DRAGON (dra)!", "message": "#out doit afficher DRAGON (dra)!" }
+  ]
+}
+                </script>
+                <textarea class="quiz-solution-code" hidden>
+const pseudo = "dragon";
+const version = pseudo.toUpperCase();
+const extrait = pseudo.slice(0, 3);
+
+const message = `${version} (${extrait})!`;
+console.log(message);
+document.querySelector("#out").textContent = message;
+                </textarea>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="../quiz/quiz.js"></script>
+<script src="../scripts/script.js"></script>
+</body>
+</html>
