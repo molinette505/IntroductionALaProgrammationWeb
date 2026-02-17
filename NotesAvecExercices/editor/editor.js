@@ -42,15 +42,7 @@ const getVisualizerOverlay = () => {
     const frame = root.querySelector('.visualizer-overlay__frame');
 
     let pendingPayload = null;
-    let retryTimer = null;
-    let pushAttempts = 0;
     let isFrameReady = false;
-
-    const clearRetry = () => {
-        if (!retryTimer) return;
-        clearTimeout(retryTimer);
-        retryTimer = null;
-    };
 
     const close = () => {
         root.classList.remove('is-open');
@@ -60,66 +52,37 @@ const getVisualizerOverlay = () => {
     const tryPushPayload = () => {
         if (!pendingPayload || !frame.contentWindow) return false;
 
+        const payload = pendingPayload;
+
         try {
             const visualizerWindow = frame.contentWindow;
-            visualizerWindow.postMessage({ type: 'visualizer:load-content', payload: pendingPayload }, '*');
-
-            if (!isFrameReady && pushAttempts < 18) {
-                return false;
-            }
-
-            if (typeof visualizerWindow.loadVisualizerContent === 'function') {
-                visualizerWindow.loadVisualizerContent(pendingPayload);
-                pendingPayload = null;
-                return true;
-            }
-            if (typeof visualizerWindow.setVisualizerContent === 'function') {
-                visualizerWindow.setVisualizerContent(pendingPayload);
-                pendingPayload = null;
-                return true;
-            }
-
-            return false;
+            visualizerWindow.postMessage({ type: 'visualizer:load-content', payload }, '*');
+            pendingPayload = null;
+            return true;
         } catch (error) {
+            pendingPayload = payload;
             return false;
         }
-    };
-
-    const schedulePushRetry = () => {
-        clearRetry();
-        retryTimer = setTimeout(() => {
-            if (!pendingPayload) return;
-            if (pushAttempts > 40) {
-                pendingPayload = null;
-                return;
-            }
-            pushAttempts += 1;
-            if (!tryPushPayload()) schedulePushRetry();
-        }, 120);
     };
 
     const open = (src, payload) => {
         pendingPayload = payload || null;
-        pushAttempts = 0;
-        isFrameReady = false;
         root.classList.add('is-open');
         document.body.classList.add('visualizer-overlay-open');
 
         if (frame.src !== src) {
+            isFrameReady = false;
             frame.src = src;
-            schedulePushRetry();
             return;
         }
 
-        if (!tryPushPayload()) schedulePushRetry();
+        tryPushPayload();
     };
 
     frame.addEventListener('load', () => {
-        clearRetry();
-        pushAttempts = 0;
         isFrameReady = false;
         if (!pendingPayload) return;
-        if (!tryPushPayload()) schedulePushRetry();
+        tryPushPayload();
     });
 
     window.addEventListener('message', (event) => {
@@ -127,7 +90,7 @@ const getVisualizerOverlay = () => {
         if (event.source !== frame.contentWindow) return;
         if (!event.data || event.data.type !== 'visualizer:ready') return;
         isFrameReady = true;
-        if (!tryPushPayload()) schedulePushRetry();
+        tryPushPayload();
     });
 
     closeBtn.addEventListener('click', close);
@@ -529,6 +492,7 @@ ${html}
 
     btnRun.addEventListener('click', async () => {
         persistCurrentEditorValue();
+        toggleConsole(true);
         clearConsole();
 
         const SOURCE_FILE = 'file.js';
