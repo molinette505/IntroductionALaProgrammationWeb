@@ -26,10 +26,7 @@
     </aside>
 
     <main class="main-content">
-        <section class="section-spy"><h2 class="section-title">Quiz - Tableaux</h2><p>Création, lecture et méthodes push/unshift/pop/shift/slice.</p></section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Création</h3></div>
             <div class="quiz-template" data-type="single" data-title="Créer un tableau vide">
                 <p class="quiz-prompt">Quelle syntaxe crée un tableau vide nommé <code>scores</code> ?</p>
                 <ul class="quiz-options">
@@ -40,10 +37,7 @@
                 <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
                 <textarea class="quiz-solution" hidden>Les crochets [] représentent un tableau.</textarea>
             </div>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Accès par index</h3></div>
             <div class="quiz-template" data-type="order" data-title="Lire le dernier élément">
                 <p class="quiz-prompt">Ordonne les étapes pour lire le dernier élément d'un tableau.</p>
                 <ul class="quiz-options">
@@ -54,10 +48,7 @@
                 <script type="application/json" class="quiz-config">{ "order": ["c", "b", "a"] }</script>
                 <textarea class="quiz-solution" hidden>On calcule d'abord l'index final avec length - 1.</textarea>
             </div>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Méthodes</h3></div>
             <div class="quiz-template" data-type="multi" data-title="Méthodes qui modifient le tableau">
                 <p class="quiz-prompt">Quelles méthodes modifient le tableau original ?</p>
                 <ul class="quiz-options">
@@ -69,16 +60,12 @@
                 <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
                 <textarea class="quiz-solution" hidden>slice crée une copie de portion; push/unshift/shift modifient le tableau.</textarea>
             </div>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Pratique</h3></div>
             <div class="quiz-template" data-type="text" data-title="push, shift et longueur">
                 <p class="quiz-prompt">Après <code>let scores = [10, 15]; scores.push(20); scores.shift();</code>, quelle est la valeur de <code>scores.length</code> ?</p>
                 <script type="application/json" class="quiz-config">{ "answers": ["2"] }</script>
                 <textarea class="quiz-solution" hidden>push ajoute 20 (longueur 3), puis shift retire 10 (longueur 2).</textarea>
             </div>
-        </section>
     </main>
 </div>
 

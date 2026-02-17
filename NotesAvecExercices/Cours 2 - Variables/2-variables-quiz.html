@@ -26,55 +26,128 @@
     </aside>
 
     <main class="main-content">
-        <section class="section-spy"><h2 class="section-title">Quiz - Variables</h2><p>Déclaration, nommage et mise à jour de variables.</p></section>
+    <div class="quiz-template" data-type="single" data-title="Déclaration">
+        <p class="quiz-prompt">
+            Vous codez un jeu vidéo. La valeur de la <strong>gravité</strong> ne changera jamais. Quel mot-clé devez-vous utiliser ?
+        </p>
+        <ul class="quiz-options">
+            <li data-value="let">let</li>
+            <li data-value="const">const</li>
+            <li data-value="var">var</li>
+        </ul>
+        <script type="application/json" class="quiz-config">
+            { "answer": "const" }
+        </script>
+        <textarea class="quiz-solution" hidden>
+On utilise `const` (constante) pour une valeur fixe afin d'éviter les bugs. `let` est réservé aux valeurs qui varient (PV, Score).
+        </textarea>
+    </div>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Mise à jour</h3></div>
-            <div class="quiz-template" data-type="text" data-title="Valeur finale">
-                <p class="quiz-prompt">Après ce code : 
-                    <code>let score = 10; 
-                        score + 5;</code>, quelle est la valeur finale de <code>score</code> ?</p>
-                <script type="application/json" class="quiz-config">{ "answers": ["15"] }</script>
-                <textarea class="quiz-solution" hidden>La variable garde sa nouvelle valeur: 15.</textarea>
-            </div>
-        </section>
-        <section class="section-spy">
-            <div class="section-header"><h3>Déclaration</h3></div>
-            <div class="quiz-template" data-type="single" data-title="let / const / var">
-                <p class="quiz-prompt">Quelle déclaration interdit la réaffectation d'une variable ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">let</li>
-                    <li data-value="b">const</li>
-                    <li data-value="c">var</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-                <textarea class="quiz-solution" hidden>const crée une liaison non réaffectable.</textarea>
-            </div>
-        </section>
+    <div class="quiz-template" data-type="multi" data-title="Règles de nommage">
+        <p class="quiz-prompt">
+            Quels noms de variables sont valides ?
+        </p>
+        <ul class="quiz-options">
+            <li data-value="a">monScore</li>
+            <li data-value="b">MonScore</li>
+            <li data-value="c">2joueurs</li>
+            <li data-value="d">pointsDeVie</li>
+            <li data-value="e">points_de_vie</li>
+            <li data-value="f">joueur2</li>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Nommage</h3></div>
-            <div class="quiz-template" data-type="multi" data-title="Noms valides">
-                <p class="quiz-prompt">Quels noms sont valides en JavaScript ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">scoreJoueur</li>
-                    <li data-value="b">2points</li>
-                    <li data-value="c">nom_utilisateur</li>
-                    <li data-value="d">classe</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
-                <textarea class="quiz-solution" hidden>Un identifiant ne commence pas par un chiffre; camelCase/snake_case sont valides.</textarea>
-            </div>
-        </section>
+        </ul>
+        <script type="application/json" class="quiz-config">
+            { "answers": ["a", "d", "f"] }
+        </script>
+        <textarea class="quiz-solution" hidden>
+En camelCase, le premier mot est en minuscule et chaque nouveau mot commence par une majuscule. Pas de tirets (_).
+        </textarea>
+    </div>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Mise à jour</h3></div>
-            <div class="quiz-template" data-type="text" data-title="Valeur finale">
-                <p class="quiz-prompt">Après <code>let score = 10; score = score + 5;</code>, quelle est la valeur finale de <code>score</code> ?</p>
-                <script type="application/json" class="quiz-config">{ "answers": ["15"] }</script>
-                <textarea class="quiz-solution" hidden>La variable garde sa nouvelle valeur: 15.</textarea>
-            </div>
-        </section>
+    <div class="quiz-template" data-type="text" data-title="Identification">
+        <p class="quiz-prompt">
+            Quel est le type de la variable suivante : <code>let estActif = false;</code> ?
+        </p>
+        <script type="application/json" class="quiz-config">
+            {
+                "answers": ["boolean", "booléen", "bool"],
+                "caseSensitive": false,
+                "placeholder": "Votre réponse..."
+            }
+        </script>
+        <textarea class="quiz-solution" hidden>
+C'est un booléen (boolean). Il ne peut prendre que deux valeurs : true ou false.
+        </textarea>
+    </div>
+
+    <div class="quiz-template" data-type="single" data-title="Attention au détail">
+        <p class="quiz-prompt">
+            Observez bien ce code :<br>
+            <code>let x = 10;</code><br>
+            <code>x + 5;</code><br>
+            Quelle est la valeur de <code>x</code> à la fin ?
+        </p>
+        <ul class="quiz-options">
+            <li data-value="10">10</li>
+            <li data-value="15">15</li>
+        </ul>
+        <script type="application/json" class="quiz-config">
+            { "answer": "10" }
+        </script>
+        <textarea class="quiz-solution" hidden>
+La réponse est 10 ! Nous avons fait le calcul (10+5), mais nous n'avons pas sauvegardé le résultat avec un signe =.
+Pour modifier x, il fallait écrire : x = x + 5;
+        </textarea>
+    </div>
+
+    <div class="quiz-template" data-type="mixAndMatch" data-title="Associer les concepts">
+        <p class="quiz-prompt">Reliez chaque concept à sa définition.</p>
+        
+        <ul class="quiz-match-pairs">
+            <li data-left="let">Déclare une variable modifiable</li>
+            <li data-left="const">Déclare une valeur fixe</li>
+            <li data-left="=">Assigne une valeur (met dans la boîte)</li>
+            <li data-left="undefined">Variable vide (non définie)</li>
+        </ul>
+
+        <textarea class="quiz-solution" hidden>
+        </textarea>
+    </div>
+
+    <div class="quiz-template" data-type="single" data-title="Mise à jour d'une variable">
+        <p class="quiz-prompt">
+            Votre joueur vient de trouver un trésor. Son <code>score</code> actuel est de 10. Quelle est la bonne façon d'ajouter 5 à son score et de <strong>sauvegarder</strong> cette nouvelle valeur en mémoire ?
+        </p>
+        <ul class="quiz-options">
+            <li data-value="a">score + 5;</li>
+            <li data-value="b">score = score + 5;</li>
+            <li data-value="c">10 + 5 = score;</li>
+        </ul>
+        <script type="application/json" class="quiz-config">
+            { "answer": "b" }
+        </script>
+        <textarea class="quiz-solution" hidden>
+Pourquoi : Le signe = (assignation) est OBLIGATOIRE pour écraser l'ancien contenu de la boîte. L'option A fait le calcul mais jette le résultat aux poubelles. L'option C est à l'envers : la variable à modifier doit toujours être à gauche du =.
+        </textarea>
+    </div>
+
+    <div class="quiz-template" data-type="text" data-title="Devinez la sortie">
+        <div class="quiz-prompt">
+            Quelle sortie (valeur affichée dans la console) produit ce code ?
+            <pre><code class="language-js">const a = 2;
+console.log(a + 3);</code></pre>
+        </div>
+        <script type="application/json" class="quiz-config">
+            { 
+                "answers": ["5"],
+                "caseSensitive": false,
+                "placeholder": "Entrez le chiffre..."
+            }
+        </script>
+        <textarea class="quiz-solution" hidden>
+Pourquoi : L'ordinateur remplace la variable 'a' par sa valeur (2). Il fait ensuite le calcul (2 + 3) et affiche 5. Remarquez que la valeur de la variable 'a' restera toujours 2 en mémoire, car il n'y a pas de signe = pour lui assigner une nouvelle valeur !
+        </textarea>
+    </div>
     </main>
 </div>
 

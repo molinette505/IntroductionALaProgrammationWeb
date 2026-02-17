@@ -4,9 +4,14 @@ Chaque quiz est un bloc `.quiz-template`.
 
 Le bouton `Valider` affiche:
 - le score (`0/1` ou `1/1`),
-- les bonnes réponses,
-- l'explication (`Pourquoi: ...`) depuis `.quiz-solution`,
+- le feedback,
+- le contenu exact de `.quiz-solution` (sans préfixe automatique),
 - la correction visuelle (vert/rouge) sur les choix.
+
+Tu peux personnaliser le message d'erreur avec `wrongMessage` dans `.quiz-config`:
+```json
+{ "answer": "b", "wrongMessage": "Pas encore, relis la règle de base." }
+```
 
 ## 1) Choix simple
 ```html
@@ -87,6 +92,8 @@ innerText agit sur le texte, innerHTML sur la structure HTML, et value sur les c
   </textarea>
 </div>
 ```
+
+Le type `mixAndMatch` ajoute automatiquement un bouton `Voir la réponse` qui place toutes les cartes dans les bonnes cases.
 
 Alternative supportée (2 listes appariées via `data-id`):
 ```html

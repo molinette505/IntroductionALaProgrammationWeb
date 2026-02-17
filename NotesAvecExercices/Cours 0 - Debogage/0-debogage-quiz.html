@@ -30,13 +30,9 @@
     </aside>
 
     <main class="main-content">
-        <section class="section-spy">
             <h2 class="section-title">Quiz - Débogage</h2>
             <p>Valide ta compréhension des erreurs syntaxiques, runtime et des messages console.</p>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Types d'erreurs</h3></div>
             <div class="quiz-template" data-type="single" data-title="SyntaxError ou RuntimeError ?">
                 <p class="quiz-prompt">Un guillemet oublié dans le code produit principalement quelle catégorie d'erreur ?</p>
                 <ul class="quiz-options">
@@ -47,10 +43,7 @@
                 <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
                 <textarea class="quiz-solution" hidden>Un guillemet oublié casse le parsing : c'est une SyntaxError.</textarea>
             </div>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Lecture de la console</h3></div>
             <div class="quiz-template" data-type="multi" data-title="Bonnes pratiques de debug">
                 <p class="quiz-prompt">Quelles actions aident à déboguer efficacement ?</p>
                 <ul class="quiz-options">
@@ -62,10 +55,7 @@
                 <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
                 <textarea class="quiz-solution" hidden>Lire le message, isoler avec des logs, et corriger pas à pas.</textarea>
             </div>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Diagnostic</h3></div>
             <div class="quiz-template" data-type="text" data-title="Identifier la bonne variable">
                 <p class="quiz-prompt">Dans <code>let pointsDeVie = 100; console.log(pointDeVie);</code>, quel nom faut-il écrire dans <code>console.log(...)</code> ?</p>
                 <script type="application/json" class="quiz-config">
@@ -73,7 +63,6 @@
                 </script>
                 <textarea class="quiz-solution" hidden>Le nom doit correspondre exactement à la variable déclarée, y compris les majuscules/minuscules.</textarea>
             </div>
-        </section>
     </main>
 </div>
 

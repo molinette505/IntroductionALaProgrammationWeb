@@ -26,10 +26,7 @@
     </aside>
 
     <main class="main-content">
-        <section class="section-spy"><h2 class="section-title">Quiz - Strings</h2><p>Syntaxe, concaténation, longueur et méthodes utilitaires.</p></section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Syntaxe</h3></div>
             <div class="quiz-template" data-type="multi" data-title="Guillemets et backticks">
                 <p class="quiz-prompt">Quelles affirmations sont vraies ?</p>
                 <ul class="quiz-options">
@@ -41,10 +38,7 @@
                 <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
                 <textarea class="quiz-solution" hidden>Vrai: a, c, d. Faux: b.</textarea>
             </div>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Concaténation</h3></div>
             <div class="quiz-template" data-type="text" data-title="Résultat attendu">
                 <p class="quiz-prompt">Avec <code>let nom = "Léa";</code>, que donne <code>`Bonjour ${nom}!`</code> ?</p>
                 <script type="application/json" class="quiz-config">
@@ -52,10 +46,7 @@
                 </script>
                 <textarea class="quiz-solution" hidden>Le résultat est Bonjour Léa!.</textarea>
             </div>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Length</h3></div>
             <div class="quiz-template" data-type="single" data-title="Compter les caractères">
                 <p class="quiz-prompt">Combien vaut <code>"Code JS".length</code> ?</p>
                 <ul class="quiz-options">
@@ -66,10 +57,7 @@
                 <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
                 <textarea class="quiz-solution" hidden>L'espace compte: 7 caractères.</textarea>
             </div>
-        </section>
 
-        <section class="section-spy">
-            <div class="section-header"><h3>Méthodes helpers</h3></div>
             <div class="quiz-template" data-type="text" data-title="Combiner toUpperCase() et slice()">
                 <p class="quiz-prompt">Avec <code>const pseudo = \"dragon\";</code>, quelle valeur donne <code>`${pseudo.toUpperCase()} (${pseudo.slice(0, 3)})!`</code> ?</p>
                 <script type="application/json" class="quiz-config">
@@ -77,7 +65,6 @@
                 </script>
                 <textarea class="quiz-solution" hidden>toUpperCase agit sur toute la string, tandis que slice(0, 3) conserve la casse originale sur la portion extraite.</textarea>
             </div>
-        </section>
     </main>
 </div>
 

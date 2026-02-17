@@ -152,15 +152,20 @@
         validateBtn.type = 'button';
         const resetBtn = createEl('button', 'quiz-btn', 'Réinitialiser');
         resetBtn.type = 'button';
+        const revealBtn = createEl('button', 'quiz-btn', 'Voir la réponse');
+        revealBtn.type = 'button';
+        revealBtn.style.display = 'none';
         const scoreTag = createEl('span', 'quiz-score', 'Score : 0/1');
 
         actions.appendChild(validateBtn);
         actions.appendChild(resetBtn);
+        actions.appendChild(revealBtn);
         actions.appendChild(scoreTag);
 
         const solutionText = ((template.querySelector('.quiz-solution') || {}).value || '').trim();
 
         let resetHandler = () => {};
+        let revealHandler = null;
         let validateHandler = () => ({
             ok: false,
             score: 0,
@@ -606,10 +611,20 @@
                 clearMatchStates();
                 renderMatch();
             };
+
+            revealBtn.style.display = 'inline-flex';
+            revealHandler = () => {
+                assignments.clear();
+                pairs.forEach((pair) => assignments.set(pair.id, pair.id));
+                clearMatchStates();
+                renderMatch();
+            };
         }
 
         validateBtn.addEventListener('click', () => {
             const result = validateHandler();
+            const wrongMessage = String(config.wrongMessage || '').trim();
+            if (!result.ok && wrongMessage) result.message = wrongMessage;
 
             scoreTag.textContent = `Score : ${result.score}/${result.max}`;
 
@@ -618,21 +633,18 @@
             feedback.classList.add(result.ok ? 'ok' : 'ko');
             feedback.textContent = result.message;
 
-            const correctionParts = [];
-            if (result.expectedText) {
-                correctionParts.push(`Bonnes réponses : ${result.expectedText}`);
-            }
             if (solutionText) {
-                correctionParts.push(`Pourquoi : ${solutionText}`);
-            }
-
-            if (correctionParts.length) {
                 correction.style.display = 'block';
-                correction.textContent = correctionParts.join('\n');
+                correction.textContent = solutionText;
             } else {
                 correction.style.display = 'none';
                 correction.textContent = '';
             }
+        });
+
+        revealBtn.addEventListener('click', () => {
+            if (!revealHandler) return;
+            revealHandler();
         });
 
         resetBtn.addEventListener('click', () => {
