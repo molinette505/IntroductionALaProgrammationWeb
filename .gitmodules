@@ -1,0 +1,4 @@
+[submodule "js-visualizer"]
+	path = js-visualizer
+	url = https://github.com/molinette505/HTMLJavascriptVisualizer.git
+	branch = gh-pages
