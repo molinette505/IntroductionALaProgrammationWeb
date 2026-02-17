@@ -7,11 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
@@ -67,29 +62,10 @@
 
         <section id="q3" class="section-spy">
             <div class="section-header"><span class="step-number">3</span><h3>Application logique</h3></div>
-            <div class="quiz-template" data-type="code" data-title="Valider un score">
-                <p class="quiz-prompt">Affiche "Succès" si score est entre 50 et 100 inclus, sinon "Échec".</p>
-                <textarea class="quiz-starter" hidden>
-let score = 72;
-
-// TODO: écrire la condition et afficher Succès ou Échec
-                </textarea>
-                <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    { "type": "consoleIncludes", "value": "Succès", "message": "La console doit afficher Succès" }
-  ]
-}
-                </script>
-                <textarea class="quiz-solution-code" hidden>
-let score = 72;
-
-if (score >= 50 && score <= 100) {
-  console.log("Succès");
-} else {
-  console.log("Échec");
-}
-                </textarea>
+            <div class="quiz-template" data-type="text" data-title="Condition logique">
+                <p class="quiz-prompt">Avec <code>let score = 72;</code>, quel résultat donne <code>score &gt;= 50 &amp;&amp; score &lt;= 100</code> ?</p>
+                <script type="application/json" class="quiz-config">{ "answers": ["true", "vrai"], "caseSensitive": false }</script>
+                <textarea class="quiz-solution" hidden>72 respecte les deux comparaisons, donc l'expression logique vaut true.</textarea>
             </div>
         </section>
     </main>

@@ -7,11 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
@@ -29,7 +24,7 @@
             <a href="../../index.html" class="nav-link">Retour</a>
             <a href="#q1" class="nav-link active">1. Sélection</a>
             <a href="#q2" class="nav-link">2. Contenu</a>
-            <a href="#q3" class="nav-link">3. Code DOM</a>
+            <a href="#q3" class="nav-link">3. classList</a>
         </nav>
     </aside>
 
@@ -66,35 +61,13 @@
         </section>
 
         <section id="q3" class="section-spy">
-            <div class="section-header"><span class="step-number">3</span><h3>Code DOM</h3></div>
-            <div class="quiz-template" data-type="code" data-title="Modifier texte + classe">
-                <p class="quiz-prompt">Change le titre en "Prêt !" et ajoute la classe success sur #box.</p>
-                <textarea class="quiz-html" hidden>
-<h3 id="titre">En attente</h3>
-<div id="box">Zone</div>
-                </textarea>
-                <textarea class="quiz-starter" hidden>
-const titre = document.getElementById("titre");
-const box = document.getElementById("box");
-
-// TODO: titre.innerText = "Prêt !"
-// TODO: box.classList.add("success")
-                </textarea>
+            <div class="section-header"><span class="step-number">3</span><h3>classList et modification</h3></div>
+            <div class="quiz-template" data-type="text" data-title="Compléter classList">
+                <p class="quiz-prompt">Complète l'appel suivant pour ajouter la classe <code>success</code> : <code>box.classList.___(\"success\")</code></p>
                 <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    { "type": "domText", "selector": "#titre", "equals": "Prêt !", "message": "Le titre doit être Prêt !" },
-    { "type": "domAttr", "selector": "#box", "attr": "class", "includes": "success", "message": "#box doit inclure la classe success" }
-  ]
-}
+                    { "answers": ["add"], "caseSensitive": true }
                 </script>
-                <textarea class="quiz-solution-code" hidden>
-const titre = document.getElementById("titre");
-const box = document.getElementById("box");
-
-titre.innerText = "Prêt !";
-box.classList.add("success");
-                </textarea>
+                <textarea class="quiz-solution" hidden>La méthode est classList.add(...). remove(...) retire une classe et toggle(...) bascule son état.</textarea>
             </div>
         </section>
     </main>

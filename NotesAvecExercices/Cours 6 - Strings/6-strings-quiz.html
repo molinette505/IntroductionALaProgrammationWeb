@@ -7,11 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
@@ -79,36 +74,12 @@
 
         <section id="q4" class="section-spy">
             <div class="section-header"><span class="step-number">4</span><h3>Méthodes helpers</h3></div>
-            <div class="quiz-template" data-type="code" data-title="Construire un message">
-                <p class="quiz-prompt">Crée <code>message</code> avec toUpperCase + slice, log et injecte le texte dans #out.</p>
-                <textarea class="quiz-starter" hidden>
-const pseudo = "dragon";
-const version = pseudo.toUpperCase();
-const extrait = pseudo.slice(0, 3);
-
-// TODO: message = DRAGON (dra)!
-// TODO: console.log(message)
-// TODO: document.querySelector("#out").textContent = message
-                </textarea>
-                <textarea class="quiz-html" hidden><div id="out"></div></textarea>
+            <div class="quiz-template" data-type="text" data-title="Combiner toUpperCase() et slice()">
+                <p class="quiz-prompt">Avec <code>const pseudo = \"dragon\";</code>, quelle valeur donne <code>`${pseudo.toUpperCase()} (${pseudo.slice(0, 3)})!`</code> ?</p>
                 <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    { "type": "variable", "name": "message", "equals": "DRAGON (dra)!", "message": "message doit être DRAGON (dra)!" },
-    { "type": "consoleIncludes", "value": "DRAGON (dra)!", "message": "console.log doit afficher DRAGON (dra)!" },
-    { "type": "domText", "selector": "#out", "includes": "DRAGON (dra)!", "message": "#out doit afficher DRAGON (dra)!" }
-  ]
-}
+                    { "answers": ["DRAGON (dra)!"], "caseSensitive": true }
                 </script>
-                <textarea class="quiz-solution-code" hidden>
-const pseudo = "dragon";
-const version = pseudo.toUpperCase();
-const extrait = pseudo.slice(0, 3);
-
-const message = `${version} (${extrait})!`;
-console.log(message);
-document.querySelector("#out").textContent = message;
-                </textarea>
+                <textarea class="quiz-solution" hidden>toUpperCase agit sur toute la string, tandis que slice(0, 3) conserve la casse originale sur la portion extraite.</textarea>
             </div>
         </section>
     </main>

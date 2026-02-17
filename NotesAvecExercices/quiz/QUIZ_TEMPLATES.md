@@ -2,6 +2,12 @@
 
 Chaque quiz est un bloc `.quiz-template`.
 
+Le bouton `Valider` affiche:
+- le score (`0/1` ou `1/1`),
+- les bonnes réponses,
+- l'explication (`Pourquoi: ...`) depuis `.quiz-solution`,
+- la correction visuelle (vert/rouge) sur les choix.
+
 ## 1) Choix simple
 ```html
 <div class="quiz-template" data-type="single" data-title="Quiz">
@@ -63,59 +69,3 @@ Chaque quiz est un bloc `.quiz-template`.
   <textarea class="quiz-solution" hidden>Ordre: B -> A -> C</textarea>
 </div>
 ```
-
-## 5) Éditeur de code (JS + HTML + vérifications)
-```html
-<div class="quiz-template" data-type="code" data-title="Quiz code">
-  <p class="quiz-prompt">Complète le code.</p>
-
-  <textarea class="quiz-starter" hidden>
-const nom = "Ada";
-// TODO
-  </textarea>
-
-  <textarea class="quiz-html" hidden>
-<div id="out"></div>
-  </textarea>
-
-  <textarea class="quiz-css" hidden>
-#out { color: #fff; }
-  </textarea>
-
-  <script type="application/json" class="quiz-config">
-    {
-      "checks": [
-        { "type": "variable", "name": "message", "equals": "Bonjour Ada", "message": "message doit valoir Bonjour Ada" },
-        { "type": "consoleIncludes", "value": "Bonjour Ada", "message": "console.log doit inclure Bonjour Ada" },
-        { "type": "domText", "selector": "#out", "includes": "Bonjour Ada", "message": "#out doit afficher Bonjour Ada" }
-      ]
-    }
-  </script>
-
-  <textarea class="quiz-validator" hidden>
-// Optionnel: validator personnalisé avec quizApi
-return {
-  valid: quizApi.exists('#out') && quizApi.text('#out').includes('!'),
-  message: "Ajoute un point d'exclamation dans #out"
-};
-  </textarea>
-
-  <textarea class="quiz-solution-code" hidden>
-const nom = "Ada";
-const message = `Bonjour ${nom}!`;
-console.log(message);
-document.querySelector('#out').textContent = message;
-  </textarea>
-</div>
-```
-
-## API du validator personnalisé
-- `quizApi.getVar(name)`
-- `quizApi.hasVar(name)`
-- `quizApi.getLogs()`
-- `quizApi.getConsoleText()`
-- `quizApi.query(selector)`
-- `quizApi.exists(selector)`
-- `quizApi.text(selector)`
-- `quizApi.value(selector)`
-- `quizApi.attr(selector, attrName)`

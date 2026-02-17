@@ -7,11 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
@@ -67,33 +62,10 @@
 
         <section id="q3" class="section-spy">
             <div class="section-header"><span class="step-number">3</span><h3>Pratique</h3></div>
-            <div class="quiz-template" data-type="code" data-title="Somme d'un tableau">
-                <p class="quiz-prompt">Calcule la somme du tableau et affiche le résultat (15).</p>
-                <textarea class="quiz-starter" hidden>
-const valeurs = [3, 5, 7];
-let somme = 0;
-
-// TODO: parcourir valeurs et accumuler dans somme
-// TODO: afficher somme
-                </textarea>
-                <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    { "type": "variable", "name": "somme", "equals": 15, "message": "somme doit valoir 15" },
-    { "type": "consoleIncludes", "value": "15", "message": "La console doit afficher 15" }
-  ]
-}
-                </script>
-                <textarea class="quiz-solution-code" hidden>
-const valeurs = [3, 5, 7];
-let somme = 0;
-
-for (const n of valeurs) {
-  somme += n;
-}
-
-console.log(somme);
-                </textarea>
+            <div class="quiz-template" data-type="text" data-title="Somme finale">
+                <p class="quiz-prompt">Si <code>valeurs = [3, 5, 7]</code> et qu'une boucle fait <code>somme += n</code> sur chaque valeur, quel est le total final ?</p>
+                <script type="application/json" class="quiz-config">{ "answers": ["15"] }</script>
+                <textarea class="quiz-solution" hidden>La boucle additionne 3 + 5 + 7, ce qui donne 15.</textarea>
             </div>
         </section>
     </main>

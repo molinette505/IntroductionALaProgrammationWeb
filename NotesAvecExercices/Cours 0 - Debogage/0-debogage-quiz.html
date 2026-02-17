@@ -8,11 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
@@ -33,7 +28,7 @@
             <a href="../../index.html" class="nav-link">Retour</a>
             <a href="#q1" class="nav-link active">1. Types d'erreurs</a>
             <a href="#q2" class="nav-link">2. Lecture console</a>
-            <a href="#q3" class="nav-link">3. Correction code</a>
+            <a href="#q3" class="nav-link">3. Diagnostic</a>
         </nav>
     </aside>
 
@@ -73,25 +68,13 @@
         </section>
 
         <section id="q3" class="section-spy">
-            <div class="section-header"><span class="step-number">3</span><h3>Correction de code</h3></div>
-            <div class="quiz-template" data-type="code" data-title="Corriger la variable et afficher la valeur">
-                <p class="quiz-prompt">Corrige l'erreur de nom de variable et affiche correctement les points de vie.</p>
-                <textarea class="quiz-starter" hidden>
-let pointsDeVie = 100;
-console.log(pointDeVie);
-                </textarea>
+            <div class="section-header"><span class="step-number">3</span><h3>Diagnostic</h3></div>
+            <div class="quiz-template" data-type="text" data-title="Identifier la bonne variable">
+                <p class="quiz-prompt">Dans <code>let pointsDeVie = 100; console.log(pointDeVie);</code>, quel nom faut-il écrire dans <code>console.log(...)</code> ?</p>
                 <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    { "type": "variable", "name": "pointsDeVie", "equals": 100, "message": "pointsDeVie doit valoir 100" },
-    { "type": "consoleIncludes", "value": "100", "message": "La console doit afficher 100" }
-  ]
-}
+                    { "answers": ["pointsDeVie"], "caseSensitive": true }
                 </script>
-                <textarea class="quiz-solution-code" hidden>
-let pointsDeVie = 100;
-console.log(pointsDeVie);
-                </textarea>
+                <textarea class="quiz-solution" hidden>Le nom doit correspondre exactement à la variable déclarée, y compris les majuscules/minuscules.</textarea>
             </div>
         </section>
     </main>

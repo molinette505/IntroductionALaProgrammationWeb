@@ -7,11 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
@@ -82,29 +77,10 @@
 
         <section id="q4" class="section-spy">
             <div class="section-header"><span class="step-number">4</span><h3>Pratique</h3></div>
-            <div class="quiz-template" data-type="code" data-title="Ajouter puis retirer">
-                <p class="quiz-prompt">Ajoute 20 à la fin de scores, retire ensuite le premier élément et affiche la longueur.</p>
-                <textarea class="quiz-starter" hidden>
-let scores = [10, 15];
-
-// TODO: scores.push(20)
-// TODO: scores.shift()
-// TODO: console.log(scores.length)
-                </textarea>
-                <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    { "type": "variable", "name": "scores", "includes": "15,20", "message": "Le tableau final doit contenir 15 et 20" },
-    { "type": "consoleIncludes", "value": "2", "message": "La console doit afficher la longueur 2" }
-  ]
-}
-                </script>
-                <textarea class="quiz-solution-code" hidden>
-let scores = [10, 15];
-scores.push(20);
-scores.shift();
-console.log(scores.length);
-                </textarea>
+            <div class="quiz-template" data-type="text" data-title="push, shift et longueur">
+                <p class="quiz-prompt">Après <code>let scores = [10, 15]; scores.push(20); scores.shift();</code>, quelle est la valeur de <code>scores.length</code> ?</p>
+                <script type="application/json" class="quiz-config">{ "answers": ["2"] }</script>
+                <textarea class="quiz-solution" hidden>push ajoute 20 (longueur 3), puis shift retire 10 (longueur 2).</textarea>
             </div>
         </section>
     </main>

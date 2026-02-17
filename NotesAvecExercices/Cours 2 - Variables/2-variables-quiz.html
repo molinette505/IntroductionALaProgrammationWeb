@@ -7,11 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
@@ -67,27 +62,10 @@
 
         <section id="q3" class="section-spy">
             <div class="section-header"><span class="step-number">3</span><h3>Mise à jour</h3></div>
-            <div class="quiz-template" data-type="code" data-title="Mettre à jour score">
-                <p class="quiz-prompt">Ajoute 5 à score puis affiche la nouvelle valeur.</p>
-                <textarea class="quiz-starter" hidden>
-let score = 10;
-
-// TODO: ajoute 5 points à score
-// TODO: console.log(score)
-                </textarea>
-                <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    { "type": "variable", "name": "score", "equals": 15, "message": "score doit valoir 15" },
-    { "type": "consoleIncludes", "value": "15", "message": "La console doit contenir 15" }
-  ]
-}
-                </script>
-                <textarea class="quiz-solution-code" hidden>
-let score = 10;
-score = score + 5;
-console.log(score);
-                </textarea>
+            <div class="quiz-template" data-type="text" data-title="Valeur finale">
+                <p class="quiz-prompt">Après <code>let score = 10; score = score + 5;</code>, quelle est la valeur finale de <code>score</code> ?</p>
+                <script type="application/json" class="quiz-config">{ "answers": ["15"] }</script>
+                <textarea class="quiz-solution" hidden>La variable garde sa nouvelle valeur: 15.</textarea>
             </div>
         </section>
     </main>

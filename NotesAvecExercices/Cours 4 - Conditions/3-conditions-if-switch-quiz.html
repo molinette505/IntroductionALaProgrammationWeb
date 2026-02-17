@@ -7,11 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
@@ -67,29 +62,10 @@
 
         <section id="q3" class="section-spy">
             <div class="section-header"><span class="step-number">3</span><h3>Cas pratique</h3></div>
-            <div class="quiz-template" data-type="code" data-title="Vérifier majorité">
-                <p class="quiz-prompt">Si age >= 18 affiche "Majeur", sinon "Mineur".</p>
-                <textarea class="quiz-starter" hidden>
-let age = 17;
-
-// TODO: afficher Majeur ou Mineur
-                </textarea>
-                <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    { "type": "consoleIncludes", "value": "Mineur", "message": "La console doit afficher Mineur avec age=17" }
-  ]
-}
-                </script>
-                <textarea class="quiz-solution-code" hidden>
-let age = 17;
-
-if (age >= 18) {
-  console.log("Majeur");
-} else {
-  console.log("Mineur");
-}
-                </textarea>
+            <div class="quiz-template" data-type="text" data-title="Résultat du if/else">
+                <p class="quiz-prompt">Si <code>age = 17</code>, quel texte est affiché par <code>if (age &gt;= 18) { \"Majeur\" } else { \"Mineur\" }</code> ?</p>
+                <script type="application/json" class="quiz-config">{ "answers": ["Mineur"], "caseSensitive": false }</script>
+                <textarea class="quiz-solution" hidden>La condition age >= 18 est fausse pour 17, donc le bloc else est exécuté.</textarea>
             </div>
         </section>
     </main>
