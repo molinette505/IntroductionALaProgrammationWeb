@@ -396,7 +396,16 @@ ${html}
         if (!/<body[\s>]/i.test(html) && !/<html[\s>]/i.test(html)) {
             html = `<body>\n${html}\n</body>`;
         }
-        return { js, html, run: false };
+        return {
+            js,
+            html,
+            run: false,
+            ui: {
+                flowLineEnabled: false,
+                showFlowLineToggle: false,
+                showLoadButton: false
+            }
+        };
     };
 
     const loadRenderFrame = (files, runId) => new Promise((resolve) => {
