@@ -1,6 +1,149 @@
 // ==========================================
 // EDITEUR (PLAYGROUND)
 // ==========================================
+const resolveVisualizerUrl = () => {
+    const currentUrl = new URL(window.location.href);
+    const notesMarker = '/NotesAvecExercices/';
+
+    if (currentUrl.pathname.includes(notesMarker)) {
+        const projectRootPath = `${currentUrl.pathname.split(notesMarker)[0]}/`;
+        return new URL(`${projectRootPath}js-visualizer/index.html`, currentUrl).href;
+    }
+
+    return new URL('js-visualizer/index.html', currentUrl).href;
+};
+
+let visualizerOverlaySingleton = null;
+
+const getVisualizerOverlay = () => {
+    if (visualizerOverlaySingleton) return visualizerOverlaySingleton;
+
+    const root = document.createElement('div');
+    root.className = 'visualizer-overlay';
+    root.innerHTML = `
+        <div class="visualizer-overlay__backdrop"></div>
+        <div class="visualizer-overlay__panel" role="dialog" aria-modal="true" aria-label="JS Visualizer">
+            <div class="visualizer-overlay__header">
+                <span class="visualizer-overlay__title">JS Visualizer</span>
+                <button type="button" class="visualizer-overlay__close" title="Fermer" aria-label="Fermer">
+                    <i data-lucide="x" class="w-3 h-3"></i>
+                </button>
+            </div>
+            <iframe class="visualizer-overlay__frame" title="JS Visualizer" sandbox="allow-scripts allow-same-origin"></iframe>
+        </div>
+    `;
+
+    document.body.appendChild(root);
+    if (typeof lucide !== 'undefined') lucide.createIcons({ root });
+
+    const backdrop = root.querySelector('.visualizer-overlay__backdrop');
+    const panel = root.querySelector('.visualizer-overlay__panel');
+    const closeBtn = root.querySelector('.visualizer-overlay__close');
+    const frame = root.querySelector('.visualizer-overlay__frame');
+
+    let pendingPayload = null;
+    let retryTimer = null;
+    let pushAttempts = 0;
+    let isFrameReady = false;
+
+    const clearRetry = () => {
+        if (!retryTimer) return;
+        clearTimeout(retryTimer);
+        retryTimer = null;
+    };
+
+    const close = () => {
+        root.classList.remove('is-open');
+        document.body.classList.remove('visualizer-overlay-open');
+    };
+
+    const tryPushPayload = () => {
+        if (!pendingPayload || !frame.contentWindow) return false;
+
+        try {
+            const visualizerWindow = frame.contentWindow;
+            visualizerWindow.postMessage({ type: 'visualizer:load-content', payload: pendingPayload }, '*');
+
+            if (!isFrameReady && pushAttempts < 18) {
+                return false;
+            }
+
+            if (typeof visualizerWindow.loadVisualizerContent === 'function') {
+                visualizerWindow.loadVisualizerContent(pendingPayload);
+                pendingPayload = null;
+                return true;
+            }
+            if (typeof visualizerWindow.setVisualizerContent === 'function') {
+                visualizerWindow.setVisualizerContent(pendingPayload);
+                pendingPayload = null;
+                return true;
+            }
+
+            return false;
+        } catch (error) {
+            return false;
+        }
+    };
+
+    const schedulePushRetry = () => {
+        clearRetry();
+        retryTimer = setTimeout(() => {
+            if (!pendingPayload) return;
+            if (pushAttempts > 40) {
+                pendingPayload = null;
+                return;
+            }
+            pushAttempts += 1;
+            if (!tryPushPayload()) schedulePushRetry();
+        }, 120);
+    };
+
+    const open = (src, payload) => {
+        pendingPayload = payload || null;
+        pushAttempts = 0;
+        isFrameReady = false;
+        root.classList.add('is-open');
+        document.body.classList.add('visualizer-overlay-open');
+
+        if (frame.src !== src) {
+            frame.src = src;
+            schedulePushRetry();
+            return;
+        }
+
+        if (!tryPushPayload()) schedulePushRetry();
+    };
+
+    frame.addEventListener('load', () => {
+        clearRetry();
+        pushAttempts = 0;
+        isFrameReady = false;
+        if (!pendingPayload) return;
+        if (!tryPushPayload()) schedulePushRetry();
+    });
+
+    window.addEventListener('message', (event) => {
+        if (!pendingPayload) return;
+        if (event.source !== frame.contentWindow) return;
+        if (!event.data || event.data.type !== 'visualizer:ready') return;
+        isFrameReady = true;
+        if (!tryPushPayload()) schedulePushRetry();
+    });
+
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+    panel.addEventListener('click', (event) => event.stopPropagation());
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        if (!root.classList.contains('is-open')) return;
+        close();
+    });
+
+    visualizerOverlaySingleton = { open, close };
+    return visualizerOverlaySingleton;
+};
+
 document.querySelectorAll('.playground-container').forEach((container) => {
     const type = container.dataset.type;
     const title = container.dataset.title || 'Script JavaScript';
@@ -84,9 +227,10 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         <div class="editor-toolbar">
             <div class="toolbar-info">Modifiez le code ci-dessous et testez-le -></div>
             <div class="toolbar-actions">
-                <button class="btn-expand" title="Plein écran"><i data-lucide="maximize-2" class="w-3 h-3"></i> Plein écran</button>
-                <button class="btn-reset" title="Réinitialiser"><i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reinitialiser</button>
-                <button class="btn-run"><i data-lucide="play" class="w-3 h-3"></i> Exécuter</button>
+                <button class="btn-visualizer" title="Ouvrir dans JS Visualizer" aria-label="Ouvrir dans JS Visualizer"><i data-lucide="external-link" class="w-3 h-3"></i></button>
+                <button class="btn-expand" title="Plein écran" aria-label="Plein écran"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
+                <button class="btn-reset" title="Réinitialiser" aria-label="Réinitialiser"><i data-lucide="rotate-ccw" class="w-3 h-3"></i></button>
+                <button class="btn-run" title="Exécuter" aria-label="Exécuter"><i data-lucide="play" class="w-3 h-3"></i></button>
             </div>
         </div>
         ${instructions ? `<div class="toolbar-secondary"><i data-lucide="info" class="w-3 h-3"></i> ${instructions}</div>` : ''}
@@ -142,6 +286,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     const outputTabButtons = container.querySelectorAll('.output-view-tab');
 
     const editorInputWrapper = container.querySelector('.editor-input-wrapper');
+    const btnVisualizer = container.querySelector('.btn-visualizer');
     const btnExpand = container.querySelector('.btn-expand');
     const btnReset = container.querySelector('.btn-reset');
     const btnRun = container.querySelector('.btn-run');
@@ -152,6 +297,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     let activeMode = 'user';
     let activeFile = initialEditorFile;
     let runCounter = 0;
+    const visualizerUrl = resolveVisualizerUrl();
 
     const getModeFiles = () => (activeMode === 'solution' ? fixedSolutionFiles : userFiles);
 
@@ -215,10 +361,12 @@ document.querySelectorAll('.playground-container').forEach((container) => {
 
     const renderExpandIcon = (isFullscreen) => {
         if (!btnExpand) return;
+        const label = isFullscreen ? 'Réduire' : 'Plein écran';
         btnExpand.innerHTML = `
             <i data-lucide="${isFullscreen ? 'minimize-2' : 'maximize-2'}" class="w-3 h-3"></i>
-            ${isFullscreen ? 'Réduire' : 'Plein écran'}
         `;
+        btnExpand.setAttribute('title', label);
+        btnExpand.setAttribute('aria-label', label);
         if (typeof lucide !== 'undefined') lucide.createIcons({ root: btnExpand });
     };
 
@@ -269,6 +417,15 @@ ${html}
 </html>`;
     };
 
+    const buildVisualizerPayload = (files) => {
+        const js = files.js || '';
+        let html = files.html || '';
+        if (!/<body[\s>]/i.test(html) && !/<html[\s>]/i.test(html)) {
+            html = `<body>\n${html}\n</body>`;
+        }
+        return { js, html, run: false };
+    };
+
     const loadRenderFrame = (files, runId) => new Promise((resolve) => {
         const content = buildRenderDoc(files);
         const onLoad = () => {
@@ -306,6 +463,14 @@ ${html}
         btnExpand.addEventListener('click', () => {
             const isFullscreen = container.classList.contains('is-fullscreen');
             setFullscreen(!isFullscreen);
+        });
+    }
+
+    if (btnVisualizer) {
+        btnVisualizer.addEventListener('click', () => {
+            persistCurrentEditorValue();
+            const payload = buildVisualizerPayload(cloneFiles(getModeFiles()));
+            getVisualizerOverlay().open(visualizerUrl, payload);
         });
     }
 

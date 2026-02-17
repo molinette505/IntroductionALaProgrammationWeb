@@ -51,13 +51,19 @@
 /* Toolbar */
 .editor-toolbar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-editor); padding: 8px 12px; border-bottom: 1px solid var(--bg-toolbar); flex-wrap: wrap; gap: 8px; }
 .toolbar-info { color: var(--text-heading); font-size: 0.85rem; font-family: 'Inter', sans-serif; min-width: 0; overflow-wrap: anywhere; flex: 1 1 220px; }
-.toolbar-actions { display: flex; gap: 10px; flex: 0 0 auto; flex-wrap: wrap; margin-left: auto; justify-content: flex-end; }
-.btn-run { background: var(--color-primary); color: #fff; border: none; padding: 4px 12px; border-radius: var(--radius-sm); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: background 0.2s; }
+.toolbar-actions { display: flex; gap: 8px; flex: 0 0 auto; flex-wrap: wrap; margin-left: auto; justify-content: flex-end; }
+.btn-run { background: var(--color-primary); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; transition: background 0.2s; }
 .btn-run:hover { background: var(--color-primary-hover); }
 .btn-reset,
-.btn-expand { background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary); padding: 5px 10px; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: all 0.2s; }
+.btn-expand,
+.btn-visualizer { background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary); border-radius: var(--radius-sm); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; transition: all 0.2s; }
 .btn-reset:hover,
-.btn-expand:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--text-heading); color: var(--text-heading); }
+.btn-expand:hover,
+.btn-visualizer:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--text-heading); color: var(--text-heading); }
+.btn-run svg,
+.btn-reset svg,
+.btn-expand svg,
+.btn-visualizer svg { width: 15px; height: 15px; }
 .toolbar-secondary { background: var(--bg-toolbar); color: var(--text-heading); padding: 8px 12px; font-size: 0.9rem; border-bottom: 1px solid var(--bg-editor); display: flex; align-items: center; gap: 8px; }
 .toolbar-secondary i { color: var(--accent-example); }
 
@@ -375,6 +381,84 @@ body.playground-fullscreen-open {
     height: calc(100vh - 180px);
 }
 
+/* Overlay JS Visualizer */
+body.visualizer-overlay-open {
+    overflow: hidden;
+}
+
+.visualizer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: none;
+}
+
+.visualizer-overlay.is-open {
+    display: block;
+}
+
+.visualizer-overlay__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 9, 20, 0.74);
+    backdrop-filter: blur(2px);
+}
+
+.visualizer-overlay__panel {
+    position: absolute;
+    inset: 14px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    background: var(--bg-editor);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+}
+
+.visualizer-overlay__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--bg-toolbar);
+    background: var(--bg-editor-ui);
+}
+
+.visualizer-overlay__title {
+    color: var(--text-heading);
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.visualizer-overlay__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-primary);
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.visualizer-overlay__close:hover {
+    color: var(--text-heading);
+    border-color: var(--text-heading);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.visualizer-overlay__frame {
+    flex: 1 1 auto;
+    width: 100%;
+    border: 0;
+    background: #090f1f;
+}
+
 @media (max-width: 1200px) {
     .editor-header {
         flex-wrap: wrap;
@@ -452,6 +536,10 @@ body.playground-fullscreen-open {
     }
     .playground-container.is-fullscreen .editor-body {
         height: calc(100vh - 165px);
+    }
+
+    .visualizer-overlay__panel {
+        inset: 8px;
     }
 }
 
