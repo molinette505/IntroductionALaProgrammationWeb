@@ -84,6 +84,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         <div class="editor-toolbar">
             <div class="toolbar-info">Modifiez le code ci-dessous et testez-le -></div>
             <div class="toolbar-actions">
+                <button class="btn-expand" title="Plein écran"><i data-lucide="maximize-2" class="w-3 h-3"></i> Plein écran</button>
                 <button class="btn-reset" title="Réinitialiser"><i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reinitialiser</button>
                 <button class="btn-run"><i data-lucide="play" class="w-3 h-3"></i> Exécuter</button>
             </div>
@@ -114,7 +115,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                     </div>
                 </div>
                 <div class="output-view output-view-render">
-                    <iframe class="output-render-frame" title="Rendu" sandbox="allow-scripts"></iframe>
+                    <iframe class="output-render-frame" title="Rendu" sandbox="allow-scripts allow-same-origin"></iframe>
                 </div>
             </div>
         </div>
@@ -141,6 +142,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     const outputTabButtons = container.querySelectorAll('.output-view-tab');
 
     const editorInputWrapper = container.querySelector('.editor-input-wrapper');
+    const btnExpand = container.querySelector('.btn-expand');
     const btnReset = container.querySelector('.btn-reset');
     const btnRun = container.querySelector('.btn-run');
 
@@ -211,6 +213,23 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         setEditorFile(activeFile, { persist: false });
     };
 
+    const renderExpandIcon = (isFullscreen) => {
+        if (!btnExpand) return;
+        btnExpand.innerHTML = `
+            <i data-lucide="${isFullscreen ? 'minimize-2' : 'maximize-2'}" class="w-3 h-3"></i>
+            ${isFullscreen ? 'Réduire' : 'Plein écran'}
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons({ root: btnExpand });
+    };
+
+    const setFullscreen = (isFullscreen) => {
+        container.classList.toggle('is-fullscreen', isFullscreen);
+        document.body.classList.toggle('playground-fullscreen-open', isFullscreen);
+        if (btnExpand) btnExpand.setAttribute('aria-pressed', isFullscreen ? 'true' : 'false');
+        renderExpandIcon(isFullscreen);
+        setTimeout(() => editor.refresh(), 80);
+    };
+
     const renderHandleIcon = (isOpen) => {
         handle.innerHTML = `<i data-lucide="${isOpen ? 'chevron-right' : 'chevron-left'}" class="w-4 h-4"></i>`;
         if (typeof lucide !== 'undefined') lucide.createIcons({ root: handle });
@@ -268,13 +287,33 @@ ${html}
         renderFrame.srcdoc = content;
     });
 
+    const resetPreview = async (files) => {
+        const previewRunId = ++runCounter;
+        await loadRenderFrame(files, previewRunId);
+    };
+
     // Initial UI state.
     renderHandleIcon(isConsoleInitialOpen);
     setOutputView(initialOutputView);
     setEditorMode('user');
     setEditorFile(activeFile, { persist: false });
+    renderExpandIcon(false);
+    resetPreview(cloneFiles(getModeFiles()));
 
     handle.addEventListener('click', () => toggleConsole());
+
+    if (btnExpand) {
+        btnExpand.addEventListener('click', () => {
+            const isFullscreen = container.classList.contains('is-fullscreen');
+            setFullscreen(!isFullscreen);
+        });
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && container.classList.contains('is-fullscreen')) {
+            setFullscreen(false);
+        }
+    });
 
     fileTabButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -295,15 +334,21 @@ ${html}
     });
 
     if (btnReset) {
-        btnReset.addEventListener('click', () => {
+        btnReset.addEventListener('click', async () => {
             if (!confirm('Recommencer l\'exercice ?')) return;
 
             userFiles = cloneFiles(sourceFiles);
+            setOutputView(initialOutputView);
+            clearConsole();
+            showConsolePlaceholder();
+
             if (activeMode === 'solution') {
                 setEditorMode('user');
             } else {
                 setEditorFile(activeFile, { persist: false });
             }
+
+            await resetPreview(cloneFiles(userFiles));
         });
     }
 
@@ -311,7 +356,7 @@ ${html}
         persistCurrentEditorValue();
         clearConsole();
 
-        const SOURCE_FILE = 'Editor.js';
+        const SOURCE_FILE = 'file.js';
         const STUDENT_SOURCE_FILE = 'StudentCode.js';
         const WRAPPER_OFFSET = 2;
         const DEFAULT_LOCATION = `${SOURCE_FILE}:1:1`;
@@ -354,6 +399,32 @@ ${html}
         const inlineValue = (value) => {
             const text = stringifyValue(value);
             return text.includes('\n') ? `${text.split('\n')[0]} ...` : text;
+        };
+
+        const isErrorLike = (value) => {
+            if (!value || typeof value !== 'object') return false;
+            if (value instanceof Error) return true;
+
+            const tag = Object.prototype.toString.call(value);
+            if (tag === '[object Error]' || tag === '[object DOMException]') return true;
+
+            return typeof value.name === 'string' && typeof value.message === 'string';
+        };
+
+        const toErrorLike = (value) => {
+            if (!isErrorLike(value)) return null;
+            if (value instanceof Error) return value;
+
+            const fallback = new Error(String(value.message || 'Erreur'));
+            fallback.name = String(value.name || 'Error');
+            if (value.stack) fallback.stack = String(value.stack);
+
+            if (typeof value.lineNumber !== 'undefined') fallback.lineNumber = value.lineNumber;
+            if (typeof value.columnNumber !== 'undefined') fallback.columnNumber = value.columnNumber;
+            if (typeof value.line !== 'undefined') fallback.line = value.line;
+            if (typeof value.col !== 'undefined') fallback.col = value.col;
+
+            return fallback;
         };
 
         const toFrame = (line, col, fnName = null) => ({
@@ -554,6 +625,30 @@ ${html}
                 return toFrame(last.line, last.col);
             }
 
+            const lowered = String(errorMessage || '').toLowerCase();
+            if (lowered.includes('unexpected identifier')
+                || lowered.includes('unexpected token')
+                || lowered.includes('invalid or unexpected token')) {
+                const tokenMatch = String(errorMessage).match(/['"`]([^'"`]+)['"`]/);
+                const token = tokenMatch ? tokenMatch[1] : null;
+                if (token) {
+                    const index = source.indexOf(token);
+                    if (index >= 0) {
+                        let tokenLine = 1;
+                        let tokenCol = 1;
+                        for (let i = 0; i < index; i += 1) {
+                            if (source[i] === '\n') {
+                                tokenLine += 1;
+                                tokenCol = 1;
+                            } else {
+                                tokenCol += 1;
+                            }
+                        }
+                        return toFrame(tokenLine, tokenCol);
+                    }
+                }
+            }
+
             return null;
         };
 
@@ -600,7 +695,9 @@ ${html}
             if (container.getAttribute('data-console-state') === 'closed') toggleConsole(true);
 
             const level = ['log', 'warn', 'error', 'info', 'debug'].includes(typeName) ? typeName : 'log';
-            const firstError = args.find((arg) => arg instanceof Error) || null;
+            if (level === 'error') setOutputView('console');
+            const firstErrorRaw = args.find((arg) => isErrorLike(arg)) || null;
+            const firstError = toErrorLike(firstErrorRaw);
 
             let locationFrame = null;
             let traceText = '';
@@ -616,6 +713,13 @@ ${html}
             } else {
                 const detailBlocks = [];
                 const pieces = args.map((arg) => {
+                    if (isErrorLike(arg)) {
+                        const err = toErrorLike(arg);
+                        if (err) {
+                            detailBlocks.push(err.stack || `${err.name}: ${err.message}`);
+                            return `${err.name}: ${err.message}`;
+                        }
+                    }
                     if (arg && typeof arg === 'object') detailBlocks.push(stringifyValue(arg));
                     return inlineValue(arg);
                 });
@@ -623,21 +727,21 @@ ${html}
 
                 const callFrames = parseStackFrames(meta.callStack || '');
                 locationFrame = callFrames[0] || null;
-                if (callFrames.length) traceText = toTraceText(callFrames);
+                if (level !== 'log' && callFrames.length) traceText = toTraceText(callFrames);
 
-                if (detailBlocks.length) {
+                if (level !== 'log' && detailBlocks.length) {
                     traceText = traceText ? `${traceText}\n\n${detailBlocks.join('\n\n')}` : detailBlocks.join('\n\n');
                 }
 
-                if (!traceText && locationFrame) traceText = `at ${locationFrame.location}`;
+                if (level !== 'log' && !traceText && locationFrame) traceText = `at ${locationFrame.location}`;
             }
 
             if (!locationFrame && meta.error) {
-                locationFrame = getFallbackFrame(meta.error) || null;
+                locationFrame = getFallbackFrame(toErrorLike(meta.error) || meta.error) || null;
             }
 
             const locationText = locationFrame ? locationFrame.location : DEFAULT_LOCATION;
-            const hasDetails = Boolean(traceText);
+            const hasDetails = level !== 'log' && Boolean(traceText);
 
             const entry = document.createElement('div');
             entry.className = `console-entry console-entry--${level}`;
@@ -651,6 +755,7 @@ ${html}
             expandBtn.textContent = hasDetails ? '▸' : ' ';
             expandBtn.disabled = !hasDetails;
             if (!hasDetails) expandBtn.classList.add('is-empty');
+            if (level === 'log') expandBtn.classList.add('is-hidden');
 
             const icon = document.createElement('span');
             icon.className = `console-icon console-icon--${level}`;
@@ -720,12 +825,41 @@ ${html}
             consolePanel.scrollTop = consolePanel.scrollHeight;
         };
 
+        const captureCallStack = () => {
+            try {
+                return new frameWindow.Error().stack || new Error().stack;
+            } catch (err) {
+                return new Error().stack;
+            }
+        };
+
         const mockConsole = {
-            log: (...args) => print('log', args, { callStack: new Error().stack }),
-            warn: (...args) => print('warn', args, { callStack: new Error().stack }),
-            info: (...args) => print('info', args, { callStack: new Error().stack }),
-            debug: (...args) => print('debug', args, { callStack: new Error().stack }),
-            error: (...args) => print('error', args, { callStack: new Error().stack })
+            log: (...args) => print('log', args, { callStack: captureCallStack() }),
+            warn: (...args) => print('warn', args, { callStack: captureCallStack() }),
+            info: (...args) => print('info', args, { callStack: captureCallStack() }),
+            debug: (...args) => print('debug', args, { callStack: captureCallStack() }),
+            error: (...args) => print('error', args, { callStack: captureCallStack() })
+        };
+
+        frameWindow.console = mockConsole;
+        frameWindow.onerror = (message, source, lineno, colno, error) => {
+            const normalized = toErrorLike(error);
+            if (normalized) {
+                print('error', [normalized], { uncaught: true, error: normalized });
+                return true;
+            }
+
+            const synthetic = new Error(String(message || 'Erreur inconnue'));
+            synthetic.stack = `Error: ${synthetic.message}\nat ${SOURCE_FILE}:${lineno || 1}:${colno || 1}`;
+            print('error', [synthetic], { uncaught: true, error: synthetic });
+            return true;
+        };
+
+        frameWindow.onunhandledrejection = (event) => {
+            const reason = event && event.reason;
+            const error = toErrorLike(reason) || new Error(String(reason || 'Promesse rejetee'));
+            print('error', [error], { uncaught: true, error });
+            if (event && typeof event.preventDefault === 'function') event.preventDefault();
         };
 
         if (!code.trim()) {
@@ -737,14 +871,14 @@ ${html}
         let runnable;
 
         try {
-            runnable = new Function('console', 'document', 'window', codeWithSource);
+            runnable = frameWindow.Function('console', 'document', 'window', codeWithSource);
         } catch (error) {
             print('error', [error], { uncaught: true, error });
             return;
         }
 
         try {
-            runnable(mockConsole, frameDocument, frameWindow);
+            runnable.call(frameWindow, mockConsole, frameDocument, frameWindow);
         } catch (error) {
             print('error', [error], { uncaught: true, error });
         }

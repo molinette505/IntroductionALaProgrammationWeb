@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
@@ -129,18 +132,57 @@
                     <li><code>document.querySelector(".classe")</code> : sélection CSS, retourne le premier.</li>
                 </ul>
 
-                <div class="info-box info">
-                    <p><strong>Zone de test :</strong> cliquez sur Exécuter pour voir la mise à jour.</p>
-                    <h4 id="dom-demo-title">Titre original</h4>
-                </div>
+                <div class="playground-container"
+                     data-output-default="render"
+                     data-type="example"
+                     data-title="Exemple : getElementById + querySelector">
+<textarea class="source-code-html" hidden>
+<div class="dom-card">
+  <h4 id="titre-page">Titre original</h4>
+  <p class="etat">Etat : en attente</p>
+  <button id="btn-selection">Mettre a jour</button>
+</div>
+</textarea>
+<textarea class="source-code-css" hidden>
+.dom-card {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #0f172a;
+  padding: 14px;
+  color: #e2e8f0;
+  max-width: 420px;
+}
 
-                <div class="playground-container" data-output-default="render" data-type="example" data-title="Exemple : Sélection">
-<textarea class="source-code" hidden>
-const titre = document.getElementById("dom-demo-title");
+.dom-card h4 {
+  margin: 0 0 8px;
+  color: #93c5fd;
+}
 
-if (titre) {
-  console.log("Titre actuel :", titre.innerText);
-  titre.innerText = "Titre mis à jour par le DOM";
+.dom-card .etat {
+  margin: 0 0 10px;
+  color: #cbd5e1;
+}
+
+.dom-card button {
+  border: 1px solid #6366f1;
+  background: #1e1b4b;
+  color: #c7d2fe;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+</textarea>
+<textarea class="source-code-js" hidden>
+const titre = document.getElementById("titre-page");
+const etat = document.querySelector(".etat");
+const bouton = document.getElementById("btn-selection");
+
+if (titre && etat && bouton) {
+  bouton.addEventListener("click", () => {
+    titre.innerText = "Titre modifie via le DOM";
+    etat.innerText = "Etat : element trouve et mis a jour";
+    console.log("Selection OK :", titre.id);
+  });
 }
 </textarea>
                 </div>
@@ -153,30 +195,97 @@ if (titre) {
                 </div>
                 <p>Le texte et le HTML se modifient avec des propriétés simples.</p>
 
-                <div class="info-box">
-                    <p id="dom-demo-text">Texte original</p>
-                    <div id="dom-demo-html"></div>
-                    <label>Nom : <input id="dom-demo-input" value="Victor"></label>
-                    <p id="dom-demo-output">Nom : (non lu)</p>
-                </div>
+                <div class="playground-container"
+                     data-output-default="render"
+                     data-type="example"
+                     data-title="Exemple : innerText, innerHTML et value">
+<textarea class="source-code-html" hidden>
+<section class="dom-form">
+  <h4 id="titre-zone">Profil joueur</h4>
 
-                <div class="playground-container" data-output-default="render" data-type="example" data-title="Exemple : innerText, innerHTML, value">
-<textarea class="source-code" hidden>
-const texte = document.querySelector("#dom-demo-text");
-const zoneHtml = document.querySelector("#dom-demo-html");
-const inputNom = document.querySelector("#dom-demo-input");
-const output = document.querySelector("#dom-demo-output");
+  <label>
+    Nom
+    <input id="champ-nom" type="text" value="Alya" />
+  </label>
 
-if (texte) {
-  texte.innerText = "Texte modifié par JavaScript";
+  <label>
+    Classe
+    <input id="champ-classe" type="text" value="Rodeuse" />
+  </label>
+
+  <button id="btn-lire">Lire et afficher</button>
+  <div id="zone-rendu">Aucun rendu pour le moment</div>
+</section>
+</textarea>
+<textarea class="source-code-css" hidden>
+.dom-form {
+  max-width: 460px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
 }
 
-if (zoneHtml) {
-  zoneHtml.innerHTML = "<strong>Bloc HTML</strong> ajouté avec innerHTML.";
+.dom-form h4 {
+  margin-top: 0;
+  color: #93c5fd;
 }
 
-if (inputNom && output) {
-  output.innerText = "Nom : " + inputNom.value;
+.dom-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.dom-form input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.dom-form button {
+  border: 1px solid #10b981;
+  background: #064e3b;
+  color: #a7f3d0;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+#zone-rendu {
+  margin-top: 12px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px;
+  background: #111827;
+}
+</textarea>
+<textarea class="source-code-js" hidden>
+const titre = document.getElementById("titre-zone");
+const nomInput = document.getElementById("champ-nom");
+const classeInput = document.getElementById("champ-classe");
+const bouton = document.getElementById("btn-lire");
+const zoneRendu = document.getElementById("zone-rendu");
+
+if (titre && nomInput && classeInput && bouton && zoneRendu) {
+  bouton.addEventListener("click", () => {
+    const nom = nomInput.value.trim();
+    const classe = classeInput.value.trim();
+
+    titre.innerText = "Profil de " + (nom || "joueur inconnu");
+
+    zoneRendu.innerHTML = `
+      <p><strong>Nom:</strong> ${nom || "(vide)"}</p>
+      <p><strong>Classe:</strong> ${classe || "(vide)"}</p>
+    `;
+
+    console.log("Valeur lue via .value :", nom, classe);
+  });
 }
 </textarea>
                 </div>
@@ -189,21 +298,81 @@ if (inputNom && output) {
                 </div>
                 <p>Les template literals rendent l'affichage dynamique plus propre.</p>
 
-                <div class="info-box">
-                    <div id="dom-demo-card"></div>
-                </div>
+                <div class="playground-container"
+                     data-output-default="render"
+                     data-type="example"
+                     data-title="Exemple : template literals">
+<textarea class="source-code-html" hidden>
+<div class="profil-ui">
+  <label>
+    Pseudo
+    <input id="pseudo" value="Mage505" />
+  </label>
+  <label>
+    Niveau
+    <input id="niveau" type="number" value="12" />
+  </label>
+  <button id="btn-template">Generer la fiche</button>
+  <div id="fiche"></div>
+</div>
+</textarea>
+<textarea class="source-code-css" hidden>
+.profil-ui {
+  max-width: 460px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
 
-                <div class="playground-container" data-output-default="render" data-type="example" data-title="Exemple : Template literals">
-<textarea class="source-code" hidden>
-const zone = document.querySelector("#dom-demo-card");
-let nomUtilisateur = "Victor";
+.profil-ui label {
+  display: block;
+  margin-bottom: 10px;
+}
 
-if (zone) {
-  zone.innerHTML = `
-    <div class="info-box success">
-      <p>Bienvenue, <strong>${nomUtilisateur}</strong> !</p>
-    </div>
-  `;
+.profil-ui input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.profil-ui button {
+  border: 1px solid #f59e0b;
+  background: #78350f;
+  color: #fde68a;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+.fiche-joueur {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #1d4ed8;
+  background: #172554;
+}
+</textarea>
+<textarea class="source-code-js" hidden>
+const pseudo = document.getElementById("pseudo");
+const niveau = document.getElementById("niveau");
+const btn = document.getElementById("btn-template");
+const fiche = document.getElementById("fiche");
+
+if (pseudo && niveau && btn && fiche) {
+  btn.addEventListener("click", () => {
+    fiche.innerHTML = `
+      <article class="fiche-joueur">
+        <h4>${pseudo.value || "Sans nom"}</h4>
+        <p>Niveau actuel: <strong>${niveau.value || 0}</strong></p>
+      </article>
+    `;
+  });
 }
 </textarea>
                 </div>
@@ -216,17 +385,57 @@ if (zone) {
                 </div>
                 <p>Préférez <code>classList</code> pour activer/désactiver des styles.</p>
 
-                <div class="info-box" id="dom-demo-box">
-                    <p>Boîte visuelle</p>
-                </div>
+                <div class="playground-container"
+                     data-output-default="render"
+                     data-type="example"
+                     data-title="Exemple : classList + style">
+<textarea class="source-code-html" hidden>
+<div class="theme-box" id="theme-box">
+  <h4>Mode clair</h4>
+  <p>Changez l'ambiance visuelle avec classList.toggle().</p>
+</div>
+<button id="btn-theme">Basculer mode</button>
+</textarea>
+<textarea class="source-code-css" hidden>
+.theme-box {
+  max-width: 440px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 14px;
+  transition: all 0.25s ease;
+}
 
-                <div class="playground-container" data-output-default="render" data-type="example" data-title="Exemple : classList">
-<textarea class="source-code" hidden>
-const box = document.querySelector("#dom-demo-box");
+.theme-box.mode-nuit {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2);
+}
 
-if (box) {
-  box.classList.add("success");
-  box.style.marginTop = "10px";
+#btn-theme {
+  margin-top: 10px;
+  border: 1px solid #6366f1;
+  background: #312e81;
+  color: #c7d2fe;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+<textarea class="source-code-js" hidden>
+const box = document.getElementById("theme-box");
+const btnTheme = document.getElementById("btn-theme");
+
+if (box && btnTheme) {
+  btnTheme.addEventListener("click", () => {
+    box.classList.toggle("mode-nuit");
+    box.style.transform = "translateY(-2px)";
+    setTimeout(() => {
+      box.style.transform = "translateY(0)";
+    }, 120);
+  });
 }
 </textarea>
                 </div>
@@ -239,19 +448,54 @@ if (box) {
                 </div>
                 <p>On peut modifier des attributs comme <code>src</code>, <code>href</code> ou des <code>data-*</code>.</p>
 
-                <div class="info-box">
-                    <a id="dom-demo-link" href="#">Lien de démonstration</a>
-                    <p id="dom-demo-link-state">Lien : #</p>
-                </div>
+                <div class="playground-container"
+                     data-output-default="render"
+                     data-type="example"
+                     data-title="Exemple : setAttribute et attributs">
+<textarea class="source-code-html" hidden>
+<div class="card-attr">
+  <a id="lien-profil" href="#" target="_blank">Ouvrir le profil</a>
+  <button id="btn-link">Configurer le lien</button>
+  <p id="etat-lien">Lien actuel : #</p>
+</div>
+</textarea>
+<textarea class="source-code-css" hidden>
+.card-attr {
+  max-width: 450px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
 
-                <div class="playground-container" data-output-default="render" data-type="example" data-title="Exemple : setAttribute">
-<textarea class="source-code" hidden>
-const lien = document.querySelector("#dom-demo-link");
-const etat = document.querySelector("#dom-demo-link-state");
+.card-attr a {
+  color: #93c5fd;
+  text-decoration: underline;
+}
 
-if (lien && etat) {
-  lien.setAttribute("href", "https://example.com");
-  etat.innerText = "Lien : https://example.com";
+.card-attr button {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid #14b8a6;
+  background: #134e4a;
+  color: #99f6e4;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+<textarea class="source-code-js" hidden>
+const lien = document.getElementById("lien-profil");
+const btn = document.getElementById("btn-link");
+const etat = document.getElementById("etat-lien");
+
+if (lien && btn && etat) {
+  btn.addEventListener("click", () => {
+    lien.setAttribute("href", "https://developer.mozilla.org/fr/docs/Web/API/Document_Object_Model");
+    lien.setAttribute("title", "Documentation DOM");
+    etat.innerText = "Lien actuel : " + lien.getAttribute("href");
+  });
 }
 </textarea>
                 </div>
@@ -264,20 +508,77 @@ if (lien && etat) {
                 </div>
                 <p>Pour ajouter des éléments un par un, utilisez <code>createElement</code> et <code>appendChild</code>.</p>
 
-                <div class="info-box">
-                    <ul class="card-list" id="dom-demo-list">
-                        <li>Élément existant</li>
-                    </ul>
-                </div>
+                <div class="playground-container"
+                     data-output-default="render"
+                     data-type="example"
+                     data-title="Exemple : createElement + appendChild">
+<textarea class="source-code-html" hidden>
+<section class="todo-ui">
+  <label>
+    Nouvelle tache
+    <input id="tache-input" value="Relire la section DOM" />
+  </label>
+  <button id="btn-ajouter">Ajouter</button>
+  <ul id="liste-taches">
+    <li>Tache existante : lancer le playground</li>
+  </ul>
+</section>
+</textarea>
+<textarea class="source-code-css" hidden>
+.todo-ui {
+  max-width: 480px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
 
-                <div class="playground-container" data-output-default="render" data-type="example" data-title="Exemple : createElement">
-<textarea class="source-code" hidden>
-const liste = document.querySelector("#dom-demo-list");
+.todo-ui label {
+  display: block;
+  margin-bottom: 10px;
+}
 
-if (liste) {
-  const item = document.createElement("li");
-  item.innerText = "Élément ajouté dynamiquement";
-  liste.appendChild(item);
+.todo-ui input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.todo-ui button {
+  border: 1px solid #22c55e;
+  background: #14532d;
+  color: #bbf7d0;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+#liste-taches {
+  margin-top: 12px;
+  padding-left: 18px;
+}
+</textarea>
+<textarea class="source-code-js" hidden>
+const input = document.getElementById("tache-input");
+const bouton = document.getElementById("btn-ajouter");
+const liste = document.getElementById("liste-taches");
+
+if (input && bouton && liste) {
+  bouton.addEventListener("click", () => {
+    const texte = input.value.trim();
+    if (!texte) return;
+
+    const item = document.createElement("li");
+    item.innerText = texte;
+    liste.appendChild(item);
+    input.value = "";
+    input.focus();
+  });
 }
 </textarea>
                 </div>
