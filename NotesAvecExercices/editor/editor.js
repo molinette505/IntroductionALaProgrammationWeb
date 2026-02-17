@@ -2,19 +2,60 @@
 // EDITEUR (PLAYGROUND)
 // ==========================================
 document.querySelectorAll('.playground-container').forEach((container) => {
-
     const type = container.dataset.type;
-    const title = container.dataset.title || "Script JavaScript";
+    const title = container.dataset.title || 'Script JavaScript';
     const instructions = container.dataset.instructions || null;
-    const isAutoHeight = container.dataset.autoHeight === "true";
-    const isConsoleInitialOpen = container.dataset.consoleOpen === "true";
+    const isAutoHeight = container.dataset.autoHeight === 'true';
+    const isConsoleInitialOpen = container.dataset.consoleOpen === 'true';
+
+    const requestedStartEditor = String(container.dataset.startEditor || container.dataset.editorStart || 'js').toLowerCase();
+    const requestedOutputView = String(container.dataset.outputDefault || container.dataset.outputView || 'console').toLowerCase();
+    const initialOutputView = (requestedOutputView === 'render' || requestedOutputView === 'html') ? 'render' : 'console';
+
+    const readCode = (selector) => {
+        const el = container.querySelector(selector);
+        return el ? el.value.trim() : '';
+    };
+
+    const sourceFiles = {
+        html: readCode('.source-code-html'),
+        css: readCode('.source-code-css'),
+        js: readCode('.source-code-js')
+    };
+
+    if (!sourceFiles.js) {
+        sourceFiles.js = readCode('.source-code');
+    }
+
+    const solutionFiles = {
+        html: readCode('.solution-code-html'),
+        css: readCode('.solution-code-css'),
+        js: readCode('.solution-code-js')
+    };
+
+    if (!solutionFiles.js) {
+        solutionFiles.js = readCode('.solution-code');
+    }
+
+    // Fallbacks so each tab always has content.
+    if (!sourceFiles.html) sourceFiles.html = '';
+    if (!sourceFiles.css) sourceFiles.css = '';
+    if (!sourceFiles.js) sourceFiles.js = '// Code JavaScript';
+
+    if (!solutionFiles.html) solutionFiles.html = sourceFiles.html;
+    if (!solutionFiles.css) solutionFiles.css = sourceFiles.css;
+    if (!solutionFiles.js) solutionFiles.js = sourceFiles.js;
+
+    const cloneFiles = (files) => ({ html: files.html, css: files.css, js: files.js });
+
+    let userFiles = cloneFiles(sourceFiles);
+    const fixedSolutionFiles = cloneFiles(solutionFiles);
+
+    const validFiles = ['html', 'css', 'js'];
+    const initialEditorFile = validFiles.includes(requestedStartEditor) ? requestedStartEditor : 'js';
 
     container.setAttribute('data-console-state', isConsoleInitialOpen ? 'open' : 'closed');
-
-    const startCode = container.querySelector('.source-code').value.trim();
-    const solutionElement = container.querySelector('.solution-code');
-    const solutionCode = solutionElement ? solutionElement.value.trim() : "// Pas de solution";
-    let userCode = startCode;
+    container.setAttribute('data-output-view', initialOutputView);
 
     let headerHTML = '';
     if (type === 'exercise') {
@@ -48,27 +89,43 @@ document.querySelectorAll('.playground-container').forEach((container) => {
             </div>
         </div>
         ${instructions ? `<div class="toolbar-secondary"><i data-lucide="info" class="w-3 h-3"></i> ${instructions}</div>` : ''}
-        
+
         <div class="editor-body">
             <button class="console-toggle-handle" title="Toggle Console"></button>
 
             <div class="editor-input-wrapper">
                 <div class="readonly-badge">Lecture Seule</div>
+                <div class="editor-file-tabs">
+                    <button class="editor-file-tab" data-file="html">HTML</button>
+                    <button class="editor-file-tab" data-file="css">CSS</button>
+                    <button class="editor-file-tab" data-file="js">JS</button>
+                </div>
                 <textarea class="cm-target"></textarea>
             </div>
+
             <div class="console-output">
-                <div class="log-info" style="padding: 10px; opacity: 0.7;">// Le résultat s'affichera ici...</div>
+                <div class="output-view-tabs">
+                    <button class="output-view-tab" data-view="console">Console</button>
+                    <button class="output-view-tab" data-view="render">Rendu</button>
+                </div>
+                <div class="output-view output-view-console">
+                    <div class="output-console-log">
+                        <div class="log-info" style="padding: 10px; opacity: 0.7;">// Le résultat s'affichera ici...</div>
+                    </div>
+                </div>
+                <div class="output-view output-view-render">
+                    <iframe class="output-render-frame" title="Rendu" sandbox="allow-scripts"></iframe>
+                </div>
             </div>
         </div>
     `;
 
     container.innerHTML = headerHTML + bodyHTML;
 
-    // --- CODEMIRROR ---
     const textarea = container.querySelector('.cm-target');
     const editor = CodeMirror.fromTextArea(textarea, {
-        mode: "javascript",
-        theme: "dracula",
+        mode: 'javascript',
+        theme: 'dracula',
         lineNumbers: true,
         autoCloseBrackets: true,
         lineWrapping: false,
@@ -76,18 +133,88 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         viewportMargin: isAutoHeight ? Infinity : 10
     });
 
-    editor.setValue(startCode);
-    if (isAutoHeight) editor.setSize(null, "auto");
+    if (isAutoHeight) editor.setSize(null, 'auto');
 
-    // --- TIROIR ---
     const handle = container.querySelector('.console-toggle-handle');
+    const fileTabButtons = container.querySelectorAll('.editor-file-tab');
+    const modeTabButtons = container.querySelectorAll('.tab-btn[data-target]');
+    const outputTabButtons = container.querySelectorAll('.output-view-tab');
+
+    const editorInputWrapper = container.querySelector('.editor-input-wrapper');
+    const btnReset = container.querySelector('.btn-reset');
+    const btnRun = container.querySelector('.btn-run');
+
+    const consolePanel = container.querySelector('.output-console-log');
+    const renderFrame = container.querySelector('.output-render-frame');
+
+    let activeMode = 'user';
+    let activeFile = initialEditorFile;
+    let runCounter = 0;
+
+    const getModeFiles = () => (activeMode === 'solution' ? fixedSolutionFiles : userFiles);
+
+    const getCodeMirrorMode = (file) => {
+        if (file === 'html') return 'htmlmixed';
+        if (file === 'css') return 'css';
+        return 'javascript';
+    };
+
+    const persistCurrentEditorValue = () => {
+        if (activeMode !== 'user') return;
+        userFiles[activeFile] = editor.getValue();
+    };
+
+    const setOutputView = (view) => {
+        const resolved = view === 'render' ? 'render' : 'console';
+        container.setAttribute('data-output-view', resolved);
+        outputTabButtons.forEach((btn) => {
+            btn.classList.toggle('active', btn.dataset.view === resolved);
+        });
+    };
+
+    const setEditorFile = (file, options = {}) => {
+        const { persist = true } = options;
+        if (!validFiles.includes(file)) return;
+        if (persist) persistCurrentEditorValue();
+
+        activeFile = file;
+        fileTabButtons.forEach((btn) => {
+            btn.classList.toggle('active', btn.dataset.file === file);
+        });
+
+        const files = getModeFiles();
+        editor.setOption('mode', getCodeMirrorMode(file));
+        editor.setValue(files[file] || '');
+        editor.refresh();
+    };
+
+    const setEditorMode = (mode) => {
+        const resolvedMode = mode === 'solution' ? 'solution' : 'user';
+        if (resolvedMode === activeMode) return;
+
+        if (activeMode === 'user') persistCurrentEditorValue();
+        activeMode = resolvedMode;
+
+        modeTabButtons.forEach((btn) => {
+            btn.classList.toggle('active', btn.dataset.target === resolvedMode);
+        });
+
+        const isSolution = resolvedMode === 'solution';
+        editor.setOption('readOnly', isSolution);
+        editorInputWrapper.classList.toggle('show-badge', isSolution);
+
+        if (btnReset) {
+            btnReset.disabled = isSolution;
+            btnReset.style.opacity = isSolution ? '0.5' : '1';
+        }
+
+        setEditorFile(activeFile, { persist: false });
+    };
 
     const renderHandleIcon = (isOpen) => {
         handle.innerHTML = `<i data-lucide="${isOpen ? 'chevron-right' : 'chevron-left'}" class="w-4 h-4"></i>`;
         if (typeof lucide !== 'undefined') lucide.createIcons({ root: handle });
     };
-
-    renderHandleIcon(isConsoleInitialOpen);
 
     const toggleConsole = (forceOpen = null) => {
         const isOpen = container.getAttribute('data-console-state') === 'open';
@@ -98,51 +225,92 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         setTimeout(() => editor.refresh(), 450);
     };
 
+    const clearConsole = () => {
+        consolePanel.innerHTML = '';
+    };
+
+    const showConsolePlaceholder = () => {
+        consolePanel.innerHTML = '<div class="log-info" style="padding: 10px; opacity: 0.7;">// Le résultat s\'affichera ici...</div>';
+    };
+
+    const buildRenderDoc = (files) => {
+        const html = files.html || '';
+        const css = files.css || '';
+
+        return `<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>${css}</style>
+</head>
+<body>
+${html}
+</body>
+</html>`;
+    };
+
+    const loadRenderFrame = (files, runId) => new Promise((resolve) => {
+        const content = buildRenderDoc(files);
+        const onLoad = () => {
+            renderFrame.removeEventListener('load', onLoad);
+            if (runId !== runCounter) {
+                resolve(null);
+                return;
+            }
+            resolve({
+                doc: renderFrame.contentDocument,
+                win: renderFrame.contentWindow
+            });
+        };
+
+        renderFrame.addEventListener('load', onLoad);
+        renderFrame.srcdoc = content;
+    });
+
+    // Initial UI state.
+    renderHandleIcon(isConsoleInitialOpen);
+    setOutputView(initialOutputView);
+    setEditorMode('user');
+    setEditorFile(activeFile, { persist: false });
+
     handle.addEventListener('click', () => toggleConsole());
 
-    // --- ONGLETS ---
-    const isViewingSolution = () => container.querySelector('.tab-btn[data-target="solution"]')?.classList.contains('active');
-
-    if (type === 'exercise') {
-        const tabs = container.querySelectorAll('.tab-btn');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                if (container.querySelector('.tab-btn[data-target="user"]').classList.contains('active')) {
-                    userCode = editor.getValue();
-                }
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                if (tab.dataset.target === 'solution') {
-                    editor.setValue(solutionCode); editor.setOption('readOnly', true);
-                    container.querySelector('.editor-input-wrapper').classList.add('show-badge');
-                    const btn = container.querySelector('.btn-reset'); if (btn) { btn.disabled = true; btn.style.opacity = 0.5; }
-                } else {
-                    editor.setValue(userCode); editor.setOption('readOnly', false);
-                    container.querySelector('.editor-input-wrapper').classList.remove('show-badge');
-                    const btn = container.querySelector('.btn-reset'); if (btn) { btn.disabled = false; btn.style.opacity = 1; }
-                }
-            });
+    fileTabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            setEditorFile(btn.dataset.file);
         });
-    }
+    });
 
-    // --- RESET ---
-    const btnReset = container.querySelector('.btn-reset');
+    modeTabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            setEditorMode(btn.dataset.target);
+        });
+    });
+
+    outputTabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            setOutputView(btn.dataset.view);
+        });
+    });
+
     if (btnReset) {
         btnReset.addEventListener('click', () => {
-            if (confirm("Recommencer l'exercice ?")) {
-                userCode = startCode; editor.setValue(startCode);
-                if (isViewingSolution()) container.querySelector('.tab-btn[data-target="user"]').click();
+            if (!confirm('Recommencer l\'exercice ?')) return;
+
+            userFiles = cloneFiles(sourceFiles);
+            if (activeMode === 'solution') {
+                setEditorMode('user');
+            } else {
+                setEditorFile(activeFile, { persist: false });
             }
         });
     }
 
-    // --- RUN ---
-    const btnRun = container.querySelector('.btn-run');
-    const consoleDiv = container.querySelector('.console-output');
+    btnRun.addEventListener('click', async () => {
+        persistCurrentEditorValue();
+        clearConsole();
 
-    btnRun.addEventListener('click', () => {
-        consoleDiv.innerHTML = '';
         const SOURCE_FILE = 'Editor.js';
         const STUDENT_SOURCE_FILE = 'StudentCode.js';
         const WRAPPER_OFFSET = 2;
@@ -153,7 +321,22 @@ document.querySelectorAll('.playground-container').forEach((container) => {
             .replace(/[\u200b-\u200d\ufeff]/g, '')
             .replace(/\u2028|\u2029/g, '\n');
 
-        const code = normalizeStudentCode(editor.getValue());
+        const runFiles = cloneFiles(getModeFiles());
+        runFiles.js = normalizeStudentCode(runFiles.js || '');
+
+        const runId = ++runCounter;
+        const frameContext = await loadRenderFrame(runFiles, runId);
+        if (!frameContext) return;
+
+        const frameDocument = frameContext.doc;
+        const frameWindow = frameContext.win;
+
+        if (!frameDocument || !frameWindow) {
+            showConsolePlaceholder();
+            return;
+        }
+
+        const code = runFiles.js;
 
         const stringifyValue = (value) => {
             if (value === undefined) return 'undefined';
@@ -185,9 +368,8 @@ document.querySelectorAll('.playground-container').forEach((container) => {
             if (!stack) return [];
             const frames = [];
             const seen = new Set();
-            const lines = String(stack).split('\n');
 
-            lines.forEach((lineText) => {
+            String(stack).split('\n').forEach((lineText) => {
                 const line = lineText.trim();
                 if (!line) return;
 
@@ -201,7 +383,6 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                         fnName = fnMatch[1] || null;
                         locationPart = fnMatch[2];
                     } else {
-                        fnName = null;
                         locationPart = body;
                     }
                 } else if (line.includes('@')) {
@@ -223,11 +404,10 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                 const colNum = Number(last[3]);
                 const baseFile = rawFile.split('/').pop() || '';
                 const cleanBaseFile = baseFile.split('?')[0].split('#')[0];
-                const baseLower = baseFile.toLowerCase();
                 const cleanLower = cleanBaseFile.toLowerCase();
 
-                if (baseLower === 'script.js') return;
-                if (baseLower === 'editor.js' && cleanBaseFile !== SOURCE_FILE) return;
+                if (cleanLower === 'script.js') return;
+                if (cleanLower === 'editor.js' && cleanBaseFile !== SOURCE_FILE) return;
 
                 const isUserFrame = cleanBaseFile === SOURCE_FILE
                     || cleanBaseFile === STUDENT_SOURCE_FILE
@@ -237,16 +417,13 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                 if (!isUserFrame) return;
 
                 let cleanedFnName = fnName;
-                if (cleanedFnName && cleanedFnName.includes('eval')) {
-                    cleanedFnName = '<global>';
-                }
-                if (cleanedFnName && cleanedFnName.includes('Object.log')) {
-                    cleanedFnName = null;
-                }
+                if (cleanedFnName && cleanedFnName.includes('eval')) cleanedFnName = '<global>';
+                if (cleanedFnName && cleanedFnName.includes('Object.log')) cleanedFnName = null;
 
                 const frame = toFrame(lineNum - WRAPPER_OFFSET, colNum, cleanedFnName);
                 const key = `${frame.location}|${frame.fnName || ''}`;
                 if (seen.has(key)) return;
+
                 seen.add(key);
                 frames.push(frame);
             });
@@ -271,8 +448,6 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                 const next = source[i + 1] || '';
                 col += 1;
 
-                // In JS, an unescaped newline inside '...' or "..." is a syntax error.
-                // We report the opening quote as the most useful location.
                 if ((inSingle || inDouble) && ch === '\n' && !escaped) {
                     if (quoteStart) return toFrame(quoteStart.line, quoteStart.col);
                     return toFrame(line, Math.max(1, col - 1));
@@ -357,6 +532,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                     stackDelimiters.push({ ch, line, col });
                     continue;
                 }
+
                 if (ch === ')' || ch === ']' || ch === '}') {
                     const last = stackDelimiters[stackDelimiters.length - 1];
                     if (!last) return toFrame(line, col);
@@ -412,18 +588,18 @@ document.querySelectorAll('.playground-container').forEach((container) => {
             editor.scrollIntoView({ line: lineIndex, ch: chIndex }, 120);
         };
 
-        const iconByType = (type) => {
-            if (type === 'error') return '⨯';
-            if (type === 'warn') return '⚠';
-            if (type === 'info') return 'i';
-            if (type === 'debug') return '•';
+        const iconByType = (typeName) => {
+            if (typeName === 'error') return '⨯';
+            if (typeName === 'warn') return '⚠';
+            if (typeName === 'info') return 'i';
+            if (typeName === 'debug') return '•';
             return '›';
         };
 
-        const print = (type, args, meta = {}) => {
+        const print = (typeName, args, meta = {}) => {
             if (container.getAttribute('data-console-state') === 'closed') toggleConsole(true);
 
-            const level = ['log', 'warn', 'error', 'info', 'debug'].includes(type) ? type : 'log';
+            const level = ['log', 'warn', 'error', 'info', 'debug'].includes(typeName) ? typeName : 'log';
             const firstError = args.find((arg) => arg instanceof Error) || null;
 
             let locationFrame = null;
@@ -440,21 +616,20 @@ document.querySelectorAll('.playground-container').forEach((container) => {
             } else {
                 const detailBlocks = [];
                 const pieces = args.map((arg) => {
-                    if (arg && typeof arg === 'object') {
-                        detailBlocks.push(stringifyValue(arg));
-                    }
+                    if (arg && typeof arg === 'object') detailBlocks.push(stringifyValue(arg));
                     return inlineValue(arg);
                 });
                 messageText = pieces.join(' ');
+
                 const callFrames = parseStackFrames(meta.callStack || '');
                 locationFrame = callFrames[0] || null;
                 if (callFrames.length) traceText = toTraceText(callFrames);
+
                 if (detailBlocks.length) {
                     traceText = traceText ? `${traceText}\n\n${detailBlocks.join('\n\n')}` : detailBlocks.join('\n\n');
                 }
-                if (!traceText && locationFrame) {
-                    traceText = `at ${locationFrame.location}`;
-                }
+
+                if (!traceText && locationFrame) traceText = `at ${locationFrame.location}`;
             }
 
             if (!locationFrame && meta.error) {
@@ -541,8 +716,8 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                 }
             }
 
-            consoleDiv.appendChild(entry);
-            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            consolePanel.appendChild(entry);
+            consolePanel.scrollTop = consolePanel.scrollHeight;
         };
 
         const mockConsole = {
@@ -553,20 +728,29 @@ document.querySelectorAll('.playground-container').forEach((container) => {
             error: (...args) => print('error', args, { callStack: new Error().stack })
         };
 
+        if (!code.trim()) {
+            showConsolePlaceholder();
+            return;
+        }
+
         const codeWithSource = `${code}\n//# sourceURL=${STUDENT_SOURCE_FILE}`;
         let runnable;
 
         try {
-            runnable = new Function('console', codeWithSource);
+            runnable = new Function('console', 'document', 'window', codeWithSource);
         } catch (error) {
             print('error', [error], { uncaught: true, error });
             return;
         }
 
         try {
-            runnable(mockConsole);
+            runnable(mockConsole, frameDocument, frameWindow);
         } catch (error) {
             print('error', [error], { uncaught: true, error });
+        }
+
+        if (!consolePanel.children.length) {
+            showConsolePlaceholder();
         }
     });
 

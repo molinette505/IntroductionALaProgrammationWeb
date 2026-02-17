@@ -18,6 +18,36 @@
 .tab-btn:hover { color: var(--text-heading); }
 .tab-btn.active { background-color: var(--accent-exercise); color: black; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-weight: 600; }
 
+/* Tabs de fichiers */
+.editor-file-tabs {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px solid var(--bg-toolbar);
+    background: var(--bg-editor-ui);
+}
+.editor-file-tab {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.editor-file-tab:hover {
+    color: var(--text-heading);
+    border-color: var(--color-primary);
+}
+.editor-file-tab.active {
+    color: var(--text-inverse);
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+}
+
 /* Toolbar */
 .editor-toolbar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-editor); padding: 8px 12px; border-bottom: 1px solid var(--bg-toolbar); flex-wrap: wrap; gap: 8px; }
 .toolbar-info { color: var(--text-heading); font-size: 0.85rem; font-family: 'Inter', sans-serif; min-width: 0; overflow-wrap: anywhere; flex: 1 1 220px; }
@@ -52,6 +82,7 @@
     font-family: var(--font-mono) !important;
     font-size: 13px;
     background-color: var(--bg-editor) !important;
+    flex: 1 1 auto;
 }
 .CodeMirror-scroll {
     overflow: auto !important;
@@ -72,10 +103,66 @@
 
 .playground-container[data-console-state="open"] .console-output {
     flex: 0 0 40%;
-    padding: 1rem;
+    padding: 0;
     border-left: 1px solid var(--bg-toolbar);
     white-space: normal;
     overflow: auto !important;
+}
+
+/* Tabs de sortie (Console / Rendu) */
+.output-view-tabs {
+    display: flex;
+    gap: 0.45rem;
+    padding: 0.45rem 0.65rem;
+    border-bottom: 1px solid var(--bg-toolbar);
+    background: var(--bg-editor-ui);
+}
+.output-view-tab {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.6rem;
+    font-size: 0.73rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.output-view-tab:hover {
+    color: var(--text-heading);
+    border-color: var(--color-primary);
+}
+.output-view-tab.active {
+    color: var(--text-inverse);
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+}
+
+.output-view {
+    display: none;
+    min-height: 0;
+    height: 100%;
+    flex: 1 1 auto;
+}
+.playground-container[data-output-view="console"] .output-view-console {
+    display: block;
+}
+.playground-container[data-output-view="render"] .output-view-render {
+    display: block;
+}
+
+.output-console-log {
+    height: 100%;
+    overflow: auto;
+    padding: 0.8rem;
+}
+
+.output-render-frame {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    border: 0;
+    background: #fff;
 }
 
 /* Console style (DevTools-like, palette du projet) */
@@ -308,7 +395,7 @@
         flex: 0 0 auto;
         height: 220px;
         max-height: 220px;
-        padding: 1rem;
+        padding: 0;
         border-top: 1px solid var(--bg-toolbar);
         white-space: normal;
         overflow: auto !important;
