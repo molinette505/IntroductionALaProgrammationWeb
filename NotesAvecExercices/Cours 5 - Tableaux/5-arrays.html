@@ -44,11 +44,12 @@
                 <a href="#definition" class="nav-link active">1. Définition & Index</a>
                 <a href="#create" class="nav-link">2. Création</a>
                 <a href="#length" class="nav-link">3. Taille (Length)</a>
-                <a href="#read-write" class="nav-link">4. Lire & Modifier</a>
-                <a href="#end-ops" class="nav-link">5. Ajouter (Push/Unshift)</a>
-                <a href="#start-ops" class="nav-link">6. Retirer (Pop/Shift)</a>
-                <a href="#slice" class="nav-link">7. Découper (Slice)</a>
-                <a href="#parallel" class="nav-link">8. Tableaux Parallèles</a>
+                <a href="#first-last" class="nav-link">4. Premier & Dernier</a>
+                <a href="#read-write" class="nav-link">5. Lire & Modifier</a>
+                <a href="#end-ops" class="nav-link">6. Ajouter (Push/Unshift)</a>
+                <a href="#start-ops" class="nav-link">7. Retirer (Pop/Shift)</a>
+                <a href="#slice" class="nav-link">8. Découper (Slice)</a>
+                <a href="#parallel" class="nav-link">9. Tableaux Parallèles</a>
             </nav>
         </aside>
 
@@ -83,31 +84,6 @@
                         Donc le <strong>1er élément</strong> est à l’index <code>0</code>.
                     </p>
                 </div>
-
-                <div class="course-demo-embed course-demo-embed--compact">
-                    <iframe
-                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&hideTheme=1&controls=0&console=0&reset=0"
-                        title="Démo tableau de scores (statique)"
-                        loading="lazy"></iframe>
-                </div>
-
-                <div class="playground-container" data-type="example" data-title="Exemple : Utilisation de tableau.">
-<textarea class="source-code" hidden>
-let cours = ["Développement Web", "Programmation", "Design"];
-//index             //0                 //1           //2
-
-let premierCours = cours[0]; // Sélectionne le premier élément [0] et le met dans la variable premierCours
-let deuxiemeCours = cours[1]; // Sélectionne le deuxième élément [1] et le met dans la variable deuxiemeCours
-
-console.log("Premier cours :", premierCours);
-console.log("Deuxième cours :", deuxiemeCours);
-
-//Regarde si le premier cours est bien le bon (Développement Web)
-if (premierCours === "Développement Web") {
-    console.log("C'est le bon cours !");
-}
-</textarea>
-                </div>
             </section>
 
             <section id="create" class="section-spy">
@@ -132,11 +108,31 @@ if (premierCours === "Développement Web") {
                     </div>
                 </div>
 
-                <div class="course-demo-embed course-demo-embed--compact">
-                    <iframe
-                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&hideTheme=1&controls=0&console=0&presets=1"
-                        title="Démo création de tableaux (scores)"
-                        loading="lazy"></iframe>
+                <div class="playground-container" data-type="example" data-title="Exemple : Créer deux tableaux">
+<textarea class="source-code" hidden>
+let scores = [12, 18, 9];
+let inventaire = [];
+
+console.log(scores);
+console.log(inventaire);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Création rapide">
+<textarea class="source-code" hidden>
+// TODO1: Crée un tableau "villes" avec 3 villes
+
+// TODO2: Crée un tableau vide "sauvegardes"
+
+// TODO3: Affiche les deux tableaux
+</textarea>
+<textarea class="solution-code" hidden>
+let villes = ["Québec", "Montréal", "Saguenay"];
+let sauvegardes = [];
+
+console.log(villes);
+console.log(sauvegardes);
+</textarea>
                 </div>
             </section>
 
@@ -147,18 +143,6 @@ if (premierCours === "Développement Web") {
                 </div>
 
                 <p><code>.length</code> retourne le <strong>nombre d’éléments</strong></p>
-
-                <div class="info-box warning">
-                    <h4><i data-lucide="ruler"></i> À retenir</h4>
-                    <p>Le dernier index (dernier élément) est toujours : <code>tableau.length - 1</code>.</p>
-                </div>
-
-                <div class="course-demo-embed course-demo-embed--medium">
-                    <iframe
-                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&hideTheme=1&panels=length"
-                        title="Démo longueur avec ajouts et retraits (scores)"
-                        loading="lazy"></iframe>
-                </div>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Vérifier si c'est vide">
 <textarea class="source-code" hidden>
@@ -197,14 +181,77 @@ console.log("Nombre total de participants:",nbTotalParticipants);
                 </div>
             </section>
 
-            <section id="read-write" class="section-spy">
+            <section id="first-last" class="section-spy">
                 <div class="section-header">
                     <span class="step-number">4</span>
+                    <h3>Accéder au premier et dernier élément</h3>
+                </div>
+
+                <p>Le premier élément est toujours à l’index <code>0</code>.</p>
+                <p>Le dernier élément est à l’index <code>tableau.length - 1</code>.</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Premier et dernier">
+<textarea class="source-code" hidden>
+let scores = [12, 18, 9, 25];
+
+let premier = scores[0];
+let dernier = scores[scores.length - 1];
+
+console.log("Premier:", premier);
+console.log("Dernier:", dernier);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Début et fin">
+<textarea class="source-code" hidden>
+let couleurs = ["Rouge", "Vert", "Bleu", "Jaune"];
+
+// TODO1: Affiche la première couleur
+
+// TODO2: Affiche la dernière couleur
+</textarea>
+<textarea class="solution-code" hidden>
+let couleurs = ["Rouge", "Vert", "Bleu", "Jaune"];
+
+console.log(couleurs[0]);
+console.log(couleurs[couleurs.length - 1]);
+</textarea>
+                </div>
+            </section>
+
+            <section id="read-write" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
                     <h3>Lire & Modifier</h3>
                 </div>
 
+                <h4>Lire</h4>
                 <p>On accède à un élément en ajoutant <code>[index]</code> après le nom de la variable qui contient le tableau.</p>
                 <p>Exemple: <code>monTableau[2]</code> donne le 3e élément dans le tableau.</p>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Lire un élément">
+<textarea class="source-code" hidden>
+let scores = [10, 20, 30];
+
+let deuxieme = scores[1];
+console.log("Deuxième:", deuxieme);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Lire un index">
+<textarea class="source-code" hidden>
+let equipes = ["Lions", "Tigres", "Aigles"];
+
+// TODO: Affiche le 3e nom (index 2)
+</textarea>
+<textarea class="solution-code" hidden>
+let equipes = ["Lions", "Tigres", "Aigles"];
+
+console.log(equipes[2]);
+</textarea>
+                </div>
+
+                <h4>Écrire (modifier)</h4>
                 <p>On peut remplacer l'élément qui se trouve à une position dans le tableau avec <code>=</code>.</p>
                 <p>Exemple: <code>monTableau[2] = 5</code> remplace le 3e élément par 5.</p>
 
@@ -216,11 +263,13 @@ console.log("Nombre total de participants:",nbTotalParticipants);
                     <p>Exemple: si le tableau n'a que 2 éléments monTableau[10]=2 donnera [3,1, , , , , , , ,2]</p>
                 </div>
 
-                <div class="course-demo-embed">
-                    <iframe
-                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&panels=read-write"
-                        title="Démo lecture et écriture (scores)"
-                        loading="lazy"></iframe>
+                <div class="playground-container" data-type="example" data-title="Exemple : Modifier un élément">
+<textarea class="source-code" hidden>
+let scores = [10, 20, 30];
+
+scores[1] = 25;
+console.log(scores);
+</textarea>
                 </div>
 
                 <div class="playground-container" data-type="exercise" data-title="Exercice : Correction">
@@ -238,11 +287,13 @@ console.log(scores);
 
             <section id="end-ops" class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">5</span>
+                    <span class="step-number">6</span>
                     <h3>Ajouter des éléments : Push & Unshift</h3>
                 </div>
 
                 <p>Ces méthodes ajoutent un élément, soit à la fin, soit au début du tableau.</p>
+                <p><code>push</code> et <code>unshift</code> retournent la <strong>nouvelle taille</strong> du tableau.</p>
+                <p><code>unshift</code> décale <strong>tous les éléments</strong> vers la droite.</p>
 
                 <div class="grid-2">
                     <div class="info-box success">
@@ -255,25 +306,44 @@ console.log(scores);
                     </div>
                 </div>
 
-                <div class="course-demo-embed">
-                    <iframe
-                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&panels=add"
-                        title="Démo ajout push et unshift (scores)"
-                        loading="lazy"></iframe>
+                <div class="playground-container" data-type="example" data-title="Exemple : Ajouter et récupérer la taille">
+<textarea class="source-code" hidden>
+let scores = [12, 18];
+
+let taille1 = scores.push(20);
+console.log("Après push:", scores, "taille:", taille1);
+
+let taille2 = scores.unshift(5);
+console.log("Après unshift:", scores, "taille:", taille2);
+</textarea>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Exemple : Historique (pop)">
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Push puis Unshift">
 <textarea class="source-code" hidden>
-let historique = ["Accueil", "Contact"];
-let pagePrecedente = historique.pop();
-console.log("Retour de :", pagePrecedente);
+let scores = [7, 14, 21];
+
+// TODO1: Ajoute 28 à la fin, stocke la taille retournée
+
+// TODO2: Ajoute 3 au début, stocke la taille retournée
+
+// TODO3: Affiche les tailles et le tableau
+</textarea>
+<textarea class="solution-code" hidden>
+let scores = [7, 14, 21];
+
+let tailleApresPush = scores.push(28);
+let tailleApresUnshift = scores.unshift(3);
+
+console.log("Taille après push:", tailleApresPush);
+console.log("Taille après unshift:", tailleApresUnshift);
+console.log(scores);
 </textarea>
                 </div>
             </section>
 
             <section id="start-ops" class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">6</span>
+                    <span class="step-number">7</span>
                     <h3>Retirer des éléments : Pop & Shift</h3>
                 </div>
 
@@ -293,49 +363,81 @@ console.log("Retour de :", pagePrecedente);
                     <p>C'est <strong>plus lent</strong> que push/pop car l'ordinateur doit décaler tous les index du tableau.</p>
                 </div>
 
-                <div class="course-demo-embed">
-                    <iframe
-                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&panels=remove"
-                        title="Démo retrait pop et shift (scores)"
-                        loading="lazy"></iframe>
+                <div class="playground-container" data-type="example" data-title="Exemple : Retirer et récupérer la valeur">
+<textarea class="source-code" hidden>
+let file = ["Client 1", "Client 2", "Client 3"];
+
+let dernier = file.pop();
+console.log("Pop:", dernier);
+
+let premier = file.shift();
+console.log("Shift:", premier);
+
+console.log("File restante:", file);
+</textarea>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Exemple : File d'attente (shift)">
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Pop puis Shift">
 <textarea class="source-code" hidden>
-let file = ["Client 1", "Client 2"];
-let servi = file.shift(); 
-console.log("Servi :", servi);
+let inventaire = ["Épée", "Bouclier", "Potion"];
+
+// TODO1: Retire le dernier élément et stocke-le
+
+// TODO2: Retire le premier élément et stocke-le
+
+// TODO3: Affiche les deux éléments retirés et l'inventaire restant
+</textarea>
+<textarea class="solution-code" hidden>
+let inventaire = ["Épée", "Bouclier", "Potion"];
+
+let dernier = inventaire.pop();
+let premier = inventaire.shift();
+
+console.log("Dernier retiré:", dernier);
+console.log("Premier retiré:", premier);
+console.log("Restant:", inventaire);
 </textarea>
                 </div>
             </section>
 
             <section id="slice" class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">7</span>
+                    <span class="step-number">8</span>
                     <h3>Découper (Slice)</h3>
                 </div>
 
                 <p>Permet de <strong>copier</strong> une partie sans modifier l'original. <code>slice(début, fin_exclue)</code>.</p>
 
-                <div class="course-demo-embed">
-                    <iframe
-                        src="demo-tableaux/index.html?embed=1&theme=scores&lockTheme=1&panels=slice"
-                        title="Démo découpe slice (scores)"
-                        loading="lazy"></iframe>
-                </div>
-
-                <div class="playground-container" data-type="example" data-title="Exemple : Top 2">
+                <div class="playground-container" data-type="example" data-title="Exemple : Top 3">
 <textarea class="source-code" hidden>
 let joueurs = ["Alexandre", "Juliette", "Anne-Marie", "Alan"];
-let podium = joueurs.slice(0, 3); // ["A", "B"]
+let podium = joueurs.slice(0, 3);
 console.log(podium);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Extraire une portion">
+<textarea class="source-code" hidden>
+let niveaux = [1, 2, 3, 4, 5, 6];
+
+// TODO: Copie les niveaux 2, 3 et 4 (indices 1 à 3) dans "moyen"
+
+// TODO: Affiche "moyen" et "niveaux"
+</textarea>
+<textarea class="solution-code" hidden>
+let niveaux = [1, 2, 3, 4, 5, 6];
+
+let moyen = niveaux.slice(1, 4);
+
+console.log(moyen);
+console.log(niveaux);
 </textarea>
                 </div>
             </section>
 
             <section id="parallel" class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">8</span>
+                    <span class="step-number">9</span>
                     <h3>Les Tableaux Parallèles</h3>
                 </div>
 
@@ -344,7 +446,7 @@ console.log(podium);
                     <strong>Crucial pour votre TP1 !</strong>
                 </p>
 
-                <div class="playground-container" data-type="example" data-title="Exemple : Informations d'étudisants">
+                <div class="playground-container" data-type="example" data-title="Exemple : Informations d'étudiants">
 <textarea class="source-code" hidden>
 // Chaque tableau contient une information et chaque index représente une personne
 let nomsEtudiants = ["Michel", "Alice", "Anthony", "Gabrielle", "Mélanie"];
@@ -359,9 +461,9 @@ console.log("Programme d'étude:", programmesEtudiants[indexEtudiant]);
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Exercice: Informations d'align-items">
+                <div class="playground-container" data-type="exercise" data-title="Exercice : Informations d'objets">
 <textarea class="source-code" hidden>
-let nomsItems = ["Épée", "Bouclier", "Dague", "Potion vie", "Potion mana];
+let nomsItems = ["Épée", "Bouclier", "Dague", "Potion vie", "Potion mana"];
 let prixItems = [100, 150, 90, 50, 50];
 let descriptionsItems = [
   "Une épée en acier bien aiguisée, parfaite pour les combats rapprochés.",

@@ -808,6 +808,8 @@ async function sliceItems() {
         await Promise.all(cartFlights);
         await wait(700);
         dismissCart();
+    } else {
+        resetCartLabel();
     }
 
     log(logCmd, `[${extracted.map(formatVal).join(', ')}]`);
