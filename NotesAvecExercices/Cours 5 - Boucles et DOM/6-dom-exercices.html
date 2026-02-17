@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Pratique - DOM</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Atelier DOM</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">TP</span>
+                <h1>Atelier : DOM</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+                <a href="#ex1" class="nav-link active">1. Modifier un texte</a>
+                <a href="#ex2" class="nav-link">2. innerHTML</a>
+                <a href="#ex3" class="nav-link">3. Lire une valeur</a>
+                <a href="#ex4" class="nav-link">4. classList</a>
+                <a href="#boss" class="nav-link">5. Boss Final</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <h2 class="section-title">Cahier d'exercices DOM</h2>
+                <p>
+                    Objectif : sélectionner, lire et modifier le DOM. Chaque exercice est autonome et progressif.
+                </p>
+                <div class="info-box info">
+                    <strong>Astuce :</strong> Utilisez la console intégrée pour vérifier vos résultats.
+                </div>
+            </section>
+
+            <section id="ex1" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Modifier un texte</h3>
+                </div>
+                <p>Ciblez un élément par son ID et changez son texte.</p>
+
+                <div class="info-box">
+                    <p id="ex1-status">Statut : en attente</p>
+                </div>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="DOM : innerText" 
+                     data-instructions="Change le texte en 'Statut : prêt'."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Sélectionne l'élément #ex1-status
+// 2. Modifie son innerText
+</textarea>
+                    <textarea class="solution-code" hidden>
+const status = document.getElementById("ex1-status");
+
+if (status) {
+  status.innerText = "Statut : prêt";
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex2" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>innerHTML</h3>
+                </div>
+                <p>Injectez du HTML pour afficher un message stylé.</p>
+
+                <div class="info-box" id="ex2-zone"></div>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="DOM : innerHTML" 
+                     data-instructions="Affiche 'Bienvenue' en gras dans #ex2-zone."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Sélectionne #ex2-zone
+// 2. Utilise innerHTML pour ajouter un <strong>Bienvenue</strong>
+</textarea>
+                    <textarea class="solution-code" hidden>
+const zone = document.querySelector("#ex2-zone");
+
+if (zone) {
+  zone.innerHTML = "<strong>Bienvenue</strong>";
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex3" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Lire une valeur</h3>
+                </div>
+                <p>Lisez la valeur d'un champ et affichez-la.</p>
+
+                <div class="info-box">
+                    <label>Nom : <input id="ex3-input" value="Ana"></label>
+                    <p id="ex3-output">Nom : (vide)</p>
+                </div>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="DOM : value" 
+                     data-instructions="Affiche le nom dans #ex3-output."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Récupère la valeur de #ex3-input
+// 2. Affiche `Nom : valeur` dans #ex3-output
+</textarea>
+                    <textarea class="solution-code" hidden>
+const input = document.querySelector("#ex3-input");
+const output = document.querySelector("#ex3-output");
+
+if (input && output) {
+  output.innerText = `Nom : ${input.value}`;
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex4" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>classList</h3>
+                </div>
+                <p>Ajoutez une classe pour changer l'apparence.</p>
+
+                <div class="info-box" id="ex4-box">
+                    <p>Boîte neutre</p>
+                </div>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="DOM : classList" 
+                     data-instructions="Ajoute la classe 'success' à #ex4-box."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Sélectionne #ex4-box
+// 2. Ajoute la classe 'success'
+</textarea>
+                    <textarea class="solution-code" hidden>
+const box = document.querySelector("#ex4-box");
+
+if (box) {
+  box.classList.add("success");
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="boss" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Boss Final : Liste dynamique</h3>
+                </div>
+                <p>Créez une liste à partir d'un tableau.</p>
+
+                <div class="info-box">
+                    <ul class="card-list" id="ex5-list"></ul>
+                </div>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="DOM : createElement" 
+                     data-instructions="Ajoute un <li> par élément du tableau."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+const objets = ["épée", "bouclier", "potion"];
+const liste = document.querySelector("#ex5-list");
+
+// 1. Parcours le tableau
+// 2. Crée un <li> pour chaque élément
+// 3. Ajoute-le à la liste
+</textarea>
+                    <textarea class="solution-code" hidden>
+const objets = ["épée", "bouclier", "potion"];
+const liste = document.querySelector("#ex5-list");
+
+if (liste) {
+  for (const objet of objets) {
+    const li = document.createElement("li");
+    li.innerText = objet;
+    liste.appendChild(li);
+  }
+}
+</textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Manipulation du DOM</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS DOM</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Manipulation du DOM</h1>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+                <a href="#intro" class="nav-link active">Introduction</a>
+                <a href="#definition" class="nav-link">1. Qu'est-ce que le DOM</a>
+                <a href="#pourquoi" class="nav-link">2. Pourquoi l'utiliser</a>
+                <a href="#cycle" class="nav-link">3. Le cycle DOM</a>
+                <a href="#selection" class="nav-link">4. Sélectionner</a>
+                <a href="#contenu" class="nav-link">5. Modifier le contenu</a>
+                <a href="#templates" class="nav-link">6. Backticks</a>
+                <a href="#apparence" class="nav-link">7. Apparence</a>
+                <a href="#attributs" class="nav-link">8. Attributs</a>
+                <a href="#creation" class="nav-link">9. Création dynamique</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <h2 class="section-title">La manipulation du DOM : rendre le Web vivant</h2>
+                <p>
+                    Le DOM (Document Object Model) est la représentation du HTML en mémoire. JavaScript peut s'en servir
+                    pour modifier la page en temps réel, sans recharger.
+                </p>
+                <div class="info-box info">
+                    <strong>Image mentale :</strong> Le HTML est le plan, le DOM est la maison construite. JavaScript peut
+                    déplacer des meubles ou peindre un mur.
+                </div>
+            </section>
+
+            <section id="definition" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Qu'est-ce que le DOM ?</h3>
+                </div>
+                <ul class="card-list">
+                    <li><strong>Structure en arbre :</strong> chaque balise est un nœud dans une hiérarchie parent-enfant.</li>
+                    <li><strong>Interface (API) :</strong> le DOM fournit des méthodes pour sélectionner et modifier les éléments.</li>
+                </ul>
+                <div class="info-box tip">
+                    <h4><i data-lucide="tree-pine"></i> À retenir</h4>
+                    <p>Vous n'écrivez pas le DOM directement : vous le manipulez via JavaScript.</p>
+                </div>
+            </section>
+
+            <section id="pourquoi" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Pourquoi utiliser JavaScript ?</h3>
+                </div>
+                <p>Le web moderne demande de l'interactivité immédiate.</p>
+                <ul class="card-list">
+                    <li>Réseaux sociaux : un nouveau message apparaît sans recharger la page.</li>
+                    <li>E-commerce : trier une liste de produits instantanément.</li>
+                    <li>UX : passer en mode nuit en changeant une classe CSS sur <code>body</code>.</li>
+                </ul>
+            </section>
+
+            <section id="cycle" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Le cycle de manipulation</h3>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="search"></i></div>
+                        <h4>1. Sélectionner</h4>
+                        <p>Trouver l'élément dans la page.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="eye"></i></div>
+                        <h4>2. Lire</h4>
+                        <p>Récupérer du texte, une valeur, un attribut.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="wand-2"></i></div>
+                        <h4>3. Modifier</h4>
+                        <p>Changer le contenu ou l'apparence.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="selection" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Sélectionner un élément</h3>
+                </div>
+                <p>Avant de modifier, il faut cibler l'élément.</p>
+                <ul class="code-list">
+                    <li><code>document.getElementById("monId")</code> : rapide, pour un ID unique.</li>
+                    <li><code>document.querySelector(".classe")</code> : sélection CSS, retourne le premier.</li>
+                </ul>
+
+                <div class="info-box info">
+                    <p><strong>Zone de test :</strong> cliquez sur Exécuter pour voir la mise à jour.</p>
+                    <h4 id="dom-demo-title">Titre original</h4>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Sélection">
+<textarea class="source-code" hidden>
+const titre = document.getElementById("dom-demo-title");
+
+if (titre) {
+  console.log("Titre actuel :", titre.innerText);
+  titre.innerText = "Titre mis à jour par le DOM";
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="contenu" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Modifier le contenu</h3>
+                </div>
+                <p>Le texte et le HTML se modifient avec des propriétés simples.</p>
+
+                <div class="info-box">
+                    <p id="dom-demo-text">Texte original</p>
+                    <div id="dom-demo-html"></div>
+                    <label>Nom : <input id="dom-demo-input" value="Victor"></label>
+                    <p id="dom-demo-output">Nom : (non lu)</p>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : innerText, innerHTML, value">
+<textarea class="source-code" hidden>
+const texte = document.querySelector("#dom-demo-text");
+const zoneHtml = document.querySelector("#dom-demo-html");
+const inputNom = document.querySelector("#dom-demo-input");
+const output = document.querySelector("#dom-demo-output");
+
+if (texte) {
+  texte.innerText = "Texte modifié par JavaScript";
+}
+
+if (zoneHtml) {
+  zoneHtml.innerHTML = "<strong>Bloc HTML</strong> ajouté avec innerHTML.";
+}
+
+if (inputNom && output) {
+  output.innerText = "Nom : " + inputNom.value;
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="templates" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">6</span>
+                    <h3>Lire et remplacer (Backticks)</h3>
+                </div>
+                <p>Les template literals rendent l'affichage dynamique plus propre.</p>
+
+                <div class="info-box">
+                    <div id="dom-demo-card"></div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : Template literals">
+<textarea class="source-code" hidden>
+const zone = document.querySelector("#dom-demo-card");
+let nomUtilisateur = "Victor";
+
+if (zone) {
+  zone.innerHTML = `
+    <div class="info-box success">
+      <p>Bienvenue, <strong>${nomUtilisateur}</strong> !</p>
+    </div>
+  `;
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="apparence" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">7</span>
+                    <h3>Modifier l'apparence</h3>
+                </div>
+                <p>Préférez <code>classList</code> pour activer/désactiver des styles.</p>
+
+                <div class="info-box" id="dom-demo-box">
+                    <p>Boîte visuelle</p>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : classList">
+<textarea class="source-code" hidden>
+const box = document.querySelector("#dom-demo-box");
+
+if (box) {
+  box.classList.add("success");
+  box.style.marginTop = "10px";
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="attributs" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">8</span>
+                    <h3>Modifier les attributs</h3>
+                </div>
+                <p>On peut modifier des attributs comme <code>src</code>, <code>href</code> ou des <code>data-*</code>.</p>
+
+                <div class="info-box">
+                    <a id="dom-demo-link" href="#">Lien de démonstration</a>
+                    <p id="dom-demo-link-state">Lien : #</p>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : setAttribute">
+<textarea class="source-code" hidden>
+const lien = document.querySelector("#dom-demo-link");
+const etat = document.querySelector("#dom-demo-link-state");
+
+if (lien && etat) {
+  lien.setAttribute("href", "https://example.com");
+  etat.innerText = "Lien : https://example.com";
+}
+</textarea>
+                </div>
+            </section>
+
+            <section id="creation" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">9</span>
+                    <h3>Création dynamique</h3>
+                </div>
+                <p>Pour ajouter des éléments un par un, utilisez <code>createElement</code> et <code>appendChild</code>.</p>
+
+                <div class="info-box">
+                    <ul class="card-list" id="dom-demo-list">
+                        <li>Élément existant</li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : createElement">
+<textarea class="source-code" hidden>
+const liste = document.querySelector("#dom-demo-list");
+
+if (liste) {
+  const item = document.createElement("li");
+  item.innerText = "Élément ajouté dynamiquement";
+  liste.appendChild(item);
+}
+</textarea>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>

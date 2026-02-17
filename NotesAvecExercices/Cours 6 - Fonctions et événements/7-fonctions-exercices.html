@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Pratique - Fonctions</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Atelier 06</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">TP</span>
+                <h1>Atelier : Fonctions</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+                <a href="#ex1" class="nav-link active">1. Premier appel</a>
+                <a href="#ex2" class="nav-link">2. Aire du rectangle</a>
+                <a href="#ex3" class="nav-link">3. Valeur par défaut</a>
+                <a href="#ex4" class="nav-link">4. Score total</a>
+                <a href="#boss" class="nav-link">5. Boss Final</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <h2 class="section-title">Cahier d'exercices</h2>
+                <p>
+                    Objectif : définir, appeler et combiner des fonctions. Les exercices sont progressifs.
+                </p>
+                <div class="info-box info">
+                    <strong>Astuce :</strong> Pensez à <code>return</code> quand vous avez besoin d'un résultat.
+                </div>
+            </section>
+
+            <section id="ex1" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Premier appel</h3>
+                </div>
+                <p>Créez une fonction qui salue un joueur.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Fonction saluer" 
+                     data-instructions="Affiche 'Bonjour, NOM !'."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// 1. Crée une fonction saluer(nom)
+// 2. Elle affiche "Bonjour, NOM !"
+// 3. Appelle-la avec "Mila"
+</textarea>
+                    <textarea class="solution-code" hidden>
+function saluer(nom) {
+  console.log("Bonjour, " + nom + " !");
+}
+
+saluer("Mila");
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex2" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Aire du rectangle</h3>
+                </div>
+                <p>Retournez une valeur avec <code>return</code>.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Calcul d'aire" 
+                     data-instructions="La fonction doit renvoyer largeur x hauteur."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+function aireRectangle(largeur, hauteur) {
+  // Retourne l'aire du rectangle
+}
+
+let aire = aireRectangle(5, 3);
+console.log("Aire :", aire);
+</textarea>
+                    <textarea class="solution-code" hidden>
+function aireRectangle(largeur, hauteur) {
+  return largeur * hauteur;
+}
+
+let aire = aireRectangle(5, 3);
+console.log("Aire :", aire);
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex3" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Valeur par défaut</h3>
+                </div>
+                <p>Utilisez un paramètre par défaut.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Message par défaut" 
+                     data-instructions="Si aucun nom n'est donné, utilise 'Invité'."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+function messageAccueil(nom) {
+  // Ajoute une valeur par défaut à nom
+  console.log("Bienvenue, " + nom + " !");
+}
+
+messageAccueil("Lina");
+messageAccueil();
+</textarea>
+                    <textarea class="solution-code" hidden>
+function messageAccueil(nom = "Invité") {
+  console.log("Bienvenue, " + nom + " !");
+}
+
+messageAccueil("Lina");
+messageAccueil();
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex4" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Score total</h3>
+                </div>
+                <p>Créez une fonction qui additionne des points.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Addition de points" 
+                     data-instructions="Retourne le total : score + bonus + malus."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+function totalScore(score, bonus, malus) {
+  // Retourne le total en soustrayant le malus
+}
+
+let total = totalScore(100, 25, 10);
+console.log("Total :", total);
+</textarea>
+                    <textarea class="solution-code" hidden>
+function totalScore(score, bonus, malus) {
+  return score + bonus - malus;
+}
+
+let total = totalScore(100, 25, 10);
+console.log("Total :", total);
+</textarea>
+                </div>
+            </section>
+
+            <section id="boss" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Boss Final : Nom propre</h3>
+                </div>
+                <p>Formatez un nom avec une majuscule au début.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Formater un nom" 
+                     data-instructions="Prend une chaîne et renvoie la version 'Nom' (ex: 'aDA' -> 'Ada')."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+function formaterNom(nom) {
+  // 1. Prend la première lettre en majuscule
+  // 2. Ajoute le reste en minuscules
+  // 3. Retourne le résultat
+}
+
+console.log(formaterNom("aDA"));
+</textarea>
+                    <textarea class="solution-code" hidden>
+function formaterNom(nom) {
+  let premiere = nom.slice(0, 1).toUpperCase();
+  let reste = nom.slice(1).toLowerCase();
+  return premiere + reste;
+}
+
+console.log(formaterNom("aDA"));
+</textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>
