@@ -190,7 +190,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         <div class="editor-toolbar">
             <div class="toolbar-info">Modifiez le code ci-dessous et testez-le -></div>
             <div class="toolbar-actions">
-                <button class="btn-visualizer" title="Ouvrir dans JS Visualizer" aria-label="Ouvrir dans JS Visualizer"><i data-lucide="external-link" class="w-3 h-3"></i></button>
+                <button class="btn-visualizer" title="Ouvrir dans JS Visualizer" aria-label="Ouvrir dans JS Visualizer">JSV</button>
                 <button class="btn-expand" title="Plein écran" aria-label="Plein écran"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
                 <button class="btn-reset" title="Réinitialiser" aria-label="Réinitialiser"><i data-lucide="rotate-ccw" class="w-3 h-3"></i></button>
                 <button class="btn-run" title="Exécuter" aria-label="Exécuter"><i data-lucide="play" class="w-3 h-3"></i></button>

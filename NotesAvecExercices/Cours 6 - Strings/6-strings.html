@@ -38,10 +38,10 @@
                 <a href="../../index.html" class="nav-link">Retour</a>
                 <a href="#definition" class="nav-link active">1. Définition</a>
                 <a href="#syntax" class="nav-link">2. La Syntaxe</a>
-                <a href="#length" class="nav-link">3. La Longueur</a>
-                <a href="#indexing" class="nav-link">4. La position des lettres</a>
-                <a href="#methods" class="nav-link">5. Méthodes Pratiques</a>
-                <a href="#concat" class="nav-link">6. Concaténation</a>
+                <a href="#concat" class="nav-link">3. Concaténation</a>
+                <a href="#length" class="nav-link">4. La Longueur</a>
+                <a href="#indexing" class="nav-link">5. La position des lettres</a>
+                <a href="#methods" class="nav-link">6. Méthodes helpers</a>
             </nav>
         </aside>
 
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Exemple : Utilisation de guillemets et de backticks}">
+                <div class="playground-container" data-type="example" data-title="Exemple : Utilisation de guillemets et de backticks">
 <textarea class="source-code" hidden>
 // Guillemets
 let prenom = "Victor Hugo";
@@ -110,9 +110,104 @@ console.log(html);
                 </div>
             </section>
 
-            <section id="length" class="section-spy">
+            <section id="concat" class="section-spy">
                 <div class="section-header">
                     <span class="step-number">3</span>
+                    <h3>Concaténation (fusionner du texte et des variables)</h3>
+                </div>
+                <p>Assembler du texte et des variables est essentiel pour créer des messages dynamiques.</p>
+
+                <div class="grid-2">
+                    <div class="info-box">
+                        <h4>La méthode classique (<code>+</code>)</h4>
+                        <code>"Bonjour " + nom + "!"</code>
+                    </div>
+                    <div class="info-box success">
+                        <h4>La méthode moderne (<code>` `</code>)</h4>
+                        <code>`Bonjour ${nom}!`</code>
+                        <p class="tiny-note">Utilise les backticks et <code>${ }</code>. C'est plus lisible.</p>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : En utilisant les guillemets et la concaténation (+)">
+<textarea class="source-code" hidden>
+// Texte simple en utilisant les guillemets
+let prenom = "Victor";
+let age = 5;
+
+// On utilise + pour combiner texte et variables.
+let html = "<div><p>Bonjour, je m'appelle " + prenom + " et j'ai " + age + " ans.</p></div>";
+
+console.log(html);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Exemple : En utilisant les backticks et l'interpolation ${}" data-instructions="Beaucoup plus lisible!">
+<textarea class="source-code" hidden>
+// Version moderne avec les template literals (`backticks`)
+let prenom = "Victor";
+let age = 5;
+
+let html = `
+    <div>
+        <p>Bonjour, je m'appelle ${prenom} et j'ai ${age} ans.</p>
+    </div>
+`;
+
+console.log(html);
+</textarea>
+                </div>
+
+                <div class="playground-container" 
+                    data-type="exercise" 
+                    data-title="Exercice : Utiliser les guillemets et les backticks"  
+                    data-instructions="Créer l'élément HTML en commentaire en utilisant les guillemets et les backticks">
+                    <textarea class="source-code" hidden>
+// <div class="message">
+//  <div class="message-entete">
+//    <span class="message-auteur">Marc-Alexandre</span>
+//    <span class="message-date">28 janvier 22h30</span>
+//  </div>
+//  <div class="message-texte">
+//    Ceci est le message.
+//  </div>
+// </div>
+
+let auteurMessage = "Marc-Alexandre";
+let dateMessage = "28 janvier 22h30";
+let texteMessage = "Ceci est le message.";
+
+// TODO: Utiliser les backticks pour créer l'élément HTML de façon dynamique.
+let html = ...;
+
+console.log(html);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let auteurMessage = "Marc-Alexandre";
+let dateMessage = "28 janvier 22h30";
+let texteMessage = "Ceci est le message.";
+
+let html = `
+<div class="message">
+  <div class="message-entete">
+    <span class="message-auteur">${auteurMessage}</span>
+    <span class="message-date">${dateMessage}</span>
+  </div>
+  <div class="message-texte">
+    ${texteMessage}
+  </div>
+</div>
+`;
+
+console.log(html);
+
+</textarea>
+                </div>
+            </section>
+
+            <section id="length" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
                     <h3>La longueur du texte: la propriété Length</h3>
                 </div>
                 
@@ -170,7 +265,7 @@ if(motDePasse.length >= 8 && motDePasse.length <= 12)
 
             <section id="indexing" class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">4</span>
+                    <span class="step-number">5</span>
                     <h3>La position des lettres</h3>
                 </div>
                 <p>
@@ -207,23 +302,27 @@ console.log("Dernière lettre :", derniereLettre); // "t"
 
             <section id="methods" class="section-spy">
                 <div class="section-header">
-                    <span class="step-number">5</span>
-                    <h3>Méthodes Pratiques</h3>
+                    <span class="step-number">6</span>
+                    <h3>Méthodes helpers</h3>
                 </div>
                 <p>JavaScript offre des fonctions prêtes à l'emploi (méthodes) pour transformer vos chaînes.</p>
 
                 <div class="steps-grid">
                     <div class="step-card">
-                        <h4><code>replace()</code></h4>
-                        <p>Remplace un mot par un autre.</p>
+                        <h4><code>replace(searchValue, replaceValue)</code></h4>
+                        <p>Remplace la première occurrence trouvée.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><code>includes(searchString)</code></h4>
+                        <p>Retourne <code>true</code> si le texte contient la valeur.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><code>slice(start, end)</code></h4>
+                        <p>Extrait une portion de chaîne sans modifier l'originale.</p>
                     </div>
                     <div class="step-card">
                         <h4><code>toUpperCase()</code></h4>
-                        <p>Transforme tout en MAJUSCULES.</p>
-                    </div>
-                    <div class="step-card">
-                        <h4><code>includes()</code></h4>
-                        <p>Vérifie si un mot est présent (vrai/faux).</p>
+                        <p>Met tous les caractères en MAJUSCULES.</p>
                     </div>
                 </div>
 
@@ -240,113 +339,15 @@ console.log(texteCensure);
                                 <div class="playground-container" data-type="example" data-title="Exemple : Est-ce qu'un texte contient un mot?">
 <textarea class="source-code" hidden>
 let questionExamen = "Quel langage apprenons-nous dans ce cours ?";
-let reponseQuestionExamen = "javascript";
+let bonneReponse = "javascript";
 
 let reponseEtudiant = "Le javascript est le langage que nous apprenons";
 
 if(reponseEtudiant.includes(bonneReponse)){
-    console.log("Féliciation, vous avez la bonne réponse!");
+    console.log("Félicitations, vous avez la bonne réponse!");
 } else {
     console.log("Désolé, vous avez la mauvaise réponse!");
 }
-
-</textarea>
-                </div>
-            </section>
-
-            <section id="concat" class="section-spy">
-                <div class="section-header">
-                    <span class="step-number">6</span>
-                    <h3>Concaténation (Fusionner des textes et des variables ensemble)</h3>
-                </div>
-                <p>Assembler du texte et des variables est essentiel pour créer des messages dynamiques.</p>
-
-                <div class="grid-2">
-                    <div class="info-box">
-                        <h4>La vieille méthode (<code>+</code>)</h4>
-                        <code>"Bonjour " + nom + "!"</code>
-                    </div>
-                    <div class="info-box success">
-                        <h4>La méthode moderne (<code>` `</code>)</h4>
-                        <code>`Bonjour ${nom}!`</code>
-                        <p class="tiny-note">Utilise les backticks et <code>${ }</code>. C'est plus propre !</p>
-                    </div>
-                </div>
-                <div  class="playground-container" data-type="example" data-title="Exemple : En utilisant les guillemets et la concaténation (+)">
-<textarea class="source-code" hidden>
-// Texte simple en utilisant les guillemets
-let prenom = "Victor";
-let age = 5;
-
-// On doit utiliser + pour utiliser des variables et \n pour les retours de ligne.
-let html = "<div><p>Bonjour, je m'appelle" + prenom + " et j'ai " + age + "ans.</p></div>";
-
-console.log(html);
-</textarea>
-                </div>
-
-                                <div class="playground-container" data-type="example" data-title="Exemple : En utilisant les backticks `` et l'interpolation ${}" data-instructions="Beaucoup plus lisible!">
-<textarea class="source-code" hidden>
-// Version plus moderne avec les template literals (`backticks`)
-let prenom = "Victor";
-let age = 5;
-
-// Les Backticks (La méthode moderne), beaucoup plus lisible
-let html = `
-    <div>
-        <p>Bonjour, je m'appelle ${prenom} et j'ai ${age} ans.</p>
-    </div>
-`;
-
-console.log(html);
-</textarea>
-                </div>
-
-                  <div class="playground-container" 
-                    data-type="exercise" 
-                    data-title="Exercice : Utiliser les guillemets et les backticks"  
-                    data-instructions="Créer l'élément HTML en commentaire en utilisant les guillets et les backticks">
-                    <textarea class="source-code" hidden>
-// <div class="message">
-//  <div class="message-entete">
-//    <span class="message-auteur">Marc-Alexandre</span>
-//    <span class="message-date">28 janvier 22h30</span>
-//  </div>
-//  <div class="message-texte">
-//    Ceci est le message.
-//  </div>
-// </div>
-
-let auteurMessage = "Marc-Alexandre";
-let dateMessage = "28 janvier 22h30";
-let texteMessage = "Ceci est le message."
-
-// TODO: Utiliser les backticks pour crée l'élément HTML
-// en commentaire de façon dynamique, c'est à dire en utilisant
-// les valeurs dans les variables.
-let html = ...;
-
-console.log(html);
-
-</textarea>
-                    <textarea class="solution-code" hidden>
-let auteurMessage = "Marc-Alexandre";
-let dateMessage = "28 janvier 22h30";
-let texteMessage = "Ceci est le message."
-
-let html = `
-<div class="message">
-  <div class="message-entete">
-    <span class="message-auteur">${auteurMessage}</span>
-    <span class="message-date">${dateMessage}</span>
-  </div>
-  <div class="message-texte">
-   ${texteMessage}
-  </div>
-</div>
-`;
-
-console.log(html);
 
 </textarea>
                 </div>
