@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Pratique - Chaînes & Tableaux</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Atelier 04</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">TP</span>
+                <h1>Atelier : Chaînes & Tableaux</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+                <a href="#ex1" class="nav-link active">1. Longueur & Majuscules</a>
+                <a href="#ex2" class="nav-link">2. Découpe de phrase</a>
+                <a href="#ex3" class="nav-link">3. Inventaire simple</a>
+                <a href="#ex4" class="nav-link">4. Ajout & Retrait</a>
+                <a href="#boss" class="nav-link">5. Boss Final</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="intro" class="section-spy">
+                <h2 class="section-title">Cahier d'exercices</h2>
+                <p>
+                    Objectif : manipuler des chaînes de caractères et des tableaux avec les méthodes de base.
+                </p>
+                <div class="info-box info">
+                    <strong>Astuce :</strong> Utilisez <code>.length</code>, <code>.slice()</code>, <code>.toUpperCase()</code>, <code>push()</code> et <code>pop()</code>.
+                </div>
+            </section>
+
+            <section id="ex1" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h3>Longueur & Majuscules</h3>
+                </div>
+                <p>Manipulez une chaîne pour obtenir sa longueur et sa version en majuscules.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Chaîne : Infos rapides" 
+                     data-instructions="Affiche la longueur et la version en majuscules."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let pseudo = "dragon";
+
+// 1. Affiche la longueur du pseudo.
+
+// 2. Affiche le pseudo en MAJUSCULES.
+</textarea>
+                    <textarea class="solution-code" hidden>
+let pseudo = "dragon";
+
+console.log(pseudo.length);
+console.log(pseudo.toUpperCase());
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex2" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h3>Découpe de phrase</h3>
+                </div>
+                <p>Extraire et vérifier une partie de phrase.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Chaîne : Découper et vérifier" 
+                     data-instructions="Utilise slice() et includes()."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let phrase = "Bienvenue sur le serveur";
+
+// 1. Extrait le mot "Bienvenue" avec slice().
+
+// 2. Vérifie si la phrase contient le mot "serveur" (true/false).
+</textarea>
+                    <textarea class="solution-code" hidden>
+let phrase = "Bienvenue sur le serveur";
+
+console.log(phrase.slice(0, 9));
+console.log(phrase.includes("serveur"));
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex3" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h3>Inventaire simple</h3>
+                </div>
+                <p>Modifiez un élément dans un tableau.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Tableau : Remplacer un objet" 
+                     data-instructions="Remplace le deuxième élément et affiche l'inventaire."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let inventaire = ["épée", "bouclier", "potion"];
+
+// 1. Remplace "bouclier" par "arc".
+
+// 2. Affiche tout l'inventaire.
+</textarea>
+                    <textarea class="solution-code" hidden>
+let inventaire = ["épée", "bouclier", "potion"];
+
+inventaire[1] = "arc";
+console.log(inventaire);
+</textarea>
+                </div>
+            </section>
+
+            <section id="ex4" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">4</span>
+                    <h3>Ajout & Retrait</h3>
+                </div>
+                <p>Ajoutez et retirez des éléments d'un tableau.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Tableau : push & pop" 
+                     data-instructions="Ajoute puis retire un élément."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let quetes = ["intro", "mine", "boss"];
+
+// 1. Ajoute "secret" à la fin.
+
+// 2. Retire le dernier élément.
+
+// 3. Affiche la longueur du tableau.
+</textarea>
+                    <textarea class="solution-code" hidden>
+let quetes = ["intro", "mine", "boss"];
+
+quetes.push("secret");
+quetes.pop();
+console.log(quetes.length);
+</textarea>
+                </div>
+            </section>
+
+            <section id="boss" class="section-spy">
+                <div class="section-header">
+                    <span class="step-number">5</span>
+                    <h3>Boss Final : Slogan</h3>
+                </div>
+                <p>Combinez un tableau de mots pour créer un slogan.</p>
+
+                <div class="playground-container" 
+                     data-type="exercise" 
+                     data-title="Slogan final" 
+                     data-instructions="Utilise join() pour créer une phrase avec un tiret."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let mots = ["Code", "JS", "Fun"];
+
+// 1. Combine les mots avec " - " pour obtenir "Code - JS - Fun".
+
+// 2. Affiche le résultat.
+</textarea>
+                    <textarea class="solution-code" hidden>
+let mots = ["Code", "JS", "Fun"];
+
+let slogan = mots.join(" - ");
+console.log(slogan);
+</textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>

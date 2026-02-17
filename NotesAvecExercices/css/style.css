@@ -347,3 +347,8 @@ code { font-family: var(--font-mono); background: rgba(0,0,0,0.3); padding: 2px 
 .show-badge .readonly-badge {
     opacity: 1;
 }
+
+/* Espace visuel pour éviter que le badge masque la première ligne de code */
+.show-badge .CodeMirror-lines {
+    padding-top: 2rem;
+}
