@@ -531,12 +531,69 @@ ${html}
 
         const code = runFiles.js;
 
+        const clampText = (text, max = 320) => {
+            const str = String(text == null ? '' : text);
+            if (str.length <= max) return str;
+            return `${str.slice(0, max - 3)}...`;
+        };
+
+        const isDomNodeLike = (value) => {
+            return Boolean(
+                value
+                && typeof value === 'object'
+                && typeof value.nodeType === 'number'
+                && typeof value.nodeName === 'string'
+            );
+        };
+
+        const isNodeListLike = (value) => {
+            return Boolean(
+                value
+                && typeof value === 'object'
+                && typeof value.length === 'number'
+                && typeof value.item === 'function'
+                && !isDomNodeLike(value)
+            );
+        };
+
+        const domNodePreview = (value) => {
+            if (!isDomNodeLike(value)) return '';
+
+            if (value.nodeType === 1) {
+                const html = String(value.outerHTML || `<${String(value.nodeName || '').toLowerCase()}>`)
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                return clampText(html, 420);
+            }
+
+            if (value.nodeType === 3) {
+                return `#text("${clampText(value.textContent || '', 120)}")`;
+            }
+
+            if (value.nodeType === 9) return '[document]';
+            return `[Node ${String(value.nodeName || '').toLowerCase()}]`;
+        };
+
+        const domCollectionPreview = (value) => {
+            const arr = Array.from(value || []);
+            const typeName = (value && value.constructor && value.constructor.name) || 'Collection';
+            const head = `${typeName}(${arr.length})`;
+            if (!arr.length) return head;
+            const sample = arr.slice(0, 3).map((item) => domNodePreview(item));
+            const suffix = arr.length > 3 ? ', ...' : '';
+            return `${head} ${sample.join(', ')}${suffix}`;
+        };
+
         const stringifyValue = (value) => {
             if (value === undefined) return 'undefined';
             if (value === null) return 'null';
             if (typeof value === 'string') return value;
             if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') return String(value);
             if (typeof value === 'function') return `[Function ${value.name || 'anonymous'}]`;
+            if (isDomNodeLike(value)) return domNodePreview(value);
+            if (isNodeListLike(value)) return domCollectionPreview(value);
+            if (value === frameWindow) return '[Window]';
+            if (value === frameDocument) return '[Document]';
             try {
                 return JSON.stringify(value, null, 2);
             } catch (err) {

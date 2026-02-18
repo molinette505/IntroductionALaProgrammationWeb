@@ -108,13 +108,17 @@
           <li><code>document.querySelector("#id .classe")</code> : sélection CSS, retourne le premier.</li>
         </ul>
 
-        <div class="playground-container" data-output-default="render" data-type="example"
+        <div class="playground-container" data-output-default="console" data-type="example"
           data-title="Exemple : getElementById + querySelector">
           <textarea class="source-code-html" hidden>
 <div class="dom-card">
-  <h4 id="titre-page">Titre original</h4>
-  <p class="etat">Etat : en attente</p>
-  <button id="btn-selection">Mettre a jour</button>
+  <h4 id="titre-page">Panneau de sélection</h4>
+  <div id="zone-a">
+    <p class="etat-cible">Zone A : en attente</p>
+  </div>
+  <div id="zone-b">
+    <p class="etat-cible">Zone B : cible</p>
+  </div>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -132,31 +136,101 @@
   color: #93c5fd;
 }
 
-.dom-card .etat {
-  margin: 0 0 10px;
+.dom-card .etat-cible {
+  margin: 0 0 8px;
   color: #cbd5e1;
-}
-
-.dom-card button {
-  border: 1px solid #6366f1;
-  background: #1e1b4b;
-  color: #c7d2fe;
-  border-radius: 6px;
-  padding: 6px 10px;
-  cursor: pointer;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
+// Je sélectionne un élément par id...
 const titre = document.getElementById("titre-page");
-const etat = document.querySelector(".etat");
-const bouton = document.getElementById("btn-selection");
+// ...et un élément via un sélecteur CSS plus précis.
+const cible = document.querySelector("#zone-b .etat-cible");
 
-if (titre && etat && bouton) {
-  bouton.addEventListener("click", () => {
-    titre.innerText = "Titre modifie via le DOM";
-    etat.innerText = "Etat : element trouve et mis a jour";
-    console.log("Selection OK :", titre.id);
-  });
+if (titre && cible) {
+  console.log(titre);
+  console.log(cible);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="console" data-type="exercise"
+          data-title="Exercice : obtenir et afficher un élément ciblé">
+          <textarea class="source-code-html" hidden>
+<div class="dom-card">
+  <h4 id="mission-titre">Mission : ciblage précis</h4>
+  <div id="zone-alpha">
+    <p class="etat-ligne">Zone alpha : inactif</p>
+  </div>
+  <div id="zone-beta">
+    <p class="etat-ligne">Zone beta : inactif</p>
+  </div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.dom-card {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #0f172a;
+  padding: 14px;
+  color: #e2e8f0;
+  max-width: 420px;
+}
+
+.dom-card h4 {
+  margin: 0 0 8px;
+  color: #93c5fd;
+}
+
+.dom-card .etat-ligne {
+  margin: 0 0 10px;
+  color: #cbd5e1;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// TODO:
+// 1. Récupère l'élément #mission-titre avec document.getElementById(...)
+// 2. Récupère l'élément .etat-ligne dans #zone-beta avec document.querySelector(...)
+// 3. Affiche les deux éléments dans la console
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="dom-card">
+  <h4 id="mission-titre">Mission : ciblage précis</h4>
+  <div id="zone-alpha">
+    <p class="etat-ligne">Zone alpha : inactif</p>
+  </div>
+  <div id="zone-beta">
+    <p class="etat-ligne">Zone beta : inactif</p>
+  </div>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.dom-card {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #0f172a;
+  padding: 14px;
+  color: #e2e8f0;
+  max-width: 420px;
+}
+
+.dom-card h4 {
+  margin: 0 0 8px;
+  color: #93c5fd;
+}
+
+.dom-card .etat-ligne {
+  margin: 0 0 10px;
+  color: #cbd5e1;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const titre = document.getElementById("mission-titre");
+const etatBeta = document.querySelector("#zone-beta .etat-ligne");
+
+if (titre && etatBeta) {
+  console.log(titre);
+  console.log(etatBeta);
 }
 </textarea>
         </div>
@@ -166,60 +240,163 @@ if (titre && etat && bouton) {
         <div class="section-header">
           <h3>Modifier le contenu</h3>
         </div>
-        <p>Le texte et le HTML se modifient avec des propriétés simples.</p>
-
+        <p>
+          C'est ici qu'on définit ce qui est affiché à l'écran. Avant de coder l'exemple, retiens les trois propriétés
+          principales:
+        </p>
+        <div class="info-box info">
+          <p><strong><code>.innerText</code></strong> : représente le texte brut visible à l'intérieur d'un élément (h1, p, div, span...).</p>
+          <p><strong><code>.innerHTML</code></strong> : représente le contenu HTML de l'élément et permet d'injecter des balises.</p>
+          <p>Quand on affecte <code>innerHTML</code>, le contenu précédent de l'élément est remplacé.</p>
+          <p><strong><code>.value</code></strong> : utilisée pour les champs de formulaire (<code>input</code>, <code>textarea</code>, <code>select</code>).</p>
+          <p>On s'en sert pour lire ou remplacer la valeur saisie par l'utilisateur.</p>
+        </div>
+        <p><strong>A. <code>.innerText</code> : modifier du texte brut</strong></p>
         <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : innerText, innerHTML et value">
+          data-title="Exemple : innerText">
           <textarea class="source-code-html" hidden>
-<section class="dom-form">
-  <h4 id="titre-zone">Profil joueur</h4>
-
-  <label>
-    Nom
-    <input id="champ-nom" type="text" value="Alya" />
-  </label>
-
-  <label>
-    Classe
-    <input id="champ-classe" type="text" value="Rodeuse" />
-  </label>
-
-  <button id="btn-lire">Lire et afficher</button>
-  <div id="zone-rendu">Aucun rendu pour le moment</div>
-</section>
+<div class="dom-mini">
+  <h4 id="titre-texte">Titre initial</h4>
+  <button id="btn-texte">Changer le titre</button>
+</div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.dom-form {
-  max-width: 460px;
+.dom-mini {
+  max-width: 380px;
   border: 1px solid #334155;
   border-radius: 10px;
-  padding: 14px;
+  padding: 12px;
   background: #0f172a;
   color: #e2e8f0;
 }
 
-.dom-form h4 {
-  margin-top: 0;
+.dom-mini h4 {
+  margin: 0 0 10px;
   color: #93c5fd;
 }
 
-.dom-form label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
-}
-
-.dom-form input {
-  width: 100%;
-  margin-top: 4px;
-  border: 1px solid #475569;
+.dom-mini button {
+  border: 1px solid #6366f1;
+  background: #312e81;
+  color: #c7d2fe;
   border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 8px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// 1) Je cible le titre et le bouton.
+const titre = document.getElementById("titre-texte");
+const bouton = document.getElementById("btn-texte");
+
+if (titre && bouton) {
+  bouton.addEventListener("click", () => {
+    // 2) innerText remplace uniquement le texte visible.
+    titre.innerText = "Titre modifié avec innerText";
+  });
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise"
+          data-title="Exercice : modifier un titre avec innerText">
+          <textarea class="source-code-html" hidden>
+<div class="dom-mini">
+  <h4 id="exo-titre">Mission en attente</h4>
+  <button id="exo-btn-texte">Valider la mission</button>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.dom-mini {
+  max-width: 380px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
 }
 
-.dom-form button {
+.dom-mini h4 {
+  margin: 0 0 10px;
+  color: #93c5fd;
+}
+
+.dom-mini button {
+  border: 1px solid #6366f1;
+  background: #312e81;
+  color: #c7d2fe;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// TODO:
+// 1. Récupère #exo-titre et #exo-btn-texte avec document.getElementById(...)
+// 2. Au clic, remplace le texte du titre avec innerText
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="dom-mini">
+  <h4 id="exo-titre">Mission en attente</h4>
+  <button id="exo-btn-texte">Valider la mission</button>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.dom-mini {
+  max-width: 380px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dom-mini h4 {
+  margin: 0 0 10px;
+  color: #93c5fd;
+}
+
+.dom-mini button {
+  border: 1px solid #6366f1;
+  background: #312e81;
+  color: #c7d2fe;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const titre = document.getElementById("exo-titre");
+const bouton = document.getElementById("exo-btn-texte");
+
+if (titre && bouton) {
+  bouton.addEventListener("click", () => {
+    titre.innerText = "Mission validée";
+  });
+}
+</textarea>
+        </div>
+
+        <p><strong>B. <code>.innerHTML</code> : injecter du HTML</strong></p>
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : innerHTML">
+          <textarea class="source-code-html" hidden>
+<div class="dom-mini">
+  <button id="btn-html">Afficher la fiche</button>
+  <div id="zone-html">Aucune fiche</div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.dom-mini {
+  max-width: 420px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dom-mini button {
   border: 1px solid #10b981;
   background: #064e3b;
   color: #a7f3d0;
@@ -228,8 +405,8 @@ if (titre && etat && bouton) {
   cursor: pointer;
 }
 
-#zone-rendu {
-  margin-top: 12px;
+#zone-html {
+  margin-top: 10px;
   border: 1px solid #334155;
   border-radius: 8px;
   padding: 10px;
@@ -237,25 +414,269 @@ if (titre && etat && bouton) {
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-const titre = document.getElementById("titre-zone");
-const nomInput = document.getElementById("champ-nom");
-const classeInput = document.getElementById("champ-classe");
-const bouton = document.getElementById("btn-lire");
-const zoneRendu = document.getElementById("zone-rendu");
+// 1) Je cible le bouton et la zone de rendu.
+const bouton = document.getElementById("btn-html");
+const zone = document.getElementById("zone-html");
 
-if (titre && nomInput && classeInput && bouton && zoneRendu) {
+if (bouton && zone) {
   bouton.addEventListener("click", () => {
-    const nom = nomInput.value.trim();
-    const classe = classeInput.value.trim();
-
-    titre.innerText = "Profil de " + (nom || "joueur inconnu");
-
-    zoneRendu.innerHTML = `
-      <p><strong>Nom:</strong> ${nom || "(vide)"}</p>
-      <p><strong>Classe:</strong> ${classe || "(vide)"}</p>
+    // 2) innerHTML remplace le contenu actuel par une structure HTML.
+    zone.innerHTML = `
+      <p><strong>Nom:</strong> Alya</p>
+      <p><strong>Classe:</strong> Rodeuse</p>
     `;
+  });
+}
+</textarea>
+        </div>
 
-    console.log("Valeur lue via .value :", nom, classe);
+        <div class="playground-container" data-output-default="render" data-type="exercise"
+          data-title="Exercice : afficher une carte avec innerHTML">
+          <textarea class="source-code-html" hidden>
+<div class="dom-mini">
+  <button id="btn-carte-html">Créer la carte</button>
+  <div id="zone-carte-html">Aucune carte</div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.dom-mini {
+  max-width: 420px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dom-mini button {
+  border: 1px solid #10b981;
+  background: #064e3b;
+  color: #a7f3d0;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+#zone-carte-html {
+  margin-top: 10px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px;
+  background: #111827;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// TODO:
+// 1. Récupère #btn-carte-html et #zone-carte-html avec document.getElementById(...)
+// 2. Au clic, mets dans la zone un innerHTML avec:
+//    - un <h4>Nom: Nova</h4>
+//    - un <p>Classe: Mage</p>
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="dom-mini">
+  <button id="btn-carte-html">Créer la carte</button>
+  <div id="zone-carte-html">Aucune carte</div>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.dom-mini {
+  max-width: 420px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dom-mini button {
+  border: 1px solid #10b981;
+  background: #064e3b;
+  color: #a7f3d0;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+#zone-carte-html {
+  margin-top: 10px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px;
+  background: #111827;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const bouton = document.getElementById("btn-carte-html");
+const zone = document.getElementById("zone-carte-html");
+
+if (bouton && zone) {
+  bouton.addEventListener("click", () => {
+    zone.innerHTML = `
+      <h4>Nom: Nova</h4>
+      <p>Classe: Mage</p>
+    `;
+  });
+}
+</textarea>
+        </div>
+
+        <p><strong>C. <code>.value</code> : lire la saisie utilisateur</strong></p>
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : value">
+          <textarea class="source-code-html" hidden>
+<div class="dom-mini">
+  <label for="input-pseudo">Pseudo</label>
+  <input id="input-pseudo" type="text" value="Pixel" />
+  <button id="btn-value">Lire le pseudo</button>
+  <p id="sortie-value">Pseudo : ...</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.dom-mini {
+  max-width: 420px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dom-mini input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.dom-mini button {
+  border: 1px solid #f59e0b;
+  background: #78350f;
+  color: #fde68a;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// 1) Je récupère l'input, le bouton et la sortie.
+const inputPseudo = document.getElementById("input-pseudo");
+const bouton = document.getElementById("btn-value");
+const sortie = document.getElementById("sortie-value");
+
+if (inputPseudo && bouton && sortie) {
+  bouton.addEventListener("click", () => {
+    // 2) .value lit le texte saisi dans l'input.
+    const pseudo = inputPseudo.value.trim();
+    sortie.innerText = "Pseudo : " + (pseudo || "(vide)");
+  });
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise"
+          data-title="Exercice : lire deux champs avec value">
+          <textarea class="source-code-html" hidden>
+<div class="dom-mini">
+  <label for="in-nom">Nom</label>
+  <input id="in-nom" type="text" value="Lina" />
+
+  <label for="in-classe">Classe</label>
+  <input id="in-classe" type="text" value="Mage" />
+
+  <button id="btn-value-exo">Afficher</button>
+  <p id="sortie-value-exo">Résultat : ...</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.dom-mini {
+  max-width: 420px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dom-mini input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.dom-mini button {
+  border: 1px solid #f59e0b;
+  background: #78350f;
+  color: #fde68a;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// TODO:
+// 1. Récupère #in-nom, #in-classe, #btn-value-exo et #sortie-value-exo avec document.getElementById(...)
+// 2. Au clic, lis nom et classe avec .value
+// 3. Affiche dans la sortie: "Résultat : NOM - CLASSE"
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="dom-mini">
+  <label for="in-nom">Nom</label>
+  <input id="in-nom" type="text" value="Lina" />
+
+  <label for="in-classe">Classe</label>
+  <input id="in-classe" type="text" value="Mage" />
+
+  <button id="btn-value-exo">Afficher</button>
+  <p id="sortie-value-exo">Résultat : ...</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.dom-mini {
+  max-width: 420px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dom-mini input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.dom-mini button {
+  border: 1px solid #f59e0b;
+  background: #78350f;
+  color: #fde68a;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const nom = document.getElementById("in-nom");
+const classe = document.getElementById("in-classe");
+const bouton = document.getElementById("btn-value-exo");
+const sortie = document.getElementById("sortie-value-exo");
+
+if (nom && classe && bouton && sortie) {
+  bouton.addEventListener("click", () => {
+    const valNom = nom.value.trim();
+    const valClasse = classe.value.trim();
+    sortie.innerText = `Résultat : ${valNom} - ${valClasse}`;
   });
 }
 </textarea>
@@ -334,10 +755,150 @@ const fiche = document.getElementById("fiche");
 
 if (pseudo && niveau && btn && fiche) {
   btn.addEventListener("click", () => {
+    // Le template literal permet d'injecter facilement des valeurs dans du HTML.
     fiche.innerHTML = `
       <article class="fiche-joueur">
         <h4>${pseudo.value || "Sans nom"}</h4>
         <p>Niveau actuel: <strong>${niveau.value || 0}</strong></p>
+      </article>
+    `;
+  });
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise"
+          data-title="Exercice : carte dynamique avec backticks">
+          <textarea class="source-code-html" hidden>
+<div class="profil-ui">
+  <label>
+    Nom
+    <input id="nom-joueur" value="Nova" />
+  </label>
+  <label>
+    Rang
+    <input id="rang-joueur" value="Expert" />
+  </label>
+  <button id="btn-carte">Creer carte</button>
+  <div id="carte-zone"></div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.profil-ui {
+  max-width: 460px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.profil-ui label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.profil-ui input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.profil-ui button {
+  border: 1px solid #f59e0b;
+  background: #78350f;
+  color: #fde68a;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+.carte-joueur {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #1d4ed8;
+  background: #172554;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// TODO:
+// 1. Récupère #nom-joueur, #rang-joueur, #btn-carte et #carte-zone avec document.getElementById(...)
+// 2. Au clic, injecte en innerHTML une carte .carte-joueur.
+// 3. Utilise un template literal pour afficher nom + rang.
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="profil-ui">
+  <label>
+    Nom
+    <input id="nom-joueur" value="Nova" />
+  </label>
+  <label>
+    Rang
+    <input id="rang-joueur" value="Expert" />
+  </label>
+  <button id="btn-carte">Creer carte</button>
+  <div id="carte-zone"></div>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.profil-ui {
+  max-width: 460px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.profil-ui label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.profil-ui input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.profil-ui button {
+  border: 1px solid #f59e0b;
+  background: #78350f;
+  color: #fde68a;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+.carte-joueur {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #1d4ed8;
+  background: #172554;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const nom = document.getElementById("nom-joueur");
+const rang = document.getElementById("rang-joueur");
+const btn = document.getElementById("btn-carte");
+const zone = document.getElementById("carte-zone");
+
+if (nom && rang && btn && zone) {
+  btn.addEventListener("click", () => {
+    zone.innerHTML = `
+      <article class="carte-joueur">
+        <h4>${nom.value || "Sans nom"}</h4>
+        <p>Rang: <strong>${rang.value || "Inconnu"}</strong></p>
       </article>
     `;
   });
@@ -350,7 +911,23 @@ if (pseudo && niveau && btn && fiche) {
         <div class="section-header">
           <h3>Modifier l'apparence</h3>
         </div>
-        <p>Préférez <code>classList</code> pour activer/désactiver des styles.</p>
+        <p>
+          Modifier l'apparence veut dire activer ou retirer des classes CSS selon une action (clic, sélection, erreur,
+          mode sombre...).
+        </p>
+        <div class="info-box info">
+          <p>On utilise <code>classList</code> pour ça:</p>
+          <ul>
+            <li><code>element.classList.add("classe1", "classe2")</code> : ajoute une ou plusieurs classes.</li>
+            <li><code>element.classList.remove("classe1")</code> : retire une classe.</li>
+            <li><code>element.classList.toggle("classe1")</code> : ajoute ou retire automatiquement selon l'état actuel.</li>
+            <li><code>element.classList.contains("classe1")</code> : vérifie si la classe est présente.</li>
+          </ul>
+          <p>
+            Exemple concret: quand un joueur sélectionne un objet, on peut ajouter une classe
+            <code>selection-active</code>, puis la retirer à la désélection.
+          </p>
+        </div>
 
         <div class="playground-container" data-output-default="render" data-type="example"
           data-title="Exemple : classList + style">
@@ -395,11 +972,106 @@ const btnTheme = document.getElementById("btn-theme");
 
 if (box && btnTheme) {
   btnTheme.addEventListener("click", () => {
+    // toggle ajoute la classe si absente, la retire si présente.
     box.classList.toggle("mode-nuit");
     box.style.transform = "translateY(-2px)";
     setTimeout(() => {
       box.style.transform = "translateY(0)";
     }, 120);
+  });
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise"
+          data-title="Exercice : mode alerte avec classList">
+          <textarea class="source-code-html" hidden>
+<div class="theme-box" id="zone-alerte">
+  <h4>Zone de statut</h4>
+  <p id="txt-alerte">Statut : normal</p>
+</div>
+<button id="btn-alerte">Basculer alerte</button>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.theme-box {
+  max-width: 440px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 14px;
+  transition: all 0.25s ease;
+}
+
+.theme-box.alerte {
+  background: #7f1d1d;
+  color: #fee2e2;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+#btn-alerte {
+  margin-top: 10px;
+  border: 1px solid #dc2626;
+  background: #7f1d1d;
+  color: #fecaca;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// TODO:
+// 1. Récupère #zone-alerte, #txt-alerte et #btn-alerte avec document.getElementById(...)
+// 2. Au clic, toggle la classe "alerte" sur zone.
+// 3. Mets texte selon l'état courant de la classe.
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="theme-box" id="zone-alerte">
+  <h4>Zone de statut</h4>
+  <p id="txt-alerte">Statut : normal</p>
+</div>
+<button id="btn-alerte">Basculer alerte</button>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.theme-box {
+  max-width: 440px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 14px;
+  transition: all 0.25s ease;
+}
+
+.theme-box.alerte {
+  background: #7f1d1d;
+  color: #fee2e2;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+#btn-alerte {
+  margin-top: 10px;
+  border: 1px solid #dc2626;
+  background: #7f1d1d;
+  color: #fecaca;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const zone = document.getElementById("zone-alerte");
+const texte = document.getElementById("txt-alerte");
+const btn = document.getElementById("btn-alerte");
+
+if (zone && texte && btn) {
+  btn.addEventListener("click", () => {
+    zone.classList.toggle("alerte");
+    texte.innerText = zone.classList.contains("alerte")
+      ? "Statut : alerte"
+      : "Statut : normal";
   });
 }
 </textarea>
@@ -416,6 +1088,7 @@ if (box && btnTheme) {
           data-title="Exemple : setAttribute et attributs">
           <textarea class="source-code-html" hidden>
 <div class="card-attr">
+  <a id="lien-profil" href="#" target="_blank" rel="noreferrer">Profil joueur</a>
   <button id="btn-link">Configurer le lien</button>
   <p id="etat-lien">Lien actuel : #</p>
 </div>
@@ -453,8 +1126,101 @@ const etat = document.getElementById("etat-lien");
 
 if (lien && btn && etat) {
   btn.addEventListener("click", () => {
+    // setAttribute met à jour les attributs du lien.
     lien.setAttribute("href", "https://developer.mozilla.org/fr/docs/Web/API/Document_Object_Model");
     lien.setAttribute("title", "Documentation DOM");
+    etat.innerText = "Lien actuel : " + lien.getAttribute("href");
+  });
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise"
+          data-title="Exercice : mettre à jour href et title">
+          <textarea class="source-code-html" hidden>
+<div class="card-attr">
+  <a id="doc-link" href="#" target="_blank" rel="noreferrer">Documentation</a>
+  <button id="btn-doc">Configurer</button>
+  <p id="doc-etat">Lien actuel : #</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.card-attr {
+  max-width: 450px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.card-attr a {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+.card-attr button {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid #14b8a6;
+  background: #134e4a;
+  color: #99f6e4;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// TODO:
+// 1. Récupère #doc-link, #btn-doc et #doc-etat avec document.getElementById(...)
+// 2. Au clic, mets href et title sur lien avec setAttribute.
+// 3. Mets "Lien actuel : ..." dans etat.
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="card-attr">
+  <a id="doc-link" href="#" target="_blank" rel="noreferrer">Documentation</a>
+  <button id="btn-doc">Configurer</button>
+  <p id="doc-etat">Lien actuel : #</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.card-attr {
+  max-width: 450px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.card-attr a {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+.card-attr button {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid #14b8a6;
+  background: #134e4a;
+  color: #99f6e4;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const lien = document.getElementById("doc-link");
+const btn = document.getElementById("btn-doc");
+const etat = document.getElementById("doc-etat");
+
+if (lien && btn && etat) {
+  btn.addEventListener("click", () => {
+    lien.setAttribute(
+      "href",
+      "https://developer.mozilla.org/fr/docs/Web/API/Element/setAttribute"
+    );
+    lien.setAttribute("title", "Doc setAttribute");
     etat.innerText = "Lien actuel : " + lien.getAttribute("href");
   });
 }
@@ -531,12 +1297,295 @@ if (input && bouton && liste) {
     const texte = input.value.trim();
     if (!texte) return;
 
+    // createElement crée un noeud en mémoire.
     const item = document.createElement("li");
     item.innerText = texte;
+    // appendChild l'ajoute dans la page.
     liste.appendChild(item);
     input.value = "";
     input.focus();
   });
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise"
+          data-title="Exercice : créer une liste dynamique">
+          <textarea class="source-code-html" hidden>
+<section class="todo-ui">
+  <label>
+    Element
+    <input id="todo-input" value="Tester createElement" />
+  </label>
+  <button id="todo-add">Ajouter</button>
+  <ul id="todo-list"></ul>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.todo-ui {
+  max-width: 480px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.todo-ui label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.todo-ui input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.todo-ui button {
+  border: 1px solid #22c55e;
+  background: #14532d;
+  color: #bbf7d0;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+#todo-list {
+  margin-top: 12px;
+  padding-left: 18px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// 1. Sélectionne #todo-input, #todo-add et #todo-list
+// 2. Au clic:
+//    - lis la valeur
+//    - si vide, ne rien faire
+//    - crée un <li>, mets son texte, puis appendChild dans la liste
+//    - vide l'input
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="todo-ui">
+  <label>
+    Element
+    <input id="todo-input" value="Tester createElement" />
+  </label>
+  <button id="todo-add">Ajouter</button>
+  <ul id="todo-list"></ul>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.todo-ui {
+  max-width: 480px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.todo-ui label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.todo-ui input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.todo-ui button {
+  border: 1px solid #22c55e;
+  background: #14532d;
+  color: #bbf7d0;
+  border-radius: 6px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+#todo-list {
+  margin-top: 12px;
+  padding-left: 18px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const input = document.getElementById("todo-input");
+const bouton = document.getElementById("todo-add");
+const liste = document.getElementById("todo-list");
+
+if (input && bouton && liste) {
+  bouton.addEventListener("click", () => {
+    const texte = input.value.trim();
+    if (!texte) return;
+
+    const li = document.createElement("li");
+    li.innerText = texte;
+    liste.appendChild(li);
+    input.value = "";
+  });
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Tableaux parallèles vers HTML</h3>
+        </div>
+        <p>
+          Une technique fréquente consiste à stocker plusieurs informations liées dans des tableaux parallèles
+          (même index = même entité), puis à générer l'affichage HTML avec une boucle.
+        </p>
+        <div class="info-box info">
+          <p>
+            Exemple : <code>noms[i]</code>, <code>roles[i]</code> et <code>scores[i]</code> décrivent le même joueur.
+            On crée ensuite un élément DOM pour chaque index.
+          </p>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : cartes joueurs depuis tableaux parallèles">
+          <textarea class="source-code-html" hidden>
+<section class="team-ui">
+  <h4>Escouade</h4>
+  <div id="team-list"></div>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.team-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#team-list {
+  display: grid;
+  gap: 8px;
+}
+
+.team-card {
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background: #172554;
+  padding: 8px 10px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+const noms = ["Alya", "Kael", "Lina"];
+const roles = ["Rodeuse", "Tank", "Mage"];
+const scores = [120, 95, 140];
+const list = document.getElementById("team-list");
+
+if (list) {
+  // Même index = même joueur dans les 3 tableaux.
+  for (let i = 0; i < noms.length; i++) {
+    const card = document.createElement("article");
+    card.classList.add("team-card");
+    card.innerHTML = `
+      <strong>${noms[i]}</strong> - ${roles[i]}<br />
+      Score: ${scores[i]}
+    `;
+    list.appendChild(card);
+  }
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise"
+          data-title="Exercice : générer un classement depuis tableaux parallèles">
+          <textarea class="source-code-html" hidden>
+<section class="team-ui">
+  <h4>Classement</h4>
+  <div id="ranking-list"></div>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.team-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#ranking-list {
+  display: grid;
+  gap: 8px;
+}
+
+.ranking-row {
+  border: 1px solid #16a34a;
+  border-radius: 8px;
+  background: #052e16;
+  padding: 8px 10px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+const noms = ["Nora", "Timo", "Sana"];
+const classes = ["Archer", "Guerrier", "Healer"];
+const points = [18, 24, 21];
+
+// TODO:
+// 1. Récupère #ranking-list avec document.getElementById(...)
+// 2. Parcours les tableaux avec l'index i.
+// 3. Crée un <div> avec class "ranking-row".
+// 4. Mets en innerHTML: "<nom> (<classe>) - <points> pts".
+// 5. Ajoute chaque ligne dans ranking.
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="team-ui">
+  <h4>Classement</h4>
+  <div id="ranking-list"></div>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.team-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#ranking-list {
+  display: grid;
+  gap: 8px;
+}
+
+.ranking-row {
+  border: 1px solid #16a34a;
+  border-radius: 8px;
+  background: #052e16;
+  padding: 8px 10px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const noms = ["Nora", "Timo", "Sana"];
+const classes = ["Archer", "Guerrier", "Healer"];
+const points = [18, 24, 21];
+const ranking = document.getElementById("ranking-list");
+
+if (ranking) {
+  for (let i = 0; i < noms.length; i++) {
+    const row = document.createElement("div");
+    row.classList.add("ranking-row");
+    row.innerHTML = `${noms[i]} (${classes[i]}) - ${points[i]} pts`;
+    ranking.appendChild(row);
+  }
 }
 </textarea>
         </div>

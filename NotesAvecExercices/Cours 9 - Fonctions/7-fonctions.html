@@ -86,7 +86,7 @@ saluer();
                 <div class="playground-container" data-type="example" data-title="Exemple : saluer(nom)">
                     <textarea class="source-code" hidden>
 function saluer(nom) {
-  console.log("Salut, " + nom + " !");
+  console.log(`Salut, ${nom} !`);
 }
 
 saluer("Ada");
@@ -134,6 +134,30 @@ let resultat = addition(5, 7);
 console.log("Résultat :", resultat);
 </textarea>
                 </div>
+                <div class="playground-container"
+                     data-type="exercise"
+                     data-title="Exercice : retour de valeur (TPS)"
+                     data-instructions="Complète la fonction pour qu'elle retourne 5% du montant."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+function calculerTPS(montant) {
+  // Retourne 5% du montant
+}
+
+let tps = calculerTPS(200);
+console.log("TPS :", tps);
+console.log("Total :", 200 + tps);
+</textarea>
+                    <textarea class="solution-code" hidden>
+function calculerTPS(montant) {
+  return montant * 0.05;
+}
+
+let tps = calculerTPS(200);
+console.log("TPS :", tps);
+console.log("Total :", 200 + tps);
+</textarea>
+                </div>
             </section>
 
             <section class="section-spy">
@@ -178,6 +202,28 @@ const doubler = (n) => {
 console.log(doubler(6));
 </textarea>
                 </div>
+                <div class="playground-container"
+                     data-type="exercise"
+                     data-title="Exercice : fonction fléchée estPair"
+                     data-instructions="Complète la fonction fléchée pour retourner true si le nombre est pair, sinon false."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+const estPair = (nombre) => {
+  // Retourne true si nombre est pair, sinon false
+};
+
+console.log(estPair(8));
+console.log(estPair(7));
+</textarea>
+                    <textarea class="solution-code" hidden>
+const estPair = (nombre) => {
+  return nombre % 2 === 0;
+};
+
+console.log(estPair(8));
+console.log(estPair(7));
+</textarea>
+                </div>
             </section>
 
             <section class="section-spy">
@@ -208,6 +254,78 @@ let a = carre(4);
 let b = carreAvecRetour(4);
 console.log("a :", a);
 console.log("b :", b);
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Défi final : tableau + boucle + fonction + HTML</h3>
+                </div>
+                <p>
+                    Objectif: créer une fonction qui fabrique un élément HTML, puis l'utiliser dans une boucle
+                    <code>for</code> pour afficher une liste complète.
+                </p>
+                <div class="playground-container"
+                     data-type="exercise"
+                     data-title="Exercice : générer des cartes depuis un tableau"
+                     data-instructions="Crée une fonction qui retourne un élément HTML, puis ajoute une carte par fruit."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+const fruits = ["Pomme", "Banane", "Kiwi", "Mangue"];
+
+let zone = document.getElementById("zone-fruits");
+if (!zone) {
+  zone = document.createElement("section");
+  zone.id = "zone-fruits";
+  zone.style.marginTop = "12px";
+  zone.style.display = "grid";
+  zone.style.gap = "6px";
+  document.body.appendChild(zone);
+}
+zone.innerHTML = "";
+
+function creerCarteFruit(nom, index) {
+  // 1. Crée un <article>
+  // 2. Mets le texte: "index. nom"
+  // 3. Retourne l'élément
+}
+
+// 4. Parcours fruits avec for
+// 5. Appelle creerCarteFruit(...) puis ajoute la carte dans zone
+// 6. Affiche en console le nombre de cartes créées
+</textarea>
+                    <textarea class="solution-code" hidden>
+const fruits = ["Pomme", "Banane", "Kiwi", "Mangue"];
+
+let zone = document.getElementById("zone-fruits");
+if (!zone) {
+  zone = document.createElement("section");
+  zone.id = "zone-fruits";
+  zone.style.marginTop = "12px";
+  zone.style.display = "grid";
+  zone.style.gap = "6px";
+  document.body.appendChild(zone);
+}
+zone.innerHTML = "";
+
+function creerCarteFruit(nom, index) {
+  const card = document.createElement("article");
+  card.style.border = "1px solid #334155";
+  card.style.borderRadius = "8px";
+  card.style.padding = "8px 10px";
+  card.style.background = "#0f172a";
+  card.style.color = "#e2e8f0";
+  card.innerText = `${index + 1}. ${nom}`;
+  return card;
+}
+
+for (let i = 0; i < fruits.length; i++) {
+  const carte = creerCarteFruit(fruits[i], i);
+  zone.appendChild(carte);
+}
+
+console.log("Cartes créées :", zone.children.length);
 </textarea>
                 </div>
             </section>
