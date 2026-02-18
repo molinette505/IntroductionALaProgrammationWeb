@@ -162,6 +162,41 @@ for (const ennemi of ennemis) {
 
             <section class="section-spy">
                 <div class="section-header">
+                    <h3>Traitement avec forEach</h3>
+                </div>
+                <p>Parcourez un tableau avec <code>forEach</code> pour afficher chaque valeur et calculer un total.</p>
+
+                <div class="playground-container"
+                     data-type="exercise"
+                     data-title="forEach - Panier"
+                     data-instructions="Utilise forEach pour afficher les prix et calculer le total."
+                     data-auto-height="false">
+                    <textarea class="source-code" hidden>
+let panier = [12, 8, 5, 20];
+let total = 0;
+
+// TODO:
+// 1. Utilise panier.forEach(...)
+// 2. Affiche chaque prix (ex: "Article 1 : 12 $")
+// 3. Additionne chaque prix dans total
+// 4. Affiche le total final
+</textarea>
+                    <textarea class="solution-code" hidden>
+let panier = [12, 8, 5, 20];
+let total = 0;
+
+panier.forEach((prix, index) => {
+  console.log(`Article ${index + 1} : ${prix} $`);
+  total += prix;
+});
+
+console.log(`Total du panier : ${total} $`);
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
                     <h3>Boss Final : Table de multiplication</h3>
                 </div>
                 <p>Créez une table de multiplication pour le nombre 3 (de 1 à 10).</p>

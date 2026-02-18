@@ -6,8 +6,6 @@
     <title>Quiz - Tableaux</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
 </head>
@@ -27,45 +25,94 @@
 
     <main class="main-content">
 
-            <div class="quiz-template" data-type="single" data-title="Créer un tableau vide">
-                <p class="quiz-prompt">Quelle syntaxe crée un tableau vide nommé <code>scores</code> ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a"><code>let scores = [];</code></li>
-                    <li data-value="b"><code>let scores = {};</code></li>
-                    <li data-value="c"><code>let scores = "";</code></li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
-                <textarea class="quiz-solution" hidden>Les crochets [] représentent un tableau.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="Créer un tableau">
+            <p class="quiz-prompt">Quelle syntaxe crée un tableau vide nommé <code>scores</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>let scores = [];</code></li>
+                <li data-value="b"><code>let scores = {};</code></li>
+                <li data-value="c"><code>let scores = ()</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>Un tableau utilise les crochets `[]`.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="order" data-title="Lire le dernier élément">
-                <p class="quiz-prompt">Ordonne les étapes pour lire le dernier élément d'un tableau.</p>
-                <ul class="quiz-options">
-                    <li data-value="a">Lire <code>tab[indexDernier]</code></li>
-                    <li data-value="b">Calculer <code>indexDernier = tab.length - 1</code></li>
-                    <li data-value="c">Déclarer/avoir le tableau <code>tab</code></li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "order": ["c", "b", "a"] }</script>
-                <textarea class="quiz-solution" hidden>On calcule d'abord l'index final avec length - 1.</textarea>
-            </div>
+        <div class="quiz-template" data-type="text" data-title="Comprendre length">
+            <p class="quiz-prompt">Si <code>let notes = [15, 10, 25, 30];</code>, combien vaut <code>notes.length</code> ?</p>
+            <script type="application/json" class="quiz-config">{ "answers": ["4"], "placeholder": "Nombre d'éléments" }</script>
+            <textarea class="quiz-solution" hidden>Le tableau contient 4 cases, donc `length` vaut 4.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="multi" data-title="Méthodes qui modifient le tableau">
-                <p class="quiz-prompt">Quelles méthodes modifient le tableau original ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">push()</li>
-                    <li data-value="b">slice()</li>
-                    <li data-value="c">unshift()</li>
-                    <li data-value="d">shift()</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
-                <textarea class="quiz-solution" hidden>slice crée une copie de portion; push/unshift/shift modifient le tableau.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="Premier et dernier élément">
+            <p class="quiz-prompt">Quelle expression lit le dernier élément d'un tableau <code>tab</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>tab[tab.length]</code></li>
+                <li data-value="b"><code>tab[tab.length - 1]</code></li>
+                <li data-value="c"><code>tab[-1]</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Les index commencent à 0, donc le dernier index est `length - 1`.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="text" data-title="push, shift et longueur">
-                <p class="quiz-prompt">Après <code>let scores = [10, 15]; scores.push(20); scores.shift();</code>, quelle est la valeur de <code>scores.length</code> ?</p>
-                <script type="application/json" class="quiz-config">{ "answers": ["2"] }</script>
-                <textarea class="quiz-solution" hidden>push ajoute 20 (longueur 3), puis shift retire 10 (longueur 2).</textarea>
+        <div class="quiz-template" data-type="multi" data-title="Méthodes qui modifient le tableau">
+            <p class="quiz-prompt">Quelles méthodes modifient le tableau d'origine ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">push()</li>
+                <li data-value="b">unshift()</li>
+                <li data-value="c">slice()</li>
+                <li data-value="d">pop()</li>
+                <li data-value="e">shift()</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d", "e"] }</script>
+            <textarea class="quiz-solution" hidden>`slice()` copie une portion sans modifier le tableau source.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Valeur de retour">
+            <p class="quiz-prompt">Que retourne <code>scores.pop()</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">La nouvelle longueur</li>
+                <li data-value="b">Le dernier élément retiré</li>
+                <li data-value="c">Toujours undefined</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>`pop()` retourne l'élément retiré. `push()` et `unshift()` retournent la nouvelle longueur.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Slice vs mutation">
+            <div class="quiz-prompt">
+                Si `scores = [12, 15, 8, 19]`, que vaut `copie` après:
+                <pre><code class="language-js">let copie = scores.slice(1, 3);</code></pre>
             </div>
+            <ul class="quiz-options">
+                <li data-value="a"><code>[15, 8]</code></li>
+                <li data-value="b"><code>[12, 15, 8]</code></li>
+                <li data-value="c"><code>[15, 8, 19]</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>La borne de fin est exclue. On prend index 1 et 2.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="order" data-title="Ajouter en début avec unshift">
+            <p class="quiz-prompt">Mets les effets de <code>unshift(99)</code> dans l'ordre.</p>
+            <ul class="quiz-options">
+                <li data-value="a">La longueur augmente de 1</li>
+                <li data-value="b">Les éléments existants se décalent vers la droite</li>
+                <li data-value="c">La valeur 99 est placée à l'index 0</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "order": ["b", "c", "a"] }</script>
+            <textarea class="quiz-solution" hidden>`unshift` force un décalage avant d'insérer au début.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="mixAndMatch" data-title="Tableaux parallèles">
+            <p class="quiz-prompt">Associe chaque rôle à l'index commun dans des tableaux parallèles.</p>
+            <ul class="quiz-match-pairs">
+                <li data-left="noms[i]">Nom du joueur i</li>
+                <li data-left="scores[i]">Score du joueur i</li>
+                <li data-left="classes[i]">Classe du joueur i</li>
+                <li data-left="i">Clé qui synchronise les informations</li>
+            </ul>
+            <textarea class="quiz-solution" hidden>Dans des tableaux parallèles, le même index décrit la même entité.</textarea>
+        </div>
+
     </main>
 </div>
 

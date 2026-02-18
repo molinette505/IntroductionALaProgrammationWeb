@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS - Les Boucles (Loops)</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
@@ -46,20 +49,23 @@
 
             <section class="section-spy">
                 <div class="section-header">
-                    <i data-lucide="help-circle"></i>
                     <h3>C'est quoi une boucle ?</h3>
                 </div>
 
-                <p>Les boucles sont des structures de contrôle qui permettent de <strong>répéter un bloc de code</strong> plusieurs fois. C’est ce qui permet d'automatiser des tâches répétitives, comme :</p>
-                
+                <p>Les boucles sont des structures de contrôle qui permettent de <strong>répéter un bloc de
+                        code</strong> plusieurs fois. C’est ce qui permet d'automatiser des tâches répétitives, comme :
+                </p>
+
                 <div class="info-box">
                     <ul>
                         <li>Traiter chaque étudiant d'une classe.</li>
                         <li>Vérifier chaque item d'un inventaire de jeu.</li>
                         <li>Afficher les messages d'une discussion un par un.</li>
+                        <li>Retirer une carte de la pile tant qu'un joueur n'a pas gagné.</li>
                     </ul>
                 </div>
-                <p>Sans les boucles, si vous deviez afficher 60 élèves d'une classe dans omnivox, vous devriez écrire au minimum 60 lignes de code. Avec une boucle, <strong>quelques lignes suffisent</strong>.</p>
+                <p>Sans les boucles, si vous deviez afficher 60 élèves d'une classe dans omnivox, vous devriez écrire au
+                    minimum 60 lignes de code. Avec une boucle, <strong>quelques lignes suffisent</strong>.</p>
             </section>
 
             <section class="section-spy">
@@ -67,53 +73,63 @@
                     <h3>La boucle While (Tant que)</h3>
                 </div>
 
-                <p>La boucle <code>while</code> est la plus simple : elle répète le code <strong>tant que</strong> la condition entre parenthèses est vraie.</p>
+                <p>La boucle <code>while</code> est la plus simple : elle répète le code <strong>tant que</strong> la
+                    condition entre parenthèses est vraie.</p>
                 <p>Très utile lorsqu'on ne sait pas d'avance combien de fois on va boucler.</p>
-                
                 <div class="info-box info">
-                    <p>Pour qu'elle fonctionne sans "geler" le navigateur, elle a besoin de :</p>
+                    <p>Voici sa forme : <code>while (condition) { ... }</code></p>
                     <ul>
-                        <li><strong>L'initialisation :</strong> Créer le compteur avant la boucle.</li>
-                        <li><strong>La condition :</strong> Testée avant chaque tour.</li>
-                        <li><strong>L'incrémentation :</strong> Modifier la variable pour que la condition devienne fausse un jour.</li>
+                        <li><strong>La condition :</strong> Testée avant chaque tour.
+                            <ul>
+                                <li>Si elle est vraie, la boucle continue.</li>
+                                <li>Si elle est fausse, la boucle s'arrête.</li>
+                            </ul>
+                        <li><strong>Le corps de la boucle :</strong> Le code à exécuter à chaque tour.
+                            <ul>
+                                <li>Il doit faire avancer la condition vers la fin.</li>
+                                <li>Sinon, la boucle pourrait tourner à l'infini !</li>
+                            </ul>
                     </ul>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Exemple : Compteur While">
-<textarea class="source-code" hidden>
-let compteur = 0; // 1. Initialisation, à l'extérieur de la boucle
+                <div class="playground-container" data-type="example" data-title="Compteur While">
+                    <textarea class="source-code" hidden>
+let vieDuJoueur = 100; // 1. Initialisation, à l'extérieur de la boucle
+correspondant degats = 20;
 
-while (compteur < 5) { // 2. Condition, à l'entrée de la boucle, comme un if
-    console.log(`Le compteur est à : ${compteur}`); 
-    compteur++; // 3. Incrémentation, à l'intrérieur de la boucle
+while (vieDuJoueur >= 0) { // 2. Condition, à l'entrée de la boucle, comme un if
+    console.log(`La vie du joueur est à : ${vieDuJoueur}`); 
+    vieDuJoueur -= degats; // 3. Décrémentation, à l'intrérieur de la boucle
 }
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Exercice : Chargement de batterie">
-<textarea class="source-code" hidden>
+                <div class="playground-container" data-type="exercise" data-title="Chargement de batterie">
+                    <textarea class="source-code" hidden>
 let chargeBatterie = 0;
+const tauxChargement = 30; // Charge ajoutée à chaque tour
 const capaciteMaximaleBatterie = 150;
 
 // TODO: Créez une boucle 'while' qui s'exécute TANT QUE la charge de la batterie est inférieure à sa capacité maximale.
 // Dans la boucle :
-// 1. Ajoutez 25 de charge à la variable 'chargeBatterie'.
+// 1. Ajoutez de la charge à la variable 'chargeBatterie'.
 // 2. Affichez le niveau actuel dans la console (ex: "Batterie à 25%").
 
 console.log("Charge terminée !");
 </textarea>
-<textarea class="solution-code" hidden>
+                    <textarea class="solution-code" hidden>
 let chargeBatterie = 0;
+const tauxChargement = 30; // Charge ajoutée à chaque tour
 const capaciteMaximaleBatterie = 150;
 
 while (chargeBatterie < capaciteMaximaleBatterie) {
-    chargeBatterie += 25;
+    chargeBatterie += tauxChargement;
     console.log(`Batterie à : ${chargeBatterie}%`);
 }
 
 console.log("Charge terminée !");
 </textarea>
-</div>
+                </div>
             </section>
 
             <section class="section-spy">
@@ -122,19 +138,40 @@ console.log("Charge terminée !");
                 </div>
 
                 <p>Elle regroupe l'initialisation, la condition et l'incrémentation sur une seule ligne.</p>
-                <br>
                 <p>Utile lorsqu'on sait d'avance combien de fois on veut boucler.</p>
+                <div class="info-box info">
+                    <p>Voici sa forme : <code>for (départ; condition; incrémentation) { ... }</code></p>
+                    <ul>
+                        <li><strong>Le départ :</strong> Initialise une variable de contrôle (ex: un compteur
+                            <code>let i = 0</code>).</li>
+                        <li><strong>L'incrémentation :</strong> Modifie la variable de contrôle à la fin de chaque tour.
+                            <ul>
+                                <li>Souvent, on incrémente ou décrémente un compteur (ex: <code>i++</code> ou
+                                    <code>i--</code>).</li>
+                                <li>Mais on peut faire d'autres modifications (ex: <code>i += 2</code> pour sauter des
+                                    nombres).</li>
+                            </ul>
+                        <li><strong>La condition :</strong> Testée avant chaque
+                            tour. (ex: <code>i < 10</code>)
+                            <ul>
+                                <li>Si elle est vraie, la boucle continue.</li>
+                                <li>Si elle est fausse, la boucle s'arrête.</li>
+                            </ul>
+                        <li><strong>Le corps de la boucle :</strong> Le code à exécuter à chaque tour.
+                    </ul>
+                </div>
 
-                <div class="playground-container" data-type="example" data-title="Exemple : Syntaxe compacte">
-<textarea class="source-code" hidden>
+                <div class="playground-container" data-type="example" data-title="Une boucle qui compte de 0 à 4">
+                    <textarea class="source-code" hidden>
 for (let i = 0; i < 5; i++) {
     console.log(`Itération numéro : ${i}`);
 }
 </textarea>
                 </div>
-                
-                <div class="playground-container" data-type="exercise" data-title="Exercice : La table de multiplication par 5">
-<textarea class="source-code" hidden>
+
+                <div class="playground-container" data-type="exercise"
+                    data-title="Exercice : La table de multiplication par 5">
+                    <textarea class="source-code" hidden>
 // Objectif : Afficher la table de multiplication de 5 (de 1 à 10)
 // Résultat attendu dans la console : 
 // "1 x 5 = 5"
@@ -146,7 +183,7 @@ for (...) {
     // TODO: Affichez le calcul en utilisant les backticks (ex: `... x 5 = ...`)
 }
 </textarea>
-<textarea class="solution-code" hidden>
+                    <textarea class="solution-code" hidden>
 // On commence à 1, on se rend jusqu'à 10 inclusivement (<= 10)
 for (let i = 1; i <= 10; i++) {
     let resultat = i * 5;
@@ -155,7 +192,7 @@ for (let i = 1; i <= 10; i++) {
     console.log(`${i} x 5 = ${resultat}`);
 }
 </textarea>
-</div>
+                </div>
             </section>
 
             <section class="section-spy">
@@ -163,10 +200,11 @@ for (let i = 1; i <= 10; i++) {
                     <h3>Parcourir un Tableau</h3>
                 </div>
 
-                <p>On utilise la propriété <code>.length</code> pour dire à la boucle de s'arrêter pile à la fin du tableau.</p>
+                <p>On utilise la propriété <code>.length</code> pour dire à la boucle de s'arrêter pile à la fin du
+                    tableau.</p>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Liste d'étudiants">
-<textarea class="source-code" hidden>
+                    <textarea class="source-code" hidden>
 let etudiants = ["Léa", "Antoine", "Sophie", "Marc"];
 
 for (let i = 0; i < etudiants.length; i++) {
@@ -177,11 +215,12 @@ for (let i = 0; i < etudiants.length; i++) {
 
                 <div class="info-box warning">
                     <h4>Rappel sur les indices</h4>
-                    <p>Si un tableau a 4 éléments, les indices vont de <strong>0 à 3</strong>. L'indice 4 est <code>undefined</code>. C'est pourquoi on utilise <code>i < tableau.length</code>.</p>
+                    <p>Si un tableau a 4 éléments, les indices vont de <strong>0 à 3</strong>. L'indice 4 est
+                        <code>undefined</code>. C'est pourquoi on utilise <code>i < tableau.length</code>.</p>
                 </div>
 
                 <div class="playground-container" data-type="exercise" data-title="Exercice : Analyse des résultats">
-<textarea class="source-code" hidden>
+                    <textarea class="source-code" hidden>
 let notes = [85, 42, 90, 65, 30];
 
 // Objectif : Afficher chaque note et indiquer si c'est un succès (60+) ou un échec.
@@ -197,7 +236,7 @@ for (let i = 0; ... ; ...) {
     }
 }
 </textarea>
-<textarea class="solution-code" hidden>
+                    <textarea class="solution-code" hidden>
 let notes = [85, 42, 90, 65, 30];
 
 // On utilise i < notes.length pour ne pas dépasser la taille du tableau
@@ -211,7 +250,62 @@ for (let i = 0; i < notes.length; i++) {
     }
 }
 </textarea>
-</div>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>forEach (Parcours express)</h3>
+                </div>
+
+                <p><code>forEach</code> parcourt chaque element d'un tableau et execute une fonction pour chacun.</p>
+                <p>Il est pratique pour les traitements simples de lecture/affichage.</p>
+
+                <div class="info-box info">
+                    <p>Rappel important :</p>
+                    <ul>
+                        <li><code>forEach</code> ne retourne pas un nouveau tableau.</li>
+                        <li>On ne peut pas utiliser <code>break</code> ou <code>continue</code> dedans.</li>
+                        <li>Signature classique : <code>tableau.forEach((element, index) =&gt; { ... })</code></li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-type="example"
+                    data-title="Exemple : Liste numérotée avec forEach">
+                    <textarea class="source-code" hidden>
+let joueurs = ["Alya", "Kael", "Lina"];
+
+joueurs.forEach((nom, index) => {
+    console.log(`${index + 1}. ${nom}`);
+});
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise"
+                    data-title="Exercice : Total de dépenses avec forEach">
+                    <textarea class="source-code" hidden>
+let depenses = [25, 40, 15, 30];
+let total = 0;
+
+// Objectif :
+// 1. Utilise forEach pour parcourir 'depenses'.
+// 2. Affiche chaque depense avec son index (ex: "Depense 1 : 25 $").
+// 3. Additionne chaque valeur dans 'total'.
+// 4. Affiche "Total : ..." a la fin.
+
+</textarea>
+                    <textarea class="solution-code" hidden>
+let depenses = [25, 40, 15, 30];
+let total = 0;
+
+depenses.forEach((montant, index) => {
+    console.log(`Depense ${index + 1} : ${montant} $`);
+    total += montant;
+});
+
+console.log(`Total : ${total} $`);
+</textarea>
+                </div>
             </section>
 
             <section class="section-spy">
@@ -219,10 +313,11 @@ for (let i = 0; i < notes.length; i++) {
                     <h3>Les Tableaux Parallèles</h3>
                 </div>
 
-                <p>C'est une technique essentielle pour le TP. On utilise l'indice <code>i</code> pour lier des informations entre deux tableaux différents.</p>
+                <p>C'est une technique essentielle pour le TP. On utilise l'indice <code>i</code> pour lier des
+                    informations entre deux tableaux différents.</p>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Noms et Notes">
-<textarea class="source-code" hidden>
+                    <textarea class="source-code" hidden>
 let noms = ["Alice", "Bob", "Michel"];
 let notes = [92, 78, 65];
 let groupe = [1, 2, 1];
@@ -235,7 +330,7 @@ for (let i = 0; i < noms.length; i++) {
                 </div>
 
                 <div class="playground-container" data-type="exercise" data-title="Exercice : Rapport de ventes">
-<textarea class="source-code" hidden>
+                    <textarea class="source-code" hidden>
 let produits = ["Pomme", "Banane", "Cerise"];
 let prix = [1.50, 0.75, 3.20];
 
@@ -249,7 +344,7 @@ for (let i = 0; ... ; ...) {
     // Affichez le message ici en utilisant les backticks
 }
 </textarea>
-<textarea class="solution-code" hidden>
+                    <textarea class="solution-code" hidden>
 let produits = ["Pomme", "Banane", "Cerise"];
 let prix = [1.50, 0.75, 3.20];
 
@@ -259,7 +354,7 @@ for (let i = 0; i < produits.length; i++) {
     console.log(`${i + 1}. Le produit ${produits[i]} coûte ${prix[i]} $`);
 }
 </textarea>
-</div>
+                </div>
             </section>
 
             <section class="section-spy">
@@ -267,10 +362,11 @@ for (let i = 0; i < produits.length; i++) {
                     <h3>L'instruction Break</h3>
                 </div>
 
-                <p><code>break</code> sert à "casser" la boucle et à en sortir immédiatement, même si la condition de départ est encore vraie. Idéal pour optimiser une recherche.</p>
+                <p><code>break</code> sert à "casser" la boucle et à en sortir immédiatement, même si la condition de
+                    départ est encore vraie. Idéal pour optimiser une recherche.</p>
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Recherche de fruit">
-<textarea class="source-code" hidden>
+                    <textarea class="source-code" hidden>
 let fruits = ["Pomme", "Banane", "Cerise", "Datte"];
 let recherche = "Cerise";
 
@@ -286,7 +382,7 @@ for (let i = 0; i < fruits.length; i++) {
                 </div>
 
                 <div class="playground-container" data-type="exercise" data-title="Exercice : Scanner de sécurité">
-<textarea class="source-code" hidden>
+                    <textarea class="source-code" hidden>
 let listeColis = ["Colis A", "Colis B", "OBJET_SUSPECT", "Colis D", "Colis E"];
 
 // Objectif : Scanner les colis et s'arrêter immédiatement si on trouve un objet suspect.
@@ -299,7 +395,7 @@ for (let i = 0; i < listeColis.length; i++) {
 
 }
 </textarea>
-<textarea class="solution-code" hidden>
+                    <textarea class="solution-code" hidden>
 let listeColis = ["Colis A", "Colis B", "OBJET_SUSPECT", "Colis D", "Colis E"];
 
 for (let i = 0; i < listeColis.length; i++) {
@@ -311,7 +407,7 @@ for (let i = 0; i < listeColis.length; i++) {
     }
 }
 </textarea>
-</div>
+                </div>
             </section>
 
         </main>

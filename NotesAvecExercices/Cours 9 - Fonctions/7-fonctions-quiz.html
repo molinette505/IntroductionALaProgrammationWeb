@@ -6,8 +6,6 @@
     <title>Quiz - Fonctions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
 </head>
@@ -27,34 +25,91 @@
 
     <main class="main-content">
 
-            <div class="quiz-template" data-type="single" data-title="Une fonction sert à...">
-                <p class="quiz-prompt">Quel est le rôle principal d'une fonction ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">Répéter du code sans structure.</li>
-                    <li data-value="b">Regrouper des instructions réutilisables.</li>
-                    <li data-value="c">Créer automatiquement du HTML.</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-                <textarea class="quiz-solution" hidden>Une fonction encapsule un comportement réutilisable.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="Rôle d'une fonction">
+            <p class="quiz-prompt">Pourquoi utiliser une fonction ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">Pour dupliquer le même bloc partout</li>
+                <li data-value="b">Pour regrouper du code réutilisable</li>
+                <li data-value="c">Pour éviter toute variable</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Une fonction encapsule un comportement qu'on peut appeler plusieurs fois.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="multi" data-title="Vrai ou faux">
-                <p class="quiz-prompt">Quelles affirmations sont vraies ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">Les paramètres sont des variables locales de la fonction.</li>
-                    <li data-value="b">On ne peut passer qu'un seul argument.</li>
-                    <li data-value="c">Les arguments sont les valeurs envoyées lors de l'appel.</li>
-                    <li data-value="d">Une fonction peut être appelée plusieurs fois.</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
-                <textarea class="quiz-solution" hidden>On peut passer plusieurs arguments à une fonction.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="Déclaration correcte">
+            <p class="quiz-prompt">Quelle syntaxe déclare correctement une fonction nommée ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>function saluer() {}</code></li>
+                <li data-value="b"><code>fonction saluer() {}</code></li>
+                <li data-value="c"><code>function = saluer() {}</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>Le mot-clé JavaScript est `function`.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="text" data-title="Valeur retournée">
-                <p class="quiz-prompt">Si <code>function somme(a, b) { return a + b; }</code>, que retourne <code>somme(2, 3)</code> ?</p>
-                <script type="application/json" class="quiz-config">{ "answers": ["5"] }</script>
-                <textarea class="quiz-solution" hidden>return renvoie le résultat de l'expression a + b, donc 5.</textarea>
-            </div>
+        <div class="quiz-template" data-type="multi" data-title="Paramètres et arguments">
+            <p class="quiz-prompt">Quelles affirmations sont vraies ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">Les paramètres sont définis dans la déclaration de la fonction.</li>
+                <li data-value="b">Les arguments sont les valeurs passées à l'appel.</li>
+                <li data-value="c">Une fonction ne peut recevoir qu'un seul argument.</li>
+                <li data-value="d">Les paramètres existent uniquement dans la portée de la fonction.</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d"] }</script>
+            <textarea class="quiz-solution" hidden>On peut passer autant d'arguments que nécessaire selon la fonction.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="text" data-title="Valeur retournée">
+            <p class="quiz-prompt">Si <code>function somme(a, b) { return a + b; }</code>, que vaut <code>somme(4, 6)</code> ?</p>
+            <script type="application/json" class="quiz-config">{ "answers": ["10"] }</script>
+            <textarea class="quiz-solution" hidden>`return` renvoie le résultat calculé à l'endroit de l'appel.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Portée des variables">
+            <p class="quiz-prompt">Une variable déclarée avec <code>let</code> dans une fonction est...</p>
+            <ul class="quiz-options">
+                <li data-value="a">Globale partout</li>
+                <li data-value="b">Locale à cette fonction</li>
+                <li data-value="c">Accessible uniquement dans le HTML</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Sa portée est limitée au bloc/fonction où elle est déclarée.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Fonction fléchée">
+            <p class="quiz-prompt">Quelle écriture est une fonction fléchée valide ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>const doubler = (n) => n * 2;</code></li>
+                <li data-value="b"><code>const doubler => (n) n * 2;</code></li>
+                <li data-value="c"><code>arrow doubler(n) { return n * 2; }</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>La syntaxe fléchée utilise `=>`.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="order" data-title="Créer une fonction utile">
+            <p class="quiz-prompt">Ordonne les étapes de conception.</p>
+            <ul class="quiz-options">
+                <li data-value="a">Tester l'appel avec des arguments concrets</li>
+                <li data-value="b">Identifier ce que la fonction doit recevoir</li>
+                <li data-value="c">Écrire le corps qui calcule ou agit</li>
+                <li data-value="d">Définir ce qu'elle doit retourner</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "order": ["b", "c", "d", "a"] }</script>
+            <textarea class="quiz-solution" hidden>Entrées, traitement, sortie, puis validation par des tests simples.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="mixAndMatch" data-title="Associer terme et définition">
+            <p class="quiz-prompt">Associe chaque terme à sa définition.</p>
+            <ul class="quiz-match-pairs">
+                <li data-left="Paramètre">Nom de variable déclaré dans la signature</li>
+                <li data-left="Argument">Valeur fournie lors de l'appel</li>
+                <li data-left="Return">Valeur renvoyée par la fonction</li>
+                <li data-left="Portée locale">Zone où une variable est accessible</li>
+            </ul>
+            <textarea class="quiz-solution" hidden>Maîtriser ce vocabulaire aide à lire et écrire des fonctions solides.</textarea>
+        </div>
+
     </main>
 </div>
 

@@ -6,8 +6,6 @@
     <title>Quiz - Strings</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
 </head>
@@ -27,44 +25,89 @@
 
     <main class="main-content">
 
-            <div class="quiz-template" data-type="multi" data-title="Guillemets et backticks">
-                <p class="quiz-prompt">Quelles affirmations sont vraies ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">Les backticks permettent l'interpolation ${var}.</li>
-                    <li data-value="b">Une string ne peut pas contenir d'espaces.</li>
-                    <li data-value="c">Les backticks facilitent le multi-ligne.</li>
-                    <li data-value="d">Les guillemets simples et doubles sont valides.</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
-                <textarea class="quiz-solution" hidden>Vrai: a, c, d. Faux: b.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="Syntaxe d'une string">
+            <p class="quiz-prompt">Quelle déclaration est valide pour créer une chaîne ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>let pseudo = dragon;</code></li>
+                <li data-value="b"><code>let pseudo = "dragon";</code></li>
+                <li data-value="c"><code>let pseudo = ["dragon"];</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Une string doit être entourée de guillemets simples, doubles ou backticks.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="text" data-title="Résultat attendu">
-                <p class="quiz-prompt">Avec <code>let nom = "Léa";</code>, que donne <code>`Bonjour ${nom}!`</code> ?</p>
-                <script type="application/json" class="quiz-config">
-                    { "answers": ["Bonjour Léa!", "Bonjour Lea!"], "caseSensitive": false }
-                </script>
-                <textarea class="quiz-solution" hidden>Le résultat est Bonjour Léa!.</textarea>
-            </div>
+        <div class="quiz-template" data-type="multi" data-title="Concaténation">
+            <p class="quiz-prompt">Quelles écritures produisent "Bonjour Alya" ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>"Bonjour " + nom</code> avec <code>nom = "Alya"</code></li>
+                <li data-value="b"><code>`Bonjour ${nom}`</code> avec <code>nom = "Alya"</code></li>
+                <li data-value="c"><code>"Bonjour" - "Alya"</code></li>
+                <li data-value="d"><code>"Bonjour " + "Alya"</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d"] }</script>
+            <textarea class="quiz-solution" hidden>On concatène avec `+` ou via interpolation `${...}` dans les backticks.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="single" data-title="Compter les caractères">
-                <p class="quiz-prompt">Combien vaut <code>"Code JS".length</code> ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">6</li>
-                    <li data-value="b">7</li>
-                    <li data-value="c">8</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-                <textarea class="quiz-solution" hidden>L'espace compte: 7 caractères.</textarea>
-            </div>
+        <div class="quiz-template" data-type="text" data-title="Longueur">
+            <p class="quiz-prompt">Combien vaut <code>"Code JS".length</code> ?</p>
+            <script type="application/json" class="quiz-config">{ "answers": ["7"] }</script>
+            <textarea class="quiz-solution" hidden>L'espace compte comme caractère.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="text" data-title="Combiner toUpperCase() et slice()">
-                <p class="quiz-prompt">Avec <code>const pseudo = \"dragon\";</code>, quelle valeur donne <code>`${pseudo.toUpperCase()} (${pseudo.slice(0, 3)})!`</code> ?</p>
-                <script type="application/json" class="quiz-config">
-                    { "answers": ["DRAGON (dra)!"], "caseSensitive": true }
-                </script>
-                <textarea class="quiz-solution" hidden>toUpperCase agit sur toute la string, tandis que slice(0, 3) conserve la casse originale sur la portion extraite.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="Position des lettres">
+            <p class="quiz-prompt">Dans <code>"dragon"</code>, quelle lettre est à l'index <code>2</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">r</li>
+                <li data-value="b">a</li>
+                <li data-value="c">g</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Indexation à partir de 0: d(0), r(1), a(2).</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Helper includes()">
+            <p class="quiz-prompt">Que renvoie <code>"serveur-prive".includes("prive")</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">true</li>
+                <li data-value="b">false</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>`includes` vérifie la présence d'une sous-chaîne.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Helper slice(start, end)">
+            <p class="quiz-prompt">Que retourne <code>"JavaScript".slice(0, 4)</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">Java</li>
+                <li data-value="b">JavaS</li>
+                <li data-value="c">Script</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>La borne `end` est exclue: index 0,1,2,3.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="order" data-title="Pipeline de transformation">
+            <p class="quiz-prompt">Ordonne les étapes pour nettoyer puis afficher un pseudo.</p>
+            <ul class="quiz-options">
+                <li data-value="a">Afficher le résultat</li>
+                <li data-value="b">Passer le texte en majuscules</li>
+                <li data-value="c">Retirer les espaces inutiles</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "order": ["c", "b", "a"] }</script>
+            <textarea class="quiz-solution" hidden>`trim()` avant `toUpperCase()` évite de transporter des espaces parasites.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="mixAndMatch" data-title="Associer helper et effet">
+            <p class="quiz-prompt">Associe chaque méthode helper à ce qu'elle fait.</p>
+            <ul class="quiz-match-pairs">
+                <li data-left="toUpperCase()">Convertit tout le texte en majuscules</li>
+                <li data-left="toLowerCase()">Convertit tout le texte en minuscules</li>
+                <li data-left="trim()">Retire les espaces au début et à la fin</li>
+                <li data-left="replace(a, b)">Remplace une portion de texte</li>
+            </ul>
+            <textarea class="quiz-solution" hidden>Les helpers évitent d'écrire du code manuel pour les opérations courantes sur les chaînes.</textarea>
+        </div>
+
     </main>
 </div>
 

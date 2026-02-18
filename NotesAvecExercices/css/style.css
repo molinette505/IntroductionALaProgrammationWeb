@@ -99,7 +99,7 @@ ul.code-list li { padding: 8px 12px; margin-bottom: 8px; border-radius: var(--ra
 .step-icon { width: 40px; height: 40px; background: var(--bg-primary-dim); color: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem auto; }
 .concept-tag { display: inline-block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 5px; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-code { font-family: var(--font-mono); background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; color: #fca5a5; font-size: 0.9em; }
+code { font-family: var(--font-mono); background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; color: #fca5a5; font-size: 1.1em; }
 
 /* Mobile */
 .mobile-header { display: none; padding: 1rem; background: var(--bg-panel); border-bottom: 1px solid var(--border-light); justify-content: space-between; align-items: center; color: #fff; position: sticky; top: 0; z-index: 90; }

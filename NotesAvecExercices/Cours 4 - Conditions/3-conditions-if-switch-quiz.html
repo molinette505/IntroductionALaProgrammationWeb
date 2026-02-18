@@ -6,8 +6,6 @@
     <title>Quiz - Conditions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
 </head>
@@ -27,34 +25,87 @@
 
     <main class="main-content">
 
-            <div class="quiz-template" data-type="single" data-title="Branchement">
-                <p class="quiz-prompt">Quelle structure exécute un bloc si la condition est fausse ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">if</li>
-                    <li data-value="b">else</li>
-                    <li data-value="c">break</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-                <textarea class="quiz-solution" hidden>Le bloc else s'exécute lorsque le if est faux.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="if / else de base">
+            <p class="quiz-prompt">Quel bloc s'exécute quand la condition d'un <code>if</code> est fausse ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">if</li>
+                <li data-value="b">else</li>
+                <li data-value="c">case</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Le bloc `else` sert au cas où la condition n'est pas validée.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="multi" data-title="Bonnes pratiques switch">
-                <p class="quiz-prompt">Quelles affirmations sont justes avec <code>switch</code> ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">On compare une valeur à des <code>case</code>.</li>
-                    <li data-value="b">Le <code>break</code> évite le enchaînement des cases.</li>
-                    <li data-value="c">default est obligatoire.</li>
-                    <li data-value="d">On peut remplacer une longue chaîne de if/else.</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d"] }</script>
-                <textarea class="quiz-solution" hidden>default est recommandé mais pas obligatoire.</textarea>
-            </div>
+        <div class="quiz-template" data-type="text" data-title="Évaluation d'une condition">
+            <p class="quiz-prompt">Si <code>age = 17</code>, que renvoie l'expression <code>age >= 18</code> ?</p>
+            <script type="application/json" class="quiz-config">{ "answers": ["false", "faux"], "caseSensitive": false, "placeholder": "true ou false" }</script>
+            <textarea class="quiz-solution" hidden>17 n'est pas supérieur ou égal à 18, donc la condition est fausse.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="text" data-title="Résultat du if/else">
-                <p class="quiz-prompt">Si <code>age = 17</code>, quel texte est affiché par <code>if (age &gt;= 18) { \"Majeur\" } else { \"Mineur\" }</code> ?</p>
-                <script type="application/json" class="quiz-config">{ "answers": ["Mineur"], "caseSensitive": false }</script>
-                <textarea class="quiz-solution" hidden>La condition age >= 18 est fausse pour 17, donc le bloc else est exécuté.</textarea>
+        <div class="quiz-template" data-type="single" data-title="Imbrication">
+            <p class="quiz-prompt">Pourquoi imbriquer des <code>if</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">Pour tester plusieurs règles dépendantes</li>
+                <li data-value="b">Pour remplacer systématiquement toutes les boucles</li>
+                <li data-value="c">Pour déclarer des variables globales</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>On imbrique quand une seconde règle ne doit être vérifiée que si la première est vraie.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="multi" data-title="Switch: bonnes pratiques">
+            <p class="quiz-prompt">Quelles affirmations sont correctes pour <code>switch</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">`break` évite de tomber dans la case suivante.</li>
+                <li data-value="b">`default` gère les cas non prévus.</li>
+                <li data-value="c">Chaque `case` est une condition booléenne complète.</li>
+                <li data-value="d">`switch` peut remplacer une longue suite de if/else if.</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d"] }</script>
+            <textarea class="quiz-solution" hidden>Un `case` compare une valeur à la valeur du `switch`, ce n'est pas un `if` complet.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Ternaire">
+            <div class="quiz-prompt">
+                Lequel est l'équivalent ternaire de:
+                <pre><code class="language-js">if (estConnecte) {
+  message = "Bienvenue";
+} else {
+  message = "Connexion requise";
+}</code></pre>
             </div>
+            <ul class="quiz-options">
+                <li data-value="a"><code>message = estConnecte ? "Bienvenue" : "Connexion requise";</code></li>
+                <li data-value="b"><code>message = estConnecte : "Bienvenue" ? "Connexion requise";</code></li>
+                <li data-value="c"><code>message = ? estConnecte "Bienvenue" : "Connexion requise";</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>La forme est `condition ? valeurSiVrai : valeurSiFaux`.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="order" data-title="Chaîne de décision lisible">
+            <p class="quiz-prompt">Ordonne une stratégie claire pour coder une règle métier conditionnelle.</p>
+            <ul class="quiz-options">
+                <li data-value="a">Ajouter un cas de secours (`else` ou `default`)</li>
+                <li data-value="b">Identifier les conditions exactes à tester</li>
+                <li data-value="c">Écrire d'abord le cas principal le plus fréquent</li>
+                <li data-value="d">Tester avec des exemples vrais et faux</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "order": ["b", "c", "a", "d"] }</script>
+            <textarea class="quiz-solution" hidden>On clarifie d'abord la logique, puis on structure les cas et on valide avec des tests.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="mixAndMatch" data-title="Associer structure et usage">
+            <p class="quiz-prompt">Associe chaque structure à son meilleur usage.</p>
+            <ul class="quiz-match-pairs">
+                <li data-left="if">Tester un cas unique simple</li>
+                <li data-left="if / else if / else">Gérer plusieurs intervalles ou règles successives</li>
+                <li data-left="switch">Comparer une même variable à plusieurs valeurs fixes</li>
+                <li data-left="ternaire">Assigner rapidement une valeur selon une condition</li>
+            </ul>
+            <textarea class="quiz-solution" hidden>Choisir la bonne structure rend le code plus lisible et plus facile à maintenir.</textarea>
+        </div>
+
     </main>
 </div>
 

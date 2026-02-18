@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz - Débogage</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
 </head>
@@ -20,49 +17,101 @@
 
 <div class="app-container">
     <aside id="sidebar" class="sidebar">
-        <div class="sidebar-header">
-            <span class="js-badge">QUIZ</span>
-            <h1>Débogage</h1>
-        </div>
+        <div class="sidebar-header"><span class="js-badge">QUIZ</span><h1>Débogage</h1></div>
         <nav class="sidebar-nav">
             <a href="../../index.html" class="nav-link">Retour</a>
         </nav>
     </aside>
 
     <main class="main-content">
-            <h2 class="section-title">Quiz - Débogage</h2>
-            <p>Valide ta compréhension des erreurs syntaxiques, runtime et des messages console.</p>
 
-            <div class="quiz-template" data-type="single" data-title="SyntaxError ou RuntimeError ?">
-                <p class="quiz-prompt">Un guillemet oublié dans le code produit principalement quelle catégorie d'erreur ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">SyntaxError</li>
-                    <li data-value="b">RuntimeError</li>
-                    <li data-value="c">Aucune erreur</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
-                <textarea class="quiz-solution" hidden>Un guillemet oublié casse le parsing : c'est une SyntaxError.</textarea>
+        <div class="quiz-template" data-type="single" data-title="Erreur de grammaire">
+            <div class="quiz-prompt">
+                Quel type d'erreur produit ce code ?
+                <pre><code class="language-js">let pseudo = "dragon;
+console.log(pseudo);</code></pre>
             </div>
+            <ul class="quiz-options">
+                <li data-value="a">SyntaxError</li>
+                <li data-value="b">ReferenceError</li>
+                <li data-value="c">TypeError</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>Un guillemet manquant casse la syntaxe avant l'exécution.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="multi" data-title="Bonnes pratiques de debug">
-                <p class="quiz-prompt">Quelles actions aident à déboguer efficacement ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">Lire le message d'erreur complet</li>
-                    <li data-value="b">Ignorer la ligne indiquée</li>
-                    <li data-value="c">Utiliser console.log pour isoler les valeurs</li>
-                    <li data-value="d">Corriger une chose à la fois</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "d"] }</script>
-                <textarea class="quiz-solution" hidden>Lire le message, isoler avec des logs, et corriger pas à pas.</textarea>
+        <div class="quiz-template" data-type="single" data-title="Variable introuvable">
+            <div class="quiz-prompt">
+                Quel type d'erreur produit ce code ?
+                <pre><code class="language-js">let points = 10;
+console.log(score);</code></pre>
             </div>
+            <ul class="quiz-options">
+                <li data-value="a">SyntaxError</li>
+                <li data-value="b">ReferenceError</li>
+                <li data-value="c">RangeError</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>`score` n'existe pas en mémoire au moment de l'appel.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="text" data-title="Identifier la bonne variable">
-                <p class="quiz-prompt">Dans <code>let pointsDeVie = 100; console.log(pointDeVie);</code>, quel nom faut-il écrire dans <code>console.log(...)</code> ?</p>
-                <script type="application/json" class="quiz-config">
-                    { "answers": ["pointsDeVie"], "caseSensitive": true }
-                </script>
-                <textarea class="quiz-solution" hidden>Le nom doit correspondre exactement à la variable déclarée, y compris les majuscules/minuscules.</textarea>
+        <div class="quiz-template" data-type="multi" data-title="Lire la stack trace">
+            <div class="quiz-prompt">
+                Dans cette trace, quelles affirmations sont vraies ?
+                <pre><code class="language-js">ReferenceError: total is not defined
+    at calculerTotal (file.js:14:9)
+    at file.js:26:1</code></pre>
             </div>
+            <ul class="quiz-options">
+                <li data-value="a">L'erreur est détectée dans `calculerTotal` ligne 14.</li>
+                <li data-value="b">La ligne 26 est l'appel qui a déclenché la fonction.</li>
+                <li data-value="c">Le message signifie que `total` vaut `null`.</li>
+                <li data-value="d">La stack donne l'ordre des appels de fonctions.</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d"] }</script>
+            <textarea class="quiz-solution" hidden>La stack liste les appels. `is not defined` indique une variable non déclarée.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="order" data-title="Cycle de correction propre">
+            <p class="quiz-prompt">Place ces étapes dans un ordre de débogage efficace.</p>
+            <ul class="quiz-options">
+                <li data-value="a">Corriger puis retester</li>
+                <li data-value="b">Lire précisément le message d'erreur</li>
+                <li data-value="c">Reproduire le bug</li>
+                <li data-value="d">Ajouter des logs ciblés</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "order": ["c", "b", "d", "a"] }</script>
+            <textarea class="quiz-solution" hidden>Reproduire, localiser, observer, corriger: c'est plus fiable que modifier au hasard.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Log pertinent">
+            <p class="quiz-prompt">Quel log t'aide le mieux à comprendre pourquoi le total est faux ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>console.log("ok")</code></li>
+                <li data-value="b"><code>console.log({ prix, quantite, total })</code></li>
+                <li data-value="c"><code>console.log("----")</code> dans 10 endroits</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Un bon log doit exposer les données utiles au moment utile.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="text" data-title="Pause de débogage">
+            <p class="quiz-prompt">Quel mot-clé JavaScript permet de mettre l'exécution en pause dans les DevTools ?</p>
+            <script type="application/json" class="quiz-config">{ "answers": ["debugger"], "caseSensitive": false, "placeholder": "Mot-clé" }</script>
+            <textarea class="quiz-solution" hidden>Le mot-clé est `debugger;`.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="mixAndMatch" data-title="Associer erreur et cause">
+            <p class="quiz-prompt">Associe chaque type d'erreur à sa cause typique.</p>
+            <ul class="quiz-match-pairs">
+                <li data-left="SyntaxError">Le moteur ne peut pas parser le fichier</li>
+                <li data-left="ReferenceError">Un identifiant appelé n'existe pas</li>
+                <li data-left="TypeError">Méthode/propriété appelée sur un type incompatible</li>
+                <li data-left="Bug logique">Le script tourne mais le résultat métier est faux</li>
+            </ul>
+            <textarea class="quiz-solution" hidden>Identifier la catégorie d'erreur permet de gagner du temps au diagnostic.</textarea>
+        </div>
+
     </main>
 </div>
 

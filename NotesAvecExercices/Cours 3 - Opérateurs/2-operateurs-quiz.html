@@ -6,8 +6,6 @@
     <title>Quiz - Opérateurs</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
 </head>
@@ -27,34 +25,91 @@
 
     <main class="main-content">
 
-            <div class="quiz-template" data-type="single" data-title="Priorité des opérations">
-                <p class="quiz-prompt">Quel est le résultat de <code>2 + 3 * 4</code> ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">20</li>
-                    <li data-value="b">14</li>
-                    <li data-value="c">24</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-                <textarea class="quiz-solution" hidden>La multiplication passe avant l'addition : 2 + 12 = 14.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="Priorité arithmétique">
+            <p class="quiz-prompt">Quel est le résultat de <code>2 + 3 * 4</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">20</li>
+                <li data-value="b">14</li>
+                <li data-value="c">24</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>La multiplication est prioritaire: 3*4 = 12, puis +2.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="multi" data-title="Expressions vraies">
-                <p class="quiz-prompt">Quelles expressions retournent <code>true</code> ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a"><code>5 > 2</code></li>
-                    <li data-value="b"><code>3 === "3"</code></li>
-                    <li data-value="c"><code>4 <= 4</code></li>
-                    <li data-value="d"><code>10 != 10</code></li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answers": ["a", "c"] }</script>
-                <textarea class="quiz-solution" hidden>5 > 2 et 4 <= 4 sont vraies. Les autres sont fausses.</textarea>
-            </div>
+        <div class="quiz-template" data-type="text" data-title="Raccourci d'assignation">
+            <p class="quiz-prompt">Écris la forme raccourcie de <code>score = score + 5;</code>.</p>
+            <script type="application/json" class="quiz-config">{ "answers": ["score += 5", "score += 5;"], "caseSensitive": false, "placeholder": "Votre expression" }</script>
+            <textarea class="quiz-solution" hidden>Le raccourci est `score += 5;`.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="text" data-title="Condition logique">
-                <p class="quiz-prompt">Avec <code>let score = 72;</code>, quel résultat donne <code>score &gt;= 50 &amp;&amp; score &lt;= 100</code> ?</p>
-                <script type="application/json" class="quiz-config">{ "answers": ["true", "vrai"], "caseSensitive": false }</script>
-                <textarea class="quiz-solution" hidden>72 respecte les deux comparaisons, donc l'expression logique vaut true.</textarea>
-            </div>
+        <div class="quiz-template" data-type="multi" data-title="Comparaisons qui valent true">
+            <p class="quiz-prompt">Coche toutes les expressions vraies.</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>7 >= 7</code></li>
+                <li data-value="b"><code>3 === "3"</code></li>
+                <li data-value="c"><code>10 != 11</code></li>
+                <li data-value="d"><code>5 < 2</code></li>
+                <li data-value="e"><code>2 == "2"</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["a", "c", "e"] }</script>
+            <textarea class="quiz-solution" hidden>`===` ne transforme pas les strings en nombres. Ici `3 === "3"` est faux, car 3 est un nombre et "3" est une chaîne de caractères, il ne sont donc pas égaux. `==` convertit les strings en nombres, donc `2 == "2"` est vrai, car 2 est bien égale à 2.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="multi" data-title="Strict vs non strict">
+            <p class="quiz-prompt">Quelles comparaisons retrounent faux?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>undefined == 0</code></li>
+                <li data-value="b"><code>2 === "2"</code></li>
+                <li data-value="c"><code>true != 1</code></li>
+                <li data-value="d"><code>"4" !== 4</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["b", "c"] }</script>
+            <textarea class="quiz-solution" hidden>`===` ne transforme pas les strings en nombres. Ici `2 === "2"` est faux car 2 est un nombre et "2" est une chaîne de caractères, ils ne sont donc pas égaux. `!=` converti true en 1, alors `true != 1` est faux car 1 est bien égale à 1.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Logique booléenne">
+            <p class="quiz-prompt">Si <code>estDansMonChampDeVision = false</code> et <code> estAPorteDeTir = true</code>, que vaut <code>ennemiPeutTirer = estDansMonChampDeVision && estAPorteDeTir</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">true</li>
+                <li data-value="b">false</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Avec `&&`, il faut que les deux côtés soient vrais.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Modulo (%)">
+            <p class="quiz-prompt">Que renvoie <code>17 % 5</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">3</li>
+                <li data-value="b">2</li>
+                <li data-value="c">0</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>17 = 5*3 + 2, donc le reste vaut 2.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="mixAndMatch" data-title="Associer opérateur et rôle">
+            <p class="quiz-prompt">Associe chaque opérateur à son utilité principale.</p>
+            <ul class="quiz-match-pairs">
+                <li data-left="+=">Ajoute une valeur et réassigne</li>
+                <li data-left="===">Compare valeur et type</li>
+                <li data-left="&&">Retourne vrai seulement si les deux conditions sont vraies</li>
+                <li data-left="%">Calcule le reste d'une division</li>
+            </ul>
+            <textarea class="quiz-solution" hidden>Connaître ces rôles évite beaucoup d'erreurs de logique.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="order" data-title="Évaluer une expression complexe">
+            <p class="quiz-prompt">Mets l'ordre d'évaluation de <code>(8 + 2) * 3 - 4</code>.</p>
+            <ul class="quiz-options">
+                <li data-value="a">Multiplier le résultat par 3</li>
+                <li data-value="b">Soustraire 4</li>
+                <li data-value="c">Calculer (8 + 2)</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "order": ["c", "a", "b"] }</script>
+            <textarea class="quiz-solution" hidden>Parenthèses, puis multiplication, puis soustraction.</textarea>
+        </div>
+
     </main>
 </div>
 

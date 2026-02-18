@@ -6,8 +6,6 @@
     <title>Quiz - DOM</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
 </head>
@@ -27,39 +25,91 @@
 
     <main class="main-content">
 
-            <div class="quiz-template" data-type="single" data-title="getElementById">
-                <p class="quiz-prompt">Quelle méthode cible directement un élément unique par son ID ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">document.querySelectorAll()</li>
-                    <li data-value="b">document.getElementById()</li>
-                    <li data-value="c">document.getElementsByTagName()</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-                <textarea class="quiz-solution" hidden>getElementById cible précisément l'élément ayant cet ID.</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="Définition du DOM">
+            <p class="quiz-prompt">Le DOM est...</p>
+            <ul class="quiz-options">
+                <li data-value="a">Le fichier HTML brut stocké sur disque</li>
+                <li data-value="b">La représentation en mémoire de la page par le navigateur</li>
+                <li data-value="c">Uniquement une bibliothèque JavaScript externe</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>Le navigateur construit une structure manipulable: le Document Object Model.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="multi" data-title="innerText / innerHTML / value">
-                <p class="quiz-prompt">Quelles affirmations sont correctes ?</p>
-                <ul class="quiz-options">
-                    <li data-value="a">innerText modifie le texte visible.</li>
-                    <li data-value="b">innerHTML peut injecter des balises HTML.</li>
-                    <li data-value="c">value sert à lire/écrire la valeur d'un input.</li>
-                    <li data-value="d">value remplace classList pour les classes CSS.</li>
-                </ul>
-                <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "c"] }</script>
-                <textarea class="quiz-solution" hidden>value n'a rien à voir avec la gestion des classes CSS.</textarea>
-            </div>
+        <div class="quiz-template" data-type="multi" data-title="Sélection d'éléments">
+            <p class="quiz-prompt">Quelles affirmations sont correctes ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>getElementById()</code> cible un ID unique.</li>
+                <li data-value="b"><code>querySelector()</code> utilise des sélecteurs CSS.</li>
+                <li data-value="c"><code>querySelector()</code> retourne toujours une liste complète.</li>
+                <li data-value="d"><code>querySelectorAll()</code> retourne une collection.</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d"] }</script>
+            <textarea class="quiz-solution" hidden>`querySelector` retourne le premier élément correspondant, pas toute la liste.</textarea>
+        </div>
 
-            <div class="quiz-template" data-type="mixAndMatch" data-title="Associer propriété et effet">
-                <p class="quiz-prompt">Glisse chaque effet dans la bonne propriété DOM.</p>
-                <ul class="quiz-match-pairs">
-                    <li data-left="innerText">Change le texte visible d'un élément</li>
-                    <li data-left="innerHTML">Injecte des balises HTML dans l'élément</li>
-                    <li data-left="value">Lit ou remplace la valeur d'un champ de formulaire</li>
-                    <li data-left="classList.add()">Ajoute une classe CSS à un élément</li>
-                </ul>
-                <textarea class="quiz-solution" hidden>On choisit la propriété selon ce qu'on veut manipuler: texte (innerText), structure (innerHTML), formulaire (value), style via classes (classList.add).</textarea>
-            </div>
+        <div class="quiz-template" data-type="single" data-title="innerText vs innerHTML">
+            <p class="quiz-prompt">Quelle propriété permet d'injecter des balises HTML ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">innerText</li>
+                <li data-value="b">innerHTML</li>
+                <li data-value="c">value</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+            <textarea class="quiz-solution" hidden>`innerHTML` interprète le markup; `innerText` écrit du texte brut.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="text" data-title="Formulaires et value">
+            <p class="quiz-prompt">Quelle propriété lit le contenu saisi dans un <code>&lt;input&gt;</code> ?</p>
+            <script type="application/json" class="quiz-config">{ "answers": ["value", ".value"], "caseSensitive": false, "placeholder": "Nom de propriété" }</script>
+            <textarea class="quiz-solution" hidden>On lit et écrit un champ de formulaire avec `value`.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="multi" data-title="Style et classes">
+            <p class="quiz-prompt">Quelles méthodes appartiennent à <code>classList</code> ?</p>
+            <ul class="quiz-options">
+                <li data-value="a">add()</li>
+                <li data-value="b">remove()</li>
+                <li data-value="c">toggle()</li>
+                <li data-value="d">appendChild()</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "c"] }</script>
+            <textarea class="quiz-solution" hidden>`appendChild()` sert à insérer un nœud, pas à gérer les classes.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="single" data-title="Attributs">
+            <p class="quiz-prompt">Quelle option modifie la source d'une image DOM ?</p>
+            <ul class="quiz-options">
+                <li data-value="a"><code>image.src = "avatar.png"</code></li>
+                <li data-value="b"><code>image.innerText = "avatar.png"</code></li>
+                <li data-value="c"><code>image.value = "avatar.png"</code></li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+            <textarea class="quiz-solution" hidden>On modifie l'attribut directement via la propriété correspondante (`src`, `href`, etc.).</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="order" data-title="Création dynamique d'un élément">
+            <p class="quiz-prompt">Ordonne les étapes pour ajouter un élément dans la page.</p>
+            <ul class="quiz-options">
+                <li data-value="a">Insérer dans le parent avec appendChild</li>
+                <li data-value="b">Configurer son contenu/texte/classes</li>
+                <li data-value="c">Créer le nœud avec createElement</li>
+            </ul>
+            <script type="application/json" class="quiz-config">{ "order": ["c", "b", "a"] }</script>
+            <textarea class="quiz-solution" hidden>On crée d'abord le nœud en mémoire, puis on le configure, puis on l'insère.</textarea>
+        </div>
+
+        <div class="quiz-template" data-type="mixAndMatch" data-title="Associer API DOM et effet">
+            <p class="quiz-prompt">Associe chaque API à son effet principal.</p>
+            <ul class="quiz-match-pairs">
+                <li data-left="document.getElementById('id')">Cibler un élément unique par ID</li>
+                <li data-left="element.innerText = '...'">Modifier le texte visible</li>
+                <li data-left="element.innerHTML = '...'">Remplacer le contenu par du HTML</li>
+                <li data-left="parent.appendChild(enfant)">Ajouter dynamiquement un nœud dans la page</li>
+            </ul>
+            <textarea class="quiz-solution" hidden>Ces API couvrent le cycle classique: sélectionner, modifier, insérer.</textarea>
+        </div>
+
     </main>
 </div>
 
