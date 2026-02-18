@@ -2,141 +2,122 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS - Manipulation du DOM</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - Manipulation du DOM</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../editor/editor.css">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-    </style>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 
 <body>
 
-    <header class="mobile-header">
-        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
-        <span class="logo">JS DOM</span>
-    </header>
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS DOM</span>
+  </header>
 
-    <div class="app-container">
+  <div class="app-container">
 
-        <aside id="sidebar" class="sidebar">
-            <div class="sidebar-header">
-                <span class="js-badge">JS</span>
-                <h1>Manipulation du DOM</h1>
-            </div>
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Manipulation du DOM</h1>
+      </div>
 
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="nav-link">Retour</a>
-            </nav>
-        </aside>
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
 
-        <main class="main-content">
+    <main class="main-content">
 
-            <section class="section-spy">
-                <h2 class="section-title">La manipulation du DOM : rendre le Web vivant</h2>
-                <p>
-                    Le DOM (Document Object Model) est la représentation du HTML en mémoire. JavaScript peut s'en servir
-                    pour modifier la page en temps réel, sans recharger.
-                </p>
-                <div class="info-box info">
-                    <strong>Image mentale :</strong> Le HTML est le plan, le DOM est la maison construite. JavaScript peut
-                    déplacer des meubles ou peindre un mur.
-                </div>
-            </section>
+      <section class="section-spy">
+        <h2 class="section-title">La manipulation du DOM : rendre le Web vivant</h2>
+        <p>
+          Le DOM (Document Object Model) est la représentation du HTML en mémoire. JavaScript peut s'en servir
+          pour modifier la page en temps réel, sans recharger.
+        </p>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Qu'est-ce que le DOM ?</h3>
-                </div>
-                <ul class="card-list">
-                    <li><strong>Structure en arbre :</strong> chaque balise est un nœud dans une hiérarchie parent-enfant.</li>
-                    <li><strong>Interface (API) :</strong> le DOM fournit des méthodes pour sélectionner et modifier les éléments.</li>
-                </ul>
-                <div class="info-box tip">
-                    <h4><i data-lucide="tree-pine"></i> À retenir</h4>
-                    <p>Vous n'écrivez pas le DOM directement : vous le manipulez via JavaScript.</p>
-                </div>
-            </section>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Qu'est-ce que le DOM ?</h3>
+        </div>
+        <div class="info-box info">
+          <p><strong>Structure en arbre :</strong> chaque balise est un nœud dans une hiérarchie parent-enfant.</p>
+        </div>
+        <div class="info-box info">
+          <p><strong>Interface (API) :</strong> le DOM fournit des méthodes pour sélectionner et modifier les éléments.
+          </p>
+          <ul>
+            <li>Sélectionner un élément par id: <code>document.getElementById("nom-id")</code></li>
+            <li>Sélectionner un élément par classe ou sélecteur CSS: <code>document.querySelector(".nom-classe")</code></li>
+            <li>Lire ou modifier le texte d'un élément: <code>element.innerText</code></li>
+            <li>Lire ou modifier le contenu HTML d'un élément: <code>element.innerHTML</code></li>
+            <li>Ajouter une classe CSS: <code>element.classList.add("nom-classe")</code></li>
+            <li>Créer un nouvel élément: <code>document.createElement("nom-balise")</code></li>
+            <li>Ajouter un élément à un parent: <code>element.appendChild(element)</code></li>
+          </ul>
+        </div>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Pourquoi utiliser JavaScript ?</h3>
-                </div>
-                <p>Le web moderne demande de l'interactivité immédiate.</p>
-                <ul class="card-list">
-                    <li>Réseaux sociaux : un nouveau message apparaît sans recharger la page.</li>
-                    <li>E-commerce : trier une liste de produits instantanément.</li>
-                    <li>UX : passer en mode nuit en changeant une classe CSS sur <code>body</code>.</li>
-                </ul>
-            </section>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Pourquoi utiliser le DOM (et le JavaScript)?</h3>
+        </div>
+        <p>Le web moderne demande de l'interactivité immédiate.</p>
+        <ul class="card-list">
+          <li>Réseaux sociaux : un nouveau message apparaît sans recharger la page.</li>
+          <li>E-commerce : trier une liste de produits instantanément.</li>
+          <li>UX : passer en mode nuit en changeant une classe CSS sur <code>body</code>.</li>
+        </ul>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Le cycle de manipulation</h3>
-                </div>
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-icon"><i data-lucide="search"></i></div>
-                        <h4>1. Sélectionner</h4>
-                        <p>Trouver l'élément dans la page.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-icon"><i data-lucide="eye"></i></div>
-                        <h4>2. Lire</h4>
-                        <p>Récupérer du texte, une valeur, un attribut.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-icon"><i data-lucide="wand-2"></i></div>
-                        <h4>3. Modifier</h4>
-                        <p>Changer le contenu ou l'apparence.</p>
-                    </div>
-                </div>
-            </section>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Sélectionner un élément</h3>
+        </div>
+        <p>Avant de modifier, il faut cibler l'élément.</p>
+        <ul class="code-list">
+          <li><code>document.getElementById("monId")</code> : rapide, pour un ID unique.</li>
+          <li><code>document.querySelector("#id .classe")</code> : sélection CSS, retourne le premier.</li>
+        </ul>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Sélectionner un élément</h3>
-                </div>
-                <p>Avant de modifier, il faut cibler l'élément.</p>
-                <ul class="code-list">
-                    <li><code>document.getElementById("monId")</code> : rapide, pour un ID unique.</li>
-                    <li><code>document.querySelector(".classe")</code> : sélection CSS, retourne le premier.</li>
-                </ul>
-
-                <div class="playground-container"
-                     data-output-default="render"
-                     data-type="example"
-                     data-title="Exemple : getElementById + querySelector">
-<textarea class="source-code-html" hidden>
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : getElementById + querySelector">
+          <textarea class="source-code-html" hidden>
 <div class="dom-card">
   <h4 id="titre-page">Titre original</h4>
   <p class="etat">Etat : en attente</p>
   <button id="btn-selection">Mettre a jour</button>
 </div>
 </textarea>
-<textarea class="source-code-css" hidden>
+          <textarea class="source-code-css" hidden>
 .dom-card {
   border: 1px solid #334155;
   border-radius: 10px;
@@ -165,7 +146,7 @@
   cursor: pointer;
 }
 </textarea>
-<textarea class="source-code-js" hidden>
+          <textarea class="source-code-js" hidden>
 const titre = document.getElementById("titre-page");
 const etat = document.querySelector(".etat");
 const bouton = document.getElementById("btn-selection");
@@ -178,20 +159,18 @@ if (titre && etat && bouton) {
   });
 }
 </textarea>
-                </div>
-            </section>
+        </div>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Modifier le contenu</h3>
-                </div>
-                <p>Le texte et le HTML se modifient avec des propriétés simples.</p>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Modifier le contenu</h3>
+        </div>
+        <p>Le texte et le HTML se modifient avec des propriétés simples.</p>
 
-                <div class="playground-container"
-                     data-output-default="render"
-                     data-type="example"
-                     data-title="Exemple : innerText, innerHTML et value">
-<textarea class="source-code-html" hidden>
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : innerText, innerHTML et value">
+          <textarea class="source-code-html" hidden>
 <section class="dom-form">
   <h4 id="titre-zone">Profil joueur</h4>
 
@@ -209,7 +188,7 @@ if (titre && etat && bouton) {
   <div id="zone-rendu">Aucun rendu pour le moment</div>
 </section>
 </textarea>
-<textarea class="source-code-css" hidden>
+          <textarea class="source-code-css" hidden>
 .dom-form {
   max-width: 460px;
   border: 1px solid #334155;
@@ -257,7 +236,7 @@ if (titre && etat && bouton) {
   background: #111827;
 }
 </textarea>
-<textarea class="source-code-js" hidden>
+          <textarea class="source-code-js" hidden>
 const titre = document.getElementById("titre-zone");
 const nomInput = document.getElementById("champ-nom");
 const classeInput = document.getElementById("champ-classe");
@@ -280,20 +259,18 @@ if (titre && nomInput && classeInput && bouton && zoneRendu) {
   });
 }
 </textarea>
-                </div>
-            </section>
+        </div>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Lire et remplacer (Backticks)</h3>
-                </div>
-                <p>Les template literals rendent l'affichage dynamique plus propre.</p>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Lire et remplacer (Backticks)</h3>
+        </div>
+        <p>Les template literals rendent l'affichage dynamique plus propre.</p>
 
-                <div class="playground-container"
-                     data-output-default="render"
-                     data-type="example"
-                     data-title="Exemple : template literals">
-<textarea class="source-code-html" hidden>
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : template literals">
+          <textarea class="source-code-html" hidden>
 <div class="profil-ui">
   <label>
     Pseudo
@@ -307,7 +284,7 @@ if (titre && nomInput && classeInput && bouton && zoneRendu) {
   <div id="fiche"></div>
 </div>
 </textarea>
-<textarea class="source-code-css" hidden>
+          <textarea class="source-code-css" hidden>
 .profil-ui {
   max-width: 460px;
   border: 1px solid #334155;
@@ -349,7 +326,7 @@ if (titre && nomInput && classeInput && bouton && zoneRendu) {
   background: #172554;
 }
 </textarea>
-<textarea class="source-code-js" hidden>
+          <textarea class="source-code-js" hidden>
 const pseudo = document.getElementById("pseudo");
 const niveau = document.getElementById("niveau");
 const btn = document.getElementById("btn-template");
@@ -366,27 +343,25 @@ if (pseudo && niveau && btn && fiche) {
   });
 }
 </textarea>
-                </div>
-            </section>
+        </div>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Modifier l'apparence</h3>
-                </div>
-                <p>Préférez <code>classList</code> pour activer/désactiver des styles.</p>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Modifier l'apparence</h3>
+        </div>
+        <p>Préférez <code>classList</code> pour activer/désactiver des styles.</p>
 
-                <div class="playground-container"
-                     data-output-default="render"
-                     data-type="example"
-                     data-title="Exemple : classList + style">
-<textarea class="source-code-html" hidden>
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : classList + style">
+          <textarea class="source-code-html" hidden>
 <div class="theme-box" id="theme-box">
   <h4>Mode clair</h4>
   <p>Changez l'ambiance visuelle avec classList.toggle().</p>
 </div>
 <button id="btn-theme">Basculer mode</button>
 </textarea>
-<textarea class="source-code-css" hidden>
+          <textarea class="source-code-css" hidden>
 .theme-box {
   max-width: 440px;
   border: 1px solid #334155;
@@ -414,7 +389,7 @@ if (pseudo && niveau && btn && fiche) {
   cursor: pointer;
 }
 </textarea>
-<textarea class="source-code-js" hidden>
+          <textarea class="source-code-js" hidden>
 const box = document.getElementById("theme-box");
 const btnTheme = document.getElementById("btn-theme");
 
@@ -428,26 +403,24 @@ if (box && btnTheme) {
   });
 }
 </textarea>
-                </div>
-            </section>
+        </div>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Modifier les attributs</h3>
-                </div>
-                <p>On peut modifier des attributs comme <code>src</code>, <code>href</code> ou des <code>data-*</code>.</p>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Modifier les attributs</h3>
+        </div>
+        <p>On peut modifier des attributs comme <code>src</code>, <code>href</code> ou des <code>data-*</code>.</p>
 
-                <div class="playground-container"
-                     data-output-default="render"
-                     data-type="example"
-                     data-title="Exemple : setAttribute et attributs">
-<textarea class="source-code-html" hidden>
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : setAttribute et attributs">
+          <textarea class="source-code-html" hidden>
 <div class="card-attr">
   <button id="btn-link">Configurer le lien</button>
   <p id="etat-lien">Lien actuel : #</p>
 </div>
 </textarea>
-<textarea class="source-code-css" hidden>
+          <textarea class="source-code-css" hidden>
 .card-attr {
   max-width: 450px;
   border: 1px solid #334155;
@@ -473,7 +446,7 @@ if (box && btnTheme) {
   cursor: pointer;
 }
 </textarea>
-<textarea class="source-code-js" hidden>
+          <textarea class="source-code-js" hidden>
 const lien = document.getElementById("lien-profil");
 const btn = document.getElementById("btn-link");
 const etat = document.getElementById("etat-lien");
@@ -486,20 +459,18 @@ if (lien && btn && etat) {
   });
 }
 </textarea>
-                </div>
-            </section>
+        </div>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Création dynamique</h3>
-                </div>
-                <p>Pour ajouter des éléments un par un, utilisez <code>createElement</code> et <code>appendChild</code>.</p>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Création dynamique</h3>
+        </div>
+        <p>Pour ajouter des éléments un par un, utilisez <code>createElement</code> et <code>appendChild</code>.</p>
 
-                <div class="playground-container"
-                     data-output-default="render"
-                     data-type="example"
-                     data-title="Exemple : createElement + appendChild">
-<textarea class="source-code-html" hidden>
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-title="Exemple : createElement + appendChild">
+          <textarea class="source-code-html" hidden>
 <section class="todo-ui">
   <label>
     Nouvelle tache
@@ -511,7 +482,7 @@ if (lien && btn && etat) {
   </ul>
 </section>
 </textarea>
-<textarea class="source-code-css" hidden>
+          <textarea class="source-code-css" hidden>
 .todo-ui {
   max-width: 480px;
   border: 1px solid #334155;
@@ -550,7 +521,7 @@ if (lien && btn && etat) {
   padding-left: 18px;
 }
 </textarea>
-<textarea class="source-code-js" hidden>
+          <textarea class="source-code-js" hidden>
 const input = document.getElementById("tache-input");
 const bouton = document.getElementById("btn-ajouter");
 const liste = document.getElementById("liste-taches");
@@ -568,14 +539,14 @@ if (input && bouton && liste) {
   });
 }
 </textarea>
-                </div>
-            </section>
+        </div>
+      </section>
 
-        </main>
-    </div>
+    </main>
+  </div>
 
-    <script src="../editor/editor.js"></script>
-    <script src="../scripts/script.js"></script>
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
 </body>
 
 </html>

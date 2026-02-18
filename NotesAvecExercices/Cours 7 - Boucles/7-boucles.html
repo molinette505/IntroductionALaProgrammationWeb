@@ -64,7 +64,7 @@
                         <li>Retirer une carte de la pile tant qu'un joueur n'a pas gagné.</li>
                     </ul>
                 </div>
-                <p>Sans les boucles, si vous deviez afficher 60 élèves d'une classe dans omnivox, vous devriez écrire au
+                <p>Sans les boucles, si vous deviez afficher les notes de 60 élèves d'une classe dans omnivox, vous devriez écrire au
                     minimum 60 lignes de code. Avec une boucle, <strong>quelques lignes suffisent</strong>.</p>
             </section>
 
@@ -326,30 +326,57 @@ for (let i = 0; i < fruits.length; i++) {
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Exercice : Scanner de sécurité">
+              <div class="playground-container" data-type="exercise" data-title="Chargement de batterie">
                     <textarea class="source-code" hidden>
-let listeColis = ["Colis A", "Colis B", "OBJET_SUSPECT", "Colis D", "Colis E"];
+const pileCartes = [
+  3, 8, 1, 10, 5, 2, 7, 4, 9, 6,
+  10, 2, 5, 8, 3, 1, 7, 6, 4, 9,
+  4, 1, 9, 7, 2, 10, 5, 8, 6, 3,
+  7, 5, 2, 8, 1, 9, 4, 6, 3, 10
+];
 
-// Objectif : Scanner les colis et s'arrêter immédiatement si on trouve un objet suspect.
-// TODO: Créez une boucle 'for' pour parcourir le tableau 'listeColis'.
+let totalJoueurs = [0, 0];
+let joueurActif = 0;
 
-for (let i = 0; i < listeColis.length; i++) {
-    // 1. TODO: SI l'élément actuel est égal à "OBJET_SUSPECT"
-    // 2. Affichez "Alerte ! Objet trouvé à l'emplacement " avec son indice.
-    // 3. Utilisez 'break' pour arrêter le scan des autres colis.
+// Dans la boucle :
+// Tant qu'il reste des cartes dans la pile, lui faire piocher une carte (pop()) et ajouter sa valeur à son total.
+// 1. Piocher une carte et l'ajouter au total du joueur actif.
+// 2. Afficher le total du joueur actif.
+// 3. Si le joueur actif dépasse 21, terminer la boucle et afficher un message indiquant qu'il a perdu.
+// 4. Passer au joueur suivant (alterner entre 0 et 1) pour la prochaine itération.
 
-}
+// Indice : Utiliser le modulo pour alterner entre les joueurs.
+// Indice : Pour accéder au total du joueur actif, utiliser : totalJoueurs[joueurActif]
+// Indice : Utiliser les backticks pour afficher les messages. 
+// Indice : Pour terminer la boucle, utiliser l'instruction break.
 </textarea>
                     <textarea class="solution-code" hidden>
-let listeColis = ["Colis A", "Colis B", "OBJET_SUSPECT", "Colis D", "Colis E"];
+const pileCartes = [
+  3, 8, 1, 10, 5, 2, 7, 4, 9, 6,
+  10, 2, 5, 8, 3, 1, 7, 6, 4, 9,
+  4, 1, 9, 7, 2, 10, 5, 8, 6, 3,
+  7, 5, 2, 8, 1, 9, 4, 6, 3, 10
+];
 
-for (let i = 0; i < listeColis.length; i++) {
-    console.log(`Analyse du ${listeColis[i]}...`);
+let totalJoueurs = [0, 0];
+let joueurActif = 0;
 
-    if (listeColis[i] === "OBJET_SUSPECT") {
-        console.log(`Alerte ! Objet trouvé à l'emplacement ${i}.`);
-        break; // Le scan s'arrête ici : on ne vérifie pas les colis D et E.
+// Boucle principale : continue tant qu'il y a des cartes
+while (pileCartes.length > 0) {
+    // 1. Piocher une carte (pop retire le dernier élément)
+    let cartePiochee = pileCartes.pop();
+    totalJoueurs[joueurActif] += cartePiochee;
+
+    // 2. Afficher le total
+    console.log(`Joueur ${joueurActif + 1} pioche un ${cartePiochee}. Total : ${totalJoueurs[joueurActif]}`);
+
+    // 3. Vérification du dépassement
+    if (totalJoueurs[joueurActif] > 21) {
+        console.log(`Joueur ${joueurActif + 1} a dépassé 21 (${totalJoueurs[joueurActif]}) et a perdu !`);
+        break; // On arrête le jeu
     }
+    // 4. Passer au joueur suivant
+    joueurActif = (joueurActif + 1) % 2;
 }
 </textarea>
                 </div>

@@ -1,118 +1,118 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz - Boucles</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../quiz/quiz.css">
 </head>
+
 <body>
-<header class="mobile-header">
-    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
-    <span class="logo">Quiz Boucles</span>
-</header>
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">Quiz Boucles</span>
+    </header>
 
-<div class="app-container">
-    <aside id="sidebar" class="sidebar">
-        <div class="sidebar-header"><span class="js-badge">QUIZ</span><h1>Boucles</h1></div>
-        <nav class="sidebar-nav">
-            <a href="../../index.html" class="nav-link">Retour</a>
-        </nav>
-    </aside>
+    <div class="app-container">
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header"><span class="js-badge">QUIZ</span>
+                <h1>Boucles</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
 
-    <main class="main-content">
+        <main class="main-content">
 
-        <div class="quiz-template" data-type="single" data-title="But d'une boucle">
-            <p class="quiz-prompt">Une boucle sert principalement à...</p>
-            <ul class="quiz-options">
-                <li data-value="a">Exécuter un bloc plusieurs fois</li>
-                <li data-value="b">Déclarer une fonction</li>
-                <li data-value="c">Créer automatiquement du HTML</li>
-            </ul>
-            <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
-            <textarea class="quiz-solution" hidden>Une boucle automatise la répétition d'instructions.</textarea>
-        </div>
+            <div class="quiz-template" data-type="single" data-title="But d'une boucle">
+                <p class="quiz-prompt">Une boucle sert principalement à...</p>
+                <ul class="quiz-options">
+                    <li data-value="a">Exécuter un bloc plusieurs fois</li>
+                    <li data-value="b">Déclarer une fonction</li>
+                    <li data-value="c">Créer automatiquement du HTML</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+                <textarea class="quiz-solution" hidden>Une boucle automatise la répétition d'instructions.</textarea>
+            </div>
 
-        <div class="quiz-template" data-type="single" data-title="While: condition d'arrêt">
-            <p class="quiz-prompt">Quel risque existe si la condition d'un <code>while</code> ne devient jamais fausse ?</p>
-            <ul class="quiz-options">
-                <li data-value="a">Le code s'arrête immédiatement</li>
-                <li data-value="b">Boucle infinie</li>
-                <li data-value="c">SyntaxError</li>
-            </ul>
-            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-            <textarea class="quiz-solution" hidden>Il faut toujours une mise à jour qui mène à la sortie de boucle.</textarea>
-        </div>
+            <div class="quiz-template" data-type="single" data-title="While: condition d'arrêt">
+                <p class="quiz-prompt">Quel risque existe si la condition d'un <code>while</code> ne devient jamais
+                    fausse ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">Le code s'arrête immédiatement</li>
+                    <li data-value="b">Boucle infinie</li>
+                    <li data-value="c">SyntaxError</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+                <textarea class="quiz-solution"
+                    hidden>Il faut toujours une mise à jour qui mène à la sortie de boucle.</textarea>
+            </div>
 
-        <div class="quiz-template" data-type="single" data-title="For: compteur">
-            <p class="quiz-prompt">Dans <code>for (let i = 0; i < 5; i++)</code>, combien d'itérations sont exécutées ?</p>
-            <ul class="quiz-options">
-                <li data-value="a">4</li>
-                <li data-value="b">5</li>
-                <li data-value="c">6</li>
-            </ul>
-            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-            <textarea class="quiz-solution" hidden>`i` prend 0,1,2,3,4 donc 5 passages.</textarea>
-        </div>
+            <div class="quiz-template" data-type="single" data-title="For: compteur">
+                <p class="quiz-prompt">Dans <code>for (let i = 0; i < 5; i++)</code>, combien d'itérations sont
+                    exécutées ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">4</li>
+                    <li data-value="b">5</li>
+                    <li data-value="c">6</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+                <textarea class="quiz-solution" hidden>`i` prend 0,1,2,3,4 donc 5 passages.</textarea>
+            </div>
 
-        <div class="quiz-template" data-type="multi" data-title="Parcourir un tableau">
-            <p class="quiz-prompt">Quelles boucles sont adaptées pour lire les éléments d'un tableau ?</p>
-            <ul class="quiz-options">
-                <li data-value="a">for (index classique)</li>
-                <li data-value="b">for...of</li>
-                <li data-value="c">switch</li>
-                <li data-value="d">while</li>
-            </ul>
-            <script type="application/json" class="quiz-config">{ "answers": ["a", "b", "d"] }</script>
-            <textarea class="quiz-solution" hidden>switch ne parcourt pas une collection; il sélectionne un cas.</textarea>
-        </div>
+            <div class="quiz-template" data-type="single" data-title="Parcourir un tableau">
+                <p class="quiz-prompt">Quelle boucle est mieux adaptée pour lire les éléments d'un tableau ?</p>
+                <ul class="quiz-options">
+                    <li data-value="a">for</li>
+                    <li data-value="b">while</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "answers": "a" }</script>
+                <textarea class="quiz-solution"
+                    hidden>switch ne parcourt pas une collection; il sélectionne un cas.</textarea>
+            </div>
 
-        <div class="quiz-template" data-type="text" data-title="Accumuler">
-            <p class="quiz-prompt">Si on additionne <code>[3, 5, 7]</code> dans une boucle avec <code>somme += n</code>, quel total final obtient-on ?</p>
-            <script type="application/json" class="quiz-config">{ "answers": ["15"] }</script>
-            <textarea class="quiz-solution" hidden>3 + 5 + 7 = 15.</textarea>
-        </div>
+            <div class="quiz-template" data-type="text" data-title="Accumuler">
+                <p class="quiz-prompt">Si on additionne <code>[3, 5, 7]</code> dans une boucle avec
+                    <code>somme += tableau[i]</code>, quel total final obtient-on ?</p>
+                <script type="application/json" class="quiz-config">{ "answers": ["15"] }</script>
+                <textarea class="quiz-solution" hidden>3 + 5 + 7 = 15.</textarea>
+            </div>
 
-        <div class="quiz-template" data-type="single" data-title="Break">
-            <p class="quiz-prompt">Que fait l'instruction <code>break</code> dans une boucle ?</p>
-            <ul class="quiz-options">
-                <li data-value="a">Passe à l'itération suivante</li>
-                <li data-value="b">Stoppe immédiatement la boucle</li>
-                <li data-value="c">Redémarre la boucle à zéro</li>
-            </ul>
-            <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-            <textarea class="quiz-solution" hidden>`break` sort de la boucle au point courant.</textarea>
-        </div>
+            <div class="quiz-template" data-type="text" data-title="Arrêter">
+                <p class="quiz-prompt">Quel instruction permet d'arrêter et de sortir d'une boucle immédiatement ?</p>
+                <script type="application/json" class="quiz-config">
+                    {
+                    "answers": ["break"],
+                    "caseSensitive": false,
+                    "placeholder": "Ta réponse"
+                    }
+                </script>
+                <textarea class="quiz-solution" hidden>`break` sort de la boucle au point courant.</textarea>
+            </div>
 
-        <div class="quiz-template" data-type="order" data-title="Recherche avec arrêt anticipé">
-            <p class="quiz-prompt">Ordonne une stratégie pour chercher un joueur dans une liste.</p>
-            <ul class="quiz-options">
-                <li data-value="a">Comparer l'élément courant au nom recherché</li>
-                <li data-value="b">Parcourir les éléments un à un</li>
-                <li data-value="c">Arrêter avec break dès qu'il est trouvé</li>
-            </ul>
-            <script type="application/json" class="quiz-config">{ "order": ["b", "a", "c"] }</script>
-            <textarea class="quiz-solution" hidden>On parcourt, on teste, puis on coupe la boucle dès qu'on a trouvé.</textarea>
-        </div>
+            <div class="quiz-template" data-type="order" data-title="Recherche avec arrêt anticipé">
+                <p class="quiz-prompt">Ordonne une stratégie pour chercher un joueur dans une liste.</p>
+                <ul class="quiz-options">
+                    <li data-value="a">Comparer l'élément courant au nom recherché en utilisant l'index (<code>tableau[i] === element</code>)</li>
+                    <li data-value="b">Parcourir les éléments un à un (<code>tableau[i]</code> et <code>i++)</code></li>
+                    <li data-value="c">Arrêter avec break dès qu'il est trouvé</li>
+                </ul>
+                <script type="application/json" class="quiz-config">{ "order": ["b", "a", "c"] }</script>
+                <textarea class="quiz-solution"
+                    hidden>On parcourt, on teste, puis on coupe la boucle dès qu'on a trouvé.</textarea>
+            </div>
+        </main>
+    </div>
 
-        <div class="quiz-template" data-type="mixAndMatch" data-title="Boucles et usages">
-            <p class="quiz-prompt">Associe la structure à son usage le plus courant.</p>
-            <ul class="quiz-match-pairs">
-                <li data-left="while">Répéter tant qu'une condition reste vraie</li>
-                <li data-left="for">Répéter avec un compteur borné</li>
-                <li data-left="for...of">Lire chaque valeur d'une collection</li>
-                <li data-left="break">Interrompre une boucle avant la fin prévue</li>
-            </ul>
-            <textarea class="quiz-solution" hidden>Le bon choix de boucle rend le code plus lisible et plus sûr.</textarea>
-        </div>
-
-    </main>
-</div>
-
-<script src="../quiz/quiz.js"></script>
-<script src="../scripts/script.js"></script>
+    <script src="../quiz/quiz.js"></script>
+    <script src="../scripts/script.js"></script>
 </body>
+
 </html>
