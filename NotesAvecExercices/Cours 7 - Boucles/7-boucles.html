@@ -255,62 +255,7 @@ for (let i = 0; i < notes.length; i++) {
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>forEach (Parcours express)</h3>
-                </div>
-
-                <p><code>forEach</code> parcourt chaque element d'un tableau et execute une fonction pour chacun.</p>
-                <p>Il est pratique pour les traitements simples de lecture/affichage.</p>
-
-                <div class="info-box info">
-                    <p>Rappel important :</p>
-                    <ul>
-                        <li><code>forEach</code> ne retourne pas un nouveau tableau.</li>
-                        <li>On ne peut pas utiliser <code>break</code> ou <code>continue</code> dedans.</li>
-                        <li>Signature classique : <code>tableau.forEach((element, index) =&gt; { ... })</code></li>
-                    </ul>
-                </div>
-
-                <div class="playground-container" data-type="example"
-                    data-title="Exemple : Liste numérotée avec forEach">
-                    <textarea class="source-code" hidden>
-let joueurs = ["Alya", "Kael", "Lina"];
-
-joueurs.forEach((nom, index) => {
-    console.log(`${index + 1}. ${nom}`);
-});
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise"
-                    data-title="Exercice : Total de dépenses avec forEach">
-                    <textarea class="source-code" hidden>
-let depenses = [25, 40, 15, 30];
-let total = 0;
-
-// Objectif :
-// 1. Utilise forEach pour parcourir 'depenses'.
-// 2. Affiche chaque depense avec son index (ex: "Depense 1 : 25 $").
-// 3. Additionne chaque valeur dans 'total'.
-// 4. Affiche "Total : ..." a la fin.
-
-</textarea>
-                    <textarea class="solution-code" hidden>
-let depenses = [25, 40, 15, 30];
-let total = 0;
-
-depenses.forEach((montant, index) => {
-    console.log(`Depense ${index + 1} : ${montant} $`);
-    total += montant;
-});
-
-console.log(`Total : ${total} $`);
-</textarea>
-                </div>
-            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Les Tableaux Parallèles</h3>
+                    <h3>Parcourir des tableaux parallèles</h3>
                 </div>
 
                 <p>C'est une technique essentielle pour le TP. On utilise l'indice <code>i</code> pour lier des
@@ -318,13 +263,13 @@ console.log(`Total : ${total} $`);
 
                 <div class="playground-container" data-type="example" data-title="Exemple : Noms et Notes">
                     <textarea class="source-code" hidden>
-let noms = ["Alice", "Bob", "Michel"];
-let notes = [92, 78, 65];
-let groupe = [1, 2, 1];
+let nomsEtudiants = ["Alice", "Bob", "Michel"];
+let notesEtudiants = [92, 78, 65];
+let groupesEtudiants = [1, 2, 1];
 
 
-for (let i = 0; i < noms.length; i++) {
-    console.log(`Résultat : ${noms[i]}, étudiant du groupe ${groupe[i]} a obtenu ${notes[i]}/100.`);
+for (let i = 0; i < nomsEtudiants.length; i++) {
+    console.log(`Résultat : ${nomsEtudiants[i]}, étudiant du groupe ${groupesEtudiants[i]} a obtenu ${notesEtudiants    [i]}/100.`);
 }
 </textarea>
                 </div>
@@ -374,7 +319,7 @@ for (let i = 0; i < fruits.length; i++) {
     console.log(`Vérification case ${i}...`);
     
     if (fruits[i] === recherche) {
-        console.log(`Trouvé ! ${recherche} est à l'indice ${i}.`);
+        console.log(`Trouvé ! ${recherche} est à la position (case) ${i}.`);
         break; // On arrête tout ici !
     }
 }
