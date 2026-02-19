@@ -331,11 +331,11 @@
 .playground-container[data-console-state="open"] .console-toggle-handle { right: 40%; }
 
 /* Auto height */
-.playground-container[data-auto-height="true"] .editor-body {
-    height: auto !important; 
+.playground-container[data-auto-height-enabled="true"] .editor-body {
+    height: auto;
     min-height: 100px;
 }
-.playground-container[data-auto-height="true"] .CodeMirror {
+.playground-container[data-auto-height-enabled="true"] .CodeMirror {
     height: auto !important; 
 }
 

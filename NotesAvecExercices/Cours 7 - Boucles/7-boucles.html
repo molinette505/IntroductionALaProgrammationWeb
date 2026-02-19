@@ -75,64 +75,125 @@
 
                 <p>La boucle <code>while</code> est la plus simple : elle répète le code <strong>tant que</strong> la
                     condition entre parenthèses est vraie.</p>
+                <p>Elle agit un peu comme un if qui se répète tant que la condition est vraie.</p>
                 <p>Très utile lorsqu'on ne sait pas d'avance combien de fois on va boucler.</p>
                 <div class="info-box info">
-                    <p>Voici sa forme : <code>while (condition) { ... }</code></p>
+                    <p><code>while (condition) { ... }</code></p>
                     <ul>
-                        <li><strong>La condition :</strong> Testée avant chaque tour.
+                        <li><strong>Le mot clé</strong> <code>while</code>: Indique qu'il s'agit d'une boucle.
+                        <li><strong>La condition</strong> <code>(condition)</code>: Testée avant chaque tour. 
                             <ul>
-                                <li>Si elle est vraie, la boucle continue.</li>
+                                <li>Fonctionne comme la condition d'un <code>if</code>.</li>
+                                <li>Si elle est vraie, la boucle continue (on réexécute le code dans le corps de la boucle).</li>
                                 <li>Si elle est fausse, la boucle s'arrête.</li>
                             </ul>
-                        <li><strong>Le corps de la boucle :</strong> Le code à exécuter à chaque tour.
+                        <li><strong>Le corps de la boucle</strong> <code>{ ... }</code>: Le code à exécuter à chaque tour.
                             <ul>
-                                <li>Il doit faire avancer la condition vers la fin.</li>
+                                <li>Il doit faire avancer la condition vers la fin (la condition doit pouvoir devenir <code>false</code>).</li>
                                 <li>Sinon, la boucle pourrait tourner à l'infini !</li>
                             </ul>
                     </ul>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Compteur While">
+                <div class="playground-container" data-type="example" data-title="Compteur While" data-auto-height="true">
                     <textarea class="source-code" hidden>
-let vieDuJoueur = 100; // 1. Initialisation, à l'extérieur de la boucle
-let degats = 20;
+let vieJoueur = 100;
+const degatsPoison = 20;
 
-while (vieDuJoueur > 0) { // 2. Condition, à l'entrée de la boucle, comme un if
-    console.log(`La vie du joueur est à : ${vieDuJoueur}`); 
-    vieDuJoueur -= degats; // 3. Décrémentation, à l'intrérieur de la boucle
+// Tant que le joueur est en vie (vieJoueur > 0), il subit les dégâts du poison à chaque tour.
+while (vieJoueur > 0){
+    // Le joueur subit les dégâts du poison à chaque tour, ce qui fait diminuer sa vie.
+    // Sela permet de faire avancer la condition vers la fin (vieJoueur > 0 deviendra false).
+    vieJoueur -= degatsPoison;
+
+    // Affiche les dégâts subis et la vie restante du joueur. 
+    // Utiliser les backticks ` et l'interpolation ${} offre un affichage propre.
+    console.log(`Le joueur subit ${degatsPoison} points de dégâts. Vie restante : ${vieJoueur}`);
 }
+
+console.log("Le joueur est mort !");
+
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Chargement de batterie">
+                <div class="playground-container" data-type="exercise" data-title="Chargement de batterie" data-auto-height="true" data-instructions="Créez une boucle 'while' qui s'exécute TANT QUE la charge de la batterie est inférieure à sa capacité maximale.">
                     <textarea class="source-code" hidden>
 let chargeBatterie = 0;
-const tauxChargement = 30; // Charge ajoutée à chaque tour
+const tauxChargement = 40; // Charge ajoutée à chaque tour (la vitesse de chargement)
 const capaciteMaximaleBatterie = 150;
 
-// TODO: Créez une boucle 'while' qui s'exécute TANT QUE la charge de la batterie est inférieure à sa capacité maximale.
+// TODO: Dans la boucle :
 // Dans la boucle :
 // 1. Ajoutez de la charge à la variable 'chargeBatterie'.
 // 2. Affichez le niveau actuel dans la console (ex: "Batterie à 25%").
+// 3. Si la charge dépasse la capacité maximale, limiter la charge à la capacité maximale.
+// (Indice : Utilisez une condition if pour vérifier si chargeBatterie dépasse capaciteMaximaleBatterie,
+//  et si oui, assignez la valeur de capaciteMaximaleBatterie à chargeBatterie.)
 
 console.log("Charge terminée !");
 </textarea>
                     <textarea class="solution-code" hidden>
 let chargeBatterie = 0;
-const tauxChargement = 30; // Charge ajoutée à chaque tour
+const tauxChargement = 40; // Charge ajoutée à chaque tour (la vitesse de chargement)
 const capaciteMaximaleBatterie = 150;
 
 while (chargeBatterie < capaciteMaximaleBatterie) {
     chargeBatterie += tauxChargement;
+    if (chargeBatterie > capaciteMaximaleBatterie) {
+        chargeBatterie = capaciteMaximaleBatterie;
+    }
     console.log(`Batterie à : ${chargeBatterie}%`);
 }
 
 console.log("Charge terminée !");
 </textarea>
                 </div>
+
+                <div class="info-box tip">
+                    <p>
+                        <strong>Remarque :</strong> Le prochain exemple plus complexe démontre que la boucle <code>while</code> est idéale lorsque l'on ne sait pas à l'avance combien de tours seront nécessaires pour atteindre la condition recherchée. 
+                    </p>
+                    <p>
+                        Par exemple, dans un jeu de dés, on peut vouloir continuer à lancer le dé jusqu'à obtenir 3 résultats identiques consécutifs. On ne sait pas à l'avance combien de jets seront nécessaires.
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Jets de dé consécutifs : Combien de fois est-ce que la boucle s'exécutera?" data-auto-height="true" data-instructions="Simulation de jets de dé jusqu'à obtenir 3 résultats identiques consécutifs">
+                        <textarea class="source-code" hidden>
+let resultatLancer = 0; // Résultat du jet de dé actuel
+let nbEnchainementsConsecutifs = 0; // Nombre de résultats identiques consécutifs
+let dernierResultat = 0; // Dernier résultat obtenu
+let nbLancerDe = 0; // Nombre total de jets de dé
+
+// La boucle s'exécute tant qu'on n'a pas 3 résultats identiques consécutifs
+while (nbEnchainementsConsecutifs < 2) {
+    // On lance le dé (nombre aléatoire entre 1 et 6)
+    resultatLancer = Math.floor(Math.random() * 6) + 1;
+
+    // Si le résultat est identique au précédent, on augmente le compteur de résultats consécutifs
+    if (resultatLancer == dernierResultat){
+        nbEnchainementsConsecutifs++;
+    } else {
+        // Sinon, on recommence le compteur à 0
+        nbEnchainementsConsecutifs = 0;
+    }
+
+    // On mémorise le résultat pour la prochaine comparaison
+    dernierResultat = resultatLancer;
+  
+    console.log(`Jet de dé no ${nbLancerDe}, resultat du jet ${resultatLancer}, nombre d'enchainements consécutifs ${nbEnchainementsConsecutifs}.`)
+
+    // On compte le nombre de jets
+    nbLancerDe++;
+}
+
+// Affichage du résultat final
+console.log(`Bravo! Il aura fallu ${nbLancerDe} jets de dé pour avoir 3 résultats identiques consécutifs.`);
+                    </textarea>
+                </div>
             </section>
 
             <section class="section-spy">
+
                 <div class="section-header">
                     <h3>La boucle For (Pour)</h3>
                 </div>
@@ -140,52 +201,87 @@ console.log("Charge terminée !");
                 <p>Elle regroupe l'initialisation, la condition et l'incrémentation sur une seule ligne.</p>
                 <p>Utile lorsqu'on sait d'avance combien de fois on veut boucler.</p>
                 <div class="info-box info">
-                    <p>Voici sa forme : <code>for (départ; condition; incrémentation) { ... }</code></p>
+<p><code>for (initialisation; condition; incrémentation) { 
+    ... 
+}</code></p>
                     <ul>
-                        <li><strong>Le départ :</strong> Initialise une variable de contrôle (ex: un compteur
-                            <code>let i = 0</code>).</li>
-                        <li><strong>L'incrémentation :</strong> Modifie la variable de contrôle à la fin de chaque tour.
+                        <li><strong>Le mot clé</strong> <code>for</code> : Indique qu'il s'agit d'une boucle.</li>
+                        <li><strong>L'initialisation</strong> <code>(let i = 0; ... ; ...)</code> :
                             <ul>
-                                <li>Souvent, on incrémente ou décrémente un compteur (ex: <code>i++</code> ou
-                                    <code>i--</code>).</li>
-                                <li>Mais on peut faire d'autres modifications (ex: <code>i += 2</code> pour sauter des
-                                    nombres).</li>
+                                <li>Déclare et initialise une variable compteur à une valeur de départ.</li>
+                                <li>Cette étape n'est exécutée qu'une seule fois, au début.</li>
                             </ul>
-                        <li><strong>La condition :</strong> Testée avant chaque
-                            tour. (ex: <code>i < 10</code>)
+                        </li>
+                        <li><strong>L'incrémentation</strong> <code>( ... ; ... ; i++)</code> :
                             <ul>
+                                <li>Modifie la variable de contrôle à la fin de chaque tour.</li>
+                                <li>Permet de faire avancer la boucle vers sa fin.</li>
+                            </ul>
+                        </li>
+                        <li><strong>La condition</strong> <code>( ... ; i < 10 ; ... )</code> :
+                            <ul>
+                                <li>Testée avant chaque tour de boucle. </li>
                                 <li>Si elle est vraie, la boucle continue.</li>
                                 <li>Si elle est fausse, la boucle s'arrête.</li>
                             </ul>
-                        <li><strong>Le corps de la boucle :</strong> Le code à exécuter à chaque tour.
+                        </li>
+                        <li><strong>Le corps de la boucle</strong> <code>{ ... }</code> :
+                            <ul>
+                                <li>Le code à exécuter à chaque tour.</li>
+                                <li>On utilise souvent la variable compteur <code>i</code> à l'intérieur.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Une boucle qui compte de 0 à 4">
+                <div class="playground-container" data-type="example" data-title="Une boucle qui s'exécute 4 fois" 
+                data-instructions="Chacune de ces boucles sont exécutées 4 fois, mais en utilisant des compteurs différents"
+                data-auto-height="true">
                     <textarea class="source-code" hidden>
-for (let i = 0; i < 5; i++) {
-    console.log(`Itération numéro : ${i}`);
+// On commence à 0, on s'arrête avant 4 (donc 0, 1, 2, 3)
+console.log("Première boucle");
+for (let i = 0; i < 4; i++) {
+    // Affiche la valeur actuelle de i à chaque tour
+    console.log(`i vaut : ${i}`);
 }
+
+// On commence à 1, on s'arrête à 4 inclus (donc 1, 2, 3, 4)
+console.log("Deuxième boucle");
+for (let j = 1; j <= 4; j++) {
+    // Affiche la valeur actuelle de j à chaque tour
+    console.log(`j vaut : ${j}`);
+}
+
+// On commence à 6, on s'arrête à 0 inclus, on diminue de 2 à chaque tour (donc 6, 4, 2, 0)
+console.log("Troisième boucle");
+for (let compteur = 6; compteur >= 0; compteur -= 2) {
+    // Affiche la valeur actuelle de compteur à chaque tour
+    console.log(`compteur vaut : ${compteur}`);
+}
+
 </textarea>
                 </div>
 
                 <div class="playground-container" data-type="exercise"
-                    data-title="Exercice : La table de multiplication par 5">
+                                                    data-title="La table de multiplication par 5"
+                                                    data-instructions="Indice : dans une table de multiplication, est-ce le 5 ou le nombre qui multiplie (1, 2, 3, ...) qui change à chaque tour de boucle ?"
+                                                    data-auto-height="true">
                     <textarea class="source-code" hidden>
-// Objectif : Afficher la table de multiplication de 5 (de 1 à 10)
+// Objectif : Afficher la table de multiplication de 5 (de 1 à 12)
 // Résultat attendu dans la console : 
 // "1 x 5 = 5"
-// "2 x 5 = 10" ... jusqu'à 50
+// "2 x 5 = 10"
+// "3 x 5 = 15" ... jusqu'à 60
 
-// TODO: Créez une boucle 'for' qui commence à 1 et s'arrête à 10.
+// TODO: Créez une boucle 'for' qui commence à 1 et s'arrête à 12.
 for (...) {
     let resultat = ...;
     // TODO: Affichez le calcul en utilisant les backticks (ex: `... x 5 = ...`)
 }
 </textarea>
                     <textarea class="solution-code" hidden>
-// On commence à 1, on se rend jusqu'à 10 inclusivement (<= 10)
-for (let i = 1; i <= 10; i++) {
+// On commence à 1, on se rend jusqu'à 12 inclusivement (<= 12)
+for (let i = 1; i <= 12; i++) {
     let resultat = i * 5;
     
     // Utilisation des template literals pour un affichage propre
@@ -197,17 +293,26 @@ for (let i = 1; i <= 10; i++) {
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Parcourir un Tableau</h3>
+                    <h3>Parcourir un tableau avec une boucle for</h3>
                 </div>
 
-                <p>On utilise la propriété <code>.length</code> pour dire à la boucle de s'arrêter pile à la fin du
-                    tableau.</p>
+                <div class="info-box info">
 
-                <div class="playground-container" data-type="example" data-title="Exemple : Liste d'étudiants">
+                    <p>On utilise la propriété <code>.length</code> pour dire à la boucle de s'arrêter pile à la fin du
+                        tableau.</p>
+                    <p>On utilise la variable compteur <code>i</code> comme index pour accéder aux éléments du tableau.</p>
+                </div>
+
+                <div class="playground-container" data-type="example" 
+                data-title="Parcours d'un tableau liste d'étudiants">
                     <textarea class="source-code" hidden>
+// Déclaration d'un tableau contenant les noms des étudiants
 let etudiants = ["Léa", "Antoine", "Sophie", "Marc"];
 
+// i commence à 0 et s'arrête avant etudiants.length (donc 0 à 3)
 for (let i = 0; i < etudiants.length; i++) {
+
+    // Affiche le nom de l'étudiant à l'index i
     console.log(`${etudiants[i]} est présent(e).`);
 }
 </textarea>
@@ -215,27 +320,33 @@ for (let i = 0; i < etudiants.length; i++) {
 
                 <div class="info-box warning">
                     <h4>Rappel sur les indices</h4>
-                    <p>Si un tableau a 4 éléments, les indices vont de <strong>0 à 3</strong>. L'indice 4 est
-                        <code>undefined</code>. C'est pourquoi on utilise <code>i < tableau.length</code>.</p>
+                    <ul>
+                        <li>Si un tableau a 4 éléments, les indices vont de <strong>0 à 3</strong>. <code>tableau[4]</code> est <code>undefined</code>.</li>
+                        <li>C'est pourquoi on utilise <code>i < tableau.length</code> ou <code>i <= tableau.length - 1</code> dans la condition de la boucle.</li>
+                        <li>
+                            Dans une boucle <code>for (let i = 0; i &lt; tableau.length; i++)</code> :
+                            <ul>
+                                <li><code>i</code> prend successivement les valeurs 0, 1, 2, 3.</li>
+                                <li>À chaque tour, on accède à l'élément correspondant avec <code>tableau[i]</code>.</li>
+                                <li>Donc, on obtient successivement <code>tableau[0]</code>, <code>tableau[1]</code>, <code>tableau[2]</code> et <code>tableau[3]</code>.</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Exercice : Analyse des résultats">
-                    <textarea class="source-code" hidden>
+                <div class="playground-container" data-type="exercise" data-title="Analyse des résultats" data-instructions="Objectif : Afficher chaque note et indiquer si c'est un succès (60+) ou un échec.">
+                                    <textarea class="source-code" hidden>
 let notes = [85, 42, 90, 65, 30];
 
-// Objectif : Afficher chaque note et indiquer si c'est un succès (60+) ou un échec.
 // TODO: Créez une boucle 'for' qui parcourt le tableau 'notes'.
-
-for (let i = 0; ... ; ...) {
+for (let i = ...; i < ... ; ...) {
     let noteActuelle = ...;
-    
-    if (noteActuelle >= 60) {
-        console.log(`Note : ${noteActuelle}/100 - Réussite`);
-    } else {
-        console.log(`Note : ${noteActuelle}/100 - Échec`);
-    }
+    // TODO: Si la noteActuelle est supérieure ou égale à 60
+    // --affichez "Note : X/100 - Réussite"
+    // Sinon
+    // --affichez "Note : X/100 - Échec".
 }
-</textarea>
+                </textarea>
                     <textarea class="solution-code" hidden>
 let notes = [85, 42, 90, 65, 30];
 
@@ -258,23 +369,33 @@ for (let i = 0; i < notes.length; i++) {
                     <h3>Parcourir des tableaux parallèles</h3>
                 </div>
 
-                <p>C'est une technique essentielle pour le TP. On utilise l'indice <code>i</code> pour lier des
-                    informations entre deux tableaux différents.</p>
 
-                <div class="playground-container" data-type="example" data-title="Exemple : Noms et Notes">
+                <div class="info-box info">
+                    <h4>Astuce : Parcourir des tableaux parallèles</h4>
+                    <ul>
+                        <li>On parle de <strong>tableaux parallèles</strong> lorsqu'on utilise plusieurs tableaux de même longueur pour stocker des informations liées (ex : noms, notes, groupes).</li>
+                        <li>Chaque indice <code>i</code> représente la même entité dans tous les tableaux : <code>noms[i]</code>, <code>notes[i]</code>, <code>groupes[i]</code> concernent le même étudiant.</li>
+                        <li>Cette technique permet d'associer facilement des données sans objets, mais il faut toujours s'assurer que les tableaux ont la même longueur !</li>
+                        <li>On utilise une seule boucle <code>for</code> pour parcourir tous les tableaux en même temps, en accédant à l'indice <code>i</code> dans chacun.</li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Noms et Notes">
                     <textarea class="source-code" hidden>
+// Trois tableaux parallèles : chaque indice correspond au même étudiant
 let nomsEtudiants = ["Alice", "Bob", "Michel"];
 let notesEtudiants = [92, 78, 65];
 let groupesEtudiants = [1, 2, 1];
 
-
+// On parcourt tous les tableaux en même temps avec le même indice i
 for (let i = 0; i < nomsEtudiants.length; i++) {
-    console.log(`Résultat : ${nomsEtudiants[i]}, étudiant du groupe ${groupesEtudiants[i]} a obtenu ${notesEtudiants    [i]}/100.`);
+    // nomsEtudiants[i], notesEtudiants[i] et groupesEtudiants[i] concernent le même étudiant
+    console.log(`Résultat : ${nomsEtudiants[i]}, étudiant du groupe ${groupesEtudiants[i]} a obtenu ${notesEtudiants[i]}/100.`);
 }
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Exercice : Rapport de ventes">
+                <div class="playground-container" data-type="exercise" data-title="Rapport de ventes">
                     <textarea class="source-code" hidden>
 let produits = ["Pomme", "Banane", "Cerise"];
 let prix = [1.50, 0.75, 3.20];
@@ -310,7 +431,7 @@ for (let i = 0; i < produits.length; i++) {
                 <p><code>break</code> sert à "casser" la boucle et à en sortir immédiatement, même si la condition de
                     départ est encore vraie. Idéal pour optimiser une recherche.</p>
 
-                <div class="playground-container" data-type="example" data-title="Exemple : Recherche de fruit">
+                <div class="playground-container" data-type="example" data-title="Recherche de fruit">
                     <textarea class="source-code" hidden>
 let fruits = ["Pomme", "Banane", "Cerise", "Datte"];
 let recherche = "Cerise";
@@ -326,29 +447,40 @@ for (let i = 0; i < fruits.length; i++) {
 </textarea>
                 </div>
 
-              <div class="playground-container" data-type="exercise" data-title="Chargement de batterie">
-                    <textarea class="source-code" hidden>
+                            <div class="playground-container" data-type="exercise" data-title="Jeu de cartes : 21" data-instructions="Simulez un jeu où deux joueurs piochent à tour de rôle des cartes d'une pile. À chaque tour, le joueur actif pioche la dernière carte de la pile et l'ajoute à son total. Si le total d'un joueur dépasse 21, la partie s'arrête et ce joueur perd. Après chaque pioche, passez au joueur suivant. Utilisez une boucle while, l'instruction break et le modulo pour alterner les joueurs.">
+                                        <textarea class="source-code" hidden>
 const pileCartes = [
-  3, 8, 1, 10, 5, 2, 7, 4, 9, 6,
-  10, 2, 5, 8, 3, 1, 7, 6, 4, 9,
-  4, 1, 9, 7, 2, 10, 5, 8, 6, 3,
-  7, 5, 2, 8, 1, 9, 4, 6, 3, 10
+    3, 8, 1, 10, 5, 2, 7, 4, 9, 6,
+    10, 2, 5, 8, 3, 1, 7, 6, 4, 9,
+    4, 1, 9, 7, 2, 10, 5, 8, 6, 3,
+    7, 5, 2, 8, 1, 9, 4, 6, 3, 10
 ];
+// totalPointsJoueurs[0] = score du joueur 1, il commence à 0
+// totalPointsJoueurs[1] = score du joueur 2, il commence à 0
+let totalPointsJoueurs = [0, 0]; 
 
-let totalPointsJoueurs = [0, 0];
-let joueurActif = 0;
+// joueurActif = 0 pour le joueur 1
+// joueurActif = 1 pour le joueur 2
+let joueurActif = 0; // 0 = joueur 1, 1 = joueur 2
 
-// Dans la boucle :
-// Tant qu'il reste des cartes dans la pile, lui faire piocher une carte (pop()) et ajouter sa valeur à son total.
-// 1. Piocher une carte et l'ajouter au total du joueur actif.
-// 2. Afficher le total du joueur actif.
-// 3. Si le joueur actif dépasse 21, terminer la boucle et afficher un message indiquant qu'il a perdu.
-// 4. Passer au joueur suivant (alterner entre 0 et 1) pour la prochaine itération.
+// 1. Tant qu'il reste des cartes dans la pile, la partie continue
+// (Indice : Utilisez pileCartes.length pour vérifier s'il reste des cartes)
+while (/* À compléter */) {
+        // 2. Piocher la dernière carte de la pile (utilisez .pop())
+        //    Stockez la valeur dans une variable cartePiochee
 
-// Indice : Utiliser le modulo pour alterner entre les joueurs.
-// Indice : Pour accéder au total du joueur actif, utiliser : totalPointsJoueurs[joueurActif]
-// Indice : Utiliser les backticks pour afficher les messages. 
-// Indice : Pour terminer la boucle, utiliser l'instruction break.
+        // 3. Ajoutez la valeur de la carte au total du joueur actif
+        //    totalPointsJoueurs[joueurActif] += ...
+
+        // 4. Affichez le résultat de la pioche et le total du joueur actif
+        //    Exemple : "Joueur 1 pioche un 8. Total : 15"
+
+        // 5. Si le total du joueur actif dépasse 21, affichez un message de défaite et arrêtez la boucle (break)
+
+        // 6. Passez au joueur suivant pour le prochain tour
+        //    -ajouter 1 à joueurActif
+        //    -utiliser le modulo pour revenir à 0 si on dépasse 1
+}
 </textarea>
                     <textarea class="solution-code" hidden>
 const pileCartes = [

@@ -68,48 +68,17 @@
         <div class="section-header">
           <h3>Qu'est-ce que le DOM ?</h3>
         </div>
-        <div class="info-box info">
-          <p><strong>Structure en arbre :</strong> chaque balise est un nœud dans une hiérarchie parent-enfant.</p>
-        </div>
-        <div class="info-box info">
-          <p><strong>Interface (API) :</strong> le DOM fournit des méthodes pour sélectionner et modifier les éléments.
-          </p>
-          <ul>
-            <li>Sélectionner un élément par id: <code>document.getElementById("nom-id")</code></li>
-            <li>Sélectionner un élément par classe ou sélecteur CSS: <code>document.querySelector(".nom-classe")</code></li>
-            <li>Lire ou modifier le texte d'un élément: <code>element.innerText</code></li>
-            <li>Lire ou modifier le contenu HTML d'un élément: <code>element.innerHTML</code></li>
-            <li>Ajouter une classe CSS: <code>element.classList.add("nom-classe")</code></li>
-            <li>Créer un nouvel élément: <code>document.createElement("nom-balise")</code></li>
-            <li>Ajouter un élément à un parent: <code>element.appendChild(element)</code></li>
-          </ul>
-        </div>
+        <img src="img/dom.png" />
       </section>
 
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Pourquoi utiliser le DOM (et le JavaScript)?</h3>
-        </div>
-        <p>Le web moderne demande de l'interactivité immédiate.</p>
-        <ul class="card-list">
-          <li>Réseaux sociaux : un nouveau message apparaît sans recharger la page.</li>
-          <li>E-commerce : trier une liste de produits instantanément.</li>
-          <li>UX : passer en mode nuit en changeant une classe CSS sur <code>body</code>.</li>
-        </ul>
-      </section>
 
       <section class="section-spy">
         <div class="section-header">
           <h3>Sélectionner un élément</h3>
         </div>
-        <p>Avant de modifier, il faut cibler l'élément.</p>
-        <ul class="code-list">
-          <li><code>document.getElementById("monId")</code> : rapide, pour un ID unique.</li>
-          <li><code>document.querySelector("#id .classe")</code> : sélection CSS, retourne le premier.</li>
-        </ul>
-
+        <img src="img/cibler.png" />
         <div class="playground-container" data-output-default="console" data-type="example"
-          data-title="Exemple : getElementById + querySelector">
+          data-title="getElementById + querySelector">
           <textarea class="source-code-html" hidden>
 <div class="dom-card">
   <h4 id="titre-page">Panneau de sélection</h4>
@@ -142,97 +111,15 @@
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// Je sélectionne un élément par id...
-const titre = document.getElementById("titre-page");
-// ...et un élément via un sélecteur CSS plus précis.
-const cible = document.querySelector("#zone-b .etat-cible");
+// Sélectionner un élément par id
+const elementTitre = document.getElementById("titre-page");
+// Sélectionner un élément via un sélecteur CSS plus précis.
+const elementCible = document.querySelector("#zone-b .etat-cible");
 
-if (titre && cible) {
-  console.log(titre);
-  console.log(cible);
-}
-</textarea>
-        </div>
-
-        <div class="playground-container" data-output-default="console" data-type="exercise"
-          data-title="Exercice : obtenir et afficher un élément ciblé">
-          <textarea class="source-code-html" hidden>
-<div class="dom-card">
-  <h4 id="mission-titre">Mission : ciblage précis</h4>
-  <div id="zone-alpha">
-    <p class="etat-ligne">Zone alpha : inactif</p>
-  </div>
-  <div id="zone-beta">
-    <p class="etat-ligne">Zone beta : inactif</p>
-  </div>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.dom-card {
-  border: 1px solid #334155;
-  border-radius: 10px;
-  background: #0f172a;
-  padding: 14px;
-  color: #e2e8f0;
-  max-width: 420px;
-}
-
-.dom-card h4 {
-  margin: 0 0 8px;
-  color: #93c5fd;
-}
-
-.dom-card .etat-ligne {
-  margin: 0 0 10px;
-  color: #cbd5e1;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-// TODO:
-// 1. Récupère l'élément #mission-titre avec document.getElementById(...)
-// 2. Récupère l'élément .etat-ligne dans #zone-beta avec document.querySelector(...)
-// 3. Affiche les deux éléments dans la console
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="dom-card">
-  <h4 id="mission-titre">Mission : ciblage précis</h4>
-  <div id="zone-alpha">
-    <p class="etat-ligne">Zone alpha : inactif</p>
-  </div>
-  <div id="zone-beta">
-    <p class="etat-ligne">Zone beta : inactif</p>
-  </div>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.dom-card {
-  border: 1px solid #334155;
-  border-radius: 10px;
-  background: #0f172a;
-  padding: 14px;
-  color: #e2e8f0;
-  max-width: 420px;
-}
-
-.dom-card h4 {
-  margin: 0 0 8px;
-  color: #93c5fd;
-}
-
-.dom-card .etat-ligne {
-  margin: 0 0 10px;
-  color: #cbd5e1;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-const titre = document.getElementById("mission-titre");
-const etatBeta = document.querySelector("#zone-beta .etat-ligne");
-
-if (titre && etatBeta) {
-  console.log(titre);
-  console.log(etatBeta);
-}
-</textarea>
+//Afficher les éléments ciblés dans la console
+console.log(elementTitre);
+console.log(elementCible);
+        </textarea>
         </div>
       </section>
 
@@ -240,24 +127,17 @@ if (titre && etatBeta) {
         <div class="section-header">
           <h3>Modifier le contenu</h3>
         </div>
-        <p>
-          C'est ici qu'on définit ce qui est affiché à l'écran. Avant de coder l'exemple, retiens les trois propriétés
-          principales:
-        </p>
-        <div class="info-box info">
-          <p><strong><code>.innerText</code></strong> : représente le texte brut visible à l'intérieur d'un élément (h1, p, div, span...).</p>
-          <p><strong><code>.innerHTML</code></strong> : représente le contenu HTML de l'élément et permet d'injecter des balises.</p>
-          <p>Quand on affecte <code>innerHTML</code>, le contenu précédent de l'élément est remplacé.</p>
-          <p><strong><code>.value</code></strong> : utilisée pour les champs de formulaire (<code>input</code>, <code>textarea</code>, <code>select</code>).</p>
-          <p>On s'en sert pour lire ou remplacer la valeur saisie par l'utilisateur.</p>
-        </div>
-        <p><strong>A. <code>.innerText</code> : modifier du texte brut</strong></p>
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : innerText">
+        <img src="img/modifier.png" />
+
+        <img src="img/backtick.png" />
+
+        <div class="playground-container" data-output-default="render" 
+          data-type="example" 
+          data-instructions="Appuyez sur le bouton exécuter et le bouton réinitialiser pour voir le titre changer"
+          data-title="innerText">
           <textarea class="source-code-html" hidden>
 <div class="dom-mini">
   <h4 id="titre-texte">Titre initial</h4>
-  <button id="btn-texte">Changer le titre</button>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -285,104 +165,19 @@ if (titre && etatBeta) {
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// 1) Je cible le titre et le bouton.
-const titre = document.getElementById("titre-texte");
-const bouton = document.getElementById("btn-texte");
+// Cibler le titre et le bouton avec document.getElementById(...)
+const elementTitre = document.getElementById("titre-texte");
 
-if (titre && bouton) {
-  bouton.addEventListener("click", () => {
-    // 2) innerText remplace uniquement le texte visible.
-    titre.innerText = "Titre modifié avec innerText";
-  });
-}
+// Remplacer le texte dans le titre avec innerText
+elementTitre.innerText = "Titre modifié avec innerText";
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="Exercice : modifier un titre avec innerText">
-          <textarea class="source-code-html" hidden>
-<div class="dom-mini">
-  <h4 id="exo-titre">Mission en attente</h4>
-  <button id="exo-btn-texte">Valider la mission</button>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.dom-mini {
-  max-width: 380px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-.dom-mini h4 {
-  margin: 0 0 10px;
-  color: #93c5fd;
-}
-
-.dom-mini button {
-  border: 1px solid #6366f1;
-  background: #312e81;
-  color: #c7d2fe;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-// TODO:
-// 1. Récupère #exo-titre et #exo-btn-texte avec document.getElementById(...)
-// 2. Au clic, remplace le texte du titre avec innerText
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="dom-mini">
-  <h4 id="exo-titre">Mission en attente</h4>
-  <button id="exo-btn-texte">Valider la mission</button>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.dom-mini {
-  max-width: 380px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-.dom-mini h4 {
-  margin: 0 0 10px;
-  color: #93c5fd;
-}
-
-.dom-mini button {
-  border: 1px solid #6366f1;
-  background: #312e81;
-  color: #c7d2fe;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-const titre = document.getElementById("exo-titre");
-const bouton = document.getElementById("exo-btn-texte");
-
-if (titre && bouton) {
-  bouton.addEventListener("click", () => {
-    titre.innerText = "Mission validée";
-  });
-}
-</textarea>
-        </div>
-
-        <p><strong>B. <code>.innerHTML</code> : injecter du HTML</strong></p>
         <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : innerHTML">
+          data-instructions="Appuyez sur le bouton exécuter et le bouton réinitialiser pour voir le titre changer"
+          data-title="Utilisation de innerHTML">
           <textarea class="source-code-html" hidden>
 <div class="dom-mini">
-  <button id="btn-html">Afficher la fiche</button>
   <div id="zone-html">Aucune fiche</div>
 </div>
 </textarea>
@@ -396,15 +191,6 @@ if (titre && bouton) {
   color: #e2e8f0;
 }
 
-.dom-mini button {
-  border: 1px solid #10b981;
-  background: #064e3b;
-  color: #a7f3d0;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-
 #zone-html {
   margin-top: 10px;
   border: 1px solid #334155;
@@ -414,115 +200,27 @@ if (titre && bouton) {
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// 1) Je cible le bouton et la zone de rendu.
-const bouton = document.getElementById("btn-html");
-const zone = document.getElementById("zone-html");
+let nom = "Victor";
+let classe = "Guerrier";
 
-if (bouton && zone) {
-  bouton.addEventListener("click", () => {
-    // 2) innerHTML remplace le contenu actuel par une structure HTML.
-    zone.innerHTML = `
-      <p><strong>Nom:</strong> Alya</p>
-      <p><strong>Classe:</strong> Rodeuse</p>
-    `;
-  });
-}
+// Je cible le bouton et la zone de rendu.
+const elementZone = document.getElementById("zone-html");
+
+// innerHTML remplace le contenu actuel par une structure HTML.
+elementZone.innerHTML = `
+  <p><strong>Nom:</strong> ${nom}</p>
+  <p><strong>Classe:</strong> ${classe}</p>
+`;
+
+// ajouter du HTML sans écraser le contenu actuel: elementZone.innerHTML += "Nouveau contenu"
+elementZone.innerHTML += `
+  <p><em>Bienvenue dans le jeu, ${nom} le ${classe} !</em></p>
+`;
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="Exercice : afficher une carte avec innerHTML">
-          <textarea class="source-code-html" hidden>
-<div class="dom-mini">
-  <button id="btn-carte-html">Créer la carte</button>
-  <div id="zone-carte-html">Aucune carte</div>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.dom-mini {
-  max-width: 420px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-.dom-mini button {
-  border: 1px solid #10b981;
-  background: #064e3b;
-  color: #a7f3d0;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-
-#zone-carte-html {
-  margin-top: 10px;
-  border: 1px solid #334155;
-  border-radius: 8px;
-  padding: 10px;
-  background: #111827;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-// TODO:
-// 1. Récupère #btn-carte-html et #zone-carte-html avec document.getElementById(...)
-// 2. Au clic, mets dans la zone un innerHTML avec:
-//    - un <h4>Nom: Nova</h4>
-//    - un <p>Classe: Mage</p>
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="dom-mini">
-  <button id="btn-carte-html">Créer la carte</button>
-  <div id="zone-carte-html">Aucune carte</div>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.dom-mini {
-  max-width: 420px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-.dom-mini button {
-  border: 1px solid #10b981;
-  background: #064e3b;
-  color: #a7f3d0;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-
-#zone-carte-html {
-  margin-top: 10px;
-  border: 1px solid #334155;
-  border-radius: 8px;
-  padding: 10px;
-  background: #111827;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-const bouton = document.getElementById("btn-carte-html");
-const zone = document.getElementById("zone-carte-html");
-
-if (bouton && zone) {
-  bouton.addEventListener("click", () => {
-    zone.innerHTML = `
-      <h4>Nom: Nova</h4>
-      <p>Classe: Mage</p>
-    `;
-  });
-}
-</textarea>
-        </div>
-
-        <p><strong>C. <code>.value</code> : lire la saisie utilisateur</strong></p>
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : value">
+        <img src="img/value.png" />
+        <div class="playground-container" data-output-default="render" data-type="example" data-title="value">
           <textarea class="source-code-html" hidden>
 <div class="dom-mini">
   <label for="input-pseudo">Pseudo</label>
@@ -577,7 +275,7 @@ if (inputPseudo && bouton && sortie) {
         </div>
 
         <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="Exercice : lire deux champs avec value">
+          data-title="lire deux champs avec value">
           <textarea class="source-code-html" hidden>
 <div class="dom-mini">
   <label for="in-nom">Nom</label>
@@ -685,252 +383,12 @@ if (nom && classe && bouton && sortie) {
 
       <section class="section-spy">
         <div class="section-header">
-          <h3>Lire et remplacer (Backticks)</h3>
-        </div>
-        <p>Les template literals rendent l'affichage dynamique plus propre.</p>
-
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : template literals">
-          <textarea class="source-code-html" hidden>
-<div class="profil-ui">
-  <label>
-    Pseudo
-    <input id="pseudo" value="Mage505" />
-  </label>
-  <label>
-    Niveau
-    <input id="niveau" type="number" value="12" />
-  </label>
-  <button id="btn-template">Generer la fiche</button>
-  <div id="fiche"></div>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.profil-ui {
-  max-width: 460px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-.profil-ui label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.profil-ui input {
-  width: 100%;
-  margin-top: 4px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 8px;
-}
-
-.profil-ui button {
-  border: 1px solid #f59e0b;
-  background: #78350f;
-  color: #fde68a;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-
-.fiche-joueur {
-  margin-top: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #1d4ed8;
-  background: #172554;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-const pseudo = document.getElementById("pseudo");
-const niveau = document.getElementById("niveau");
-const btn = document.getElementById("btn-template");
-const fiche = document.getElementById("fiche");
-
-if (pseudo && niveau && btn && fiche) {
-  btn.addEventListener("click", () => {
-    // Le template literal permet d'injecter facilement des valeurs dans du HTML.
-    fiche.innerHTML = `
-      <article class="fiche-joueur">
-        <h4>${pseudo.value || "Sans nom"}</h4>
-        <p>Niveau actuel: <strong>${niveau.value || 0}</strong></p>
-      </article>
-    `;
-  });
-}
-</textarea>
-        </div>
-
-        <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="Exercice : carte dynamique avec backticks">
-          <textarea class="source-code-html" hidden>
-<div class="profil-ui">
-  <label>
-    Nom
-    <input id="nom-joueur" value="Nova" />
-  </label>
-  <label>
-    Rang
-    <input id="rang-joueur" value="Expert" />
-  </label>
-  <button id="btn-carte">Creer carte</button>
-  <div id="carte-zone"></div>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.profil-ui {
-  max-width: 460px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-.profil-ui label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.profil-ui input {
-  width: 100%;
-  margin-top: 4px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 8px;
-}
-
-.profil-ui button {
-  border: 1px solid #f59e0b;
-  background: #78350f;
-  color: #fde68a;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-
-.carte-joueur {
-  margin-top: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #1d4ed8;
-  background: #172554;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-// TODO:
-// 1. Récupère #nom-joueur, #rang-joueur, #btn-carte et #carte-zone avec document.getElementById(...)
-// 2. Au clic, injecte en innerHTML une carte .carte-joueur.
-// 3. Utilise un template literal pour afficher nom + rang.
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="profil-ui">
-  <label>
-    Nom
-    <input id="nom-joueur" value="Nova" />
-  </label>
-  <label>
-    Rang
-    <input id="rang-joueur" value="Expert" />
-  </label>
-  <button id="btn-carte">Creer carte</button>
-  <div id="carte-zone"></div>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.profil-ui {
-  max-width: 460px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-.profil-ui label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.profil-ui input {
-  width: 100%;
-  margin-top: 4px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 8px;
-}
-
-.profil-ui button {
-  border: 1px solid #f59e0b;
-  background: #78350f;
-  color: #fde68a;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-
-.carte-joueur {
-  margin-top: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #1d4ed8;
-  background: #172554;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-const nom = document.getElementById("nom-joueur");
-const rang = document.getElementById("rang-joueur");
-const btn = document.getElementById("btn-carte");
-const zone = document.getElementById("carte-zone");
-
-if (nom && rang && btn && zone) {
-  btn.addEventListener("click", () => {
-    zone.innerHTML = `
-      <article class="carte-joueur">
-        <h4>${nom.value || "Sans nom"}</h4>
-        <p>Rang: <strong>${rang.value || "Inconnu"}</strong></p>
-      </article>
-    `;
-  });
-}
-</textarea>
-        </div>
-      </section>
-
-      <section class="section-spy">
-        <div class="section-header">
           <h3>Modifier l'apparence</h3>
         </div>
-        <p>
-          Modifier l'apparence veut dire activer ou retirer des classes CSS selon une action (clic, sélection, erreur,
-          mode sombre...).
-        </p>
-        <div class="info-box info">
-          <p>On utilise <code>classList</code> pour ça:</p>
-          <ul>
-            <li><code>element.classList.add("classe1", "classe2")</code> : ajoute une ou plusieurs classes.</li>
-            <li><code>element.classList.remove("classe1")</code> : retire une classe.</li>
-            <li><code>element.classList.toggle("classe1")</code> : ajoute ou retire automatiquement selon l'état actuel.</li>
-            <li><code>element.classList.contains("classe1")</code> : vérifie si la classe est présente.</li>
-          </ul>
-          <p>
-            Exemple concret: quand un joueur sélectionne un objet, on peut ajouter une classe
-            <code>selection-active</code>, puis la retirer à la désélection.
-          </p>
-        </div>
+        <img src="img/classe.png" />
 
         <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : classList + style">
+          data-title="classList + style">
           <textarea class="source-code-html" hidden>
 <div class="theme-box" id="theme-box">
   <h4>Mode clair</h4>
@@ -984,7 +442,7 @@ if (box && btnTheme) {
         </div>
 
         <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="Exercice : mode alerte avec classList">
+          data-title="mode alerte avec classList">
           <textarea class="source-code-html" hidden>
 <div class="theme-box" id="zone-alerte">
   <h4>Zone de statut</h4>
@@ -1085,7 +543,7 @@ if (zone && texte && btn) {
         <p>On peut modifier des attributs comme <code>src</code>, <code>href</code> ou des <code>data-*</code>.</p>
 
         <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : setAttribute et attributs">
+          data-title="setAttribute et attributs">
           <textarea class="source-code-html" hidden>
 <div class="card-attr">
   <a id="lien-profil" href="#" target="_blank" rel="noreferrer">Profil joueur</a>
@@ -1136,7 +594,7 @@ if (lien && btn && etat) {
         </div>
 
         <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="Exercice : mettre à jour href et title">
+          data-title="mettre à jour href et title">
           <textarea class="source-code-html" hidden>
 <div class="card-attr">
   <a id="doc-link" href="#" target="_blank" rel="noreferrer">Documentation</a>
@@ -1235,7 +693,7 @@ if (lien && btn && etat) {
         <p>Pour ajouter des éléments un par un, utilisez <code>createElement</code> et <code>appendChild</code>.</p>
 
         <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : createElement + appendChild">
+          data-title="createElement + appendChild">
           <textarea class="source-code-html" hidden>
 <section class="todo-ui">
   <label>
@@ -1310,7 +768,7 @@ if (input && bouton && liste) {
         </div>
 
         <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="Exercice : créer une liste dynamique">
+          data-title="créer une liste dynamique">
           <textarea class="source-code-html" hidden>
 <section class="todo-ui">
   <label>
@@ -1453,7 +911,7 @@ if (input && bouton && liste) {
         </div>
 
         <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="Exemple : cartes joueurs depuis tableaux parallèles">
+          data-title="cartes joueurs depuis tableaux parallèles">
           <textarea class="source-code-html" hidden>
 <section class="team-ui">
   <h4>Escouade</h4>
@@ -1504,7 +962,7 @@ if (list) {
         </div>
 
         <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="Exercice : générer un classement depuis tableaux parallèles">
+          data-title="générer un classement depuis tableaux parallèles">
           <textarea class="source-code-html" hidden>
 <section class="team-ui">
   <h4>Classement</h4>

@@ -59,7 +59,7 @@
                     <h3>Déclarer une fonction</h3>
                 </div>
                 <p>Voici la forme classique d'une fonction en JavaScript :</p>
-                <div class="playground-container" data-type="example" data-title="Exemple : saluer()">
+                <div class="playground-container" data-type="example" data-title="saluer()">
                     <textarea class="source-code" hidden>
 function saluer() {
   console.log("Bonjour !");
@@ -83,7 +83,7 @@ saluer();
                     Les <strong>paramètres</strong> sont les variables entre parenthèses. Les <strong>arguments</strong> sont les valeurs
                     passées quand on appelle la fonction.
                 </p>
-                <div class="playground-container" data-type="example" data-title="Exemple : saluer(nom)">
+                <div class="playground-container" data-type="example" data-title="saluer(nom)">
                     <textarea class="source-code" hidden>
 function saluer(nom) {
   console.log(`Salut, ${nom} !`);
@@ -96,7 +96,7 @@ saluer("Linus");
 
                 <div class="playground-container" 
                      data-type="exercise" 
-                     data-title="Exercice : présenter un joueur" 
+                     data-title="présenter un joueur" 
                      data-instructions="Complète la fonction pour afficher 'Le joueur X a Y points'."
                      data-auto-height="false">
                     <textarea class="source-code" hidden>
@@ -124,7 +124,7 @@ presenterJoueur("Maya", 120);
                     Une fonction peut <strong>retourner</strong> une valeur grâce à <code>return</code>. Cela permet de réutiliser
                     le résultat ailleurs.
                 </p>
-                <div class="playground-container" data-type="example" data-title="Exemple : addition()">
+                <div class="playground-container" data-type="example" data-title="addition()">
                     <textarea class="source-code" hidden>
 function addition(a, b) {
   return a + b;
@@ -136,7 +136,7 @@ console.log("Résultat :", resultat);
                 </div>
                 <div class="playground-container"
                      data-type="exercise"
-                     data-title="Exercice : retour de valeur (TPS)"
+                     data-title="retour de valeur (TPS)"
                      data-instructions="Complète la fonction pour qu'elle retourne 5% du montant."
                      data-auto-height="false">
                     <textarea class="source-code" hidden>
@@ -168,7 +168,7 @@ console.log("Total :", 200 + tps);
                     Une variable déclarée dans une fonction n'existe <strong>que dans cette fonction</strong>.
                     On parle de portée (scope).
                 </p>
-                <div class="playground-container" data-type="example" data-title="Exemple : portée locale">
+                <div class="playground-container" data-type="example" data-title="portée locale">
                     <textarea class="source-code" hidden>
 let score = 10;
 
@@ -193,7 +193,7 @@ console.log("Score :", score);
                 <p>
                     Les fonctions fléchées sont une syntaxe plus courte pour écrire des fonctions.
                 </p>
-                <div class="playground-container" data-type="example" data-title="Exemple : doubler()">
+                <div class="playground-container" data-type="example" data-title="doubler()">
                     <textarea class="source-code" hidden>
 const doubler = (n) => {
   return n * 2;
@@ -204,7 +204,7 @@ console.log(doubler(6));
                 </div>
                 <div class="playground-container"
                      data-type="exercise"
-                     data-title="Exercice : fonction fléchée estPair"
+                     data-title="fonction fléchée estPair"
                      data-instructions="Complète la fonction fléchée pour retourner true si le nombre est pair, sinon false."
                      data-auto-height="false">
                     <textarea class="source-code" hidden>
@@ -240,7 +240,7 @@ console.log(estPair(7));
                         <code>console.log()</code> affiche, mais ne renvoie pas de valeur. Pour renvoyer, utilisez <code>return</code>.
                     </p>
                 </div>
-                <div class="playground-container" data-type="example" data-title="Exemple : return vs console.log">
+                <div class="playground-container" data-type="example" data-title="return vs console.log">
                     <textarea class="source-code" hidden>
 function carre(n) {
   console.log(n * n); // Affiche mais ne renvoie rien
@@ -268,7 +268,7 @@ console.log("b :", b);
                 </p>
                 <div class="playground-container"
                      data-type="exercise"
-                     data-title="Exercice : générer des cartes depuis un tableau"
+                     data-title="générer des cartes depuis un tableau"
                      data-instructions="Crée une fonction qui retourne un élément HTML, puis ajoute une carte par fruit."
                      data-auto-height="false">
                     <textarea class="source-code" hidden>

@@ -428,6 +428,9 @@
             let shuffledCards = shuffleArray(pairs.map((pair) => pair.id));
             let dragState = null;
             let rowById = new Map();
+            let touchDragState = null;
+            let touchDragGhost = null;
+            let touchDropTarget = null;
 
             const clearMatchStates = () => {
                 leftList.querySelectorAll('.quiz-match-row').forEach((row) => {
@@ -444,6 +447,42 @@
             const setDropVisuals = (zone, enabled) => {
                 if (!zone) return;
                 zone.classList.toggle('is-drop-target', Boolean(enabled));
+            };
+
+            const clearAllDropVisuals = () => {
+                container.querySelectorAll('.quiz-match-dropzone').forEach((zone) => setDropVisuals(zone, false));
+                setDropVisuals(bank, false);
+                touchDropTarget = null;
+            };
+
+            const applyDropTarget = (cardId, sourceSlotId, targetEl) => {
+                if (!cardId || !pairById.has(cardId) || !(targetEl instanceof HTMLElement)) return false;
+
+                if (targetEl.classList.contains('quiz-match-dropzone')) {
+                    const targetSlotId = targetEl.dataset.slotId || '';
+                    if (!targetSlotId) return false;
+                    const targetExisting = assignments.get(targetSlotId) || null;
+
+                    if (sourceSlotId) assignments.delete(sourceSlotId);
+
+                    // Swap when dropping a slot card onto an occupied slot.
+                    if (targetExisting && targetExisting !== cardId && sourceSlotId) {
+                        assignments.set(sourceSlotId, targetExisting);
+                    }
+
+                    // If card came from bank and slot was occupied, old card returns to bank automatically.
+                    unassignCard(cardId);
+                    assignments.set(targetSlotId, cardId);
+                    return true;
+                }
+
+                if (targetEl.classList.contains('quiz-match-bank')) {
+                    if (!sourceSlotId) return false;
+                    assignments.delete(sourceSlotId);
+                    return true;
+                }
+
+                return false;
             };
 
             const createCard = (cardId, sourceSlotId) => {
@@ -467,9 +506,86 @@
                 card.addEventListener('dragend', () => {
                     dragState = null;
                     card.classList.remove('is-dragging');
-                    document.querySelectorAll('.quiz-match-dropzone').forEach((zone) => setDropVisuals(zone, false));
-                    setDropVisuals(bank, false);
+                    clearAllDropVisuals();
                 });
+
+                // Touch / pen drag support (mobile-friendly drag-and-drop).
+                card.addEventListener('pointerdown', (event) => {
+                    if (event.pointerType === 'mouse') return;
+                    if (touchDragState) return;
+
+                    const rect = card.getBoundingClientRect();
+                    touchDragState = {
+                        pointerId: event.pointerId,
+                        cardId,
+                        sourceSlotId: sourceSlotId || '',
+                        offsetX: event.clientX - rect.left,
+                        offsetY: event.clientY - rect.top,
+                        moved: false
+                    };
+
+                    const ghost = card.cloneNode(true);
+                    ghost.classList.add('is-touch-ghost');
+                    ghost.style.width = `${rect.width}px`;
+                    ghost.style.height = `${rect.height}px`;
+                    ghost.style.left = `${event.clientX - touchDragState.offsetX}px`;
+                    ghost.style.top = `${event.clientY - touchDragState.offsetY}px`;
+                    document.body.appendChild(ghost);
+                    touchDragGhost = ghost;
+
+                    card.classList.add('is-dragging');
+                    if (card.setPointerCapture) card.setPointerCapture(event.pointerId);
+                    event.preventDefault();
+                });
+
+                card.addEventListener('pointermove', (event) => {
+                    if (!touchDragState || touchDragState.pointerId !== event.pointerId || !touchDragGhost) return;
+
+                    touchDragState.moved = true;
+                    touchDragGhost.style.left = `${event.clientX - touchDragState.offsetX}px`;
+                    touchDragGhost.style.top = `${event.clientY - touchDragState.offsetY}px`;
+
+                    const element = document.elementFromPoint(event.clientX, event.clientY);
+                    const nextTarget = element instanceof HTMLElement
+                        ? element.closest('.quiz-match-dropzone, .quiz-match-bank')
+                        : null;
+
+                    if (touchDropTarget !== nextTarget) {
+                        clearAllDropVisuals();
+                        touchDropTarget = nextTarget;
+                        if (touchDropTarget) setDropVisuals(touchDropTarget, true);
+                    }
+
+                    event.preventDefault();
+                });
+
+                const endTouchDrag = (event) => {
+                    if (!touchDragState || touchDragState.pointerId !== event.pointerId) return;
+
+                    let shouldRender = false;
+                    if (touchDragState.moved && touchDropTarget) {
+                        shouldRender = applyDropTarget(
+                            touchDragState.cardId,
+                            touchDragState.sourceSlotId,
+                            touchDropTarget
+                        );
+                    }
+
+                    card.classList.remove('is-dragging');
+                    if (touchDragGhost) {
+                        touchDragGhost.remove();
+                        touchDragGhost = null;
+                    }
+                    touchDragState = null;
+                    clearAllDropVisuals();
+
+                    if (shouldRender) renderMatch();
+                    event.preventDefault();
+                };
+
+                card.addEventListener('pointerup', endTouchDrag);
+                card.addEventListener('pointercancel', endTouchDrag);
+                card.addEventListener('lostpointercapture', endTouchDrag);
                 return card;
             };
 
@@ -503,23 +619,9 @@
                         event.preventDefault();
                         setDropVisuals(dropzone, false);
                         if (!dragState || !pairById.has(dragState.cardId)) return;
-
-                        const sourceSlotId = dragState.sourceSlotId || '';
-                        const targetSlotId = pair.id;
-                        const targetExisting = assignments.get(targetSlotId) || null;
-
-                        if (sourceSlotId) assignments.delete(sourceSlotId);
-
-                        // Swap when dropping a slot card onto an occupied slot.
-                        if (targetExisting && targetExisting !== dragState.cardId && sourceSlotId) {
-                            assignments.set(sourceSlotId, targetExisting);
+                        if (applyDropTarget(dragState.cardId, dragState.sourceSlotId || '', dropzone)) {
+                            renderMatch();
                         }
-
-                        // If card came from bank and slot was occupied, old card returns to bank automatically.
-                        unassignCard(dragState.cardId);
-                        assignments.set(targetSlotId, dragState.cardId);
-
-                        renderMatch();
                     });
 
                     row.appendChild(indexEl);
@@ -547,8 +649,9 @@
                 event.preventDefault();
                 setDropVisuals(bank, false);
                 if (!dragState || !dragState.sourceSlotId) return;
-                assignments.delete(dragState.sourceSlotId);
-                renderMatch();
+                if (applyDropTarget(dragState.cardId, dragState.sourceSlotId || '', bank)) {
+                    renderMatch();
+                }
             });
 
             renderMatch();

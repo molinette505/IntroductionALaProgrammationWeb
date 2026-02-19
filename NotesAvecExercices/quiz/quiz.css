@@ -301,10 +301,19 @@
     user-select: none;
     font-size: 0.85rem;
     line-height: 1.25;
+    touch-action: none;
 }
 
 .quiz-match-card.is-dragging {
     opacity: 0.55;
+}
+
+.quiz-match-card.is-touch-ghost {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.92;
+    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.5);
 }
 
 .quiz-actions {

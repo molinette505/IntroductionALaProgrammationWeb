@@ -109,10 +109,34 @@ const getVisualizerOverlay = () => {
 
 document.querySelectorAll('.playground-container').forEach((container) => {
     const type = container.dataset.type;
-    const title = container.dataset.title || 'Script JavaScript';
+    const rawTitle = container.dataset.title || 'Script JavaScript';
+    const title = String(rawTitle)
+        .replace(/^\s*(?:exemple|exercice|exercise|example)\s*:\s*/i, '')
+        .trim() || 'Script JavaScript';
     const instructions = container.dataset.instructions || null;
-    const isAutoHeight = container.dataset.autoHeight === 'true';
+    const parseTruthyFlag = (rawValue) => {
+        if (rawValue == null) return null;
+        const value = String(rawValue).trim().toLowerCase();
+        if (!value) return true;
+        if (['true', '1', 'yes', 'on', 'auto', 'fit', 'content'].includes(value)) return true;
+        if (['false', '0', 'no', 'off'].includes(value)) return false;
+        return null;
+    };
+
+    const hasAutoHeightAttribute = container.hasAttribute('data-auto-height')
+        || container.hasAttribute('data-fit-code')
+        || container.hasAttribute('data-fit-height')
+        || container.hasAttribute('data-fit-code-height');
+
+    const autoHeightFlag = parseTruthyFlag(container.dataset.autoHeight);
+    const fitCodeFlag = parseTruthyFlag(
+        container.dataset.fitCode
+        || container.dataset.fitHeight
+        || container.dataset.fitCodeHeight
+    );
+    const isAutoHeight = autoHeightFlag ?? fitCodeFlag ?? hasAutoHeightAttribute;
     const isConsoleInitialOpen = container.dataset.consoleOpen === 'true';
+    container.setAttribute('data-auto-height-enabled', isAutoHeight ? 'true' : 'false');
 
     const requestedStartEditor = String(container.dataset.startEditor || container.dataset.editorStart || 'js').toLowerCase();
     const requestedOutputView = String(container.dataset.outputDefault || container.dataset.outputView || 'console').toLowerCase();
@@ -230,6 +254,8 @@ document.querySelectorAll('.playground-container').forEach((container) => {
 
     container.innerHTML = headerHTML + bodyHTML;
 
+    const editorBody = container.querySelector('.editor-body');
+    const editorInputWrapper = container.querySelector('.editor-input-wrapper');
     const textarea = container.querySelector('.cm-target');
     const editor = CodeMirror.fromTextArea(textarea, {
         mode: 'javascript',
@@ -240,15 +266,34 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         tabSize: 2,
         viewportMargin: isAutoHeight ? Infinity : 10
     });
+    const syncAutoHeight = () => {
+        if (!isAutoHeight) return;
+        requestAnimationFrame(() => {
+            editor.setOption('viewportMargin', Infinity);
+            editor.setSize(null, 'auto');
+            editor.refresh();
 
-    if (isAutoHeight) editor.setSize(null, 'auto');
+            if (!editorBody || !editorInputWrapper) return;
+            if (container.classList.contains('is-fullscreen')) return;
+
+            const tabs = editorInputWrapper.querySelector('.editor-file-tabs');
+            const tabsHeight = tabs ? tabs.offsetHeight : 0;
+            const scrollInfo = editor.getScrollInfo();
+            const codeHeight = scrollInfo && Number.isFinite(scrollInfo.height) ? scrollInfo.height : 0;
+            const cmScroller = editor.getScrollerElement();
+            const cmBorders = cmScroller ? (cmScroller.offsetHeight - cmScroller.clientHeight) : 0;
+            const targetHeight = Math.max(110, Math.ceil(tabsHeight + codeHeight + cmBorders));
+            editorBody.style.height = `${targetHeight}px`;
+        });
+    };
+
+    if (isAutoHeight) syncAutoHeight();
 
     const handle = container.querySelector('.console-toggle-handle');
     const fileTabButtons = container.querySelectorAll('.editor-file-tab');
     const modeTabButtons = container.querySelectorAll('.tab-btn[data-target]');
     const outputTabButtons = container.querySelectorAll('.output-view-tab');
 
-    const editorInputWrapper = container.querySelector('.editor-input-wrapper');
     const btnVisualizer = container.querySelector('.btn-visualizer');
     const btnExpand = container.querySelector('.btn-expand');
     const btnReset = container.querySelector('.btn-reset');
@@ -297,6 +342,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         editor.setOption('mode', getCodeMirrorMode(file));
         editor.setValue(files[file] || '');
         editor.refresh();
+        syncAutoHeight();
     };
 
     const setEditorMode = (mode) => {
@@ -338,7 +384,11 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         document.body.classList.toggle('playground-fullscreen-open', isFullscreen);
         if (btnExpand) btnExpand.setAttribute('aria-pressed', isFullscreen ? 'true' : 'false');
         renderExpandIcon(isFullscreen);
-        setTimeout(() => editor.refresh(), 80);
+        if (editorBody && isFullscreen) editorBody.style.height = '';
+        setTimeout(() => {
+            editor.refresh();
+            if (!isFullscreen) syncAutoHeight();
+        }, 80);
     };
 
     const renderHandleIcon = (isOpen) => {
@@ -352,7 +402,10 @@ document.querySelectorAll('.playground-container').forEach((container) => {
 
         container.setAttribute('data-console-state', newState ? 'open' : 'closed');
         renderHandleIcon(newState);
-        setTimeout(() => editor.refresh(), 450);
+        setTimeout(() => {
+            editor.refresh();
+            syncAutoHeight();
+        }, 450);
     };
 
     const clearConsole = () => {
@@ -438,6 +491,9 @@ ${html}
     setEditorFile(activeFile, { persist: false });
     renderExpandIcon(false);
     resetPreview(cloneFiles(getModeFiles()));
+    if (isAutoHeight) {
+        editor.on('changes', syncAutoHeight);
+    }
 
     handle.addEventListener('click', () => toggleConsole());
 
