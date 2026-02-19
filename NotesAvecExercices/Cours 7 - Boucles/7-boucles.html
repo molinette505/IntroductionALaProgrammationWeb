@@ -95,9 +95,9 @@
                 <div class="playground-container" data-type="example" data-title="Compteur While">
                     <textarea class="source-code" hidden>
 let vieDuJoueur = 100; // 1. Initialisation, à l'extérieur de la boucle
-degats = 20;
+let degats = 20;
 
-while (vieDuJoueur >= 0) { // 2. Condition, à l'entrée de la boucle, comme un if
+while (vieDuJoueur > 0) { // 2. Condition, à l'entrée de la boucle, comme un if
     console.log(`La vie du joueur est à : ${vieDuJoueur}`); 
     vieDuJoueur -= degats; // 3. Décrémentation, à l'intrérieur de la boucle
 }
@@ -335,7 +335,7 @@ const pileCartes = [
   7, 5, 2, 8, 1, 9, 4, 6, 3, 10
 ];
 
-let totalJoueurs = [0, 0];
+let totalPointsJoueurs = [0, 0];
 let joueurActif = 0;
 
 // Dans la boucle :
@@ -346,7 +346,7 @@ let joueurActif = 0;
 // 4. Passer au joueur suivant (alterner entre 0 et 1) pour la prochaine itération.
 
 // Indice : Utiliser le modulo pour alterner entre les joueurs.
-// Indice : Pour accéder au total du joueur actif, utiliser : totalJoueurs[joueurActif]
+// Indice : Pour accéder au total du joueur actif, utiliser : totalPointsJoueurs[joueurActif]
 // Indice : Utiliser les backticks pour afficher les messages. 
 // Indice : Pour terminer la boucle, utiliser l'instruction break.
 </textarea>
@@ -365,14 +365,14 @@ let joueurActif = 0;
 while (pileCartes.length > 0) {
     // 1. Piocher une carte (pop retire le dernier élément)
     let cartePiochee = pileCartes.pop();
-    totalJoueurs[joueurActif] += cartePiochee;
+    totalPointsJoueurs[joueurActif] += cartePiochee;
 
     // 2. Afficher le total
     console.log(`Joueur ${joueurActif + 1} pioche un ${cartePiochee}. Total : ${totalJoueurs[joueurActif]}`);
 
     // 3. Vérification du dépassement
-    if (totalJoueurs[joueurActif] > 21) {
-        console.log(`Joueur ${joueurActif + 1} a dépassé 21 (${totalJoueurs[joueurActif]}) et a perdu !`);
+    if (totalPointsJoueurs[joueurActif] > 21) {
+        console.log(`Joueur ${joueurActif + 1} a dépassé 21 (${totalPointsJoueurs[joueurActif]}) et a perdu !`);
         break; // On arrête le jeu
     }
     // 4. Passer au joueur suivant
