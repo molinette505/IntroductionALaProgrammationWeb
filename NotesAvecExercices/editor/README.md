@@ -47,11 +47,15 @@ Si `source-code-js` n'existe pas, le playground accepte aussi le legacy:
   - Alias supporte: `data-output-view`.
 - `data-console-open="true|false"`
   - Ouvre/ferme le tiroir console au depart.
+  - Presence simple de l'attribut (`data-console-open`) = ouvert.
+  - Valeurs truthy/falsy supportees comme `data-auto-height`.
 - `data-auto-height`
   - Si present (meme sans valeur), ajuste la hauteur du code a son contenu.
   - Valeurs truthy: `true, 1, yes, on, auto, fit, content`.
   - Valeurs falsy: `false, 0, no, off`.
   - Aliases supportes: `data-fit-code`, `data-fit-height`, `data-fit-code-height`.
+  - Ne s'applique pas en mode plein ecran.
+  - En layout vertical/mobile (console dessous), la hauteur inline est desactivee pour eviter le decalage de poignee.
 
 ## 3) Textareas d'entree
 

@@ -135,7 +135,8 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         || container.dataset.fitCodeHeight
     );
     const isAutoHeight = autoHeightFlag ?? fitCodeFlag ?? hasAutoHeightAttribute;
-    const isConsoleInitialOpen = container.dataset.consoleOpen === 'true';
+    const consoleOpenFlag = parseTruthyFlag(container.dataset.consoleOpen);
+    const isConsoleInitialOpen = consoleOpenFlag ?? container.hasAttribute('data-console-open');
     container.setAttribute('data-auto-height-enabled', isAutoHeight ? 'true' : 'false');
 
     const requestedStartEditor = String(container.dataset.startEditor || container.dataset.editorStart || 'js').toLowerCase();
@@ -266,6 +267,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         tabSize: 2,
         viewportMargin: isAutoHeight ? Infinity : 10
     });
+    const isVerticalConsoleLayout = () => window.matchMedia('(max-width: 1024px)').matches;
     const syncAutoHeight = () => {
         if (!isAutoHeight) return;
         requestAnimationFrame(() => {
@@ -274,7 +276,15 @@ document.querySelectorAll('.playground-container').forEach((container) => {
             editor.refresh();
 
             if (!editorBody || !editorInputWrapper) return;
-            if (container.classList.contains('is-fullscreen')) return;
+            if (container.classList.contains('is-fullscreen')) {
+                editorBody.style.height = '';
+                return;
+            }
+            if (isVerticalConsoleLayout()) {
+                // In stacked/mobile mode, let CSS manage total height to keep the handle aligned.
+                editorBody.style.height = '';
+                return;
+            }
 
             const tabs = editorInputWrapper.querySelector('.editor-file-tabs');
             const tabsHeight = tabs ? tabs.offsetHeight : 0;
@@ -493,6 +503,7 @@ ${html}
     resetPreview(cloneFiles(getModeFiles()));
     if (isAutoHeight) {
         editor.on('changes', syncAutoHeight);
+        window.addEventListener('resize', syncAutoHeight, { passive: true });
     }
 
     handle.addEventListener('click', () => toggleConsole());
