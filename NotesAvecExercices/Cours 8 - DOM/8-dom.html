@@ -58,17 +58,43 @@
 
       <section class="section-spy">
         <h2 class="section-title">La manipulation du DOM : rendre le Web vivant</h2>
-        <p>
-          Le DOM (Document Object Model) est la représentation du HTML en mémoire. JavaScript peut s'en servir
-          pour modifier la page en temps réel, sans recharger.
-        </p>
       </section>
 
       <section class="section-spy">
         <div class="section-header">
           <h3>Qu'est-ce que le DOM ?</h3>
         </div>
-        <img src="img/dom.png" />
+        <p>Le DOM (Document Object Model) est une représentation de ta page HTML sous forme d'<strong>arbre</strong>. Chaque balise (<code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>) est un <strong>nœud</strong> dans cet arbre.</p>
+        <ul>
+          <li><strong>Structure arborescente :</strong> Les balises sont imbriquées les unes dans les autres, formant une hiérarchie.</li>
+          <li><strong>Nœuds :</strong> Chaque élément HTML est un nœud que JavaScript peut cibler et modifier.</li>
+          <li><strong>Objet global document :</strong> JavaScript utilise <code>document</code> pour entrer dans cet arbre et accéder aux nœuds.</li>
+        </ul>
+        <div class="info-box info">
+          <p><strong>En résumé :</strong> Le DOM permet à JavaScript de modifier le <strong>contenu</strong>, la <strong>structure</strong> ou le <strong>style</strong> de la page en temps réel, sans recharger ou changer de page.</p>
+        </div>
+
+        <h4>L'objet Document</h4>
+        <p>JavaScript accède au DOM par l'objet global <code>document</code>. C'est la porte d'entrée vers la structure HTML.</p>
+        <div class="playground-container" data-output-default="console" data-type="example"
+          data-title="Explorer l'objet document"
+          data-instructions="Affiche l'objet document complet dans la console pour voir la structure.">
+          <textarea class="source-code-html" hidden>
+
+<body>
+  <h1>Bienvenue</h1>
+  <p>Ceci est une structure HTML.</p>
+  <div id="contenu">Contenu principal</div>
+</body>
+</textarea>
+          <textarea class="source-code-js" hidden>
+// On accède à la racine du document HTML
+console.log(document);
+
+// On peut aussi voir spécifiquement le contenu du <body>
+console.log(document.body);
+</textarea>
+        </div>
       </section>
 
 
@@ -76,49 +102,120 @@
         <div class="section-header">
           <h3>Sélectionner un élément</h3>
         </div>
-        <img src="img/cibler.png" />
-        <div class="playground-container" data-output-default="console" data-type="example"
-          data-title="getElementById + querySelector">
+
+        <h4>Deux méthodes principales de sélection</h4>
+        <div class="info-box">
+          <h3>Selection par ID</h3>
+            <pre><code class="language-javascript">document.getElementById("monId")</code></pre>
+            <ul>
+              <li>Cible l'élément unique possédant cet ID.</li> 
+              <li>C'est la méthode la plus performante.</li>
+            </ul>
+        </div>
+        <div class="info-box">
+          <h3>Selection par sélecteur CSS</h3>
+          <pre><code class="language-javascript">document.querySelector("selecteur")</code></pre>
+          <ul>
+            <li>Utilise la syntaxe CSS (ex : <code>.ma-classe</code>, <code>#monId</code>, <code>div &gt; p</code>, <code>[mon-attribut="50"]</code>).</li>
+            <li>Il retourne le premier élément correspondant.</li>
+          </ul>
+        </div>
+        <p>On peut stocker le résultat dans une variable pour ensuite pouvoir le modifier (ajouter une classe, changer le texte d'un titre, etc.).</p>
+
+        <div class="playground-container" data-output-default="render" data-type="example"
+          data-console-open="true"
+          data-title="getElementById + querySelector"
+          data-instructions="Appuyez sur le bouton exécuter puis réinitialiser pour voir les changements.">
           <textarea class="source-code-html" hidden>
-<div class="dom-card">
-  <h4 id="titre-page">Panneau de sélection</h4>
-  <div id="zone-a">
-    <p class="etat-cible">Zone A : en attente</p>
+<div class="galerie-produits">
+  <h4 id="titre-gallery-produit">Galerie de produits</h4>
+  <div class="carte-produit" data-id="50">
+    <h5 class="carte-titre">Casque audio</h5>
+    <img src="https://placehold.co/160x100" alt="Casque audio">
+    <p class="carte-prix">79,99 $ CA</p>
+    <button class="carte-bouton">Ajouter au panier</button>
   </div>
-  <div id="zone-b">
-    <p class="etat-cible">Zone B : cible</p>
+  <div class="carte-produit" data-id="51">
+    <h5 class="carte-titre">Clavier mécanique</h5>
+    <img src="https://placehold.co/160x100" alt="Clavier mécanique">
+    <p class="carte-prix">129,00 $ CA</p>
+    <button class="carte-bouton">Ajouter au panier</button>
   </div>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.dom-card {
-  border: 1px solid #334155;
+.galerie-produits {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.galerie-produits h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.carte-produit {
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #ffffff;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
+}
+
+.carte-titre {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.carte-produit img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 0 0 8px;
+}
+
+.carte-prix {
+  margin: 0 0 10px;
+  color: #475569;
+}
+
+.carte-bouton {
   background: #0f172a;
-  padding: 14px;
-  color: #e2e8f0;
-  max-width: 420px;
+  border: 0;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.dom-card h4 {
-  margin: 0 0 8px;
-  color: #93c5fd;
-}
-
-.dom-card .etat-cible {
-  margin: 0 0 8px;
-  color: #cbd5e1;
+.carte-produit--active {
+  border-color: #2563eb;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12),
+    0 0 0 2px rgba(37, 99, 235, 0.35),
+    0 0 18px rgba(37, 99, 235, 0.45);
+  filter: drop-shadow(0 6px 16px rgba(37, 99, 235, 0.4));
+  transform: translateY(-2px);
 }
 </textarea>
           <textarea class="source-code-js" hidden>
 // Sélectionner un élément par id
-const elementTitre = document.getElementById("titre-page");
-// Sélectionner un élément via un sélecteur CSS plus précis.
-const elementCible = document.querySelector("#zone-b .etat-cible");
+const titreGalerie = document.getElementById("titre-gallery-produit");
 
-//Afficher les éléments ciblés dans la console
-console.log(elementTitre);
-console.log(elementCible);
+// Sélectionner un élément via un sélecteur CSS plus précis.
+const carteProduit = document.querySelector('.carte-produit[data-id="50"]');
+
+//Mettre à jour le titre et mettre en évidence une carte
+titreGalerie.innerText = "Produits en vedette";
+carteProduit.classList.add("carte-produit--active");
         </textarea>
         </div>
       </section>
