@@ -1350,17 +1350,15 @@ const roles = ["Rodeuse", "Tank", "Mage"];
 const scores = [120, 95, 140];
 const list = document.getElementById("team-list");
 
-if (list) {
-  // Même index = même joueur dans les 3 tableaux.
-  for (let i = 0; i < noms.length; i++) {
-    const card = document.createElement("article");
-    card.classList.add("team-card");
-    card.innerHTML = `
-      <strong>${noms[i]}</strong> - ${roles[i]}<br />
-      Score: ${scores[i]}
-    `;
-    list.appendChild(card);
-  }
+// Même index = même joueur dans les 3 tableaux.
+for (let i = 0; i < noms.length; i++) {
+  const card = document.createElement("article");
+  card.classList.add("team-card");
+  card.innerHTML = `
+    <strong>${noms[i]}</strong> - ${roles[i]}<br />
+    Score: ${scores[i]}
+  `;
+  list.appendChild(card);
 }
 </textarea>
         </div>
