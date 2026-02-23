@@ -154,40 +154,27 @@ console.log("Charge terminée !");
                         <strong>Remarque :</strong> Le prochain exemple plus complexe démontre que la boucle <code>while</code> est idéale lorsque l'on ne sait pas à l'avance combien de tours seront nécessaires pour atteindre la condition recherchée. 
                     </p>
                     <p>
-                        Par exemple, dans un jeu de dés, on peut vouloir continuer à lancer le dé jusqu'à obtenir 3 résultats identiques consécutifs. On ne sait pas à l'avance combien de jets seront nécessaires.
+                        Par exemple, dans un jeu de dés, on peut vouloir continuer à lancer le dé jusqu'à obtenir un 7. On ne sait pas à l'avance combien de jets seront nécessaires.
                 </div>
 
                 <div class="playground-container" data-type="example" data-title="Jets de dé consécutifs : Combien de fois est-ce que la boucle s'exécutera?" data-auto-height="true" data-instructions="Simulation de jets de dé jusqu'à obtenir 3 résultats identiques consécutifs">
                         <textarea class="source-code" hidden>
 let resultatLancer = 0; // Résultat du jet de dé actuel
-let nbEnchainementsConsecutifs = 0; // Nombre de résultats identiques consécutifs
-let dernierResultat = 0; // Dernier résultat obtenu
 let nbLancerDe = 0; // Nombre total de jets de dé
 
-// La boucle s'exécute tant qu'on n'a pas 3 résultats identiques consécutifs
-while (nbEnchainementsConsecutifs < 2) {
-    // On lance le dé (nombre aléatoire entre 1 et 6)
-    resultatLancer = Math.floor(Math.random() * 6) + 1;
+// La boucle s'exécute tant qu'on n'a pas obtenu 7
+while (resultatLancer !== 7) {
+    // On lance un dé à 10 faces (1 à 10)
+    resultatLancer = Math.floor(Math.random() * 10) + 1;
 
-    // Si le résultat est identique au précédent, on augmente le compteur de résultats consécutifs
-    if (resultatLancer == dernierResultat){
-        nbEnchainementsConsecutifs++;
-    } else {
-        // Sinon, on recommence le compteur à 0
-        nbEnchainementsConsecutifs = 0;
-    }
-
-    // On mémorise le résultat pour la prochaine comparaison
-    dernierResultat = resultatLancer;
-  
-    console.log(`Jet de dé no ${nbLancerDe}, resultat du jet ${resultatLancer}, nombre d'enchainements consécutifs ${nbEnchainementsConsecutifs}.`)
+    console.log(`Jet de dé no ${nbLancerDe}, resultat du jet ${resultatLancer}.`);
 
     // On compte le nombre de jets
     nbLancerDe++;
 }
 
 // Affichage du résultat final
-console.log(`Bravo! Il aura fallu ${nbLancerDe} jets de dé pour avoir 3 résultats identiques consécutifs.`);
+console.log(`Bravo! Il aura fallu ${nbLancerDe} jets de dé pour obtenir 7.`);
                     </textarea>
                 </div>
             </section>
@@ -205,7 +192,7 @@ console.log(`Bravo! Il aura fallu ${nbLancerDe} jets de dé pour avoir 3 résult
     ... 
 }</code></p>
                     <ul>
-                        <li><strong>Le mot clé</strong> <code>for</code> : Indique qu'il s'agit d'une boucle.</li>
+                        <li><strong>Le mot clé</strong> <code>for</code> : Indique qu'il s'agit d'une boucle for.</li>
                         <li><strong>L'initialisation</strong> <code>(let i = 0; ... ; ...)</code> :
                             <ul>
                                 <li>Déclare et initialise une variable compteur à une valeur de départ.</li>
@@ -235,30 +222,13 @@ console.log(`Bravo! Il aura fallu ${nbLancerDe} jets de dé pour avoir 3 résult
                 </div>
 
                 <div class="playground-container" data-type="example" data-title="Une boucle qui s'exécute 4 fois" 
-                data-instructions="Chacune de ces boucles sont exécutées 4 fois, mais en utilisant des compteurs différents"
                 data-auto-height="true">
                     <textarea class="source-code" hidden>
 // On commence à 0, on s'arrête avant 4 (donc 0, 1, 2, 3)
-console.log("Première boucle");
 for (let i = 0; i < 4; i++) {
     // Affiche la valeur actuelle de i à chaque tour
     console.log(`i vaut : ${i}`);
 }
-
-// On commence à 1, on s'arrête à 4 inclus (donc 1, 2, 3, 4)
-console.log("Deuxième boucle");
-for (let j = 1; j <= 4; j++) {
-    // Affiche la valeur actuelle de j à chaque tour
-    console.log(`j vaut : ${j}`);
-}
-
-// On commence à 6, on s'arrête à 0 inclus, on diminue de 2 à chaque tour (donc 6, 4, 2, 0)
-console.log("Troisième boucle");
-for (let compteur = 6; compteur >= 0; compteur -= 2) {
-    // Affiche la valeur actuelle de compteur à chaque tour
-    console.log(`compteur vaut : ${compteur}`);
-}
-
 </textarea>
                 </div>
 
@@ -289,6 +259,41 @@ for (let i = 1; i <= 12; i++) {
 }
 </textarea>
                 </div>
+
+                                <div class="playground-container" data-type="exercise" data-title="Décrypter un message" data-instructions="Utilisez un for pour transformer un tableau d'indices en message. Pratique des tableaux et de la concaténation.">
+                                        <textarea class="source-code" hidden>
+const lettres = [
+  "m","q","a","z","b","r","t","y","u","i",
+  "o","p","s","d","f","g","h","j","k","l",
+  "w","x","c","v","e","n"
+];
+const code = [4, 10, 25, 17, 10, 8, 5]; // message à décrypter
+let message = "";
+
+// TODO:
+// 1. Parcours le tableau code avec un for
+// 2. À chaque tour, récupère la lettre correspondante dans lettres
+// 3. Concatène la lettre au message en utilisant l'opérateur += (ex: message += "a"; ajoute "a" à la fin du message)
+// 4. Affiche le message final dans la console
+</textarea>
+                    <textarea class="solution-code" hidden>
+const lettres = [
+  "m","q","a","z","b","r","t","y","u","i",
+  "o","p","s","d","f","g","h","j","k","l",
+  "w","x","c","v","e","n"
+];
+const code = [4, 10, 25, 17, 10, 8, 5];
+let message = "";
+
+for (let i = 0; i < code.length; i++) {
+  const indexLettre = code[i];
+  message += lettres[indexLettre];
+}
+
+console.log("Message :", message);
+</textarea>
+                </div>
+
             </section>
 
             <section class="section-spy">
@@ -447,68 +452,37 @@ for (let i = 0; i < fruits.length; i++) {
 </textarea>
                 </div>
 
-                            <div class="playground-container" data-type="exercise" data-title="Jeu de cartes : 21" data-instructions="Simulez un jeu où deux joueurs piochent à tour de rôle des cartes d'une pile. À chaque tour, le joueur actif pioche la dernière carte de la pile et l'ajoute à son total. Si le total d'un joueur dépasse 21, la partie s'arrête et ce joueur perd. Après chaque pioche, passez au joueur suivant. Utilisez une boucle while, l'instruction break et le modulo pour alterner les joueurs.">
+                <div class="playground-container" data-type="exercise" data-title="Stop au mot interdit (break)" data-instructions="Parcourez les mots un par un et arrêtez la boucle dès que le mot \"stop\" est trouvé. Utilisez while et break.">
                                         <textarea class="source-code" hidden>
-const pileCartes = [
-    3, 8, 1, 10, 5, 2, 7, 4, 9, 6,
-    10, 2, 5, 8, 3, 1, 7, 6, 4, 9,
-    4, 1, 9, 7, 2, 10, 5, 8, 6, 3,
-    7, 5, 2, 8, 1, 9, 4, 6, 3, 10
-];
-// totalPointsJoueurs[0] = score du joueur 1, il commence à 0
-// totalPointsJoueurs[1] = score du joueur 2, il commence à 0
-let totalPointsJoueurs = [0, 0]; 
+const mots = ["bonjour", "javascript", "stop", "boucle", "fin"];
+let index = 0;
 
-// joueurActif = 0 pour le joueur 1
-// joueurActif = 1 pour le joueur 2
-let joueurActif = 0; // 0 = joueur 1, 1 = joueur 2
-
-// 1. Tant qu'il reste des cartes dans la pile, la partie continue
-// (Indice : Utilisez pileCartes.length pour vérifier s'il reste des cartes)
+// 1. Tant qu'il reste des mots, on continue
 while (/* À compléter */) {
-        // 2. Piocher la dernière carte de la pile (utilisez .pop())
-        //    Stockez la valeur dans une variable cartePiochee
+        const mot = mots[index];
+        console.log("Mot :", mot);
 
-        // 3. Ajoutez la valeur de la carte au total du joueur actif
-        //    totalPointsJoueurs[joueurActif] += ...
+        // 2. Si le mot est "stop", affiche un message et arrête la boucle
+        //    (utilise break)
 
-        // 4. Affichez le résultat de la pioche et le total du joueur actif
-        //    Exemple : "Joueur 1 pioche un 8. Total : 15"
-
-        // 5. Si le total du joueur actif dépasse 21, affichez un message de défaite et arrêtez la boucle (break)
-
-        // 6. Passez au joueur suivant pour le prochain tour
-        //    -ajouter 1 à joueurActif
-        //    -utiliser le modulo pour revenir à 0 si on dépasse 1
+        // 3. Passe au mot suivant
+        //    index = ...
 }
 </textarea>
                     <textarea class="solution-code" hidden>
-const pileCartes = [
-  3, 8, 1, 10, 5, 2, 7, 4, 9, 6,
-  10, 2, 5, 8, 3, 1, 7, 6, 4, 9,
-  4, 1, 9, 7, 2, 10, 5, 8, 6, 3,
-  7, 5, 2, 8, 1, 9, 4, 6, 3, 10
-];
+const mots = ["bonjour", "javascript", "stop", "boucle", "fin"];
+let index = 0;
 
-let totalJoueurs = [0, 0];
-let joueurActif = 0;
+while (index < mots.length) {
+  const mot = mots[index];
+  console.log("Mot :", mot);
 
-// Boucle principale : continue tant qu'il y a des cartes
-while (pileCartes.length > 0) {
-    // 1. Piocher une carte (pop retire le dernier élément)
-    let cartePiochee = pileCartes.pop();
-    totalPointsJoueurs[joueurActif] += cartePiochee;
+  if (mot === "stop") {
+    console.log("Mot interdit trouvé. On arrête !");
+    break;
+  }
 
-    // 2. Afficher le total
-    console.log(`Joueur ${joueurActif + 1} pioche un ${cartePiochee}. Total : ${totalJoueurs[joueurActif]}`);
-
-    // 3. Vérification du dépassement
-    if (totalPointsJoueurs[joueurActif] > 21) {
-        console.log(`Joueur ${joueurActif + 1} a dépassé 21 (${totalPointsJoueurs[joueurActif]}) et a perdu !`);
-        break; // On arrête le jeu
-    }
-    // 4. Passer au joueur suivant
-    joueurActif = (joueurActif + 1) % 2;
+  index++;
 }
 </textarea>
                 </div>

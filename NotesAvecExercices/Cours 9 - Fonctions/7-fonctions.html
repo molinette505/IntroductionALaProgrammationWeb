@@ -79,14 +79,11 @@ function calculerMoyenne(notes) {
 
 // Tableaux de notes pour deux groupes
 let notesEtudiantsGr1 = [85, 90, 78, 92, 88];
-let notesEtudiantsGr2 = [70, 75, 80, 65, 60];
 
 // Appel de la fonction pour chaque groupe, pas besoin de réécrire le code de calcul 2 fois
-let moyenneGr1 = calculerMoyenne(notesEtudiantsGr1);
-let moyenneGr2 = calculerMoyenne(notesEtudiantsGr2);
+let moyenneGroupe1 = calculerMoyenne(notesEtudiantsGr1);
 
-console.log("Moyenne groupe 1 :", moyenneGr1); // Moyenne groupe 1 : 86.6
-console.log("Moyenne groupe 2 :", moyenneGr2); // Moyenne groupe 2 : 70
+console.log("Moyenne groupe 1 :", moyenneGroupe1); // Moyenne groupe 1 : 86.6
 </textarea>
                 </div>
             </section>
@@ -166,8 +163,8 @@ preparerCafe();
                 </div>
                 <p>C'est ici qu'on personnalise le comportement d'une fonction en lui donnant des données à traiter.</p>
                 <ul>
-                    <li><strong>Paramètre :</strong> C'est la variable "placeholder" écrite dans la <strong>définition</strong> de la fonction (ex : <code>nom</code>).</li>
-                    <li><strong>Argument :</strong> C'est la valeur réelle que l'on passe lors de l'<strong>appel</strong> (ex : <code>"Alice"</code>).</li>
+                    <li><strong>Paramètre :</strong> C'est la variable "placeholder" écrite dans la <strong>définition</strong> de la fonction (ex : <code>function afficherNom(nom)</code>).</li>
+                    <li><strong>Argument :</strong> C'est la valeur réelle que l'on passe lors de l'<strong>appel</strong> (ex : <code>afficherNom("Alice")</code>).</li>
                 </ul>
                 <div class="playground-container" data-type="example" data-title="Fonction saluer(nom) avec un paramètre nom">
                     <textarea class="source-code" hidden>
@@ -222,26 +219,24 @@ let resultat = addition(5, 7);
 console.log("Résultat :", resultat);
 </textarea>
                 </div>
-                <div class="playground-container" data-type="exercise" data-title="retour de valeur (TPS)"
-                    data-instructions="Complète la fonction pour qu'elle retourne 5% du montant."
+                <div class="playground-container" data-type="exercise" data-title="retour de valeur (temps de trajet)"
+                    data-instructions="Complète la fonction pour qu'elle retourne le temps de trajet en heures."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
-function calculerTPS(montant) {
-  // TODO: Retourne 5% du montant (multiplier le montant par 0.05)
+function calculerTempsTrajet(distanceKm, vitesseKmH) {
+  // TODO: Retourne le temps en heures (distance / vitesse)
 }
 
-let tps = calculerTPS(200);
-console.log("TPS :", tps);
-console.log("Total :", 200 + tps);
+let temps = calculerTempsTrajet(180, 90);
+console.log(`Temps : ${temps} heures`);
 </textarea>
                     <textarea class="solution-code" hidden>
-function calculerTPS(montant) {
-  return montant * 0.05;
+function calculerTempsTrajet(distanceKm, vitesseKmH) {
+  return distanceKm / vitesseKmH;
 }
 
-let tps = calculerTPS(200);
-console.log("TPS :", tps);
-console.log("Total :", 200 + tps);
+let temps = calculerTempsTrajet(180, 90);
+console.log(`Temps : ${temps} heures`);
 </textarea>
                 </div>
                 

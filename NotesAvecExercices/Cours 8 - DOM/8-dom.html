@@ -64,36 +64,10 @@
         <div class="section-header">
           <h3>Qu'est-ce que le DOM ?</h3>
         </div>
-        <p>Le DOM (Document Object Model) est une représentation de ta page HTML sous forme d'<strong>arbre</strong>. Chaque balise (<code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>) est un <strong>nœud</strong> dans cet arbre.</p>
-        <ul>
-          <li><strong>Structure arborescente :</strong> Les balises sont imbriquées les unes dans les autres, formant une hiérarchie.</li>
-          <li><strong>Nœuds :</strong> Chaque élément HTML est un nœud que JavaScript peut cibler et modifier.</li>
-          <li><strong>Objet global document :</strong> JavaScript utilise <code>document</code> pour entrer dans cet arbre et accéder aux nœuds.</li>
-        </ul>
         <div class="info-box info">
-          <p><strong>En résumé :</strong> Le DOM permet à JavaScript de modifier le <strong>contenu</strong>, la <strong>structure</strong> ou le <strong>style</strong> de la page en temps réel, sans recharger ou changer de page.</p>
-        </div>
-
-        <h4>L'objet Document</h4>
-        <p>JavaScript accède au DOM par l'objet global <code>document</code>. C'est la porte d'entrée vers la structure HTML.</p>
-        <div class="playground-container" data-output-default="console" data-type="example"
-          data-title="Explorer l'objet document"
-          data-instructions="Affiche l'objet document complet dans la console pour voir la structure.">
-          <textarea class="source-code-html" hidden>
-
-<body>
-  <h1>Bienvenue</h1>
-  <p>Ceci est une structure HTML.</p>
-  <div id="contenu">Contenu principal</div>
-</body>
-</textarea>
-          <textarea class="source-code-js" hidden>
-// On accède à la racine du document HTML
-console.log(document);
-
-// On peut aussi voir spécifiquement le contenu du <body>
-console.log(document.body);
-</textarea>
+          <p>Le DOM permet à JavaScript de modifier le <strong>contenu</strong>, la
+            <strong>structure</strong> ou le <strong>style</strong> de la page en temps réel, sans recharger ou changer
+            de page.</p>
         </div>
       </section>
 
@@ -103,27 +77,30 @@ console.log(document.body);
           <h3>Sélectionner un élément</h3>
         </div>
 
+        <p>Afin de pouvoir modifier un élément HTML, il faut d'abord le sélectionner.</p>
+
         <h4>Deux méthodes principales de sélection</h4>
         <div class="info-box">
           <h3>Selection par ID</h3>
-            <pre><code class="language-javascript">document.getElementById("monId")</code></pre>
-            <ul>
-              <li>Cible l'élément unique possédant cet ID.</li> 
-              <li>C'est la méthode la plus performante.</li>
-            </ul>
+          <pre><code class="language-javascript">document.getElementById("monId")</code></pre>
+          <ul>
+            <li>Cible l'élément unique possédant cet ID.</li>
+            <li>C'est la méthode la plus performante.</li>
+          </ul>
         </div>
         <div class="info-box">
           <h3>Selection par sélecteur CSS</h3>
           <pre><code class="language-javascript">document.querySelector("selecteur")</code></pre>
           <ul>
-            <li>Utilise la syntaxe CSS (ex : <code>.ma-classe</code>, <code>#monId</code>, <code>div &gt; p</code>, <code>[mon-attribut="50"]</code>).</li>
+            <li>Utilise la syntaxe CSS (ex : <code>.ma-classe</code>, <code>#monId</code>, <code>div &gt; p</code>,
+              <code>[mon-attribut="50"]</code>).</li>
             <li>Il retourne le premier élément correspondant.</li>
           </ul>
         </div>
-        <p>On peut stocker le résultat dans une variable pour ensuite pouvoir le modifier (ajouter une classe, changer le texte d'un titre, etc.).</p>
+        <p>On peut stocker l'élément sélectionné dans une variable pour ensuite pouvoir le modifier (ajouter une classe, changer
+          le texte d'un titre, etc.).</p>
 
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-console-open="true"
+        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
           data-title="getElementById + querySelector"
           data-instructions="Appuyez sur le bouton exécuter puis réinitialiser pour voir les changements.">
           <textarea class="source-code-html" hidden>
@@ -197,7 +174,7 @@ console.log(document.body);
   cursor: pointer;
 }
 
-.carte-produit--active {
+.carte-produit-active {
   border-color: #2563eb;
   box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12),
     0 0 0 2px rgba(37, 99, 235, 0.35),
@@ -213,94 +190,240 @@ const titreGalerie = document.getElementById("titre-gallery-produit");
 // Sélectionner un élément via un sélecteur CSS plus précis.
 const carteProduit = document.querySelector('.carte-produit[data-id="50"]');
 
-//Mettre à jour le titre et mettre en évidence une carte
+// Mettre à jour l'élément sélectionné (le titre de la galerie)
 titreGalerie.innerText = "Produits en vedette";
-carteProduit.classList.add("carte-produit--active");
+
+// Mettre à jour l'apparence de la carte produit en lui ajoutant une classe CSS
+carteProduit.classList.add("carte-produit-active");
         </textarea>
         </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Sélectionner un enfant avec un sélecteur CSS">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4 id="titre-alertes">Centre d'alertes</h4>
+  <div class="alerte" id="alerte-email">
+    <p class="etat">Email : en attente</p>
+  </div>
+  <div class="alerte" id="alerte-reseau">
+    <p class="etat">Réseau : en attente</p>
+  </div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #ffffff;
+  margin-bottom: 10px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+
+.etat-critique {
+  color: #1d4ed8;
+  background: #eef2ff;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// TODO:
+// 1. Crée une variable pour le titre de la section des alertes
+// Le id de l'élément est titre-alertes
+const titreAlertes = document.getElementById("...");
+
+// TODO:
+// 2. Crée une variable pour l'état réseau
+// Élément avec une classe état qui est enfant d'un élément avec un id alerte-reseau
+const etatReseau = document.querySelector("...");
+
+// Changer le titre et mettre en évidence l'état réseau.
+titreAlertes.innerText = "Alertes critiques";
+etatReseau.innerText = "Réseau : critique";
+etatReseau.classList.add("etat-critique");
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="alerte-liste">
+  <h4 id="titre-alertes">Centre d'alertes</h4>
+  <div class="alerte" id="alerte-email">
+    <p class="etat">Email : en attente</p>
+  </div>
+  <div class="alerte" id="alerte-reseau">
+    <p class="etat">Réseau : en attente</p>
+  </div>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #ffffff;
+  margin-bottom: 10px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+
+.etat-critique {
+  color: #1d4ed8;
+  background: #eef2ff;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const titreAlertes = document.getElementById("titre-alertes");
+const etatReseau = document.querySelector("#alerte-reseau .etat");
+
+titreAlertes.innerText = "Alertes critiques";
+etatReseau.innerText = "Réseau : critique";
+etatReseau.classList.add("etat-critique");
+</textarea>
+        </div>
+
+        
       </section>
 
       <section class="section-spy">
         <div class="section-header">
           <h3>Modifier le contenu</h3>
         </div>
-        <img src="img/modifier.png" />
+        <p>Trois propriétés utiles pour modifier le contenu :</p>
+        <ul>
+          <li><code>innerText</code> : modifie uniquement le texte visible d'un élément.</li>
+          <li><code>innerHTML</code> : modifie le contenu HTML interne (texte + balises).</li>
+          <li><code>value</code> : lit ou change la valeur d'un champ de formulaire (<code>input</code>, <code>textarea</code>, etc.).</li>
+        </ul>
 
-        <img src="img/backtick.png" />
-
-        <div class="playground-container" data-output-default="render" 
-          data-type="example" 
-          data-instructions="Appuyez sur le bouton exécuter et le bouton réinitialiser pour voir le titre changer"
-          data-title="innerText">
+        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="innerText"
+          data-instructions="Appuyez sur exécuter puis réinitialiser pour voir le changement.">
           <textarea class="source-code-html" hidden>
-<div class="dom-mini">
-  <h4 id="titre-texte">Titre initial</h4>
+<div class="alerte-liste">
+  <h4 id="titre-texte">Centre d'alertes</h4>
+  <div class="alerte">
+    <p class="etat">Statut : normal</p>
+  </div>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.dom-mini {
-  max-width: 380px;
-  border: 1px solid #334155;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
+  padding: 10px 12px;
+  background: #ffffff;
 }
 
-.dom-mini h4 {
-  margin: 0 0 10px;
-  color: #93c5fd;
-}
-
-.dom-mini button {
-  border: 1px solid #6366f1;
-  background: #312e81;
-  color: #c7d2fe;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.etat {
+  margin: 0;
+  color: #475569;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// Cibler le titre et le bouton avec document.getElementById(...)
+// Cibler le titre avec document.getElementById(...)
 const elementTitre = document.getElementById("titre-texte");
 
 // Remplacer le texte dans le titre avec innerText
-elementTitre.innerText = "Titre modifié avec innerText";
+elementTitre.innerText = "Alertes critiques";
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-instructions="Appuyez sur le bouton exécuter et le bouton réinitialiser pour voir le titre changer"
-          data-title="Utilisation de innerHTML">
+        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="Utilisation de innerHTML"
+          data-instructions="Appuyez sur exécuter puis réinitialiser pour voir le HTML généré.">
           <textarea class="source-code-html" hidden>
-<div class="dom-mini">
-  <div id="zone-html">Aucune fiche</div>
+<div class="alerte-liste">
+  <h4>Fiche joueur</h4>
+  <div class="alerte" id="zone-html">Aucune fiche</div>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.dom-mini {
-  max-width: 420px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-#zone-html {
-  margin-top: 10px;
-  border: 1px solid #334155;
-  border-radius: 8px;
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
   padding: 10px;
-  background: #111827;
+  background: #ffffff;
+  color: #475569;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
 let nom = "Victor";
 let classe = "Guerrier";
 
-// Je cible le bouton et la zone de rendu.
+// Je cible la zone de rendu.
 const elementZone = document.getElementById("zone-html");
 
 // innerHTML remplace le contenu actuel par une structure HTML.
@@ -316,164 +439,366 @@ elementZone.innerHTML += `
 </textarea>
         </div>
 
-        <img src="img/value.png" />
-        <div class="playground-container" data-output-default="render" data-type="example" data-title="value">
+        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="value"
+          data-instructions="Exécutez pour lire la valeur d'un input prérempli et l'afficher.">
           <textarea class="source-code-html" hidden>
-<div class="dom-mini">
+<div class="alerte-liste">
+  <h4>Profil joueur</h4>
   <label for="input-pseudo">Pseudo</label>
-  <input id="input-pseudo" type="text" value="Pixel" />
-  <button id="btn-value">Lire le pseudo</button>
-  <p id="sortie-value">Pseudo : ...</p>
+  <input id="input-pseudo" type="text" value="PixelNinja" />
+  <p id="sortie-value" class="etat">Pseudo : ...</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.dom-mini {
-  max-width: 420px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.dom-mini input {
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.alerte-liste input {
   width: 100%;
   margin: 6px 0 10px;
-  border: 1px solid #475569;
+  border: 1px solid #cbd5e1;
   border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
+  background: #ffffff;
+  color: #0f172a;
   padding: 8px;
 }
 
-.dom-mini button {
-  border: 1px solid #f59e0b;
-  background: #78350f;
-  color: #fde68a;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.etat {
+  margin: 0;
+  color: #475569;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// 1) Je récupère l'input, le bouton et la sortie.
+// 1) Je récupère l'input et la sortie.
 const inputPseudo = document.getElementById("input-pseudo");
-const bouton = document.getElementById("btn-value");
 const sortie = document.getElementById("sortie-value");
 
-if (inputPseudo && bouton && sortie) {
-  bouton.addEventListener("click", () => {
-    // 2) .value lit le texte saisi dans l'input.
-    const pseudo = inputPseudo.value.trim();
-    sortie.innerText = "Pseudo : " + (pseudo || "(vide)");
-  });
+// 2) .value lit le texte saisi dans l'input.
+const pseudo = inputPseudo.value;
+sortie.innerText = `Pseudo : ${pseudo}`;
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Exercice 1 - innerText et affichage"
+          data-instructions="Change la variable texteEcran, puis appelle miseAJourAffichage().">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Écran système</h4>
+  <div class="alerte">
+    <p id="texte-ecran" class="etat">Bonjour</p>
+  </div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #ffffff;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let texteEcran = "Bonjour";
+const elementEcran = document.getElementById("texte-ecran");
+
+function miseAJourAffichage() {
+  // TODO: Mettre la valeur de texteEcran dans l'élément de l'écran avec innerText.
+}
+
+// TODO: Change texteEcran pour un autre mot.
+
+// TODO: Appelle miseAJourAffichage().
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Écran système</h4>
+  <div class="alerte">
+    <p id="texte-ecran" class="etat">Bonjour</p>
+  </div>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #ffffff;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let texteEcran = "Bonjour";
+const elementEcran = document.getElementById("texte-ecran");
+
+function miseAJourAffichage() {
+  elementEcran.innerText = texteEcran;
+}
+
+texteEcran = "Alerte";
+miseAJourAffichage();
+</textarea>
+        </div>
+
+        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Exercice 2 - scores avec backticks"
+          data-instructions="Utilise le format fourni en commentaire pour générer et ajouter toutes les lignes de score.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Tableau des scores</h4>
+  <ul id="liste-scores"></ul>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+#liste-scores {
+  margin: 0;
+  padding-left: 20px;
+  color: #475569;
+}
+
+#liste-scores li {
+  margin-bottom: 6px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+const scores = [12, 18, 9, 24];
+const listeScores = document.getElementById("liste-scores");
+
+// Format attendu pour chaque ligne:
+// `<li>Joueur ${i + 1} : ${scores[i]} pts</li>`
+
+for (let i = 0; i < scores.length; i++) {
+  // TODO: Génère une ligne avec un template string (backticks + ${}).
+  // TODO: Ajoute la ligne dans la liste avec innerHTML += ...
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Tableau des scores</h4>
+  <ul id="liste-scores"></ul>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+#liste-scores {
+  margin: 0;
+  padding-left: 20px;
+  color: #475569;
+}
+
+#liste-scores li {
+  margin-bottom: 6px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+const scores = [12, 18, 9, 24];
+const listeScores = document.getElementById("liste-scores");
+
+for (let i = 0; i < scores.length; i++) {
+  const ligne = `<li>Joueur ${i + 1} : ${scores[i]} pts</li>`;
+  listeScores.innerHTML += ligne;
 }
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="lire deux champs avec value">
+        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Exercice 3 - remplacer avec value"
+          data-instructions="Lis la valeur de l'input prérempli et remplace le texte affiché.">
           <textarea class="source-code-html" hidden>
-<div class="dom-mini">
-  <label for="in-nom">Nom</label>
-  <input id="in-nom" type="text" value="Lina" />
-
-  <label for="in-classe">Classe</label>
-  <input id="in-classe" type="text" value="Mage" />
-
-  <button id="btn-value-exo">Afficher</button>
-  <p id="sortie-value-exo">Résultat : ...</p>
+<div class="alerte-liste">
+  <h4>Message rapide</h4>
+  <label for="message-input">Message</label>
+  <input id="message-input" type="text" value="Mission prête" />
+  <p id="message-sortie" class="etat">Message : ...</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.dom-mini {
-  max-width: 420px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.dom-mini input {
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.alerte-liste input {
   width: 100%;
   margin: 6px 0 10px;
-  border: 1px solid #475569;
+  border: 1px solid #cbd5e1;
   border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
+  background: #ffffff;
+  color: #0f172a;
   padding: 8px;
 }
 
-.dom-mini button {
-  border: 1px solid #f59e0b;
-  background: #78350f;
-  color: #fde68a;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.etat {
+  margin: 0;
+  color: #475569;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
+const inputMessage = document.getElementById("message-input");
+const sortieMessage = document.getElementById("message-sortie");
+
 // TODO:
-// 1. Récupère #in-nom, #in-classe, #btn-value-exo et #sortie-value-exo avec document.getElementById(...)
-// 2. Au clic, lis nom et classe avec .value
-// 3. Affiche dans la sortie: "Résultat : NOM - CLASSE"
+// 1. Lis la valeur de l'input avec .value
+// 2. Remplace le texte de sortie avec innerText
 </textarea>
           <textarea class="solution-code-html" hidden>
-<div class="dom-mini">
-  <label for="in-nom">Nom</label>
-  <input id="in-nom" type="text" value="Lina" />
-
-  <label for="in-classe">Classe</label>
-  <input id="in-classe" type="text" value="Mage" />
-
-  <button id="btn-value-exo">Afficher</button>
-  <p id="sortie-value-exo">Résultat : ...</p>
+<div class="alerte-liste">
+  <h4>Message rapide</h4>
+  <label for="message-input">Message</label>
+  <input id="message-input" type="text" value="Mission prête" />
+  <p id="message-sortie" class="etat">Message : ...</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
-.dom-mini {
-  max-width: 420px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.dom-mini input {
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.alerte-liste input {
   width: 100%;
   margin: 6px 0 10px;
-  border: 1px solid #475569;
+  border: 1px solid #cbd5e1;
   border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
+  background: #ffffff;
+  color: #0f172a;
   padding: 8px;
 }
 
-.dom-mini button {
-  border: 1px solid #f59e0b;
-  background: #78350f;
-  color: #fde68a;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.etat {
+  margin: 0;
+  color: #475569;
 }
 </textarea>
           <textarea class="solution-code-js" hidden>
-const nom = document.getElementById("in-nom");
-const classe = document.getElementById("in-classe");
-const bouton = document.getElementById("btn-value-exo");
-const sortie = document.getElementById("sortie-value-exo");
+const inputMessage = document.getElementById("message-input");
+const sortieMessage = document.getElementById("message-sortie");
 
-if (nom && classe && bouton && sortie) {
-  bouton.addEventListener("click", () => {
-    const valNom = nom.value.trim();
-    const valClasse = classe.value.trim();
-    sortie.innerText = `Résultat : ${valNom} - ${valClasse}`;
-  });
-}
+const texte = inputMessage.value;
+sortieMessage.innerText = `Message : ${texte}`;
 </textarea>
         </div>
       </section>
@@ -482,153 +807,149 @@ if (nom && classe && bouton && sortie) {
         <div class="section-header">
           <h3>Modifier l'apparence</h3>
         </div>
-        <img src="img/classe.png" />
+        <p>Pour le style, on combine souvent :</p>
+        <ul>
+          <li><code>classList.add/remove/toggle</code> pour appliquer une règle CSS réutilisable.</li>
+          <li><code>element.style</code> pour un ajustement ponctuel (ex: <code>transform</code>).</li>
+        </ul>
 
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="classList + style">
+        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="classList + style"
+          data-instructions="Exécutez pour appliquer une classe puis un style inline.">
           <textarea class="source-code-html" hidden>
-<div class="theme-box" id="theme-box">
-  <h4>Mode clair</h4>
-  <p>Changez l'ambiance visuelle avec classList.toggle().</p>
+<div class="alerte-liste" id="carte-statut">
+  <h4 id="titre-statut">Statut du système</h4>
+  <p id="texte-statut" class="etat">Mode : normal</p>
 </div>
-<button id="btn-theme">Basculer mode</button>
 </textarea>
           <textarea class="source-code-css" hidden>
-.theme-box {
-  max-width: 440px;
-  border: 1px solid #334155;
-  border-radius: 10px;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   background: #f8fafc;
+  padding: 16px;
   color: #0f172a;
-  padding: 14px;
-  transition: all 0.25s ease;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.theme-box.mode-nuit {
-  background: #0f172a;
-  color: #e2e8f0;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2);
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
 }
 
-#btn-theme {
-  margin-top: 10px;
-  border: 1px solid #6366f1;
-  background: #312e81;
-  color: #c7d2fe;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.etat {
+  margin: 0;
+  color: #475569;
+}
+
+.alerte-liste-active {
+  border-color: #1d4ed8;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-const box = document.getElementById("theme-box");
-const btnTheme = document.getElementById("btn-theme");
+const carteStatut = document.getElementById("carte-statut");
+const titreStatut = document.getElementById("titre-statut");
+const texteStatut = document.getElementById("texte-statut");
 
-if (box && btnTheme) {
-  btnTheme.addEventListener("click", () => {
-    // toggle ajoute la classe si absente, la retire si présente.
-    box.classList.toggle("mode-nuit");
-    box.style.transform = "translateY(-2px)";
-    setTimeout(() => {
-      box.style.transform = "translateY(0)";
-    }, 120);
-  });
-}
+// 1) Ajouter une classe CSS pour changer l'apparence globale.
+carteStatut.classList.add("alerte-liste-active");
+
+// 2) Ajouter un style inline ponctuel.
+carteStatut.style.transform = "translateY(-2px)";
+
+// 3) Mettre le contenu à jour.
+titreStatut.innerText = "Statut du système : alerte";
+texteStatut.innerText = "Mode : surveillance";
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="mode alerte avec classList">
+        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="appliquer une classe d'alerte"
+          data-instructions="Complète les TODO pour changer le style et le texte.">
           <textarea class="source-code-html" hidden>
-<div class="theme-box" id="zone-alerte">
-  <h4>Zone de statut</h4>
-  <p id="txt-alerte">Statut : normal</p>
+<div class="alerte-liste" id="carte-exo-style">
+  <h4 id="titre-exo-style">Zone de statut</h4>
+  <p id="texte-exo-style" class="etat">Statut : normal</p>
 </div>
-<button id="btn-alerte">Basculer alerte</button>
 </textarea>
           <textarea class="source-code-css" hidden>
-.theme-box {
-  max-width: 440px;
-  border: 1px solid #334155;
-  border-radius: 10px;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   background: #f8fafc;
+  padding: 16px;
   color: #0f172a;
-  padding: 14px;
-  transition: all 0.25s ease;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.theme-box.alerte {
-  background: #7f1d1d;
-  color: #fee2e2;
-  border-color: #ef4444;
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
 }
 
-#btn-alerte {
-  margin-top: 10px;
-  border: 1px solid #dc2626;
-  background: #7f1d1d;
-  color: #fecaca;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.etat {
+  margin: 0;
+  color: #475569;
+}
+
+.zone-alerte {
+  border-color: #dc2626;
+  background: #fef2f2;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// TODO:
-// 1. Récupère #zone-alerte, #txt-alerte et #btn-alerte avec document.getElementById(...)
-// 2. Au clic, toggle la classe "alerte" sur zone.
-// 3. Mets texte selon l'état courant de la classe.
+// TODO 1: Sélectionne #carte-exo-style, #titre-exo-style et #texte-exo-style.
+// TODO 2: Ajoute la classe "zone-alerte" sur la carte.
+// TODO 3: Mets le titre à "Zone de statut : alerte".
+// TODO 4: Mets le texte à "Statut : critique".
 </textarea>
           <textarea class="solution-code-html" hidden>
-<div class="theme-box" id="zone-alerte">
-  <h4>Zone de statut</h4>
-  <p id="txt-alerte">Statut : normal</p>
+<div class="alerte-liste" id="carte-exo-style">
+  <h4 id="titre-exo-style">Zone de statut</h4>
+  <p id="texte-exo-style" class="etat">Statut : normal</p>
 </div>
-<button id="btn-alerte">Basculer alerte</button>
 </textarea>
           <textarea class="solution-code-css" hidden>
-.theme-box {
-  max-width: 440px;
-  border: 1px solid #334155;
-  border-radius: 10px;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   background: #f8fafc;
+  padding: 16px;
   color: #0f172a;
-  padding: 14px;
-  transition: all 0.25s ease;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.theme-box.alerte {
-  background: #7f1d1d;
-  color: #fee2e2;
-  border-color: #ef4444;
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
 }
 
-#btn-alerte {
-  margin-top: 10px;
-  border: 1px solid #dc2626;
-  background: #7f1d1d;
-  color: #fecaca;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.etat {
+  margin: 0;
+  color: #475569;
+}
+
+.zone-alerte {
+  border-color: #dc2626;
+  background: #fef2f2;
 }
 </textarea>
           <textarea class="solution-code-js" hidden>
-const zone = document.getElementById("zone-alerte");
-const texte = document.getElementById("txt-alerte");
-const btn = document.getElementById("btn-alerte");
+const carte = document.getElementById("carte-exo-style");
+const titre = document.getElementById("titre-exo-style");
+const texte = document.getElementById("texte-exo-style");
 
-if (zone && texte && btn) {
-  btn.addEventListener("click", () => {
-    zone.classList.toggle("alerte");
-    texte.innerText = zone.classList.contains("alerte")
-      ? "Statut : alerte"
-      : "Statut : normal";
-  });
-}
+carte.classList.add("zone-alerte");
+titre.innerText = "Zone de statut : alerte";
+texte.innerText = "Statut : critique";
 </textarea>
         </div>
       </section>
@@ -637,148 +958,182 @@ if (zone && texte && btn) {
         <div class="section-header">
           <h3>Modifier les attributs</h3>
         </div>
-        <p>On peut modifier des attributs comme <code>src</code>, <code>href</code> ou des <code>data-*</code>.</p>
+        <p>Un attribut décrit une propriété d'un élément HTML (<code>href</code>, <code>src</code>, <code>title</code>, <code>data-*</code>).</p>
+        <ul>
+          <li><code>setAttribute(nom, valeur)</code> modifie un attribut.</li>
+          <li><code>getAttribute(nom)</code> lit sa valeur actuelle.</li>
+        </ul>
 
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="setAttribute et attributs">
+        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="setAttribute et getAttribute"
+          data-instructions="Exécutez pour mettre à jour un lien, une image et un attribut data.">
           <textarea class="source-code-html" hidden>
-<div class="card-attr">
-  <a id="lien-profil" href="#" target="_blank" rel="noreferrer">Profil joueur</a>
-  <button id="btn-link">Configurer le lien</button>
-  <p id="etat-lien">Lien actuel : #</p>
+<div class="alerte-liste">
+  <h4>Ressource active</h4>
+  <a id="lien-doc" href="#" target="_blank" rel="noreferrer">Documentation</a>
+  <img id="image-doc" src="https://placehold.co/220x90?text=Initial" alt="Image initiale">
+  <p id="etat-doc" class="etat">Lien actuel : #</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.card-attr {
-  max-width: 450px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.card-attr a {
-  color: #93c5fd;
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste a {
+  color: #1d4ed8;
   text-decoration: underline;
 }
 
-.card-attr button {
-  display: inline-block;
-  margin-top: 10px;
-  border: 1px solid #14b8a6;
-  background: #134e4a;
-  color: #99f6e4;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.alerte-liste img {
+  display: block;
+  width: 220px;
+  height: 90px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-const lien = document.getElementById("lien-profil");
-const btn = document.getElementById("btn-link");
-const etat = document.getElementById("etat-lien");
+const lienDoc = document.getElementById("lien-doc");
+const imageDoc = document.getElementById("image-doc");
+const etatDoc = document.getElementById("etat-doc");
 
-if (lien && btn && etat) {
-  btn.addEventListener("click", () => {
-    // setAttribute met à jour les attributs du lien.
-    lien.setAttribute("href", "https://developer.mozilla.org/fr/docs/Web/API/Document_Object_Model");
-    lien.setAttribute("title", "Documentation DOM");
-    etat.innerText = "Lien actuel : " + lien.getAttribute("href");
-  });
-}
+// 1) Mettre a jour les attributs du lien.
+lienDoc.setAttribute("href", "https://developer.mozilla.org/fr/docs/Web/API/Document_Object_Model");
+lienDoc.setAttribute("title", "Documentation DOM");
+lienDoc.setAttribute("data-section", "dom");
+
+// 2) Mettre a jour les attributs de l'image.
+imageDoc.setAttribute("src", "https://placehold.co/220x90?text=DOM");
+imageDoc.setAttribute("alt", "Banniere DOM");
+
+// 3) Relire la valeur de href et l'afficher.
+etatDoc.innerText = "Lien actuel : " + lienDoc.getAttribute("href");
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="mettre à jour href et title">
+        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="mettre a jour des attributs"
+          data-instructions="Complète les TODO pour configurer le lien et l'image.">
           <textarea class="source-code-html" hidden>
-<div class="card-attr">
+<div class="alerte-liste">
+  <h4>Configuration rapide</h4>
   <a id="doc-link" href="#" target="_blank" rel="noreferrer">Documentation</a>
-  <button id="btn-doc">Configurer</button>
-  <p id="doc-etat">Lien actuel : #</p>
+  <img id="doc-img" src="https://placehold.co/220x90?text=Avant" alt="Avant">
+  <p id="doc-etat" class="etat">Lien actuel : #</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.card-attr {
-  max-width: 450px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.card-attr a {
-  color: #93c5fd;
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste a {
+  color: #1d4ed8;
   text-decoration: underline;
 }
 
-.card-attr button {
-  display: inline-block;
-  margin-top: 10px;
-  border: 1px solid #14b8a6;
-  background: #134e4a;
-  color: #99f6e4;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.alerte-liste img {
+  display: block;
+  width: 220px;
+  height: 90px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// TODO:
-// 1. Récupère #doc-link, #btn-doc et #doc-etat avec document.getElementById(...)
-// 2. Au clic, mets href et title sur lien avec setAttribute.
-// 3. Mets "Lien actuel : ..." dans etat.
+// TODO 1: Sélectionne #doc-link, #doc-img et #doc-etat.
+// TODO 2: Mets href et title sur le lien avec setAttribute.
+// TODO 3: Mets src et alt sur l'image avec setAttribute.
+// TODO 4: Mets "Lien actuel : ..." dans #doc-etat avec getAttribute("href").
 </textarea>
           <textarea class="solution-code-html" hidden>
-<div class="card-attr">
+<div class="alerte-liste">
+  <h4>Configuration rapide</h4>
   <a id="doc-link" href="#" target="_blank" rel="noreferrer">Documentation</a>
-  <button id="btn-doc">Configurer</button>
-  <p id="doc-etat">Lien actuel : #</p>
+  <img id="doc-img" src="https://placehold.co/220x90?text=Avant" alt="Avant">
+  <p id="doc-etat" class="etat">Lien actuel : #</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
-.card-attr {
-  max-width: 450px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.card-attr a {
-  color: #93c5fd;
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste a {
+  color: #1d4ed8;
   text-decoration: underline;
 }
 
-.card-attr button {
-  display: inline-block;
-  margin-top: 10px;
-  border: 1px solid #14b8a6;
-  background: #134e4a;
-  color: #99f6e4;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.alerte-liste img {
+  display: block;
+  width: 220px;
+  height: 90px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
 }
 </textarea>
           <textarea class="solution-code-js" hidden>
 const lien = document.getElementById("doc-link");
-const btn = document.getElementById("btn-doc");
+const image = document.getElementById("doc-img");
 const etat = document.getElementById("doc-etat");
 
-if (lien && btn && etat) {
-  btn.addEventListener("click", () => {
-    lien.setAttribute(
-      "href",
-      "https://developer.mozilla.org/fr/docs/Web/API/Element/setAttribute"
-    );
-    lien.setAttribute("title", "Doc setAttribute");
-    etat.innerText = "Lien actuel : " + lien.getAttribute("href");
-  });
-}
+lien.setAttribute("href", "https://developer.mozilla.org/fr/docs/Web/API/Element/setAttribute");
+lien.setAttribute("title", "Doc setAttribute");
+image.setAttribute("src", "https://placehold.co/220x90?text=Apres");
+image.setAttribute("alt", "Image configuree");
+etat.innerText = "Lien actuel : " + lien.getAttribute("href");
 </textarea>
         </div>
       </section>
@@ -787,206 +1142,158 @@ if (lien && btn && etat) {
         <div class="section-header">
           <h3>Création dynamique</h3>
         </div>
-        <p>Pour ajouter des éléments un par un, utilisez <code>createElement</code> et <code>appendChild</code>.</p>
+        <p>La creation dynamique consiste a fabriquer des noeuds en JavaScript puis les inserer dans la page.</p>
+        <ul>
+          <li><code>createElement()</code> cree un element en memoire.</li>
+          <li><code>appendChild()</code> l'ajoute comme enfant.</li>
+          <li><code>classList.add()</code> et <code>setAttribute()</code> le configurent avant insertion.</li>
+        </ul>
 
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="createElement + appendChild">
+        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="createElement + appendChild"
+          data-instructions="Exécutez pour générer trois badges automatiquement.">
           <textarea class="source-code-html" hidden>
-<section class="todo-ui">
-  <label>
-    Nouvelle tache
-    <input id="tache-input" value="Relire la section DOM" />
-  </label>
-  <button id="btn-ajouter">Ajouter</button>
-  <ul id="liste-taches">
-    <li>Tache existante : lancer le playground</li>
-  </ul>
-</section>
+<div class="alerte-liste">
+  <h4>Badges générés</h4>
+  <div id="tag-zone" class="tag-zone"></div>
+</div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.todo-ui {
-  max-width: 480px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.todo-ui label {
-  display: block;
-  margin-bottom: 10px;
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
 }
 
-.todo-ui input {
-  width: 100%;
-  margin-top: 4px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 8px;
+.tag-zone {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.todo-ui button {
-  border: 1px solid #22c55e;
-  background: #14532d;
-  color: #bbf7d0;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-
-#liste-taches {
-  margin-top: 12px;
-  padding-left: 18px;
+.badge {
+  border: 1px solid #93c5fd;
+  background: #eff6ff;
+  color: #1e3a8a;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-const input = document.getElementById("tache-input");
-const bouton = document.getElementById("btn-ajouter");
-const liste = document.getElementById("liste-taches");
+const zone = document.getElementById("tag-zone");
+const labels = ["DOM", "CSS", "HTML"];
 
-if (input && bouton && liste) {
-  bouton.addEventListener("click", () => {
-    const texte = input.value.trim();
-    if (!texte) return;
-
-    // createElement crée un noeud en mémoire.
-    const item = document.createElement("li");
-    item.innerText = texte;
-    // appendChild l'ajoute dans la page.
-    liste.appendChild(item);
-    input.value = "";
-    input.focus();
-  });
+for (let i = 0; i < labels.length; i++) {
+  // 1) Créer un élément span pour chaque badge.
+  const badge = document.createElement("span");
+  // 2) Ajouter une classe et un attribut data.
+  badge.classList.add("badge");
+  badge.setAttribute("data-index", String(i));
+  // 3) Remplir le texte puis insérer dans la zone.
+  badge.innerText = labels[i];
+  zone.appendChild(badge);
 }
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="créer une liste dynamique">
+        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="generer une liste dynamique"
+          data-instructions="Complète les TODO pour créer des lignes avec createElement et appendChild.">
           <textarea class="source-code-html" hidden>
-<section class="todo-ui">
-  <label>
-    Element
-    <input id="todo-input" value="Tester createElement" />
-  </label>
-  <button id="todo-add">Ajouter</button>
+<div class="alerte-liste">
+  <h4>Liste des missions</h4>
   <ul id="todo-list"></ul>
-</section>
+</div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.todo-ui {
-  max-width: 480px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.todo-ui label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.todo-ui input {
-  width: 100%;
-  margin-top: 4px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 8px;
-}
-
-.todo-ui button {
-  border: 1px solid #22c55e;
-  background: #14532d;
-  color: #bbf7d0;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
 }
 
 #todo-list {
-  margin-top: 12px;
-  padding-left: 18px;
+  margin: 0;
+  padding-left: 20px;
+  color: #475569;
+}
+
+#todo-list li {
+  margin-bottom: 6px;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// 1. Sélectionne #todo-input, #todo-add et #todo-list
-// 2. Au clic:
-//    - lis la valeur
-//    - si vide, ne rien faire
-//    - crée un <li>, mets son texte, puis appendChild dans la liste
-//    - vide l'input
+const missions = ["Analyser le DOM", "Modifier un attribut", "Créer un élément"];
+const liste = document.getElementById("todo-list");
+
+for (let i = 0; i < missions.length; i++) {
+  // TODO 1: Crée un élément <li> avec createElement.
+  // TODO 2: Mets le texte de la mission avec innerText.
+  // TODO 3: Ajoute le <li> dans la liste avec appendChild.
+}
 </textarea>
           <textarea class="solution-code-html" hidden>
-<section class="todo-ui">
-  <label>
-    Element
-    <input id="todo-input" value="Tester createElement" />
-  </label>
-  <button id="todo-add">Ajouter</button>
+<div class="alerte-liste">
+  <h4>Liste des missions</h4>
   <ul id="todo-list"></ul>
-</section>
+</div>
 </textarea>
           <textarea class="solution-code-css" hidden>
-.todo-ui {
-  max-width: 480px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.todo-ui label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.todo-ui input {
-  width: 100%;
-  margin-top: 4px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 8px;
-}
-
-.todo-ui button {
-  border: 1px solid #22c55e;
-  background: #14532d;
-  color: #bbf7d0;
-  border-radius: 6px;
-  padding: 7px 11px;
-  cursor: pointer;
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
 }
 
 #todo-list {
-  margin-top: 12px;
-  padding-left: 18px;
+  margin: 0;
+  padding-left: 20px;
+  color: #475569;
+}
+
+#todo-list li {
+  margin-bottom: 6px;
 }
 </textarea>
           <textarea class="solution-code-js" hidden>
-const input = document.getElementById("todo-input");
-const bouton = document.getElementById("todo-add");
+const missions = ["Analyser le DOM", "Modifier un attribut", "Créer un élément"];
 const liste = document.getElementById("todo-list");
 
-if (input && bouton && liste) {
-  bouton.addEventListener("click", () => {
-    const texte = input.value.trim();
-    if (!texte) return;
-
-    const li = document.createElement("li");
-    li.innerText = texte;
-    liste.appendChild(li);
-    input.value = "";
-  });
+for (let i = 0; i < missions.length; i++) {
+  const item = document.createElement("li");
+  item.innerText = missions[i];
+  liste.appendChild(item);
 }
 </textarea>
         </div>
