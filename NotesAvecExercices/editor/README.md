@@ -32,13 +32,17 @@ Si `source-code-js` n'existe pas, le playground accepte aussi le legacy:
 
 ## 2) Data attributes supportes
 
-- `data-type="example|exercise"`
+- `data-type="example|exercise|compare"`
   - `exercise` active le switch `Code / Solution`.
+  - `compare` active le switch `Choix A / Choix B`.
 - `data-title="..."`
   - Titre affiche dans l'entete.
   - Les prefixes `Exemple:` / `Exercice:` sont nettoyes automatiquement.
 - `data-instructions="..."`
   - Message secondaire sous la toolbar.
+- `data-toolbar-text="..."`
+  - Remplace le texte de la barre d'action (par defaut: `Modifiez le code ci-dessous et testez-le ->`).
+  - Alias supporte: `data-run-text`.
 - `data-start-editor="js|html|css"`
   - Onglet editeur affiche au chargement.
   - Alias supporte: `data-editor-start`.
@@ -56,6 +60,13 @@ Si `source-code-js` n'existe pas, le playground accepte aussi le legacy:
   - Aliases supportes: `data-fit-code`, `data-fit-height`, `data-fit-code-height`.
   - Ne s'applique pas en mode plein ecran.
   - En layout vertical/mobile (console dessous), la hauteur inline est desactivee pour eviter le decalage de poignee.
+- `data-label-a="..."`
+  - Libelle du bouton A pour `data-type="compare"`.
+  - Defaut: `Choix A`.
+- `data-label-b="..."`
+  - Libelle du bouton B pour `data-type="compare"`.
+  - Defaut: `Choix B`.
+  - En mode `compare`, les deux onglets sont en lecture seule (comparaison pure).
 
 ## 3) Textareas d'entree
 
@@ -69,10 +80,17 @@ Solution (mode Solution):
 - `.solution-code-css`
 - `.solution-code-js`
 
+Comparaison (mode B, pour `data-type="compare"`):
+- `.compare-code-html` (alias: `.source-code-b-html`)
+- `.compare-code-css` (alias: `.source-code-b-css`)
+- `.compare-code-js` (alias: `.source-code-b-js`)
+- `.compare-code` (alias JS legacy: `.source-code-b`)
+
 Regles:
 - Si une textarea solution manque, la source correspondante est reutilisee.
 - Si HTML/CSS manquent, valeur vide.
 - Si JS manque, fallback `// Code JavaScript`.
+- En mode compare, si les textareas B manquent, fallback vers les textareas solution, puis source.
 
 ## 4) Cycle d'execution (Run)
 

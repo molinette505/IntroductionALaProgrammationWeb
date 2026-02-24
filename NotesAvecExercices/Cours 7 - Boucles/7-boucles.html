@@ -52,20 +52,10 @@
                     <h3>C'est quoi une boucle ?</h3>
                 </div>
 
-                <p>Les boucles sont des structures de contrôle qui permettent de <strong>répéter un bloc de
-                        code</strong> plusieurs fois. C’est ce qui permet d'automatiser des tâches répétitives, comme :
+                <p>
+                    Les boucles permettent de <strong>répéter un bloc de
+                        code</strong> plusieurs fois. 
                 </p>
-
-                <div class="info-box">
-                    <ul>
-                        <li>Traiter chaque étudiant d'une classe.</li>
-                        <li>Vérifier chaque item d'un inventaire de jeu.</li>
-                        <li>Afficher les messages d'une discussion un par un.</li>
-                        <li>Retirer une carte de la pile tant qu'un joueur n'a pas gagné.</li>
-                    </ul>
-                </div>
-                <p>Sans les boucles, si vous deviez afficher les notes de 60 élèves d'une classe dans omnivox, vous devriez écrire au
-                    minimum 60 lignes de code. Avec une boucle, <strong>quelques lignes suffisent</strong>.</p>
             </section>
 
             <section class="section-spy">
@@ -73,17 +63,19 @@
                     <h3>La boucle While (Tant que)</h3>
                 </div>
 
-                <p>La boucle <code>while</code> est la plus simple : elle répète le code <strong>tant que</strong> la
-                    condition entre parenthèses est vraie.</p>
-                <p>Elle agit un peu comme un if qui se répète tant que la condition est vraie.</p>
-                <p>Très utile lorsqu'on ne sait pas d'avance combien de fois on va boucler.</p>
+                <p>La boucle <code>while</code> est la plus simple</p>
+                <ul>
+                    <li>elle répète un bloc code <strong>tant que</strong> la condition entre parenthèses est vraie.</li>
+                    <li>très utile lorsqu'on ne sait pas d'avance combien de fois on va boucler.</li>
+                </ul>
                 <div class="info-box info">
-                    <p><code>while (condition) { ... }</code></p>
+                    <pre><code class="language-javascript">while (condition) {
+    // code à répéter tant que la condition est vraie
+}</code></pre>
                     <ul>
-                        <li><strong>Le mot clé</strong> <code>while</code>: Indique qu'il s'agit d'une boucle.
-                        <li><strong>La condition</strong> <code>(condition)</code>: Testée avant chaque tour. 
+                        <li><strong>La condition</strong> <code>(condition)</code>:
                             <ul>
-                                <li>Fonctionne comme la condition d'un <code>if</code>.</li>
+                                <li>Testée avant chaque tour de boucle.</li>
                                 <li>Si elle est vraie, la boucle continue (on réexécute le code dans le corps de la boucle).</li>
                                 <li>Si elle est fausse, la boucle s'arrête.</li>
                             </ul>
@@ -95,20 +87,38 @@
                     </ul>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Compteur While" data-auto-height="true">
+                <div class="playground-container" data-type="example" data-title="Compteur While"
+                 data-auto-height="true"
+                 data-toolbar-text="Exemple : Compteur avec while">
+                    <textarea class="source-code" hidden>
+let compteur = 0;
+
+while (compteur < 5){
+    compteur = compteur + 1;
+
+    console.log(`Compteur : ${compteur}`);
+}
+
+console.log(`La boucle est terminée, le code continue.`);
+
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Boucle While : Dégâts de poison! Combien de tours avant que le joueur meure ?"
+                 data-auto-height="true"
+                 data-toolbar-text="Modifier la vie et les dégâts pour voir s'il y aura plus ou moins de tours.">
                     <textarea class="source-code" hidden>
 let vieJoueur = 100;
-const degatsPoison = 20;
+let degatsPoison = 20;
 
-// Tant que le joueur est en vie (vieJoueur > 0), il subit les dégâts du poison à chaque tour.
+// Tant que le joueur est en vie (vieJoueur > 0)
 while (vieJoueur > 0){
-    // Le joueur subit les dégâts du poison à chaque tour, ce qui fait diminuer sa vie.
-    // Sela permet de faire avancer la condition vers la fin (vieJoueur > 0 deviendra false).
+
+    // Le joueur subit les dégâts du poison, la vie diminue
     vieJoueur -= degatsPoison;
 
-    // Affiche les dégâts subis et la vie restante du joueur. 
-    // Utiliser les backticks ` et l'interpolation ${} offre un affichage propre.
-    console.log(`Le joueur subit ${degatsPoison} points de dégâts. Vie restante : ${vieJoueur}`);
+    // Affiche la vie restante du joueur. 
+    console.log(`Vie restante : ${vieJoueur}`);
 }
 
 console.log("Le joueur est mort !");
@@ -116,32 +126,62 @@ console.log("Le joueur est mort !");
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Chargement de batterie" data-auto-height="true" data-instructions="Créez une boucle 'while' qui s'exécute TANT QUE la charge de la batterie est inférieure à sa capacité maximale.">
+                <div class="playground-container" data-type="exercise" data-title="Boucle While: Correction de copies" data-auto-height="true" data-toolbar-text="Utilisez while pour corriger les copies une par une et afficher les copies restantes.">
+                    <textarea class="source-code" hidden>
+let copiesRestantesACorriger = 10;
+
+// TODO 1: Créez une boucle 'while' qui s'exécute 
+// tant qu'il reste une copie à corriger (copiesRestantesACorriger > 0).
+while (...) {
+    // TODO 2: Corrigez une copie en enlevant 1 à copiesRestantesACorriger.
+
+    // TODO 3: Affichez `Copies restantes : ___` dans la console.
+}
+
+console.log("Correction terminee.");
+</textarea>
+                    <textarea class="solution-code" hidden>
+let copiesRestantesACorriger = 10;
+
+while (copiesRestantesACorriger > 0) {
+    copiesRestantesACorriger--;
+    console.log(`Copies restantes : ${copiesRestantesACorriger}`);
+}
+
+console.log("Correction terminée.");
+</textarea>
+                </div>
+
+                                <div class="playground-container" data-type="exercise" data-title="Chargement de batterie" data-auto-height="true" data-toolbar-text="Créez une boucle 'while' qui s'exécute tant que la charge de la batterie est inférieure à sa charge maximale.">
                     <textarea class="source-code" hidden>
 let chargeBatterie = 0;
-const tauxChargement = 40; // Charge ajoutée à chaque tour (la vitesse de chargement)
-const capaciteMaximaleBatterie = 150;
+let vitesseChargement = 40;
+let chargeMaximale = 150;
 
-// TODO: Dans la boucle :
-// Dans la boucle :
-// 1. Ajoutez de la charge à la variable 'chargeBatterie'.
-// 2. Affichez le niveau actuel dans la console (ex: "Batterie à 25%").
-// 3. Si la charge dépasse la capacité maximale, limiter la charge à la capacité maximale.
-// (Indice : Utilisez une condition if pour vérifier si chargeBatterie dépasse capaciteMaximaleBatterie,
-//  et si oui, assignez la valeur de capaciteMaximaleBatterie à chargeBatterie.)
+while (chargeBatterie < chargeMaximale) {
+    // TODO: Augmentez la charge de la batterie en ajoutant la vitesse de chargement à chaque tour de boucle.
+
+    if (chargeBatterie > chargeMaximale) {
+        // TODO: Si la charge dépasse la capacité maximale, limiter la charge à la capacité maximale.
+    }
+
+    // TODO: Affichez la charge actuelle de la batterie à chaque tour de boucle (ex: "Batterie à : 40%").
+}
 
 console.log("Charge terminée !");
 </textarea>
                     <textarea class="solution-code" hidden>
 let chargeBatterie = 0;
-const tauxChargement = 40; // Charge ajoutée à chaque tour (la vitesse de chargement)
-const capaciteMaximaleBatterie = 150;
+let vitesseChargement = 40;
+let chargeMaximale = 150;
 
-while (chargeBatterie < capaciteMaximaleBatterie) {
-    chargeBatterie += tauxChargement;
-    if (chargeBatterie > capaciteMaximaleBatterie) {
-        chargeBatterie = capaciteMaximaleBatterie;
+while (chargeBatterie < chargeMaximale) {
+    chargeBatterie += vitesseChargement;
+
+    if (chargeBatterie > chargeMaximale) {
+        chargeBatterie = chargeMaximale;
     }
+
     console.log(`Batterie à : ${chargeBatterie}%`);
 }
 
@@ -154,27 +194,29 @@ console.log("Charge terminée !");
                         <strong>Remarque :</strong> Le prochain exemple plus complexe démontre que la boucle <code>while</code> est idéale lorsque l'on ne sait pas à l'avance combien de tours seront nécessaires pour atteindre la condition recherchée. 
                     </p>
                     <p>
-                        Par exemple, dans un jeu de dés, on peut vouloir continuer à lancer le dé jusqu'à obtenir un 7. On ne sait pas à l'avance combien de jets seront nécessaires.
+                        Par exemple, dans un jeu de dés, on peut vouloir continuer à lancer le dé jusqu'à obtenir un 7. On ne sait pas à l'avance combien de tours seront nécessaires.
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Jets de dé consécutifs : Combien de fois est-ce que la boucle s'exécutera?" data-auto-height="true" data-instructions="Simulation de jets de dé jusqu'à obtenir 3 résultats identiques consécutifs">
+                <div class="playground-container" data-type="example" data-title="Boucle While : Lancers de dé - Combien de fois est-ce que la boucle s'exécutera?" data-auto-height="true" data-instructions="Simulation de jets de dé jusqu'à obtenir 3 résultats identiques consécutifs">
                         <textarea class="source-code" hidden>
-let resultatLancer = 0; // Résultat du jet de dé actuel
-let nbLancerDe = 0; // Nombre total de jets de dé
+let resultatLancer = 0; // Résultat du lancer de dé actuel
+let nbLancerDe = 0; // Nombre total de lancers de dé
 
 // La boucle s'exécute tant qu'on n'a pas obtenu 7
 while (resultatLancer !== 7) {
+
     // On lance un dé à 10 faces (1 à 10)
     resultatLancer = Math.floor(Math.random() * 10) + 1;
 
-    console.log(`Jet de dé no ${nbLancerDe}, resultat du jet ${resultatLancer}.`);
+    // Affiche le résultat du lancer et le nombre de lancers effectués
+    console.log(`Lancer de dé numéro ${nbLancerDe}, resultat du lancer ${resultatLancer}.`);
 
-    // On compte le nombre de jets
+    // On ajoute 1 au nombre de lancers de dé effectués
     nbLancerDe++;
 }
 
 // Affichage du résultat final
-console.log(`Bravo! Il aura fallu ${nbLancerDe} jets de dé pour obtenir 7.`);
+console.log(`Bravo! Il aura fallu ${nbLancerDe} lancers de dé pour obtenir 7.`);
                     </textarea>
                 </div>
             </section>
@@ -186,71 +228,141 @@ console.log(`Bravo! Il aura fallu ${nbLancerDe} jets de dé pour obtenir 7.`);
                 </div>
 
                 <p>Elle regroupe l'initialisation, la condition et l'incrémentation sur une seule ligne.</p>
-                <p>Utile lorsqu'on sait d'avance combien de fois on veut boucler.</p>
+                <p>Utile lorsqu'on sait d'avance combien de fois on veut boucler (répéter).</p>
                 <div class="info-box info">
-<p><code>for (initialisation; condition; incrémentation) { 
-    ... 
-}</code></p>
+<pre><code class="language-javascript">for (initialisation; condition; incrémentation) { 
+    // code à répéter tant que la condition est vraie
+}</code></pre>
+
+<pre><code class="language-javascript">for (let i = 0; i <= 4; i++) { 
+     // cette boucle s'exécutera de 0 à 4, soit 5 fois au total
+}</code></pre>
                     <ul>
-                        <li><strong>Le mot clé</strong> <code>for</code> : Indique qu'il s'agit d'une boucle for.</li>
-                        <li><strong>L'initialisation</strong> <code>(let i = 0; ... ; ...)</code> :
+                        <li><strong>L'initialisation</strong> :
                             <ul>
-                                <li>Déclare et initialise une variable compteur à une valeur de départ.</li>
-                                <li>Cette étape n'est exécutée qu'une seule fois, au début.</li>
+                                <li>À partir de quelle valeur on commence à compter?</li>
+                                <li>On déclare et initialise une variable compteur à une valeur de départ. (ex: <code>let i = 0</code>)</li>
+                                <li>On utiliser souvent i, j et k par convention</li>
                             </ul>
                         </li>
-                        <li><strong>L'incrémentation</strong> <code>( ... ; ... ; i++)</code> :
+                        <li><strong>La condition</strong> :
                             <ul>
-                                <li>Modifie la variable de contrôle à la fin de chaque tour.</li>
-                                <li>Permet de faire avancer la boucle vers sa fin.</li>
+                                <li>Jusqu'à quelle valeur on boucle ?</li>
+                                <li>Testée avant chaque tour de boucle. (ex: <code>i < 5</code>)</li>
                             </ul>
                         </li>
-                        <li><strong>La condition</strong> <code>( ... ; i < 10 ; ... )</code> :
+                        <li><strong>L'incrémentation</strong> :
                             <ul>
-                                <li>Testée avant chaque tour de boucle. </li>
-                                <li>Si elle est vraie, la boucle continue.</li>
-                                <li>Si elle est fausse, la boucle s'arrête.</li>
+                                <li>De combien on augmente (ou diminue) la variable compteur à chaque tour ?</li>
+                                <li>Modifie la variable de compteur à la fin de chaque tour. (ex: <code>i++</code>)</li>
                             </ul>
                         </li>
                         <li><strong>Le corps de la boucle</strong> <code>{ ... }</code> :
                             <ul>
                                 <li>Le code à exécuter à chaque tour.</li>
-                                <li>On utilise souvent la variable compteur <code>i</code> à l'intérieur.</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Une boucle qui s'exécute 4 fois" 
+                <div class="playground-container" data-type="example" data-title="Une boucle qui s'exécute 5 fois"  data-toolbar-text="De 0 à 4, en augmentant de 1 chaque fois : 0, 1, 2, 3, 4"
                 data-auto-height="true">
                     <textarea class="source-code" hidden>
-// On commence à 0, on s'arrête avant 4 (donc 0, 1, 2, 3)
-for (let i = 0; i < 4; i++) {
+// On commence à 0
+// On continue tant que i est inférieur ou égal à 4
+// On augmente i de 1 à chaque tour
+for (let i = 0; i <= 4; i++) {
+
     // Affiche la valeur actuelle de i à chaque tour
     console.log(`i vaut : ${i}`);
 }
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise"
-                                                    data-title="La table de multiplication par 5"
-                                                    data-instructions="Indice : dans une table de multiplication, est-ce le 5 ou le nombre qui multiplie (1, 2, 3, ...) qui change à chaque tour de boucle ?"
+                                <div class="playground-container" data-type="example" data-title="Une boucle compte à rebours de 10 à 1" 
+                                data-toolbar-text="De 10 à 1, en diminuant de 1 chaque fois : 10, 9, 8, ..., 3, 2, 1"
+                data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// On commence à 10, 
+// On continue tant que secondesRestantes est supérieur ou égal à 1
+// On diminue de 1 à chaque tour
+for (let secondesRestantes = 10; secondesRestantes >= 1; secondesRestantes--) {
+
+    console.log(`il reste ${secondesRestantes} secondes avant le décollage`);
+}
+
+console.log(`Décollage !`);
+</textarea>
+                </div>
+
+                                <div class="playground-container" data-type="exercise"
+                                                    data-title="Compter de 1 à 100"
+                                                    data-toolbar-text="Afficher les nombres de 1 à 100 dans la console."
                                                     data-auto-height="true">
                     <textarea class="source-code" hidden>
-// Objectif : Afficher la table de multiplication de 5 (de 1 à 12)
-// Résultat attendu dans la console : 
-// "1 x 5 = 5"
-// "2 x 5 = 10"
-// "3 x 5 = 15" ... jusqu'à 60
-
-// TODO: Créez une boucle 'for' qui commence à 1 et s'arrête à 12.
+// TODO: 
+// Creez une boucle 'for' qui commence à 1
+// Continue tant que le nombre est inférieur ou égal à 100
+// Augmente de 1 a chaque tour de boucle.
 for (...) {
-    let resultat = ...;
-    // TODO: Affichez le calcul en utilisant les backticks (ex: `... x 5 = ...`)
+
+    // TODO: Affichez le nombre dans la console (ex. `Le nombre est : 45`)
 }
 </textarea>
                     <textarea class="solution-code" hidden>
-// On commence à 1, on se rend jusqu'à 12 inclusivement (<= 12)
+// On commence a 1 et on termine a 100 inclusivement.
+for (let i = 1; i <= 100; i++) {
+
+    console.log(`Le nombre est : ${i}`);
+}
+</textarea>
+                </div>
+
+
+                                <div class="playground-container" data-type="exercise" data-title="Compte à rebours jusqu'à 0" data-toolbar-text="Utilisez une boucle for qui diminue de 1 à chaque tour jusqu'à 0.">
+                                        <textarea class="source-code" hidden>
+// TODO:
+// Créez une boucle for qui commence à 100.
+// Continue tant que le nombre est >= 0.
+// À chaque tour, diminue de 1.
+for (...) {
+
+    // TODO: Affichez le nombre dans la console (ex. `Le nombre est : 45`)
+}
+</textarea>
+                    <textarea class="solution-code" hidden>
+for (let i = 100; i >= 0; i--) {
+
+  console.log(`Le nombre est : ${i}`);
+}
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise"
+                                                    data-title="La table de multiplication par 5"
+                                                    data-toolbar-text="Afficher la table de multiplication de 5 (de 1 à 12). Indice : qu'est-ce qui change à chaque tour de boucle ?"
+                                                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// Résultat attendu dans la console : 
+// "1 x 5 = 5"
+// "2 x 5 = 10"
+// "3 x 5 = 15"
+// ...
+// "12 x 5 = 60"
+
+// TODO: 
+// Créez une boucle 'for' qui commence à 1
+// Continue tant qu'elle est inférieure ou égale à 12.
+// Augmente de 1 à chaque tour de boucle.
+for (...) {
+
+    // TODO: Calculer le résultat de la multiplication de i par 5
+    let resultat = ...;
+
+    // TODO: Affichez le calcul dans la console (ex: `3 x 5 = 15`);
+}
+</textarea>
+                    <textarea class="solution-code" hidden>
 for (let i = 1; i <= 12; i++) {
     let resultat = i * 5;
     
@@ -260,39 +372,6 @@ for (let i = 1; i <= 12; i++) {
 </textarea>
                 </div>
 
-                                <div class="playground-container" data-type="exercise" data-title="Décrypter un message" data-instructions="Utilisez un for pour transformer un tableau d'indices en message. Pratique des tableaux et de la concaténation.">
-                                        <textarea class="source-code" hidden>
-const lettres = [
-  "m","q","a","z","b","r","t","y","u","i",
-  "o","p","s","d","f","g","h","j","k","l",
-  "w","x","c","v","e","n"
-];
-const code = [4, 10, 25, 17, 10, 8, 5]; // message à décrypter
-let message = "";
-
-// TODO:
-// 1. Parcours le tableau code avec un for
-// 2. À chaque tour, récupère la lettre correspondante dans lettres
-// 3. Concatène la lettre au message en utilisant l'opérateur += (ex: message += "a"; ajoute "a" à la fin du message)
-// 4. Affiche le message final dans la console
-</textarea>
-                    <textarea class="solution-code" hidden>
-const lettres = [
-  "m","q","a","z","b","r","t","y","u","i",
-  "o","p","s","d","f","g","h","j","k","l",
-  "w","x","c","v","e","n"
-];
-const code = [4, 10, 25, 17, 10, 8, 5];
-let message = "";
-
-for (let i = 0; i < code.length; i++) {
-  const indexLettre = code[i];
-  message += lettres[indexLettre];
-}
-
-console.log("Message :", message);
-</textarea>
-                </div>
 
             </section>
 
@@ -337,6 +416,31 @@ for (let i = 0; i < etudiants.length; i++) {
                             </ul>
                         </li>
                     </ul>
+                </div>
+
+                 <div class="playground-container" data-type="exercise" data-title="Analyse des résultats" data-instructions="Objectif : Afficher chaque score.">
+                                    <textarea class="source-code" hidden>
+let notes = [85, 42, 90, 65, 30];
+
+// TODO: Créez une boucle 'for' qui parcourt le tableau 'scores'.
+for (let i = 0; i < notes.length; i++) {
+    let scoreActuelle = notes[i];
+}
+                </textarea>
+                    <textarea class="solution-code" hidden>
+let notes = [85, 42, 90, 65, 30];
+
+// On utilise i < notes.length pour ne pas dépasser la taille du tableau
+for (let i = 0; i < notes.length; i++) {
+    let noteActuelle = notes[i];
+    
+    if (noteActuelle >= 60) {
+        console.log(`Note : ${noteActuelle}/100 - Réussite`);
+    } else {
+        console.log(`Note : ${noteActuelle}/100 - Échec`);
+    }
+}
+</textarea>
                 </div>
 
                 <div class="playground-container" data-type="exercise" data-title="Analyse des résultats" data-instructions="Objectif : Afficher chaque note et indiquer si c'est un succès (60+) ou un échec.">

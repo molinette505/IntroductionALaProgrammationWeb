@@ -109,11 +109,16 @@ const getVisualizerOverlay = () => {
 
 document.querySelectorAll('.playground-container').forEach((container) => {
     const type = container.dataset.type;
+    const isExerciseType = type === 'exercise';
+    const isCompareType = type === 'compare';
     const rawTitle = container.dataset.title || 'Script JavaScript';
     const title = String(rawTitle)
         .replace(/^\s*(?:exemple|exercice|exercise|example)\s*:\s*/i, '')
         .trim() || 'Script JavaScript';
     const instructions = container.dataset.instructions || null;
+    const toolbarInfoText = container.dataset.toolbarText
+        || container.dataset.runText
+        || 'Modifiez le code ci-dessous et testez-le ->';
     const parseTruthyFlag = (rawValue) => {
         if (rawValue == null) return null;
         const value = String(rawValue).trim().toLowerCase();
@@ -164,8 +169,15 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         js: readCode('.solution-code-js')
     };
 
-    if (!solutionFiles.js) {
-        solutionFiles.js = readCode('.solution-code');
+    if (!solutionFiles.js) solutionFiles.js = readCode('.solution-code');
+
+    const compareFiles = {
+        html: readCode('.compare-code-html') || readCode('.source-code-b-html'),
+        css: readCode('.compare-code-css') || readCode('.source-code-b-css'),
+        js: readCode('.compare-code-js') || readCode('.source-code-b-js')
+    };
+    if (!compareFiles.js) {
+        compareFiles.js = readCode('.compare-code') || readCode('.source-code-b');
     }
 
     // Fallbacks so each tab always has content.
@@ -176,11 +188,20 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     if (!solutionFiles.html) solutionFiles.html = sourceFiles.html;
     if (!solutionFiles.css) solutionFiles.css = sourceFiles.css;
     if (!solutionFiles.js) solutionFiles.js = sourceFiles.js;
+    if (!compareFiles.html) compareFiles.html = solutionFiles.html;
+    if (!compareFiles.css) compareFiles.css = solutionFiles.css;
+    if (!compareFiles.js) compareFiles.js = solutionFiles.js;
 
     const cloneFiles = (files) => ({ html: files.html, css: files.css, js: files.js });
 
-    let userFiles = cloneFiles(sourceFiles);
-    const fixedSolutionFiles = cloneFiles(solutionFiles);
+    const compareLabelA = container.dataset.labelA || 'Choix A';
+    const compareLabelB = container.dataset.labelB || 'Choix B';
+    const compareIsReadOnly = true;
+    const initialPrimaryFiles = cloneFiles(sourceFiles);
+    const initialSecondaryFiles = cloneFiles(isCompareType ? compareFiles : solutionFiles);
+
+    let userFiles = cloneFiles(initialPrimaryFiles);
+    let secondaryFiles = cloneFiles(initialSecondaryFiles);
 
     const validFiles = ['html', 'css', 'js'];
     const initialEditorFile = validFiles.includes(requestedStartEditor) ? requestedStartEditor : 'js';
@@ -189,7 +210,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     container.setAttribute('data-output-view', initialOutputView);
 
     let headerHTML = '';
-    if (type === 'exercise') {
+    if (isExerciseType) {
         headerHTML = `
             <div class="editor-header">
                 <div class="header-left">
@@ -199,6 +220,18 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                 <div class="tabs-container">
                     <button class="tab-btn active" data-target="user">Code</button>
                     <button class="tab-btn" data-target="solution"><i data-lucide="key" class="w-3 h-3"></i> Solution</button>
+                </div>
+            </div>`;
+    } else if (isCompareType) {
+        headerHTML = `
+            <div class="editor-header">
+                <div class="header-left">
+                    <span class="badge-type compare">Comparaison</span>
+                    <span class="header-title">${title}</span>
+                </div>
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-target="user">${compareLabelA}</button>
+                    <button class="tab-btn" data-target="solution">${compareLabelB}</button>
                 </div>
             </div>`;
     } else {
@@ -213,7 +246,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
 
     const bodyHTML = `
         <div class="editor-toolbar">
-            <div class="toolbar-info">Modifiez le code ci-dessous et testez-le -></div>
+            <div class="toolbar-info">${toolbarInfoText}</div>
             <div class="toolbar-actions">
                 <button class="btn-visualizer" title="Ouvrir dans JS Visualizer" aria-label="Ouvrir dans JS Visualizer">JSV</button>
                 <button class="btn-expand" title="Plein écran" aria-label="Plein écran"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
@@ -317,7 +350,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     let runCounter = 0;
     const visualizerUrl = resolveVisualizerUrl();
 
-    const getModeFiles = () => (activeMode === 'solution' ? fixedSolutionFiles : userFiles);
+    const getModeFiles = () => (activeMode === 'solution' ? secondaryFiles : userFiles);
 
     const getCodeMirrorMode = (file) => {
         if (file === 'html') return 'htmlmixed';
@@ -326,8 +359,13 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     };
 
     const persistCurrentEditorValue = () => {
-        if (activeMode !== 'user') return;
-        userFiles[activeFile] = editor.getValue();
+        if (activeMode === 'user') {
+            userFiles[activeFile] = editor.getValue();
+            return;
+        }
+        if (activeMode === 'solution' && isCompareType && !compareIsReadOnly) {
+            secondaryFiles[activeFile] = editor.getValue();
+        }
     };
 
     const setOutputView = (view) => {
@@ -359,7 +397,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         const resolvedMode = mode === 'solution' ? 'solution' : 'user';
         if (resolvedMode === activeMode) return;
 
-        if (activeMode === 'user') persistCurrentEditorValue();
+        persistCurrentEditorValue();
         activeMode = resolvedMode;
 
         modeTabButtons.forEach((btn) => {
@@ -367,12 +405,13 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         });
 
         const isSolution = resolvedMode === 'solution';
-        editor.setOption('readOnly', isSolution);
-        editorInputWrapper.classList.toggle('show-badge', isSolution);
+        const isReadOnlyMode = isCompareType || (isSolution && isExerciseType);
+        editor.setOption('readOnly', isReadOnlyMode);
+        editorInputWrapper.classList.toggle('show-badge', isReadOnlyMode);
 
         if (btnReset) {
-            btnReset.disabled = isSolution;
-            btnReset.style.opacity = isSolution ? '0.5' : '1';
+            btnReset.disabled = isReadOnlyMode;
+            btnReset.style.opacity = isReadOnlyMode ? '0.5' : '1';
         }
 
         setEditorFile(activeFile, { persist: false });
@@ -551,18 +590,19 @@ ${html}
         btnReset.addEventListener('click', async () => {
             if (!confirm('Recommencer l\'exercice ?')) return;
 
-            userFiles = cloneFiles(sourceFiles);
+            userFiles = cloneFiles(initialPrimaryFiles);
+            secondaryFiles = cloneFiles(initialSecondaryFiles);
             setOutputView(initialOutputView);
             clearConsole();
             showConsolePlaceholder();
 
-            if (activeMode === 'solution') {
+            if (activeMode === 'solution' && (isExerciseType || compareIsReadOnly)) {
                 setEditorMode('user');
             } else {
                 setEditorFile(activeFile, { persist: false });
             }
 
-            await resetPreview(cloneFiles(userFiles));
+            await resetPreview(cloneFiles(getModeFiles()));
         });
     }
 

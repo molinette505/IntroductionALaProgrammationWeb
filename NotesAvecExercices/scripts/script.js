@@ -405,6 +405,84 @@ const initImageLightbox = () => {
     });
 };
 
+const initComparisonBlocks = () => {
+    const blocks = Array.from(document.querySelectorAll('.compare-block'));
+    if (!blocks.length) return;
+
+    blocks.forEach((block, index) => {
+        const labelA = block.dataset.labelA || 'A';
+        const labelB = block.dataset.labelB || 'B';
+        const labelSide = block.dataset.labelSide || 'Cote a cote';
+        const initialViewRaw = String(block.dataset.view || 'side').toLowerCase();
+        const initialView = ['a', 'b', 'side'].includes(initialViewRaw) ? initialViewRaw : 'side';
+
+        const paneA = block.querySelector('.compare-pane[data-pane="a"]');
+        const paneB = block.querySelector('.compare-pane[data-pane="b"]');
+        if (!paneA || !paneB) return;
+
+        let toolbar = block.querySelector('.compare-toolbar');
+        if (!toolbar) {
+            toolbar = document.createElement('div');
+            toolbar.className = 'compare-toolbar';
+            block.prepend(toolbar);
+        }
+
+        const buttonGroupId = block.id || `compare-block-${index + 1}`;
+        if (!block.id) block.id = buttonGroupId;
+        toolbar.setAttribute('role', 'tablist');
+        toolbar.setAttribute('aria-label', 'Modes de comparaison');
+
+        const ensureButton = (view, text) => {
+            let btn = toolbar.querySelector(`.compare-toggle[data-compare-view="${view}"]`);
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'compare-toggle';
+                btn.dataset.compareView = view;
+                toolbar.appendChild(btn);
+            }
+            btn.textContent = text;
+            btn.setAttribute('role', 'tab');
+            btn.setAttribute('aria-controls', `${buttonGroupId}-content`);
+            return btn;
+        };
+
+        const btnA = ensureButton('a', labelA);
+        const btnB = ensureButton('b', labelB);
+        const btnSide = ensureButton('side', labelSide);
+        const buttons = [btnA, btnB, btnSide];
+
+        let content = block.querySelector('.compare-content');
+        if (!content) {
+            content = document.createElement('div');
+            content.className = 'compare-content';
+            const existingPanes = Array.from(block.querySelectorAll('.compare-pane[data-pane]'));
+            existingPanes.forEach((pane) => content.appendChild(pane));
+            block.appendChild(content);
+        }
+        content.id = `${buttonGroupId}-content`;
+
+        const setView = (view) => {
+            const safeView = ['a', 'b', 'side'].includes(view) ? view : 'side';
+            block.dataset.activeView = safeView;
+
+            buttons.forEach((btn) => {
+                const isActive = btn.dataset.compareView === safeView;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                btn.setAttribute('tabindex', isActive ? '0' : '-1');
+            });
+        };
+
+        buttons.forEach((btn) => {
+            btn.addEventListener('click', () => setView(btn.dataset.compareView));
+        });
+
+        setView(initialView);
+    });
+};
+
 buildAutoSectionsAndNav();
 initScrollSpy();
 initImageLightbox();
+initComparisonBlocks();

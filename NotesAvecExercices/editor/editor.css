@@ -11,12 +11,14 @@
 .badge-type { font-size: 0.7rem; text-transform: uppercase; font-weight: bold; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; color: var(--text-inverse); }
 .badge-type.example { background: var(--accent-example); }
 .badge-type.exercise { background: var(--accent-exercise); }
+.badge-type.compare { background: #d946ef; color: #ffffff; }
 
 /* Tabs */
 .tabs-container { display: flex; background-color: var(--bg-editor-ui); padding: 3px; border-radius: var(--radius-pill); border: 1px solid var(--border-input); gap: 2px; flex-wrap: wrap; max-width: 100%; }
 .tab-btn { background: transparent; border: none; color: var(--text-muted); padding: 4px 12px; font-size: 0.8rem; font-weight: 500; border-radius: var(--radius-pill); cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; }
 .tab-btn:hover { color: var(--text-heading); }
 .tab-btn.active { background-color: var(--accent-exercise); color: black; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-weight: 600; }
+.playground-container[data-type="compare"] .tab-btn.active { background-color: #d946ef; color: #ffffff; }
 
 /* Tabs de fichiers */
 .editor-file-tabs {
@@ -93,6 +95,13 @@
 }
 .CodeMirror-scroll {
     overflow: auto !important;
+}
+
+/* Commentaires plus visibles dans les playgrounds */
+.playground-container .CodeMirror .cm-comment {
+    color: #9fb1ff !important;
+    opacity: 0.75 !important;
+    font-style: normal;
 }
 
 .console-output {
@@ -357,6 +366,10 @@
     opacity: 0; 
     transition: opacity 0.3s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.playground-container[data-type="compare"] .readonly-badge {
+    background: #d946ef;
+    color: #ffffff;
 }
 .show-badge .readonly-badge { opacity: 1; }
 .show-badge .CodeMirror-lines { padding-top: 2rem; }
