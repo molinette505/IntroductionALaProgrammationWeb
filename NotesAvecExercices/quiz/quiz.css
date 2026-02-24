@@ -60,6 +60,8 @@
 
 .quiz-prompt-render code {
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-weight: normal;
+    font-size: 0.92rem;
 }
 
 .quiz-options {

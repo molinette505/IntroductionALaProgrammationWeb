@@ -15,6 +15,72 @@ const resolveVisualizerUrl = () => {
 
 let visualizerOverlaySingleton = null;
 
+const JS_RESERVED_WORDS = new Set([
+    'await', 'break', 'case', 'catch', 'class', 'const', 'continue', 'debugger', 'default', 'delete',
+    'do', 'else', 'enum', 'export', 'extends', 'false', 'finally', 'for', 'function', 'if', 'import',
+    'in', 'instanceof', 'let', 'new', 'null', 'return', 'super', 'switch', 'this', 'throw', 'true',
+    'try', 'typeof', 'var', 'void', 'while', 'with', 'yield',
+    'console', 'document', 'window', 'Math', 'Array', 'Object', 'String', 'Number', 'Boolean', 'Date'
+]);
+
+const JS_GLOBAL_SUGGESTIONS = [
+    'const', 'let', 'var', 'function', 'return', 'if', 'else', 'switch', 'case', 'break', 'default',
+    'for', 'while', 'do', 'try', 'catch', 'finally', 'new', 'class', 'async', 'await',
+    'document', 'window', 'console.log()', 'console.warn()', 'console.error()', 'setTimeout()', 'setInterval()',
+    'document.getElementById()', 'document.querySelector()', 'document.querySelectorAll()',
+    'querySelector()', 'querySelectorAll()', 'getElementById()', 'addEventListener()', 'forEach()',
+    'classList.add()', 'classList.remove()', 'classList.toggle()',
+    'style.setProperty()', 'style.removeProperty()',
+    'setAttribute()', 'removeAttribute()', 'getAttribute()'
+];
+
+const CLASSLIST_MEMBER_SUGGESTIONS = [
+    'add()', 'remove()', 'toggle()', 'contains()'
+];
+
+const STYLE_MEMBER_SUGGESTIONS = [
+    'display', 'width', 'height', 'margin', 'marginTop', 'marginBottom', 'marginLeft', 'marginRight',
+    'padding', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight',
+    'border', 'borderWidth', 'borderColor', 'borderStyle', 'borderRadius',
+    'color', 'backgroundColor', 'backgroundImage', 'opacity', 'visibility', 'cursor', 'boxShadow',
+    'fontSize', 'fontWeight', 'fontFamily', 'textAlign', 'lineHeight', 'textDecoration', 'textTransform',
+    'letterSpacing', 'position', 'top', 'bottom', 'left', 'right', 'zIndex', 'overflow', 'float',
+    'flex', 'flexDirection', 'justifyContent', 'alignItems', 'gridTemplateColumns', 'gap',
+    'transform', 'transition', 'animation'
+];
+
+const STYLE_METHOD_SUGGESTIONS = [
+    'setProperty()', 'removeProperty()'
+];
+
+const DELIMITER_SUGGESTIONS = {
+    '\'': ['\'\''],
+    '"': ['""'],
+    '`': ['``'],
+    '$': ['${}']
+};
+
+const JS_MEMBER_SUGGESTIONS = [
+    'length', 'push()', 'pop()', 'shift()', 'unshift()', 'slice()', 'includes()', 'indexOf()', 'join()',
+    'forEach()', 'map()', 'filter()', 'find()', 'trim()', 'toUpperCase()', 'toLowerCase()',
+    'value', 'innerText', 'innerHTML', 'textContent',
+    'classList', 'style',
+    'getElementById()', 'querySelector()', 'querySelectorAll()', 'createElement()',
+    'appendChild()', 'setAttribute()', 'removeAttribute()', 'getAttribute()'
+];
+
+const HTML_SUGGESTIONS = [
+    '<div></div>', '<p></p>', '<span></span>', '<section></section>', '<article></article>',
+    '<button></button>', '<input />', '<label></label>', '<ul></ul>', '<li></li>',
+    '<h1></h1>', '<h2></h2>', '<img src=\"\" alt=\"\" />', 'id=\"\"', 'class=\"\"'
+];
+
+const CSS_SUGGESTIONS = [
+    'display', 'position', 'width', 'height', 'margin', 'padding', 'border', 'border-radius',
+    'background', 'color', 'font-size', 'font-weight', 'line-height', 'box-sizing', 'gap', 'flex',
+    'justify-content', 'align-items', 'grid-template-columns'
+];
+
 const getVisualizerOverlay = () => {
     if (visualizerOverlaySingleton) return visualizerOverlaySingleton;
 
@@ -295,7 +361,9 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         mode: 'javascript',
         theme: 'dracula',
         lineNumbers: true,
-        autoCloseBrackets: true,
+        autoCloseBrackets: {
+            pairs: '()[]{}'
+        },
         lineWrapping: false,
         tabSize: 2,
         viewportMargin: isAutoHeight ? Infinity : 10
@@ -357,6 +425,278 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         if (file === 'css') return 'css';
         return 'javascript';
     };
+
+    const stripStringsAndComments = (source) => String(source || '')
+        .replace(/\/\*[\s\S]*?\*\//g, ' ')
+        .replace(/\/\/[^\n]*/g, ' ')
+        .replace(/`(?:\\.|[^`])*`/g, ' ')
+        .replace(/"(?:\\.|[^"])*"/g, ' ')
+        .replace(/'(?:\\.|[^'])*'/g, ' ');
+
+    const collectIdentifiers = (source) => {
+        const cleaned = stripStringsAndComments(source);
+        const matches = cleaned.match(/\b[A-Za-z_$][\w$]*\b/g) || [];
+        const out = new Set();
+        matches.forEach((word) => {
+            if (word.length < 2) return;
+            if (JS_RESERVED_WORDS.has(word)) return;
+            out.add(word);
+        });
+        return [...out];
+    };
+
+    const normalizeSuggestionText = (text) => String(text || '').replace(/[()]/g, '').toLowerCase();
+
+    const buildSuggestionList = (pool, prefix, force) => {
+        const normalizedPrefix = String(prefix || '').toLowerCase();
+        if (!force && normalizedPrefix.length < 2) return [];
+
+        const unique = [...new Set(pool)];
+        const ranked = unique
+            .filter((item) => {
+                const base = normalizeSuggestionText(item);
+                return normalizedPrefix ? base.includes(normalizedPrefix) : true;
+            })
+            .sort((a, b) => {
+                const aBase = normalizeSuggestionText(a);
+                const bBase = normalizeSuggestionText(b);
+                const aStarts = aBase.startsWith(normalizedPrefix);
+                const bStarts = bBase.startsWith(normalizedPrefix);
+                if (aStarts !== bStarts) return aStarts ? -1 : 1;
+                return aBase.localeCompare(bBase, 'fr');
+            });
+
+        return ranked.slice(0, 50);
+    };
+
+    const getWordCharRegex = (file) => {
+        if (file === 'css') return /[A-Za-z0-9_-]/;
+        if (file === 'html') return /[A-Za-z0-9:_-]/;
+        return /[A-Za-z0-9_$]/;
+    };
+
+    const getAutocompleteContext = (cmInstance) => {
+        const cursor = cmInstance.getCursor('head');
+        const line = cmInstance.getLine(cursor.line);
+        const token = cmInstance.getTokenAt(cursor);
+        const tokenType = token.type || '';
+        if (/comment|string/.test(tokenType)) return null;
+
+        const end = cursor.ch;
+        const wordChar = getWordCharRegex(activeFile);
+        let start = end;
+
+        while (start > 0 && wordChar.test(line.charAt(start - 1))) {
+            start -= 1;
+        }
+
+        let prefix = line.slice(start, end);
+        let afterDot = start > 0 && line.charAt(start - 1) === '.';
+        let dotQualifier = null;
+
+        if (afterDot) {
+            const beforeDot = line.slice(0, start - 1).replace(/\s+$/, '');
+            const qualifierMatch = beforeDot.match(/([A-Za-z_$][\w$]*)$/);
+            dotQualifier = qualifierMatch ? qualifierMatch[1] : null;
+        }
+
+        // For HTML tag suggestions, support "<di" -> "<div></div>"
+        if (activeFile === 'html' && start > 0 && line.charAt(start - 1) === '<') {
+            start -= 1;
+            prefix = line.slice(start, end);
+            afterDot = false;
+        }
+
+        return {
+            cursor,
+            start,
+            end,
+            prefix,
+            afterDot,
+            dotQualifier
+        };
+    };
+
+    const getHintListByFile = (file, prefix, afterDot, force, dotQualifier = null) => {
+        if (file === 'js') {
+            const activeFiles = getModeFiles();
+            const symbols = collectIdentifiers(activeFiles.js || '');
+            let basePool;
+
+            if (afterDot && dotQualifier === 'style') {
+                basePool = [...STYLE_MEMBER_SUGGESTIONS, ...STYLE_METHOD_SUGGESTIONS];
+            } else if (afterDot && dotQualifier === 'classList') {
+                basePool = CLASSLIST_MEMBER_SUGGESTIONS;
+            } else if (afterDot) {
+                basePool = JS_MEMBER_SUGGESTIONS;
+            } else {
+                basePool = [...symbols, ...JS_GLOBAL_SUGGESTIONS];
+            }
+
+            return buildSuggestionList(basePool, prefix, force || afterDot);
+        }
+
+        if (file === 'html') {
+            return buildSuggestionList(HTML_SUGGESTIONS, prefix, force);
+        }
+
+        if (file === 'css') {
+            return buildSuggestionList(CSS_SUGGESTIONS, prefix, force);
+        }
+
+        return [];
+    };
+
+    const getCompletionCursorOffset = (insertText) => {
+        if (insertText === '\'\'') return 1;
+        if (insertText === '""') return 1;
+        if (insertText === '``') return 1;
+        if (insertText === '${}') return 2;
+        if (/\(\)$/.test(insertText)) return insertText.length - 1;
+        return insertText.length;
+    };
+
+    const buildCompletionEntries = (hints, onPicked = null) => {
+        return hints.map((hintValue) => {
+            const insertText = String(hintValue);
+            return {
+                text: insertText,
+                displayText: insertText,
+                hint: (cm, data, completion) => {
+                    const textToInsert = completion && completion.text ? String(completion.text) : insertText;
+                    const from = data.from;
+                    const to = data.to;
+                    cm.replaceRange(textToInsert, from, to, 'complete');
+                    const cursorCh = from.ch + getCompletionCursorOffset(textToInsert);
+                    cm.setCursor(CodeMirror.Pos(from.line, cursorCh));
+                    if (typeof onPicked === 'function') onPicked(cm, textToInsert);
+                }
+            };
+        });
+    };
+
+    const openAutocompleteList = (hints, from, to, extraOptions = {}) => {
+        if (!hints || !hints.length) return;
+        const onPicked = typeof extraOptions.onPicked === 'function' ? extraOptions.onPicked : null;
+        const entries = buildCompletionEntries(hints, onPicked);
+        const { onPicked: _ignoredOnPicked, ...forwardedOptions } = extraOptions;
+        const hintOptions = {
+            completeSingle: false,
+            alignWithWord: true,
+            extraKeys: {
+                Enter: (_cm, handle) => handle.pick(),
+                Tab: (_cm, handle) => handle.pick()
+            },
+            ...forwardedOptions
+        };
+        CodeMirror.showHint(editor, () => ({
+            list: entries,
+            from,
+            to
+        }), hintOptions);
+    };
+
+    const showAutocomplete = (force = false, refreshOpen = false) => {
+        if (editor.getOption('readOnly')) return;
+        if (typeof CodeMirror.showHint !== 'function') return;
+        if (editor.state.completionActive) {
+            if (!refreshOpen) return;
+            editor.state.completionActive.close();
+        }
+
+        const context = getAutocompleteContext(editor);
+        if (!context) return;
+
+        const hints = getHintListByFile(
+            activeFile,
+            context.prefix,
+            context.afterDot,
+            force,
+            context.dotQualifier
+        );
+        if (!hints.length) return;
+
+        openAutocompleteList(
+            hints,
+            CodeMirror.Pos(context.cursor.line, context.start),
+            CodeMirror.Pos(context.cursor.line, context.end)
+        );
+    };
+
+    const isEscapedAt = (line, index) => {
+        let backslashCount = 0;
+        for (let i = index - 1; i >= 0 && line.charAt(i) === '\\'; i -= 1) {
+            backslashCount += 1;
+        }
+        return backslashCount % 2 === 1;
+    };
+
+    const countUnescapedChar = (line, targetChar, endExclusive) => {
+        let count = 0;
+        for (let i = 0; i < endExclusive; i += 1) {
+            if (line.charAt(i) === targetChar && !isEscapedAt(line, i)) {
+                count += 1;
+            }
+        }
+        return count;
+    };
+
+    const shouldSuggestDelimiter = (line, cursor, charTyped) => {
+        if (charTyped === '$') {
+            return line.charAt(cursor.ch) !== '{';
+        }
+        // Suggest only when opening a new quoted segment, not when closing one.
+        const occurrenceCount = countUnescapedChar(line, charTyped, cursor.ch);
+        return occurrenceCount % 2 === 1;
+    };
+
+    const showDelimiterAutocomplete = (charTyped) => {
+        if (editor.getOption('readOnly')) return;
+        if (typeof CodeMirror.showHint !== 'function') return;
+
+        const list = DELIMITER_SUGGESTIONS[charTyped];
+        if (!list || !list.length) return;
+
+        if (editor.state.completionActive) {
+            editor.state.completionActive.close();
+        }
+
+        const cursor = editor.getCursor('head');
+        const line = editor.getLine(cursor.line);
+        if (!shouldSuggestDelimiter(line, cursor, charTyped)) return;
+
+        const from = CodeMirror.Pos(cursor.line, Math.max(0, cursor.ch - 1));
+        const to = CodeMirror.Pos(cursor.line, cursor.ch);
+
+        openAutocompleteList(list, from, to);
+    };
+
+    editor.setOption('extraKeys', {
+        ...(editor.getOption('extraKeys') || {}),
+        'Ctrl-Space': () => showAutocomplete(true, true)
+    });
+
+    editor.on('inputRead', (cmInstance, change) => {
+        if (editor.getOption('readOnly')) return;
+        if (!change || change.origin === 'setValue' || change.origin === 'complete') return;
+
+        const inserted = Array.isArray(change.text) ? change.text.join('') : '';
+        if (inserted.length !== 1) return;
+
+        if (inserted === '\'' || inserted === '"' || inserted === '`' || inserted === '$') {
+            showDelimiterAutocomplete(inserted);
+            return;
+        }
+
+        if (inserted === '.') {
+            showAutocomplete(true, true);
+            return;
+        }
+
+        if (/[A-Za-z_$]/.test(inserted)) {
+            showAutocomplete(false, true);
+        }
+    });
 
     const persistCurrentEditorValue = () => {
         if (activeMode === 'user') {

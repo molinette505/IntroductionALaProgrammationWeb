@@ -5,6 +5,15 @@ Ce dossier contient le moteur de playground utilise dans les pages de theorie/ex
 - `editor.js`: generation du composant, execution du code et console.
 - `editor.css`: style du playground, console, tiroir et mode plein ecran.
 
+## Prerequis CodeMirror (addons)
+
+Le playground utilise aussi les addons suivants:
+
+- `addon/edit/closebrackets.min.js`
+- `addon/hint/show-hint.min.css`
+- `addon/hint/show-hint.min.js`
+- `addon/hint/javascript-hint.min.js`
+
 ## 1) Structure HTML minimale
 
 ```html
@@ -134,3 +143,13 @@ Le JS du visualizer externe est volontairement separé dans le sous-projet `js-v
   - CSS `.output-view-*`
 - Pour garder des lignes d'erreur cohérentes, conserver le `sourceURL` (`StudentCode.js`) dans `editor.js`.
 - En auto-height, eviter des blobs de code geants (>1000 lignes), sinon preferer `data-auto-height="false"`.
+
+## 8) Autocomplete
+
+- `Ctrl+Espace` ouvre la liste de suggestions.
+- Saisie auto: la liste apparait apres quelques caracteres (ou apres `.`).
+- Les suggestions incluent:
+  - noms de variables/fonctions detectes dans le code JS courant
+  - mots-cles JavaScript frequents
+  - methodes usuelles (`length`, `pop()`, `push()`, etc.)
+- La fermeture auto des paires est activee (`"" '' {} [] () ```) via `autoCloseBrackets`.

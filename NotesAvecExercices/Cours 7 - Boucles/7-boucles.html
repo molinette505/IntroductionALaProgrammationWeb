@@ -17,12 +17,17 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
     <link rel="stylesheet" href="../editor/editor.css">
+
 </head>
 
 <body>
@@ -295,6 +300,21 @@ console.log(`Décollage !`);
 </textarea>
                 </div>
 
+                                <div class="quiz-template" data-type="single" data-title="Résultat d'une boucle for">
+                    <div class="quiz-prompt">Quel sera l'affichage dans la console ?
+                    <pre><code class="language-js">for (let i = 1; i <= 4; i++) {
+    console.log(i);
+}</code></pre>
+</div>
+                    <ul class="quiz-options">
+                        <li data-value="a">1, 2, 3, 4</li>
+                        <li data-value="b">0, 1, 2, 3, 4</li>
+                        <li data-value="c">1, 2, 3</li>
+                    </ul>
+                    <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+                    <textarea class="quiz-solution" hidden>La boucle commence a 1, s'arrete a 4 inclusivement et affiche 1, 2, 3, 4.</textarea>
+                </div>
+
                                 <div class="playground-container" data-type="exercise"
                                                     data-title="Compter de 1 à 100"
                                                     data-toolbar-text="Afficher les nombres de 1 à 100 dans la console."
@@ -403,19 +423,36 @@ for (let i = 0; i < etudiants.length; i++) {
                 </div>
 
                 <div class="info-box warning">
-                    <h4>Rappel sur les indices</h4>
-                    <ul>
-                        <li>Si un tableau a 4 éléments, les indices vont de <strong>0 à 3</strong>. <code>tableau[4]</code> est <code>undefined</code>.</li>
-                        <li>C'est pourquoi on utilise <code>i < tableau.length</code> ou <code>i <= tableau.length - 1</code> dans la condition de la boucle.</li>
-                        <li>
-                            Dans une boucle <code>for (let i = 0; i &lt; tableau.length; i++)</code> :
-                            <ul>
-                                <li><code>i</code> prend successivement les valeurs 0, 1, 2, 3.</li>
-                                <li>À chaque tour, on accède à l'élément correspondant avec <code>tableau[i]</code>.</li>
-                                <li>Donc, on obtient successivement <code>tableau[0]</code>, <code>tableau[1]</code>, <code>tableau[2]</code> et <code>tableau[3]</code>.</li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <h4>Rappel sur les tableaux et les indices</h4>
+<ul>
+    <li><strong>L'index :</strong>
+        <ul>
+            <li>Chaque élément d'un tableau a un index qui indique sa position dans le tableau.</li>
+            <li>Il commence toujours à 0 pour le premier élément du tableau.</li>
+            <li>Le deuxième élément est à l'index 1, le troisième à l'index 2, etc.</li>
+        </ul>
+    </li>
+    <li><strong>Lire la valeur :</strong>
+        <ul>
+            <li>On accède à la valeur d'un élément du tableau en utilisant l'index entre crochets : <code class="language-javascript">tableau[index]</code>.</li>
+            <li>Par exemple, <code>tableau[0]</code> donne le premier élément, <code>tableau[1]</code> le deuxième, etc.</li>
+        </ul>
+    </li>
+    <li><strong>La taille d'un tableau :</strong> 
+        <ul>
+            <li>La propriété <code>.length</code> donne le nombre d'éléments dans le tableau.</li>
+            <li>Si un tableau a 4 éléments, <code>tableau.length</code> vaut 4.</li>
+        </ul>
+    </li>
+    <li><strong>Le premier et dernier index :</strong> 
+        <ul>
+            <li>Le premier index (position du premier élément) est toujours <code>0</code>. 
+            <li>Le dernier index (position du dernier élément) est toujours <code>tableau.length - 1</code>. 
+        </ul>
+    </li>
+</ul>
+
+<p>Si ce n'est pas clair, revisiter les notes sur les tableaux.</p>
                 </div>
 
                  <div class="playground-container" data-type="exercise" data-title="Analyse des résultats" data-instructions="Objectif : Afficher chaque score.">
@@ -597,6 +634,7 @@ while (index < mots.length) {
 
     <script src="../editor/editor.js"></script>
     <script src="../scripts/script.js"></script>
+    <script src="../quiz/quiz.js"></script>
     <script>lucide.createIcons();</script>
 </body>
 

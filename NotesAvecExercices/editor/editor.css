@@ -104,6 +104,28 @@
     font-style: normal;
 }
 
+/* Autocomplete (CodeMirror hints) */
+.CodeMirror-hints {
+    background: var(--bg-editor-ui);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    color: var(--text-heading);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    max-height: 240px;
+}
+
+.CodeMirror-hint {
+    color: var(--text-heading);
+    padding: 0.25rem 0.55rem;
+}
+
+.CodeMirror-hint-active {
+    background: rgba(129, 140, 248, 0.28);
+    color: #ffffff;
+}
+
 .console-output {
     flex: 0 0 0px;
     width: 0;
