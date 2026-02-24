@@ -54,9 +54,6 @@ const STYLE_METHOD_SUGGESTIONS = [
 ];
 
 const DELIMITER_SUGGESTIONS = {
-    '\'': ['\'\''],
-    '"': ['""'],
-    '`': ['``'],
     '$': ['${}']
 };
 
@@ -361,9 +358,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         mode: 'javascript',
         theme: 'dracula',
         lineNumbers: true,
-        autoCloseBrackets: {
-            pairs: '()[]{}'
-        },
+        autoCloseBrackets: '()[]{}',
         lineWrapping: false,
         tabSize: 2,
         viewportMargin: isAutoHeight ? Infinity : 10
@@ -556,6 +551,14 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         return insertText.length;
     };
 
+    const isCursorInsideCompletion = (insertText) => {
+        if (insertText === '\'\'') return true;
+        if (insertText === '""') return true;
+        if (insertText === '``') return true;
+        if (insertText === '${}') return true;
+        return /\(\)$/.test(insertText);
+    };
+
     const buildCompletionEntries = (hints, onPicked = null) => {
         return hints.map((hintValue) => {
             const insertText = String(hintValue);
@@ -568,7 +571,17 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                     const to = data.to;
                     cm.replaceRange(textToInsert, from, to, 'complete');
                     const cursorCh = from.ch + getCompletionCursorOffset(textToInsert);
-                    cm.setCursor(CodeMirror.Pos(from.line, cursorCh));
+                    const targetPos = CodeMirror.Pos(from.line, cursorCh);
+                    cm.setSelection(targetPos, targetPos);
+                    cm.focus();
+
+                    // Some key paths can still move the cursor right after pick; re-apply once.
+                    if (isCursorInsideCompletion(textToInsert)) {
+                        setTimeout(() => {
+                            cm.setSelection(targetPos, targetPos);
+                        }, 0);
+                    }
+
                     if (typeof onPicked === 'function') onPicked(cm, textToInsert);
                 }
             };
@@ -583,10 +596,6 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         const hintOptions = {
             completeSingle: false,
             alignWithWord: true,
-            extraKeys: {
-                Enter: (_cm, handle) => handle.pick(),
-                Tab: (_cm, handle) => handle.pick()
-            },
             ...forwardedOptions
         };
         CodeMirror.showHint(editor, () => ({
@@ -623,31 +632,9 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         );
     };
 
-    const isEscapedAt = (line, index) => {
-        let backslashCount = 0;
-        for (let i = index - 1; i >= 0 && line.charAt(i) === '\\'; i -= 1) {
-            backslashCount += 1;
-        }
-        return backslashCount % 2 === 1;
-    };
-
-    const countUnescapedChar = (line, targetChar, endExclusive) => {
-        let count = 0;
-        for (let i = 0; i < endExclusive; i += 1) {
-            if (line.charAt(i) === targetChar && !isEscapedAt(line, i)) {
-                count += 1;
-            }
-        }
-        return count;
-    };
-
     const shouldSuggestDelimiter = (line, cursor, charTyped) => {
-        if (charTyped === '$') {
-            return line.charAt(cursor.ch) !== '{';
-        }
-        // Suggest only when opening a new quoted segment, not when closing one.
-        const occurrenceCount = countUnescapedChar(line, charTyped, cursor.ch);
-        return occurrenceCount % 2 === 1;
+        if (charTyped !== '$') return false;
+        return line.charAt(cursor.ch) !== '{';
     };
 
     const showDelimiterAutocomplete = (charTyped) => {
@@ -683,7 +670,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         const inserted = Array.isArray(change.text) ? change.text.join('') : '';
         if (inserted.length !== 1) return;
 
-        if (inserted === '\'' || inserted === '"' || inserted === '`' || inserted === '$') {
+        if (inserted === '$') {
             showDelimiterAutocomplete(inserted);
             return;
         }
