@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Boucle For</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
+    <link rel="stylesheet" href="../editor/editor.css">
+
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">Boucle For</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Boucle For</h1>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section class="section-spy">
+
+                <div class="section-header">
+                    <h3>La boucle For (Pour)</h3>
+                </div>
+
+                <p>Elle regroupe l'initialisation, la condition et l'incrémentation sur une seule ligne.</p>
+                <p>Utile lorsqu'on sait d'avance combien de fois on veut boucler (répéter).</p>
+                <div class="info-box info">
+<pre><code class="language-javascript">for (initialisation; condition; incrémentation) { 
+    // code à répéter tant que la condition est vraie
+}</code></pre>
+
+<pre><code class="language-javascript">for (let i = 0; i <= 4; i++) { 
+     // cette boucle s'exécutera de 0 à 4, soit 5 fois au total
+}</code></pre>
+                    <ul>
+                        <li><strong>L'initialisation</strong> :
+                            <ul>
+                                <li>À partir de quelle valeur on commence à compter?</li>
+                                <li>On déclare et initialise une variable compteur à une valeur de départ. (ex: <code>let i = 0</code>)</li>
+                                <li>On utiliser souvent i, j et k par convention</li>
+                            </ul>
+                        </li>
+                        <li><strong>La condition</strong> :
+                            <ul>
+                                <li>Jusqu'à quelle valeur on boucle ?</li>
+                                <li>Testée avant chaque tour de boucle. (ex: <code>i < 5</code>)</li>
+                            </ul>
+                        </li>
+                        <li><strong>L'incrémentation</strong> :
+                            <ul>
+                                <li>De combien on augmente (ou diminue) la variable compteur à chaque tour ?</li>
+                                <li>Modifie la variable de compteur à la fin de chaque tour. (ex: <code>i++</code>)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Le corps de la boucle</strong> <code>{ ... }</code> :
+                            <ul>
+                                <li>Le code à exécuter à chaque tour.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Une boucle qui s'exécute 5 fois"  data-toolbar-text="De 0 à 4, en augmentant de 1 chaque fois : 0, 1, 2, 3, 4"
+                data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// On commence à 0
+// On continue tant que i est inférieur ou égal à 4
+// On augmente i de 1 à chaque tour
+for (let i = 0; i <= 4; i++) {
+
+    // Affiche la valeur actuelle de i à chaque tour
+    console.log(`i vaut : ${i}`);
+}
+</textarea>
+                </div>
+
+                                <div class="playground-container" data-type="example" data-title="Une boucle compte à rebours de 10 à 1" 
+                                data-toolbar-text="De 10 à 1, en diminuant de 1 chaque fois : 10, 9, 8, ..., 3, 2, 1"
+                data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// On commence à 10, 
+// On continue tant que secondesRestantes est supérieur ou égal à 1
+// On diminue de 1 à chaque tour
+for (let secondesRestantes = 10; secondesRestantes >= 1; secondesRestantes--) {
+
+    console.log(`il reste ${secondesRestantes} secondes avant le décollage`);
+}
+
+console.log(`Décollage !`);
+</textarea>
+                </div>
+
+                                <div class="quiz-template" data-type="single" data-title="Résultat d'une boucle for">
+                    <div class="quiz-prompt">Quel sera l'affichage dans la console ?
+                    <pre><code class="language-js">for (let i = 1; i <= 4; i++) {
+    console.log(i);
+}</code></pre>
+</div>
+                    <ul class="quiz-options">
+                        <li data-value="a">1, 2, 3, 4</li>
+                        <li data-value="b">0, 1, 2, 3, 4</li>
+                        <li data-value="c">1, 2, 3</li>
+                    </ul>
+                    <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+                    <textarea class="quiz-solution" hidden>La boucle commence a 1, s'arrete a 4 inclusivement et affiche 1, 2, 3, 4.</textarea>
+                </div>
+
+                                <div class="playground-container" data-type="exercise"
+                                                    data-title="Compter de 1 à 100"
+                                                    data-toolbar-text="Afficher les nombres de 1 à 100 dans la console."
+                                                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// TODO: 
+// Creez une boucle 'for' qui commence à 1
+// Continue tant que le nombre est inférieur ou égal à 100
+// Augmente de 1 a chaque tour de boucle.
+for (...) {
+
+    // TODO: Affichez le nombre dans la console (ex. `Le nombre est : 45`)
+}
+</textarea>
+                    <textarea class="solution-code" hidden>
+// On commence a 1 et on termine a 100 inclusivement.
+for (let i = 1; i <= 100; i++) {
+
+    console.log(`Le nombre est : ${i}`);
+}
+</textarea>
+                </div>
+
+
+                                <div class="playground-container" data-type="exercise" data-title="Compte à rebours jusqu'à 0" data-toolbar-text="Utilisez une boucle for qui diminue de 1 à chaque tour jusqu'à 0.">
+                                        <textarea class="source-code" hidden>
+// TODO:
+// Créez une boucle for qui commence à 100.
+// Continue tant que le nombre est >= 0.
+// À chaque tour, diminue de 1.
+for (...) {
+
+    // TODO: Affichez le nombre dans la console (ex. `Le nombre est : 45`)
+}
+</textarea>
+                    <textarea class="solution-code" hidden>
+for (let i = 100; i >= 0; i--) {
+
+  console.log(`Le nombre est : ${i}`);
+}
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise"
+                                                    data-title="La table de multiplication par 5"
+                                                    data-toolbar-text="Afficher la table de multiplication de 5 (de 1 à 12). Indice : qu'est-ce qui change à chaque tour de boucle ?"
+                                                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// Résultat attendu dans la console : 
+// "1 x 5 = 5"
+// "2 x 5 = 10"
+// "3 x 5 = 15"
+// ...
+// "12 x 5 = 60"
+
+// TODO: 
+// Créez une boucle 'for' qui commence à 1
+// Continue tant qu'elle est inférieure ou égale à 12.
+// Augmente de 1 à chaque tour de boucle.
+for (...) {
+
+    // TODO: Calculer le résultat de la multiplication de i par 5
+    let resultat = ...;
+
+    // TODO: Affichez le calcul dans la console (ex: `3 x 5 = 15`);
+}
+</textarea>
+                    <textarea class="solution-code" hidden>
+for (let i = 1; i <= 12; i++) {
+    let resultat = i * 5;
+    
+    // Utilisation des template literals pour un affichage propre
+    console.log(`${i} x 5 = ${resultat}`);
+}
+</textarea>
+                </div>
+
+
+            </section>
+        </main>
+    </div>
+
+    <script src="../editor/editor.js"></script>
+    <script src="../scripts/script.js"></script>
+    <script src="../quiz/quiz.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

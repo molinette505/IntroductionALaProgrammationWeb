@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - Parcours d'un tableau</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../quiz/quiz.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+</head>
+<body>
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">Parcours d'un tableau</span>
+  </header>
+  <div class="app-container">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Parcours d'un tableau</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Parcourir un tableau</h3>
+        </div>
+        <p>On parcourt un tableau avec une boucle pour lire chaque élément par son indice <code>i</code>. La borne haute est <code>tableau.length</code> pour éviter de sortir du tableau.</p>
+        <div class="playground-container" data-type="example" data-title="Parcours d'un tableau de noms" data-auto-height="true">
+          <textarea class="source-code" hidden>
+// Declaration d'un tableau contenant les noms des etudiants
+let etudiants = ["Lea", "Antoine", "Sophie", "Marc"];
+
+// i commence a 0 et s'arrete avant etudiants.length (donc de 0 a 3)
+for (let i = 0; i < etudiants.length; i++) {
+    // Affiche le nom de l'etudiant a l'indice i
+    console.log(`${etudiants[i]} est present(e).`);
+}
+          </textarea>
+        </div>
+        <div class="info-box warning">
+          <h4>Rappel sur les indices</h4>
+          <ul>
+            <li>Chaque element a une position appelee <strong>indice</strong>, en commencant a <code>0</code>.</li>
+            <li>On lit une valeur avec <code>tableau[indice]</code>.</li>
+            <li>La taille d'un tableau est donnee par <code>tableau.length</code>.</li>
+            <li>Le dernier indice valide est <code>tableau.length - 1</code>.</li>
+          </ul>
+        </div>
+        <div class="playground-container" data-type="exercise" data-title="Analyse des résultats" data-instructions="Objectif : Afficher chaque note et indiquer si c'est un succès (60+) ou un échec." data-auto-height="true">
+          <textarea class="source-code" hidden>
+let notes = [85, 42, 90, 65, 30];
+
+// TODO: Créez une boucle 'for' qui parcourt le tableau 'notes'.
+for (let i = ...; i < ... ; ...) {
+    let noteActuelle = ...;
+    // TODO: Si la noteActuelle est supérieure ou égale à 60
+    // --affichez "Note : X/100 - Réussite"
+    // Sinon
+    // --affichez "Note : X/100 - Échec".
+}
+          </textarea>
+          <textarea class="solution-code" hidden>
+let notes = [85, 42, 90, 65, 30];
+
+// On utilise i < notes.length pour ne pas dépasser la taille du tableau
+for (let i = 0; i < notes.length; i++) {
+    let noteActuelle = notes[i];
+    
+    if (noteActuelle >= 60) {
+        console.log(`Note : ${noteActuelle}/100 - Réussite`);
+    } else {
+        console.log(`Note : ${noteActuelle}/100 - Échec`);
+    }
+}
+          </textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <script src="../quiz/quiz.js"></script>
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

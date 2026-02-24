@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Instruction Break</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
+    <link rel="stylesheet" href="../editor/editor.css">
+
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">Instruction Break</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Instruction Break</h1>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>L'instruction Break</h3>
+                </div>
+
+                <p><code>break</code> sert à "casser" la boucle et à en sortir immédiatement, même si la condition de
+                    départ est encore vraie. Idéal pour optimiser une recherche.</p>
+
+                <div class="playground-container" data-type="example" data-title="Recherche de fruit">
+                    <textarea class="source-code" hidden>
+let fruits = ["Pomme", "Banane", "Cerise", "Datte"];
+let recherche = "Cerise";
+
+for (let i = 0; i < fruits.length; i++) {
+    console.log(`Vérification case ${i}...`);
+    
+    if (fruits[i] === recherche) {
+        console.log(`Trouvé ! ${recherche} est à la position (case) ${i}.`);
+        break; // On arrête tout ici !
+    }
+}
+</textarea>
+                </div>
+
+                <div class="quiz-template" data-type="single" data-title="Rôle de break">
+                    <div class="quiz-prompt">
+                        Dans une boucle, à quoi sert <code>break</code> ?
+                    </div>
+                    <ul class="quiz-options">
+                        <li data-value="a">Passer au tour suivant.</li>
+                        <li data-value="b">Sortir immédiatement de la boucle.</li>
+                        <li data-value="c">Remettre le compteur à zéro.</li>
+                    </ul>
+                    <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+                    <textarea class="quiz-solution" hidden>break arrête la boucle dès que la condition de sortie est rencontrée.</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Stop au mot interdit (break)" data-instructions="Parcourez les mots un par un et arrêtez la boucle dès que le mot \"stop\" est trouvé. Utilisez while et break.">
+                                        <textarea class="source-code" hidden>
+const mots = ["bonjour", "javascript", "stop", "boucle", "fin"];
+let index = 0;
+
+// 1. Tant qu'il reste des mots, on continue
+while (/* À compléter */) {
+        const mot = mots[index];
+        console.log("Mot :", mot);
+
+        // 2. Si le mot est "stop", affiche un message et arrête la boucle
+        //    (utilise break)
+
+        // 3. Passe au mot suivant
+        //    index = ...
+}
+</textarea>
+                    <textarea class="solution-code" hidden>
+const mots = ["bonjour", "javascript", "stop", "boucle", "fin"];
+let index = 0;
+
+while (index < mots.length) {
+  const mot = mots[index];
+  console.log("Mot :", mot);
+
+  if (mot === "stop") {
+    console.log("Mot interdit trouvé. On arrête !");
+    break;
+  }
+
+  index++;
+}
+</textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../editor/editor.js"></script>
+    <script src="../scripts/script.js"></script>
+    <script src="../quiz/quiz.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

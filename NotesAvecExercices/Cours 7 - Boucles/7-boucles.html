@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS - Les Boucles (Loops)</title>
+    <title>JS - Boucle While</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -34,7 +34,7 @@
 
     <header class="mobile-header">
         <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
-        <span class="logo">Intro à la Programmation</span>
+        <span class="logo">Boucle While</span>
     </header>
 
     <div class="app-container">
@@ -42,7 +42,7 @@
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <span class="js-badge">JS</span>
-                <h1>Les Boucles</h1>
+                <h1>Boucle While</h1>
             </div>
 
             <nav class="sidebar-nav">
@@ -99,11 +99,13 @@
 let compteur = 0;
 
 while (compteur < 5){
+    // Le code dans la boucle s'exécute tant que la condition est vraie (compteur < 5)
     compteur = compteur + 1;
 
     console.log(`Compteur : ${compteur}`);
 }
 
+//Lorsque la condition devient fausse (compteur >= 5), la boucle s'arrête et le code continue ici.
 console.log(`La boucle est terminée, le code continue.`);
 
 </textarea>
@@ -129,6 +131,19 @@ while (vieJoueur > 0){
 console.log("Le joueur est mort !");
 
 </textarea>
+                </div>
+
+                <div class="quiz-template" data-type="single" data-title="Comprendre while">
+                    <div class="quiz-prompt">
+                        Que se passe-t-il si la condition d'une boucle <code>while</code> reste toujours vraie ?
+                    </div>
+                    <ul class="quiz-options">
+                        <li data-value="a">La boucle tourne indéfiniment.</li>
+                        <li data-value="b">La boucle s'arrête après 10 tours.</li>
+                        <li data-value="c">JavaScript remplace automatiquement la condition.</li>
+                    </ul>
+                    <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
+                    <textarea class="quiz-solution" hidden>Si la condition ne peut jamais devenir false, la boucle ne s'arrête pas.</textarea>
                 </div>
 
                 <div class="playground-container" data-type="exercise" data-title="Boucle While: Correction de copies" data-auto-height="true" data-toolbar-text="Utilisez while pour corriger les copies une par une et afficher les copies restantes.">
@@ -225,410 +240,6 @@ console.log(`Bravo! Il aura fallu ${nbLancerDe} lancers de dé pour obtenir 7.`)
                     </textarea>
                 </div>
             </section>
-
-            <section class="section-spy">
-
-                <div class="section-header">
-                    <h3>La boucle For (Pour)</h3>
-                </div>
-
-                <p>Elle regroupe l'initialisation, la condition et l'incrémentation sur une seule ligne.</p>
-                <p>Utile lorsqu'on sait d'avance combien de fois on veut boucler (répéter).</p>
-                <div class="info-box info">
-<pre><code class="language-javascript">for (initialisation; condition; incrémentation) { 
-    // code à répéter tant que la condition est vraie
-}</code></pre>
-
-<pre><code class="language-javascript">for (let i = 0; i <= 4; i++) { 
-     // cette boucle s'exécutera de 0 à 4, soit 5 fois au total
-}</code></pre>
-                    <ul>
-                        <li><strong>L'initialisation</strong> :
-                            <ul>
-                                <li>À partir de quelle valeur on commence à compter?</li>
-                                <li>On déclare et initialise une variable compteur à une valeur de départ. (ex: <code>let i = 0</code>)</li>
-                                <li>On utiliser souvent i, j et k par convention</li>
-                            </ul>
-                        </li>
-                        <li><strong>La condition</strong> :
-                            <ul>
-                                <li>Jusqu'à quelle valeur on boucle ?</li>
-                                <li>Testée avant chaque tour de boucle. (ex: <code>i < 5</code>)</li>
-                            </ul>
-                        </li>
-                        <li><strong>L'incrémentation</strong> :
-                            <ul>
-                                <li>De combien on augmente (ou diminue) la variable compteur à chaque tour ?</li>
-                                <li>Modifie la variable de compteur à la fin de chaque tour. (ex: <code>i++</code>)</li>
-                            </ul>
-                        </li>
-                        <li><strong>Le corps de la boucle</strong> <code>{ ... }</code> :
-                            <ul>
-                                <li>Le code à exécuter à chaque tour.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="playground-container" data-type="example" data-title="Une boucle qui s'exécute 5 fois"  data-toolbar-text="De 0 à 4, en augmentant de 1 chaque fois : 0, 1, 2, 3, 4"
-                data-auto-height="true">
-                    <textarea class="source-code" hidden>
-// On commence à 0
-// On continue tant que i est inférieur ou égal à 4
-// On augmente i de 1 à chaque tour
-for (let i = 0; i <= 4; i++) {
-
-    // Affiche la valeur actuelle de i à chaque tour
-    console.log(`i vaut : ${i}`);
-}
-</textarea>
-                </div>
-
-                                <div class="playground-container" data-type="example" data-title="Une boucle compte à rebours de 10 à 1" 
-                                data-toolbar-text="De 10 à 1, en diminuant de 1 chaque fois : 10, 9, 8, ..., 3, 2, 1"
-                data-auto-height="true">
-                    <textarea class="source-code" hidden>
-// On commence à 10, 
-// On continue tant que secondesRestantes est supérieur ou égal à 1
-// On diminue de 1 à chaque tour
-for (let secondesRestantes = 10; secondesRestantes >= 1; secondesRestantes--) {
-
-    console.log(`il reste ${secondesRestantes} secondes avant le décollage`);
-}
-
-console.log(`Décollage !`);
-</textarea>
-                </div>
-
-                                <div class="quiz-template" data-type="single" data-title="Résultat d'une boucle for">
-                    <div class="quiz-prompt">Quel sera l'affichage dans la console ?
-                    <pre><code class="language-js">for (let i = 1; i <= 4; i++) {
-    console.log(i);
-}</code></pre>
-</div>
-                    <ul class="quiz-options">
-                        <li data-value="a">1, 2, 3, 4</li>
-                        <li data-value="b">0, 1, 2, 3, 4</li>
-                        <li data-value="c">1, 2, 3</li>
-                    </ul>
-                    <script type="application/json" class="quiz-config">{ "answer": "a" }</script>
-                    <textarea class="quiz-solution" hidden>La boucle commence a 1, s'arrete a 4 inclusivement et affiche 1, 2, 3, 4.</textarea>
-                </div>
-
-                                <div class="playground-container" data-type="exercise"
-                                                    data-title="Compter de 1 à 100"
-                                                    data-toolbar-text="Afficher les nombres de 1 à 100 dans la console."
-                                                    data-auto-height="true">
-                    <textarea class="source-code" hidden>
-// TODO: 
-// Creez une boucle 'for' qui commence à 1
-// Continue tant que le nombre est inférieur ou égal à 100
-// Augmente de 1 a chaque tour de boucle.
-for (...) {
-
-    // TODO: Affichez le nombre dans la console (ex. `Le nombre est : 45`)
-}
-</textarea>
-                    <textarea class="solution-code" hidden>
-// On commence a 1 et on termine a 100 inclusivement.
-for (let i = 1; i <= 100; i++) {
-
-    console.log(`Le nombre est : ${i}`);
-}
-</textarea>
-                </div>
-
-
-                                <div class="playground-container" data-type="exercise" data-title="Compte à rebours jusqu'à 0" data-toolbar-text="Utilisez une boucle for qui diminue de 1 à chaque tour jusqu'à 0.">
-                                        <textarea class="source-code" hidden>
-// TODO:
-// Créez une boucle for qui commence à 100.
-// Continue tant que le nombre est >= 0.
-// À chaque tour, diminue de 1.
-for (...) {
-
-    // TODO: Affichez le nombre dans la console (ex. `Le nombre est : 45`)
-}
-</textarea>
-                    <textarea class="solution-code" hidden>
-for (let i = 100; i >= 0; i--) {
-
-  console.log(`Le nombre est : ${i}`);
-}
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise"
-                                                    data-title="La table de multiplication par 5"
-                                                    data-toolbar-text="Afficher la table de multiplication de 5 (de 1 à 12). Indice : qu'est-ce qui change à chaque tour de boucle ?"
-                                                    data-auto-height="true">
-                    <textarea class="source-code" hidden>
-// Résultat attendu dans la console : 
-// "1 x 5 = 5"
-// "2 x 5 = 10"
-// "3 x 5 = 15"
-// ...
-// "12 x 5 = 60"
-
-// TODO: 
-// Créez une boucle 'for' qui commence à 1
-// Continue tant qu'elle est inférieure ou égale à 12.
-// Augmente de 1 à chaque tour de boucle.
-for (...) {
-
-    // TODO: Calculer le résultat de la multiplication de i par 5
-    let resultat = ...;
-
-    // TODO: Affichez le calcul dans la console (ex: `3 x 5 = 15`);
-}
-</textarea>
-                    <textarea class="solution-code" hidden>
-for (let i = 1; i <= 12; i++) {
-    let resultat = i * 5;
-    
-    // Utilisation des template literals pour un affichage propre
-    console.log(`${i} x 5 = ${resultat}`);
-}
-</textarea>
-                </div>
-
-
-            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Parcourir un tableau avec une boucle for</h3>
-                </div>
-
-                <div class="info-box info">
-
-                    <p>On utilise la propriété <code>.length</code> pour dire à la boucle de s'arrêter pile à la fin du
-                        tableau.</p>
-                    <p>On utilise la variable compteur <code>i</code> comme index pour accéder aux éléments du tableau.</p>
-                </div>
-
-                <div class="playground-container" data-type="example" 
-                data-title="Parcours d'un tableau liste d'étudiants">
-                    <textarea class="source-code" hidden>
-// Déclaration d'un tableau contenant les noms des étudiants
-let etudiants = ["Léa", "Antoine", "Sophie", "Marc"];
-
-// i commence à 0 et s'arrête avant etudiants.length (donc 0 à 3)
-for (let i = 0; i < etudiants.length; i++) {
-
-    // Affiche le nom de l'étudiant à l'index i
-    console.log(`${etudiants[i]} est présent(e).`);
-}
-</textarea>
-                </div>
-
-                <div class="info-box warning">
-                    <h4>Rappel sur les tableaux et les indices</h4>
-<ul>
-    <li><strong>L'index :</strong>
-        <ul>
-            <li>Chaque élément d'un tableau a un index qui indique sa position dans le tableau.</li>
-            <li>Il commence toujours à 0 pour le premier élément du tableau.</li>
-            <li>Le deuxième élément est à l'index 1, le troisième à l'index 2, etc.</li>
-        </ul>
-    </li>
-    <li><strong>Lire la valeur :</strong>
-        <ul>
-            <li>On accède à la valeur d'un élément du tableau en utilisant l'index entre crochets : <code class="language-javascript">tableau[index]</code>.</li>
-            <li>Par exemple, <code>tableau[0]</code> donne le premier élément, <code>tableau[1]</code> le deuxième, etc.</li>
-        </ul>
-    </li>
-    <li><strong>La taille d'un tableau :</strong> 
-        <ul>
-            <li>La propriété <code>.length</code> donne le nombre d'éléments dans le tableau.</li>
-            <li>Si un tableau a 4 éléments, <code>tableau.length</code> vaut 4.</li>
-        </ul>
-    </li>
-    <li><strong>Le premier et dernier index :</strong> 
-        <ul>
-            <li>Le premier index (position du premier élément) est toujours <code>0</code>. 
-            <li>Le dernier index (position du dernier élément) est toujours <code>tableau.length - 1</code>. 
-        </ul>
-    </li>
-</ul>
-
-<p>Si ce n'est pas clair, revisiter les notes sur les tableaux.</p>
-                </div>
-
-                 <div class="playground-container" data-type="exercise" data-title="Analyse des résultats" data-instructions="Objectif : Afficher chaque score.">
-                                    <textarea class="source-code" hidden>
-let notes = [85, 42, 90, 65, 30];
-
-// TODO: Créez une boucle 'for' qui parcourt le tableau 'scores'.
-for (let i = 0; i < notes.length; i++) {
-    let scoreActuelle = notes[i];
-}
-                </textarea>
-                    <textarea class="solution-code" hidden>
-let notes = [85, 42, 90, 65, 30];
-
-// On utilise i < notes.length pour ne pas dépasser la taille du tableau
-for (let i = 0; i < notes.length; i++) {
-    let noteActuelle = notes[i];
-    
-    if (noteActuelle >= 60) {
-        console.log(`Note : ${noteActuelle}/100 - Réussite`);
-    } else {
-        console.log(`Note : ${noteActuelle}/100 - Échec`);
-    }
-}
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise" data-title="Analyse des résultats" data-instructions="Objectif : Afficher chaque note et indiquer si c'est un succès (60+) ou un échec.">
-                                    <textarea class="source-code" hidden>
-let notes = [85, 42, 90, 65, 30];
-
-// TODO: Créez une boucle 'for' qui parcourt le tableau 'notes'.
-for (let i = ...; i < ... ; ...) {
-    let noteActuelle = ...;
-    // TODO: Si la noteActuelle est supérieure ou égale à 60
-    // --affichez "Note : X/100 - Réussite"
-    // Sinon
-    // --affichez "Note : X/100 - Échec".
-}
-                </textarea>
-                    <textarea class="solution-code" hidden>
-let notes = [85, 42, 90, 65, 30];
-
-// On utilise i < notes.length pour ne pas dépasser la taille du tableau
-for (let i = 0; i < notes.length; i++) {
-    let noteActuelle = notes[i];
-    
-    if (noteActuelle >= 60) {
-        console.log(`Note : ${noteActuelle}/100 - Réussite`);
-    } else {
-        console.log(`Note : ${noteActuelle}/100 - Échec`);
-    }
-}
-</textarea>
-                </div>
-            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Parcourir des tableaux parallèles</h3>
-                </div>
-
-
-                <div class="info-box info">
-                    <h4>Astuce : Parcourir des tableaux parallèles</h4>
-                    <ul>
-                        <li>On parle de <strong>tableaux parallèles</strong> lorsqu'on utilise plusieurs tableaux de même longueur pour stocker des informations liées (ex : noms, notes, groupes).</li>
-                        <li>Chaque indice <code>i</code> représente la même entité dans tous les tableaux : <code>noms[i]</code>, <code>notes[i]</code>, <code>groupes[i]</code> concernent le même étudiant.</li>
-                        <li>Cette technique permet d'associer facilement des données sans objets, mais il faut toujours s'assurer que les tableaux ont la même longueur !</li>
-                        <li>On utilise une seule boucle <code>for</code> pour parcourir tous les tableaux en même temps, en accédant à l'indice <code>i</code> dans chacun.</li>
-                    </ul>
-                </div>
-
-                <div class="playground-container" data-type="example" data-title="Noms et Notes">
-                    <textarea class="source-code" hidden>
-// Trois tableaux parallèles : chaque indice correspond au même étudiant
-let nomsEtudiants = ["Alice", "Bob", "Michel"];
-let notesEtudiants = [92, 78, 65];
-let groupesEtudiants = [1, 2, 1];
-
-// On parcourt tous les tableaux en même temps avec le même indice i
-for (let i = 0; i < nomsEtudiants.length; i++) {
-    // nomsEtudiants[i], notesEtudiants[i] et groupesEtudiants[i] concernent le même étudiant
-    console.log(`Résultat : ${nomsEtudiants[i]}, étudiant du groupe ${groupesEtudiants[i]} a obtenu ${notesEtudiants[i]}/100.`);
-}
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise" data-title="Rapport de ventes">
-                    <textarea class="source-code" hidden>
-let produits = ["Pomme", "Banane", "Cerise"];
-let prix = [1.50, 0.75, 3.20];
-
-// Objectif : Afficher le nom du produit et son prix sur la même ligne.
-// Résultat attendu : "1. Le produit Pomme coûte 1.50 $"
-
-// TODO: Créez une boucle 'for' qui parcourt le tableau 'produits'.
-// Utilisez l'indice 'i' pour accéder aux DEUX tableaux en même temps.
-
-for (let i = 0; ... ; ...) {
-    // Affichez le message ici en utilisant les backticks
-}
-</textarea>
-                    <textarea class="solution-code" hidden>
-let produits = ["Pomme", "Banane", "Cerise"];
-let prix = [1.50, 0.75, 3.20];
-
-// On utilise la longueur de l'un des deux tableaux (puisqu'ils sont parallèles)
-for (let i = 0; i < produits.length; i++) {
-    // L'indice 'i' permet d'aller chercher le nom ET le prix correspondant
-    console.log(`${i + 1}. Le produit ${produits[i]} coûte ${prix[i]} $`);
-}
-</textarea>
-                </div>
-            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>L'instruction Break</h3>
-                </div>
-
-                <p><code>break</code> sert à "casser" la boucle et à en sortir immédiatement, même si la condition de
-                    départ est encore vraie. Idéal pour optimiser une recherche.</p>
-
-                <div class="playground-container" data-type="example" data-title="Recherche de fruit">
-                    <textarea class="source-code" hidden>
-let fruits = ["Pomme", "Banane", "Cerise", "Datte"];
-let recherche = "Cerise";
-
-for (let i = 0; i < fruits.length; i++) {
-    console.log(`Vérification case ${i}...`);
-    
-    if (fruits[i] === recherche) {
-        console.log(`Trouvé ! ${recherche} est à la position (case) ${i}.`);
-        break; // On arrête tout ici !
-    }
-}
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise" data-title="Stop au mot interdit (break)" data-instructions="Parcourez les mots un par un et arrêtez la boucle dès que le mot \"stop\" est trouvé. Utilisez while et break.">
-                                        <textarea class="source-code" hidden>
-const mots = ["bonjour", "javascript", "stop", "boucle", "fin"];
-let index = 0;
-
-// 1. Tant qu'il reste des mots, on continue
-while (/* À compléter */) {
-        const mot = mots[index];
-        console.log("Mot :", mot);
-
-        // 2. Si le mot est "stop", affiche un message et arrête la boucle
-        //    (utilise break)
-
-        // 3. Passe au mot suivant
-        //    index = ...
-}
-</textarea>
-                    <textarea class="solution-code" hidden>
-const mots = ["bonjour", "javascript", "stop", "boucle", "fin"];
-let index = 0;
-
-while (index < mots.length) {
-  const mot = mots[index];
-  console.log("Mot :", mot);
-
-  if (mot === "stop") {
-    console.log("Mot interdit trouvé. On arrête !");
-    break;
-  }
-
-  index++;
-}
-</textarea>
-                </div>
-            </section>
-
         </main>
     </div>
 
