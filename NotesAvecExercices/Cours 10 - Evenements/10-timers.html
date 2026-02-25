@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - Timers</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS Timers</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Timers</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./10-evenements.html" class="nav-link">Evenements</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">Timers en JavaScript</h2>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>setTimeout</h3>
+        </div>
+        <p><code>setTimeout</code> execute une fonction une seule fois apres un delai.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">setTimeout(nomFonction, 2000)</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Changer un texte apres 2 secondes"
+          data-toolbar-text='Commande: setTimeout(nomFonction, delai)'
+          data-instructions="Executez puis cliquez sur le bouton.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer" id="conteneur-timer-message">
+  <p id="texte-timer-message">Message : en attente</p>
+  <button onclick="lancerMessageRetarde()">Lancer</button>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 380px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.zone-timer button {
+  padding: 8px 12px;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTexteTimerMessage = document.getElementById("texte-timer-message");
+
+function afficherMessageRetarde() {
+  elementTexteTimerMessage.innerText = `${"Message : action executee"}`;
+}
+
+function lancerMessageRetarde() {
+  elementTexteTimerMessage.innerText = `${"Message : timer lance"}`;
+  setTimeout(afficherMessageRetarde, 2000);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Declencher un setTimeout"
+          data-toolbar-text='Commande: setTimeout(nomFonction, delai)'
+          data-instructions="Le bouton et la fonction sont prets. Ajoute seulement le setTimeout.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer" id="conteneur-timer-message">
+  <p id="texte-timer-message">Message : en attente</p>
+  <button onclick="lancerMessageRetarde()">Lancer</button>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 380px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.zone-timer button {
+  padding: 8px 12px;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTexteTimerMessage = document.getElementById("texte-timer-message");
+
+function afficherMessageRetarde() {
+  elementTexteTimerMessage.innerText = `${"Message : action executee"}`;
+}
+
+function lancerMessageRetarde() {
+  elementTexteTimerMessage.innerText = `${"Message : timer lance"}`;
+
+  // TODO 1: Ajoute setTimeout(afficherMessageRetarde, 2000).
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="zone-timer" id="conteneur-timer-message">
+  <p id="texte-timer-message">Message : en attente</p>
+  <button onclick="lancerMessageRetarde()">Lancer</button>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.zone-timer {
+  max-width: 380px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.zone-timer button {
+  padding: 8px 12px;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementTexteTimerMessage = document.getElementById("texte-timer-message");
+
+function afficherMessageRetarde() {
+  elementTexteTimerMessage.innerText = `${"Message : action executee"}`;
+}
+
+function lancerMessageRetarde() {
+  elementTexteTimerMessage.innerText = `${"Message : timer lance"}`;
+  setTimeout(afficherMessageRetarde, 2000);
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>setInterval et clearInterval</h3>
+        </div>
+        <p><code>setInterval</code> repete une action. <code>clearInterval</code> l'arrete.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">let id = setInterval(nomFonction, 1000)
+clearInterval(id)</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Demarrer et arreter un compteur"
+          data-toolbar-text='Commandes: setInterval(...) + clearInterval(...)'
+          data-instructions="Executez, puis cliquez sur Demarrer et Arreter.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer" id="conteneur-timer-compteur">
+  <p id="texte-timer-compteur">Compteur : 0</p>
+  <button onclick="demarrerCompteurTimer()">Demarrer</button>
+  <button onclick="arreterCompteurTimer()">Arreter</button>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 420px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.zone-timer button {
+  padding: 8px 12px;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+  margin-right: 6px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTexteTimerCompteur = document.getElementById("texte-timer-compteur");
+let valeurCompteurTimer = 0;
+let identifiantIntervalTimer = null;
+
+function incrementerCompteurTimer() {
+  valeurCompteurTimer = valeurCompteurTimer + 1;
+  elementTexteTimerCompteur.innerText = `Compteur : ${valeurCompteurTimer}`;
+}
+
+function demarrerCompteurTimer() {
+  if (identifiantIntervalTimer === null) {
+    identifiantIntervalTimer = setInterval(incrementerCompteurTimer, 1000);
+  }
+}
+
+function arreterCompteurTimer() {
+  if (identifiantIntervalTimer !== null) {
+    clearInterval(identifiantIntervalTimer);
+    identifiantIntervalTimer = null;
+  }
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Ajouter setInterval et clearInterval"
+          data-toolbar-text='Commandes: setInterval(...) + clearInterval(...)'
+          data-instructions="Les fonctions sont pretes. Complete seulement les lignes timer.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer" id="conteneur-timer-compteur">
+  <p id="texte-timer-compteur">Compteur : 0</p>
+  <button onclick="demarrerCompteurTimer()">Demarrer</button>
+  <button onclick="arreterCompteurTimer()">Arreter</button>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 420px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.zone-timer button {
+  padding: 8px 12px;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+  margin-right: 6px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTexteTimerCompteur = document.getElementById("texte-timer-compteur");
+let valeurCompteurTimer = 0;
+let identifiantIntervalTimer = null;
+
+function incrementerCompteurTimer() {
+  valeurCompteurTimer = valeurCompteurTimer + 1;
+  elementTexteTimerCompteur.innerText = `Compteur : ${valeurCompteurTimer}`;
+}
+
+function demarrerCompteurTimer() {
+  if (identifiantIntervalTimer === null) {
+    // TODO 1: Mets identifiantIntervalTimer = setInterval(incrementerCompteurTimer, 1000).
+  }
+}
+
+function arreterCompteurTimer() {
+  if (identifiantIntervalTimer !== null) {
+    // TODO 2: Ajoute clearInterval(identifiantIntervalTimer).
+    // TODO 3: Remets identifiantIntervalTimer a null.
+  }
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="zone-timer" id="conteneur-timer-compteur">
+  <p id="texte-timer-compteur">Compteur : 0</p>
+  <button onclick="demarrerCompteurTimer()">Demarrer</button>
+  <button onclick="arreterCompteurTimer()">Arreter</button>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.zone-timer {
+  max-width: 420px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.zone-timer button {
+  padding: 8px 12px;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+  margin-right: 6px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementTexteTimerCompteur = document.getElementById("texte-timer-compteur");
+let valeurCompteurTimer = 0;
+let identifiantIntervalTimer = null;
+
+function incrementerCompteurTimer() {
+  valeurCompteurTimer = valeurCompteurTimer + 1;
+  elementTexteTimerCompteur.innerText = `Compteur : ${valeurCompteurTimer}`;
+}
+
+function demarrerCompteurTimer() {
+  if (identifiantIntervalTimer === null) {
+    identifiantIntervalTimer = setInterval(incrementerCompteurTimer, 1000);
+  }
+}
+
+function arreterCompteurTimer() {
+  if (identifiantIntervalTimer !== null) {
+    clearInterval(identifiantIntervalTimer);
+    identifiantIntervalTimer = null;
+  }
+}
+</textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>
