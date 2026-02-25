@@ -372,7 +372,7 @@ elementBoutonModeInterface.onclick = function () {
         </div>
         <p>La methode recommandee pour ecouter les interactions est <code>addEventListener</code>.</p>
         <div class="info-box">
-          <pre><code class="language-javascript">element.addEventListener("click", function () { ... })</code></pre>
+          <pre><code class="language-javascript">element.addEventListener("click", nomFonction)</code></pre>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
@@ -410,11 +410,13 @@ let elementBoutonCompteurClic = document.getElementById("bouton-compteur-clic");
 let elementTexteCompteurClic = document.getElementById("texte-compteur-clic");
 let totalClic = 0;
 
-// Ajoute l'ecouteur de clic.
-elementBoutonCompteurClic.addEventListener("click", function () {
+function incrementerCompteurClic() {
   totalClic = totalClic + 1;
   elementTexteCompteurClic.innerText = `Total : ${totalClic}`;
-});
+}
+
+// Ajoute l'ecouteur de clic.
+elementBoutonCompteurClic.addEventListener("click", incrementerCompteurClic);
 </textarea>
         </div>
 
@@ -453,9 +455,14 @@ let elementBoutonCompteurClic = document.getElementById("bouton-compteur-clic");
 let elementTexteCompteurClic = document.getElementById("texte-compteur-clic");
 let totalClic = 0;
 
-// TODO 1: Ajoute un addEventListener("click", function () { ... }) sur elementBoutonCompteurClic.
-// TODO 2: Dans le callback, incremente totalClic.
-// TODO 3: Mets elementTexteCompteurClic.innerText a `Total : ${totalClic}`.
+function incrementerCompteurClic() {
+  // TODO 1: Incremente totalClic.
+
+
+  // TODO 2: Mets elementTexteCompteurClic.innerText a `Total : ${totalClic}`.
+}
+
+// TODO 3: Ajoute un addEventListener("click", incrementerCompteurClic) sur elementBoutonCompteurClic.
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="zone-evenement" id="conteneur-compteur-clic">
@@ -488,10 +495,12 @@ let elementBoutonCompteurClic = document.getElementById("bouton-compteur-clic");
 let elementTexteCompteurClic = document.getElementById("texte-compteur-clic");
 let totalClic = 0;
 
-elementBoutonCompteurClic.addEventListener("click", function () {
+function incrementerCompteurClic() {
   totalClic = totalClic + 1;
   elementTexteCompteurClic.innerText = `Total : ${totalClic}`;
-});
+}
+
+elementBoutonCompteurClic.addEventListener("click", incrementerCompteurClic);
 </textarea>
         </div>
       </section>
@@ -553,14 +562,17 @@ elementBoutonCompteurClic.addEventListener("click", function () {
           <textarea class="source-code-js" hidden>
 let elementsBoutonActionCombat = document.querySelectorAll(".bouton-action-combat");
 
-elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
-  elementBoutonActionCombat.addEventListener("mouseover", function (event) {
-    event.target.classList.add("bouton-action-combat-survole");
-  });
+function activerSurvolBoutonActionCombat(event) {
+  event.target.classList.add("bouton-action-combat-survole");
+}
 
-  elementBoutonActionCombat.addEventListener("mouseout", function (event) {
-    event.target.classList.remove("bouton-action-combat-survole");
-  });
+function desactiverSurvolBoutonActionCombat(event) {
+  event.target.classList.remove("bouton-action-combat-survole");
+}
+
+elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
+  elementBoutonActionCombat.addEventListener("mouseover", activerSurvolBoutonActionCombat);
+  elementBoutonActionCombat.addEventListener("mouseout", desactiverSurvolBoutonActionCombat);
 });
 </textarea>
         </div>
@@ -613,11 +625,17 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
           <textarea class="source-code-js" hidden>
 let elementsBoutonActionCombat = document.querySelectorAll(".bouton-action-combat");
 
+function activerSurvolBoutonActionCombat(event) {
+  // TODO 1: Ajoute la classe "bouton-action-combat-survole" sur event.target.
+}
+
+function desactiverSurvolBoutonActionCombat(event) {
+  // TODO 2: Retire la classe "bouton-action-combat-survole" sur event.target.
+}
+
 elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
-  // TODO 1: Ajoute un ecouteur mouseover qui ajoute la classe "bouton-action-combat-survole" sur event.target.
-
-
-  // TODO 2: Ajoute un ecouteur mouseout qui retire la classe "bouton-action-combat-survole" sur event.target.
+  // TODO 3: Ajoute un ecouteur mouseover avec activerSurvolBoutonActionCombat.
+  // TODO 4: Ajoute un ecouteur mouseout avec desactiverSurvolBoutonActionCombat.
 });
 </textarea>
           <textarea class="solution-code-html" hidden>
@@ -664,14 +682,17 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
           <textarea class="solution-code-js" hidden>
 let elementsBoutonActionCombat = document.querySelectorAll(".bouton-action-combat");
 
-elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
-  elementBoutonActionCombat.addEventListener("mouseover", function (event) {
-    event.target.classList.add("bouton-action-combat-survole");
-  });
+function activerSurvolBoutonActionCombat(event) {
+  event.target.classList.add("bouton-action-combat-survole");
+}
 
-  elementBoutonActionCombat.addEventListener("mouseout", function (event) {
-    event.target.classList.remove("bouton-action-combat-survole");
-  });
+function desactiverSurvolBoutonActionCombat(event) {
+  event.target.classList.remove("bouton-action-combat-survole");
+}
+
+elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
+  elementBoutonActionCombat.addEventListener("mouseover", activerSurvolBoutonActionCombat);
+  elementBoutonActionCombat.addEventListener("mouseout", desactiverSurvolBoutonActionCombat);
 });
 </textarea>
         </div>
@@ -683,7 +704,7 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
         </div>
         <p>On peut lire les touches tapees avec l'evenement <code>keydown</code>.</p>
         <div class="info-box">
-          <pre><code class="language-javascript">element.addEventListener("keydown", function (event) { ... })</code></pre>
+          <pre><code class="language-javascript">element.addEventListener("keydown", nomFonction)</code></pre>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
@@ -727,10 +748,12 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
 let elementSaisieClavier = document.getElementById("saisie-clavier");
 let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
 
-// Ecoute les touches pressees dans l'input.
-elementSaisieClavier.addEventListener("keydown", function (event) {
+function afficherTouchePressee(event) {
   elementTexteToucheClavier.innerText = `Derniere touche : ${event.key}`;
-});
+}
+
+// Ecoute les touches pressees dans l'input.
+elementSaisieClavier.addEventListener("keydown", afficherTouchePressee);
 </textarea>
         </div>
 
@@ -775,8 +798,11 @@ elementSaisieClavier.addEventListener("keydown", function (event) {
 let elementSaisieClavier = document.getElementById("saisie-clavier");
 let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
 
-// TODO 1: Ajoute un ecouteur keydown sur elementSaisieClavier.
-// TODO 2: Mets elementTexteToucheClavier.innerText a `Derniere touche : ${event.key}`.
+function afficherTouchePressee(event) {
+  // TODO 1: Mets elementTexteToucheClavier.innerText a `Derniere touche : ${event.key}`.
+}
+
+// TODO 2: Ajoute un ecouteur keydown sur elementSaisieClavier avec afficherTouchePressee.
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="zone-evenement" id="conteneur-clavier">
@@ -815,9 +841,11 @@ let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
 let elementSaisieClavier = document.getElementById("saisie-clavier");
 let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
 
-elementSaisieClavier.addEventListener("keydown", function (event) {
+function afficherTouchePressee(event) {
   elementTexteToucheClavier.innerText = `Derniere touche : ${event.key}`;
-});
+}
+
+elementSaisieClavier.addEventListener("keydown", afficherTouchePressee);
 </textarea>
         </div>
       </section>
