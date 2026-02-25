@@ -89,7 +89,7 @@
 const status = document.getElementById("ex1-status");
 
 if (status) {
-  status.innerText = "Statut : prêt";
+  status.innerText = `${"Statut : prêt"}`;
 }
 </textarea>
                 </div>
@@ -116,7 +116,9 @@ if (status) {
 const zone = document.querySelector("#ex2-zone");
 
 if (zone) {
-  zone.innerHTML = "<strong>Bienvenue</strong>";
+  zone.innerHTML = `
+    <strong>${"Bienvenue"}</strong>
+  `;
 }
 </textarea>
                 </div>
@@ -212,7 +214,7 @@ const liste = document.querySelector("#ex5-list");
 if (liste) {
   for (const objet of objets) {
     const li = document.createElement("li");
-    li.innerText = objet;
+    li.innerText = `${objet}`;
     liste.appendChild(li);
   }
 }

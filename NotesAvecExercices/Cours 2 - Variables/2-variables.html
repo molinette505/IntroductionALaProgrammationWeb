@@ -119,23 +119,23 @@ console.log(150);
 
                 <div class="playground-container" data-type="example"
                     data-title="Afficher un message composé de plusieurs textes et nombre"
-                    data-toolbar-text="Utiliser console.log(message1, message2, message3, ...) en séparant chaque élément par des virgules">
+                    data-toolbar-text='Utiliser console.log("texte", nombre, "texte", ...) en séparant chaque élément par des virgules'>
                     <textarea class="source-code" hidden>
-// 1. Afficher plusieurs messages à la suite
+// 1. Affiche "Mon nom est Victor et j'ai" suivi du nombre 15 et du texte "ans!"
 console.log("Mon nom est Victor et j'ai", 15, "ans!");
 
-// 2. Afficher plusieurs messages à la suite
+// 2. Affiche "État du joueur :", suivi du texte "En vie", suivi du texte "| HP :", suivi finalement du nombre 100
 console.log("État du joueur :", "En vie", "| HP :", 100);
 </textarea>
                 </div>
 
                 <div class="playground-container" data-type="exercise"
-                    data-title="Afficher un journal de quête: un message seulement"
-                    data-toolbar-text="Utiliser console.log(message)"
+                    data-title="Console.log() pour afficher un message"
+                    data-toolbar-text="Utiliser console.log(message) pour afficher un seul message"
                     data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de chaque ligne !">
                     <textarea class="source-code" hidden>
 // TODO: Affiche "Nouvelle quête activée: Trouver l'épée"
-// N'oublie pas d'utiliser
+// N'oublie pas de mettre ton message entre guillemets
 
 </textarea>
                     <textarea class="solution-code" hidden>
@@ -143,12 +143,12 @@ console.log("Quête activée: Trouver l'épée");
 </textarea>
                 </div>
 
-            <div class="playground-container" data-type="exercise" data-title="Afficher un journal de quête"
+            <div class="playground-container" data-type="exercise" data-title="Console.log() combiner plusieurs messages"
+                data-toolbar-text='Utiliser console.log("texte", nombre, "texte") pour afficher un message comprenant plusieurs textes et nombres'
                 data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de chaque ligne !">
                 <textarea class="source-code" hidden>
 // TODO: Affiche "Récompense:" suivi du nombre 500 et du mot "écus"
-// Utilise 3 arguments séparés par des virgules dans le log
-// Exemple: Récompense: 500 écus
+// Résultat voulu: Récompense: 500 écus
 
 </textarea>
                 <textarea class="solution-code" hidden>
@@ -193,7 +193,7 @@ console.log("Récompense:", 500, "écus");
                 <div class="step-card">
                     <div class="step-icon"><i data-lucide="eye"></i></div>
                     <span class="concept-tag">Étape 3</span>
-                    <h4>Lecture</h4>
+                    <h4>Utilisation</h4>
                     <code>console.log(score);</code>
                     <ul style="text-align: left;">
                         <li>L'ordinateur va lire le contenu de la boîte</li>
@@ -205,46 +205,127 @@ console.log("Récompense:", 500, "écus");
                 </div>
             </div>
 
-            <div class="playground-container" data-type="example" data-title="Modification de valeur">
+            <div class="playground-container" data-type="example" data-title="Création, écriture et utilisation"
+                data-toolbar-text="let nomVariable crée la variable, nomVariable = valeur écrit à l'intérieur et nomVariable lit son contenu"
+                data-auto-height="true">
                 <textarea class="source-code" hidden>
-// Crée la variable, on utilise let
-let vie;
-console.log("La variable est crée, mais vide:", vie) //vie est undefined
+let vie; // Création de la variable vie avec le mot-clé let. Elle ne contient rien encore (undefined)
 
-// Mets 100 à l'intérieur de la variable
-vie = 100;
-console.log("Vie :", vie);
+vie = 100; // On met le nombre 100 à l'intérieur avec le symbole = 
 
-// Mets 50 à l'intérieur de la variable, écrase la valeur 100
-vie = 50;
-console.log("Modification de la vie :", vie)
-
-// Création et écriture en une seule étape
-let classePersonnage = "Mage";
-console.log("Classe de mon personnage :", classePersonnage);
-
-// Mets "Guerrier" à l'intérieur de la variable
-classePersonnage = "Guerrier";
-
+console.log(vie); // Utiliser ce que la variable contient et l'afficher avec console.log();
 </textarea>
             </div>
 
-            <div class="playground-container" data-type="exercise" data-title="Changement d'équipement">
+                        <div class="playground-container" data-type="example" data-title="Création, écriture en une seule ligne"
+                data-toolbar-text="let nomVariable = valeur crée la variable et écrit à l'intérieur en une seule instruction"
+                data-auto-height="true">
                 <textarea class="source-code" hidden>
-// 1. Déclare une variable 'armePrincipale' et donne lui la valeur "Arc"
+let classePersonnage = "Mage"; // Crée la variable et met la string "Mage" à l'intérieur. (let et =)
 
-// 2. Affiche : "Arme équipée : Arc" en utilisant la variable
-
-// 3. Le joueur ramasse une autre arme. Change la valeur pour "Épée de feu"
-
-// 4. Affiche à nouveau l'arme équipée pour vérifier le changement
+console.log("Classe :", classePersonnage); // Utiliser la variable et l'afficher avec console.log();
 </textarea>
-                <textarea class="solution-code" hidden>
+            </div>
+
+            <div class="playground-container" data-type="example" data-title="Écraser la valeur dans une variable"
+            data-toolbar-text="On peut écraser la valeur dans une variable en utilisant nomVariable = valeur; une deuxième fois"
+            data-instructions="⚠️ Attention! On utilise seulement le mot-clé let lors de la création!"
+            data-auto-height="true"
+            >
+                <textarea class="source-code" hidden>
 let armePrincipale = "Arc";
 console.log("Arme équipée :", armePrincipale);
 
-armePrincipale = "Épée de feu";
-console.log("Arme équipée :", armePrincipale);
+armePrincipale = "Épée de feu"; // On écrase l'ancienne valeur (⚠️ on utilise pas le mot-clé let cette fois!)
+console.log("Nouvelle arme :", armePrincipale);
+</textarea>
+            </div>
+
+            <div class="playground-container" data-type="example" data-title="Utiliser le contenu de plusieurs variables ensemble"
+            data-toolbar-text="On peut utiliser le contenu de plusieurs variables ensemble et le mettre dans une nouvelle variable"
+            data-auto-height="true">
+                <textarea class="source-code" hidden>
+let piecesOrEnBanque = 40;
+let piecesOrRecompense = 15;
+
+let totalOr = piecesOrEnBanque + piecesOrRecompense; 
+// let totalOr = piecesOrEnBanque + piecesOrRecompense;
+// let totalOr = 40 + 15;
+// let totalOr = 55;
+
+console.log("Total d'or :", totalOr);
+</textarea>
+            </div>
+
+            <div class="playground-container" data-type="exercise"
+                data-title="Création, écriture et utilisation">
+                <textarea class="source-code" hidden>
+// 1. Crée une variable 'mana' avec let
+
+// 2. Mets la valeur 50 dans la variable 'mana' en utilisant le symbole =
+
+// 3. Affiche la valeur de 'mana' avec console.log()
+</textarea>
+                <textarea class="solution-code" hidden>
+let mana;
+mana = 50;
+console.log(mana);
+</textarea>
+            </div>
+
+                        <div class="playground-container" data-type="exercise"
+                data-title="Création et écriture en une seule instruction"
+                data-instructions='Rappel: Le texte doit être entre guillemets! Ex. "Mon texte"'>
+                <textarea class="source-code" hidden>
+// 1. Créer une variable 'nomObjet' avec let et mettre directement "Potion de vie" à l'intérieur avec = 
+
+// 2. Afficher la valeur de 'nomObjet' avec console.log().
+
+</textarea>
+                <textarea class="solution-code" hidden>
+let nomObjet = "Potion de vie";
+console.log(nomObjet);
+</textarea>
+            </div>
+
+            <div class="playground-container" data-type="exercise"
+                data-title="Écraser la valeur dans une variable"
+                data-instructions="⚠️ Attention: On met seulement le mot-clé let lorsqu'on crée la variable, ensuite, on ne l'utilise plus">
+                <textarea class="source-code" hidden>
+let niveauPersonnage = 60;
+
+// 1. Affiche la valeur actuelle de 'niveauPersonnage' avec console.log
+
+// 2. Change la valeur de la variable 'niveauPersonnage' pour 75. (⚠️ Ne pas utiliser le mot-clé let!)
+
+// 3. Affiche la nouvelle valeur de 'niveauPersonnage'.
+</textarea>
+                <textarea class="solution-code" hidden>
+let niveauPersonnage = 60;
+console.log(niveauPersonnage);
+
+niveauPersonnage = 75;
+console.log(niveauPersonnage);
+</textarea>
+            </div>
+
+            <div class="playground-container" data-type="exercise"
+                data-title="Utiliser une autre variable"
+                data-toolbar-text='Utiliser console.log("texte", nomVariable1, "texte", nomVariable2, "texte")'>
+                <textarea class="source-code" hidden>
+let ageVictor = 3;
+
+// 1. Béatrice a le même âge que Victor, mettre l'âge de Victor dans sa variable. 
+// (indice: variable1 = variable2)
+let ageBeatrice; 
+
+// 2. Affiche "Victor a _ ans et Béatrice a aussi _ ans".
+</textarea>
+                <textarea class="solution-code" hidden>
+let ageVictor = 3;
+let ageBeatrice = ageVictor;
+
+console.log("Victor a", ageVictor, "ans et Béatrice a aussi", ageBeatrice, "ans");
 </textarea>
             </div>
 
@@ -294,23 +375,6 @@ console.log("Arme équipée :", armePrincipale);
                     <h3>Quiz de révision</h3>
                 </div>
 
-                <div class="quiz-template" data-type="single" data-title="Déclaration">
-                    <p class="quiz-prompt">
-                        Vous codez un jeu vidéo. La valeur de la <strong>gravité</strong> ne changera jamais.
-                        Quel mot-clé devez-vous utiliser ?
-                    </p>
-                    <ul class="quiz-options">
-                        <li data-value="let">let</li>
-                        <li data-value="const">const</li>
-                        <li data-value="var">var</li>
-                    </ul>
-                    <script type="application/json" class="quiz-config">{ "answer": "const" }</script>
-                    <textarea class="quiz-solution" hidden>
-On utilise const (constante) pour une valeur fixe afin d'eviter les bugs.
-let est reserve aux valeurs qui varient.
-                    </textarea>
-                </div>
-
                 <div class="quiz-template" data-type="multi" data-title="Règles de nommage">
                     <p class="quiz-prompt">Quels noms de variables sont valides ?</p>
                     <ul class="quiz-options">
@@ -328,7 +392,7 @@ Un nom ne peut pas commencer par un chiffre.
                     </textarea>
                 </div>
 
-                <div class="quiz-template" data-type="text" data-title="Identification">
+                <div class="quiz-template" data-type="text" data-title="Les type de données">
                     <p class="quiz-prompt">
                         Quel est le type de la variable suivante :
                         <code>let estActif = false;</code> ?
@@ -358,18 +422,30 @@ C'est un booleen (boolean). Il ne peut prendre que deux valeurs : true ou false.
                     </ul>
                     <script type="application/json" class="quiz-config">{ "answer": "10" }</script>
                     <textarea class="quiz-solution" hidden>
-La reponse est 10. Le calcul x + 5 n'est pas assigne.
-Il fallait ecrire : x = x + 5;
+La reponse est 10. 
+Le calcul x + 5 n'est pas mis à l'intérieur de la variable x après le calcul.
+Il faut ecrire : x = x + 5; et non seulement x + 5;
                     </textarea>
                 </div>
 
-                <div class="quiz-template" data-type="mixAndMatch" data-title="Associer les concepts">
+                <div class="quiz-template" data-type="mixAndMatch" data-title="Cycle de vie d'une variable">
                     <p class="quiz-prompt">Reliez chaque concept à sa définition.</p>
                     <ul class="quiz-match-pairs">
-                        <li data-left="let">Déclare une variable modifiable</li>
-                        <li data-left="const">Déclare une valeur fixe</li>
-                        <li data-left="=">Assigne une valeur (met dans la boite)</li>
-                        <li data-left="undefined">Variable vide (non definie)</li>
+                        <li data-left="let maVariable;">Crée une variable (crée la boîte en mémoire) vide</li>
+                        <li data-left="maVariable = valeur;">Écrit dans la variable (met dans la valeur dans la boîte)</li>
+                        <li data-left="console.log(...);">Affiche des valeurs (nombre, texte, etc.) dans la console</li>
+                        <li data-left="let maVariable = valeur;">Crée une variable et écrit dedans</li>
+                    </ul>
+                    <textarea class="quiz-solution" hidden></textarea>
+                </div>
+
+                <div class="quiz-template" data-type="mixAndMatch" data-title="Les types de données">
+                    <p class="quiz-prompt">Reliez chaque concept à sa définition.</p>
+                    <ul class="quiz-match-pairs">
+                        <li data-left="maVariable = true;">boolean</li>
+                        <li data-left='maVariable = "65";'>string (texte)</li>
+                        <li data-left="maVariable = 65;">nombre</li>
+                        <li data-left="let maVariable;">undefined</li>
                     </ul>
                     <textarea class="quiz-solution" hidden></textarea>
                 </div>
@@ -393,8 +469,11 @@ Le signe d'assignation = est obligatoire pour ecraser l'ancienne valeur.
                 <div class="quiz-template" data-type="text" data-title="Deviner la sortie">
                     <div class="quiz-prompt">
                         Quelle sortie produit ce code ?
-                        <pre><code class="language-js">const a = 2;
-console.log(a + 3);</code></pre>
+                        <pre><code class="language-js">let a = 5;
+let b;
+b = a;
+a = 15;
+console.log(b);</code></pre>
                     </div>
                     <script type="application/json" class="quiz-config">
                         {
@@ -404,7 +483,7 @@ console.log(a + 3);</code></pre>
                         }
                     </script>
                     <textarea class="quiz-solution" hidden>
-L'ordinateur remplace a par 2, puis affiche 5.
+L'ordinateur met une copie de la valeur de a dans b (5). Même si a change, puisqu'il s'agit d'une copie, b conserve la valeur original de a (5).
                     </textarea>
                 </div>
             </section>

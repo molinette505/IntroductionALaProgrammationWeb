@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - DOM création dynamique et tableaux</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+</head>
+
+<body>
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS DOM</span>
+  </header>
+
+  <div class="app-container">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>DOM - Création dynamique et tableaux</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="./8-dom.html" class="nav-link">DOM principal</a>
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section class="section-spy">
+        <h2 class="section-title">Création dynamique</h2>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Création dynamique</h3>
+        </div>
+        <p>On crée un élément, on le configure, puis on l'ajoute au DOM.</p>
+
+        <h4><code>createElement('nomElement')</code> : créer un element HTML</h4>
+        <div class="info-box">
+          <pre><code class="language-javascript">document.createElement("div")</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-title="Créer une div puis ajouter une classe"
+          data-toolbar-text='Commandes: createElement() + classList.add() + appendChild()'
+          data-instructions="Exécutez pour créer une carte personnage.">
+          <textarea class="source-code-html" hidden>
+<section class="atelier-ui">
+  <h4>Personnages</h4>
+  <section id="section-personnages"></section>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.atelier-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#section-personnages {
+  display: grid;
+  gap: 8px;
+}
+
+.carte-personnage {
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background: #172554;
+  padding: 10px;
+}
+
+.image-personnage {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 8px;
+  display: block;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Cible la section qui recevra la carte.
+let elementSectionPersonnages = document.getElementById("section-personnages");
+
+// Crée une seule div
+let elementCartePersonnage = document.createElement("div")
+
+// Lui ajouter une classe
+elementCartePersonnage.classList.add("carte-personnage");
+
+// Changer le texte à l'intérieur
+elementCartePersonnage.innerText = `${"Personnage : Lina"}`;
+
+// Ajoute la carte dans la section.
+elementSectionPersonnages.appendChild(elementCartePersonnage);
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-title="Créer une image de personnage"
+          data-toolbar-text='Commandes: createElement() + classList.add() + setAttribute()'
+          data-instructions="Crée un élément img, ajoute une classe et un src, puis insère-le dans la section.">
+          <textarea class="source-code-html" hidden>
+<section class="atelier-ui">
+  <h4>Personnages</h4>
+  <section id="section-personnages"></section>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.atelier-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#section-personnages {
+  display: grid;
+  gap: 8px;
+}
+
+.carte-personnage {
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background: #172554;
+  padding: 10px;
+}
+
+.image-personnage {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 8px;
+  display: block;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSectionPersonnages = document.getElementById("section-personnages");
+let elementImagePersonnage;
+
+// TODO 1: Crée un élément <img> et stocke-le dans elementImagePersonnage.
+
+
+// TODO 2: Ajoute la classe "image-personnage" sur elementImagePersonnage.
+
+
+// TODO 3: Mets le src de elementImagePersonnage à "https://picsum.photos/id/1005/220/120".
+
+
+// Ajoute l'image dans la section.
+elementSectionPersonnages.appendChild(elementImagePersonnage);
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="atelier-ui">
+  <h4>Personnages</h4>
+  <section id="section-personnages"></section>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.atelier-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#section-personnages {
+  display: grid;
+  gap: 8px;
+}
+
+.carte-personnage {
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background: #172554;
+  padding: 10px;
+}
+
+.image-personnage {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 8px;
+  display: block;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementSectionPersonnages = document.getElementById("section-personnages");
+let elementImagePersonnage = document.createElement("img");
+
+elementImagePersonnage.classList.add("image-personnage");
+elementImagePersonnage.setAttribute("src", "https://picsum.photos/id/1005/220/120");
+elementSectionPersonnages.appendChild(elementImagePersonnage);
+</textarea>
+        </div>
+
+        <h4>2) appendChild : ajouter une carte prête</h4>
+        <div class="info-box">
+          <pre><code class="language-javascript">parent.appendChild(enfant)</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-title="Ajouter une carte dans section-personnages"
+          data-toolbar-text='Commandes: innerHTML + appendChild()'
+          data-instructions="Exécutez pour ajouter une carte avec un titre.">
+          <textarea class="source-code-html" hidden>
+<section class="atelier-ui">
+  <h4>Personnages</h4>
+  <section id="section-personnages"></section>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.atelier-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#section-personnages {
+  display: grid;
+  gap: 8px;
+}
+
+.carte-personnage {
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background: #172554;
+  padding: 10px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSectionPersonnages = document.getElementById("section-personnages");
+let elementCartePersonnage = document.createElement("div");
+elementCartePersonnage.classList.add("carte-personnage");
+
+// Ajoute un titre dans la carte.
+elementCartePersonnage.innerHTML = `
+  <h5>${"Lina la Mage"}</h5>
+`;
+// Ajoute la carte à la section.
+elementSectionPersonnages.appendChild(elementCartePersonnage);
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-title="Ajouter un titre puis append"
+          data-toolbar-text='Commandes: innerHTML + appendChild()'
+          data-instructions="La div est déjà créée. Ajoute un titre avec innerHTML puis ajoute-la à #section-personnages.">
+          <textarea class="source-code-html" hidden>
+<section class="atelier-ui">
+  <h4>Personnages</h4>
+  <section id="section-personnages"></section>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.atelier-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#section-personnages {
+  display: grid;
+  gap: 8px;
+}
+
+.carte-personnage {
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background: #172554;
+  padding: 10px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSectionPersonnages = document.getElementById("section-personnages");
+let elementCartePersonnage = document.createElement("div");
+elementCartePersonnage.classList.add("carte-personnage");
+
+// TODO 1: Ajoute un titre à elementCartePersonnage avec innerHTML.
+
+
+// TODO 2: Ajoute elementCartePersonnage dans elementSectionPersonnages avec appendChild.
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="atelier-ui">
+  <h4>Personnages</h4>
+  <section id="section-personnages"></section>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.atelier-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#section-personnages {
+  display: grid;
+  gap: 8px;
+}
+
+.carte-personnage {
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background: #172554;
+  padding: 10px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementSectionPersonnages = document.getElementById("section-personnages");
+let elementCartePersonnage = document.createElement("div");
+elementCartePersonnage.classList.add("carte-personnage");
+
+elementCartePersonnage.innerHTML = `
+  <h5>${"Kael le Guerrier"}</h5>
+`;
+elementSectionPersonnages.appendChild(elementCartePersonnage);
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Créer des cartes avec plusieurs tableaux</h3>
+        </div>
+        <p>Un tableau pour les noms, un tableau pour les classes, un tableau pour les points. Même index = même joueur.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">for (let i = 0; i &lt; noms.length; i++) { ... }</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-title="Générer des cartes de joueurs"
+          data-toolbar-text='Commande: boucle + createElement() + innerHTML'
+          data-instructions="Exécutez pour créer une carte par joueur.">
+          <textarea class="source-code-html" hidden>
+<section class="team-ui">
+  <h4>Escouade</h4>
+  <div id="conteneur-equipe"></div>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.team-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#conteneur-equipe {
+  display: grid;
+  gap: 8px;
+}
+
+.carte-joueur {
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background: #172554;
+  padding: 8px 10px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let nomsJoueurs = ["Alya", "Kael", "Lina"];
+let classesJoueurs = ["Rodeuse", "Tank", "Mage"];
+let pointsJoueurs = [120, 95, 140];
+// Obtient le conteneur qui recevra toutes les cartes.
+let elementConteneurEquipe = document.getElementById("conteneur-equipe");
+
+for (let i = 0; i < nomsJoueurs.length; i++) {
+  // Crée une carte joueur pour l'index courant.
+  let elementCarteJoueur = document.createElement("article");
+  elementCarteJoueur.classList.add("carte-joueur");
+  // Construit le contenu HTML de la carte.
+  elementCarteJoueur.innerHTML = `
+    <strong>${nomsJoueurs[i]}</strong> - ${classesJoueurs[i]}<br />
+    Score: ${pointsJoueurs[i]}
+  `;
+  // Ajoute la carte dans le conteneur.
+  elementConteneurEquipe.appendChild(elementCarteJoueur);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-title="Générer un classement"
+          data-toolbar-text='Commande: document.getElementById() + createElement() + appendChild()'
+          data-instructions="Cible le conteneur, parcours les tableaux, puis crée chaque ligne de classement.">
+          <textarea class="source-code-html" hidden>
+<section class="team-ui">
+  <h4>Classement</h4>
+  <div id="conteneur-classement"></div>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.team-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#conteneur-classement {
+  display: grid;
+  gap: 8px;
+}
+
+.ligne-classement {
+  border: 1px solid #16a34a;
+  border-radius: 8px;
+  background: #052e16;
+  padding: 8px 10px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let nomsJoueurs = ["Nora", "Timo", "Sana"];
+let classesJoueurs = ["Archer", "Guerrier", "Healer"];
+let pointsJoueurs = [18, 24, 21];
+let elementConteneurClassement = document.getElementById("conteneur-classement");
+
+// TODO 1: Parcours les tableaux avec l'index i.
+for (let i = 0; i < nomsJoueurs.length; i++) {
+  let elementLigneClassement;
+
+  // TODO 2: Crée un <div> et stocke-le dans elementLigneClassement.
+
+
+  // TODO 3: Ajoute la classe "ligne-classement" sur elementLigneClassement.
+
+  // TODO 4: Mets en innerHTML: "<nom> (<classe>) - <points> pts".
+
+  // TODO 5: Ajoute elementLigneClassement dans elementConteneurClassement.
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="team-ui">
+  <h4>Classement</h4>
+  <div id="conteneur-classement"></div>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.team-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+#conteneur-classement {
+  display: grid;
+  gap: 8px;
+}
+
+.ligne-classement {
+  border: 1px solid #16a34a;
+  border-radius: 8px;
+  background: #052e16;
+  padding: 8px 10px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let nomsJoueurs = ["Nora", "Timo", "Sana"];
+let classesJoueurs = ["Archer", "Guerrier", "Healer"];
+let pointsJoueurs = [18, 24, 21];
+let elementConteneurClassement;
+
+elementConteneurClassement = document.getElementById("conteneur-classement");
+
+for (let i = 0; i < nomsJoueurs.length; i++) {
+  let elementLigneClassement;
+  elementLigneClassement = document.createElement("div");
+  elementLigneClassement.classList.add("ligne-classement");
+  elementLigneClassement.innerHTML = `${nomsJoueurs[i]} (${classesJoueurs[i]}) - ${pointsJoueurs[i]} pts`;
+  elementConteneurClassement.appendChild(elementLigneClassement);
+}
+</textarea>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

@@ -54,6 +54,7 @@
 
       <nav class="sidebar-nav">
         <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./8-dom-tableaux.html" class="nav-link">Création dynamique et tableaux</a>
       </nav>
     </aside>
 
@@ -82,49 +83,27 @@
 
         <p>Afin de pouvoir modifier un élément HTML, il faut d'abord le sélectionner.</p>
 
-        <h4>Deux méthodes principales de sélection</h4>
+        <h4>1) Sélection par ID avec <code>getElementById</code></h4>
         <div class="info-box">
-          <h3>Selection par ID</h3>
           <pre><code class="language-javascript">document.getElementById("monId")</code></pre>
           <ul>
-            <li>Cible l'élément unique possédant cet ID.</li>
-            <li>C'est la méthode la plus performante.</li>
+            <li>Cible un élément unique par son ID.</li>
+            <li>Très utilisé pour les éléments importants de l'interface.</li>
           </ul>
         </div>
-        <div class="info-box">
-          <h3>Selection par sélecteur CSS</h3>
-          <pre><code class="language-javascript">document.querySelector("selecteur")</code></pre>
-          <ul>
-            <li>Utilise la syntaxe CSS (ex : <code>.ma-classe</code>, <code>#monId</code>, <code>div &gt; p</code>,
-              <code>[mon-attribut="50"]</code>).</li>
-            <li>Il retourne le premier élément correspondant.</li>
-          </ul>
-        </div>
-        <p>On peut stocker l'élément sélectionné dans une variable pour ensuite pouvoir le modifier (ajouter une classe, changer
-          le texte d'un titre, etc.).</p>
 
-        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
-          data-title="getElementById + querySelector"
-          data-instructions="Appuyez sur le bouton exécuter puis réinitialiser pour voir les changements.">
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="Cibler un élément par son id"
+          data-toolbar-text='Commande: document.getElementById("id")'
+          data-instructions="Exécutez pour modifier un seul titre.">
           <textarea class="source-code-html" hidden>
-<div class="galerie-produits">
-  <h4 id="titre-gallery-produit">Galerie de produits</h4>
-  <div class="carte-produit" data-id="50">
-    <h5 class="carte-titre">Casque audio</h5>
-    <img src="https://placehold.co/160x100" alt="Casque audio">
-    <p class="carte-prix">79,99 $ CA</p>
-    <button class="carte-bouton">Ajouter au panier</button>
-  </div>
-  <div class="carte-produit" data-id="51">
-    <h5 class="carte-titre">Clavier mécanique</h5>
-    <img src="https://placehold.co/160x100" alt="Clavier mécanique">
-    <p class="carte-prix">129,00 $ CA</p>
-    <button class="carte-bouton">Ajouter au panier</button>
-  </div>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Casque audio</h4>
+  <p id="prix-produit">Prix : 79,99 $ CA</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.galerie-produits {
+.carte-produit-simple {
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   background: #f8fafc;
@@ -135,83 +114,282 @@
   font-family: "JetBrains Mono", monospace;
 }
 
-.galerie-produits h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.carte-produit {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-  background: #ffffff;
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
-}
-
-.carte-titre {
-  margin: 0 0 8px;
-  font-size: 0.95rem;
-  color: #0f172a;
-}
-
-.carte-produit img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  margin: 0 0 8px;
-}
-
-.carte-prix {
+#titre-produit {
   margin: 0 0 10px;
+  color: #0f172a;
+}
+
+#prix-produit {
+  margin: 0;
   color: #475569;
-}
-
-.carte-bouton {
-  background: #0f172a;
-  border: 0;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.carte-produit-active {
-  border-color: #2563eb;
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12),
-    0 0 0 2px rgba(37, 99, 235, 0.35),
-    0 0 18px rgba(37, 99, 235, 0.45);
-  filter: drop-shadow(0 6px 16px rgba(37, 99, 235, 0.4));
-  transform: translateY(-2px);
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// Sélectionner un élément par id
-const titreGalerie = document.getElementById("titre-gallery-produit");
-
-// Sélectionner un élément via un sélecteur CSS plus précis.
-const carteProduit = document.querySelector('.carte-produit[data-id="50"]');
-
-// Mettre à jour l'élément sélectionné (le titre de la galerie)
-titreGalerie.innerText = "Produits en vedette";
-
-// Mettre à jour l'apparence de la carte produit en lui ajoutant une classe CSS
-carteProduit.classList.add("carte-produit-active");
-        </textarea>
+// Obtient le titre avec son id.
+let elementTitreProduit = document.getElementById("titre-produit");
+// Met à jour le texte du titre.
+elementTitreProduit.innerText = `${"Casque audio Bluetooth"}`;
+</textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
-          data-title="Sélectionner un enfant avec un sélecteur CSS">
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Modifier un texte par son id"
+          data-toolbar-text='Commande: document.getElementById("id")'>
+          <textarea class="source-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Souris gaming</h4>
+  <p id="prix-produit">Prix : 59,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+#titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+#prix-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTitreProduit;
+let elementPrixProduit;
+
+// TODO 1: Cible <h4 id="titre-produit"> et stocke-le dans la variable elementTitreProduit.
+
+
+// Remplace son texte par "Souris gaming RGB".
+elementTitreProduit.innerText = `${"Souris gaming RGB"}`;
+
+// TODO 2: Cible <p id="prix-produit"> et stocke-le dans la variable elementPrixProduit.
+
+
+// Remplace son texte par "Prix : 54,99 $ CA".
+elementPrixProduit.innerText = `${"Prix : 54,99 $ CA"}`;
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Souris gaming</h4>
+  <p id="prix-produit">Prix : 59,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+#titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+#prix-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementTitreProduit = document.getElementById("titre-produit");
+elementTitreProduit.innerText = `${"Souris gaming RGB"}`;
+
+let elementPrixProduit = document.getElementById("prix-produit");
+elementPrixProduit.innerText = `${"Prix : 54,99 $ CA"}`;
+</textarea>
+        </div>
+
+        <h4>2) Sélection par sélecteur CSS avec <code>querySelector</code></h4>
+        <div class="info-box">
+          <pre><code class="language-javascript">document.querySelector("selecteur-css")</code></pre>
+          <ul>
+            <li>Utilise la même syntaxe que les sélecteurs CSS.</li>
+            <li>Retourne le premier élément qui correspond.</li>
+          </ul>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="Cibler un élément avec querySelector"
+          data-toolbar-text='Commande: document.querySelector("sélecteur")'
+          data-instructions="Exécutez pour cibler le prix via un sélecteur CSS.">
+          <textarea class="source-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <h4 class="titre-produit">Clavier mécanique</h4>
+  <p class="prix-produit">Prix : 129,00 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+.prix-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient le prix avec querySelector.
+let elementPrixProduit = document.querySelector("#conteneur-carte-produit .prix-produit");
+// Met à jour le texte du prix.
+elementPrixProduit.innerText = `${"Prix : 119,00 $ CA"}`;
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Lire une saisie avec querySelector"
+          data-toolbar-text='Commande: document.querySelector("sélecteur")'>
+          <textarea class="source-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <label for="saisie-nom">Nom du produit</label>
+  <input id="saisie-nom" type="text" value="Tablette graphique" />
+  <p class="message-produit">Produit : ...</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.carte-produit-simple label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.carte-produit-simple input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 8px;
+}
+
+.message-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSaisieNom;
+let elementMessageProduit;
+
+// TODO 1: Cible l'input #saisie-nom avec querySelector(...) et stocke-le dans la variable elementSaisieNom.
+
+
+// TODO 2: Cible le paragraphe .message-produit dans #conteneur-carte-produit et stocke-le dans elementMessageProduit.
+
+
+// Mets dans elementMessageProduit le texte: `Produit : ${elementSaisieNom.value}`.
+elementMessageProduit.innerText = `Produit : ${elementSaisieNom.value}`;
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <label for="saisie-nom">Nom du produit</label>
+  <input id="saisie-nom" type="text" value="Tablette graphique" />
+  <p class="message-produit">Produit : ...</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.carte-produit-simple label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.carte-produit-simple input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 8px;
+}
+
+.message-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementSaisieNom = document.querySelector("#conteneur-carte-produit #saisie-nom");
+let elementMessageProduit = document.querySelector("#conteneur-carte-produit .message-produit");
+
+elementMessageProduit.innerText = `Produit : ${elementSaisieNom.value}`;
+</textarea>
+        </div>
+
+        
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Modifier le contenu</h3>
+        </div>
+        <p>Cette section montre trois façons simples de modifier le contenu affiché dans la page.</p>
+
+        <h4><code>innerText</code></h4>
+        <p>Utilise <code>innerText</code> pour changer uniquement le texte visible d'un élément.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.innerText = `${texte}`</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="innerText"
+          data-toolbar-text='Commande: element.innerText = `${texte}`'
+          data-instructions="Exécutez pour changer le texte du titre.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
-  <h4 id="titre-alertes">Centre d'alertes</h4>
-  <div class="alerte" id="alerte-email">
-    <p class="etat">Email : en attente</p>
-  </div>
-  <div class="alerte" id="alerte-reseau">
-    <p class="etat">Réseau : en attente</p>
-  </div>
+  <h4 id="titre-systeme">Système normal</h4>
+  <p id="etat-systeme" class="etat">État : actif</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -227,55 +405,66 @@ carteProduit.classList.add("carte-produit-active");
 }
 
 .alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.alerte {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: #ffffff;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 
 .etat {
   margin: 0;
   color: #475569;
 }
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient le titre système avec son id.
+let elementTitreSysteme = document.getElementById("titre-systeme");
+// Remplace le texte du titre.
+elementTitreSysteme.innerText = `${"Système en alerte"}`;
+</textarea>
+        </div>
 
-.etat-critique {
-  color: #1d4ed8;
-  background: #eef2ff;
-  border-radius: 6px;
-  padding: 6px 8px;
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="innerText (pratique)"
+          data-toolbar-text='Commande: element.innerText = `${texte}`'
+          data-instructions="Cible les deux éléments puis change les deux textes avec innerText.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4 id="titre-systeme">Système normal</h4>
+  <p id="etat-systeme" class="etat">État : actif</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 10px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// TODO:
-// 1. Crée une variable pour le titre de la section des alertes
-// Le id de l'élément est titre-alertes
-const titreAlertes = document.getElementById("...");
+let elementTitreSysteme = document.getElementById("titre-systeme");
+let elementEtatSysteme = document.getElementById("etat-systeme");
 
-// TODO:
-// 2. Crée une variable pour l'état réseau
-// Élément avec une classe état qui est enfant d'un élément avec un id alerte-reseau
-const etatReseau = document.querySelector("...");
+// TODO 1: Change le texte du titre pour afficher "Système critique".
 
-// Changer le titre et mettre en évidence l'état réseau.
-titreAlertes.innerText = "Alertes critiques";
-etatReseau.innerText = "Réseau : critique";
-etatReseau.classList.add("etat-critique");
+
+// TODO 2: Change le texte de l'état pour afficher "État : intervention requise".
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="alerte-liste">
-  <h4 id="titre-alertes">Centre d'alertes</h4>
-  <div class="alerte" id="alerte-email">
-    <p class="etat">Email : en attente</p>
-  </div>
-  <div class="alerte" id="alerte-reseau">
-    <p class="etat">Réseau : en attente</p>
-  </div>
+  <h4 id="titre-systeme">Système normal</h4>
+  <p id="etat-systeme" class="etat">État : actif</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -291,110 +480,40 @@ etatReseau.classList.add("etat-critique");
 }
 
 .alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.alerte {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: #ffffff;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 
 .etat {
   margin: 0;
   color: #475569;
-}
-
-.etat-critique {
-  color: #1d4ed8;
-  background: #eef2ff;
-  border-radius: 6px;
-  padding: 6px 8px;
 }
 </textarea>
           <textarea class="solution-code-js" hidden>
-const titreAlertes = document.getElementById("titre-alertes");
-const etatReseau = document.querySelector("#alerte-reseau .etat");
+let elementTitreSysteme;
+let elementEtatSysteme;
 
-titreAlertes.innerText = "Alertes critiques";
-etatReseau.innerText = "Réseau : critique";
-etatReseau.classList.add("etat-critique");
+elementTitreSysteme = document.getElementById("titre-systeme");
+elementEtatSysteme = document.getElementById("etat-systeme");
+
+elementTitreSysteme.innerText = `${"Système critique"}`;
+elementEtatSysteme.innerText = `${"État : intervention requise"}`;
 </textarea>
         </div>
 
-        
-      </section>
-
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Modifier le contenu</h3>
-        </div>
-        <p>Trois propriétés utiles pour modifier le contenu :</p>
-        <ul>
-          <li><code>innerText</code> : modifie uniquement le texte visible d'un élément.</li>
-          <li><code>innerHTML</code> : modifie le contenu HTML interne (texte + balises).</li>
-          <li><code>value</code> : lit ou change la valeur d'un champ de formulaire (<code>input</code>, <code>textarea</code>, etc.).</li>
-        </ul>
-
-        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
-          data-title="innerText"
-          data-instructions="Appuyez sur exécuter puis réinitialiser pour voir le changement.">
-          <textarea class="source-code-html" hidden>
-<div class="alerte-liste">
-  <h4 id="titre-texte">Centre d'alertes</h4>
-  <div class="alerte">
-    <p class="etat">Statut : normal</p>
-  </div>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.alerte {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: #ffffff;
-}
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-// Cibler le titre avec document.getElementById(...)
-const elementTitre = document.getElementById("titre-texte");
-
-// Remplacer le texte dans le titre avec innerText
-elementTitre.innerText = "Alertes critiques";
-</textarea>
+        <h4><code>innerHTML</code></h4>
+        <p>Utilise <code>innerHTML</code> pour remplacer le contenu avec du HTML (texte + balises).</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.innerHTML = `${html}`</code></pre>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
-          data-title="Utilisation de innerHTML"
-          data-instructions="Appuyez sur exécuter puis réinitialiser pour voir le HTML généré.">
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="innerHTML"
+          data-toolbar-text='Commande: element.innerHTML = `${html}`'
+          data-instructions="Exécutez pour générer une fiche joueur HTML.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
   <h4>Fiche joueur</h4>
-  <div class="alerte" id="zone-html">Aucune fiche</div>
+  <div id="conteneur-fiche-joueur" class="alerte">Aucune fiche</div>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -407,11 +526,6 @@ elementTitre.innerText = "Alertes critiques";
   max-width: 440px;
   font-family: "JetBrains Mono", monospace;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
 }
 
 .alerte {
@@ -423,34 +537,109 @@ elementTitre.innerText = "Alertes critiques";
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-let nom = "Victor";
-let classe = "Guerrier";
-
-// Je cible la zone de rendu.
-const elementZone = document.getElementById("zone-html");
-
-// innerHTML remplace le contenu actuel par une structure HTML.
-elementZone.innerHTML = `
-  <p><strong>Nom:</strong> ${nom}</p>
-  <p><strong>Classe:</strong> ${classe}</p>
-`;
-
-// ajouter du HTML sans écraser le contenu actuel: elementZone.innerHTML += "Nouveau contenu"
-elementZone.innerHTML += `
-  <p><em>Bienvenue dans le jeu, ${nom} le ${classe} !</em></p>
+// Obtient le conteneur de fiche joueur.
+let elementConteneurFicheJoueur = document.getElementById("conteneur-fiche-joueur");
+let nomJoueur = "Lina";
+let classeJoueur = "Mage";
+// Remplace son contenu avec du HTML.
+elementConteneurFicheJoueur.innerHTML = `
+  <p><strong>Nom :</strong> ${nomJoueur}</p>
+  <p><strong>Classe :</strong> ${classeJoueur}</p>
 `;
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="innerHTML (pratique)"
+          data-toolbar-text='Commande: element.innerHTML = `${html}`'
+          data-instructions="Cible le conteneur puis remplace son contenu avec deux lignes HTML (nom + classe).">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Fiche joueur</h4>
+  <div id="conteneur-fiche-joueur" class="alerte">Aucune fiche</div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  background: #ffffff;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementConteneurFicheJoueur = document.getElementById("conteneur-fiche-joueur");
+
+// TODO 1: Remplace le contenu avec innerHTML pour afficher:
+// "<p><strong>Nom :</strong> Kael</p><p><strong>Classe :</strong> Guerrier</p>"
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Fiche joueur</h4>
+  <div id="conteneur-fiche-joueur" class="alerte">Aucune fiche</div>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  background: #ffffff;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementConteneurFicheJoueur;
+let nomJoueur = "Kael";
+let classeJoueur = "Guerrier";
+
+elementConteneurFicheJoueur = document.getElementById("conteneur-fiche-joueur");
+elementConteneurFicheJoueur.innerHTML = `
+  <p><strong>Nom :</strong> ${nomJoueur}</p>
+  <p><strong>Classe :</strong> ${classeJoueur}</p>
+`;
+</textarea>
+        </div>
+
+        <h4><code>value</code></h4>
+        <p>Utilise <code>value</code> pour lire ce qui est saisi dans un champ de formulaire.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">let texte = elementInput.value</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
           data-title="value"
-          data-instructions="Exécutez pour lire la valeur d'un input prérempli et l'afficher.">
+          data-toolbar-text='Commande: elementInput.value'
+          data-instructions="Exécutez pour lire la valeur du champ et l'afficher.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
   <h4>Profil joueur</h4>
-  <label for="input-pseudo">Pseudo</label>
-  <input id="input-pseudo" type="text" value="PixelNinja" />
-  <p id="sortie-value" class="etat">Pseudo : ...</p>
+  <label for="saisie-nom-joueur">Nom</label>
+  <input id="saisie-nom-joueur" type="text" value="PixelNinja" />
+  <p id="texte-nom-joueur" class="etat">Nom : ...</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -463,11 +652,6 @@ elementZone.innerHTML += `
   max-width: 440px;
   font-family: "JetBrains Mono", monospace;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
 }
 
 .alerte-liste label {
@@ -491,25 +675,26 @@ elementZone.innerHTML += `
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// 1) Je récupère l'input et la sortie.
-const inputPseudo = document.getElementById("input-pseudo");
-const sortie = document.getElementById("sortie-value");
+// Obtient le champ de saisie et le paragraphe de sortie.
+let elementSaisieNomJoueur = document.getElementById("saisie-nom-joueur");
+let elementTexteNomJoueur = document.getElementById("texte-nom-joueur");
 
-// 2) .value lit le texte saisi dans l'input.
-const pseudo = inputPseudo.value;
-sortie.innerText = `Pseudo : ${pseudo}`;
+// Lit la valeur puis l'affiche dans le texte.
+let nomSaisi = elementSaisieNomJoueur.value;
+elementTexteNomJoueur.innerText = `Nom : ${nomSaisi}`;
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
-          data-title="Exercice 1 - innerText et affichage"
-          data-instructions="Change la variable texteEcran, puis appelle miseAJourAffichage().">
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="value (pratique)"
+          data-toolbar-text='Commandes: elementInput.value + element.innerText'
+          data-instructions="Cible l'input et le texte de sortie, puis affiche la valeur lue.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
-  <h4>Écran système</h4>
-  <div class="alerte">
-    <p id="texte-ecran" class="etat">Bonjour</p>
-  </div>
+  <h4>Profil joueur</h4>
+  <label for="saisie-nom-joueur">Nom</label>
+  <input id="saisie-nom-joueur" type="text" value="Lina" />
+  <p id="texte-nom-joueur" class="etat">Nom : ...</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -522,205 +707,6 @@ sortie.innerText = `Pseudo : ${pseudo}`;
   max-width: 440px;
   font-family: "JetBrains Mono", monospace;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.alerte {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: #ffffff;
-}
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let texteEcran = "Bonjour";
-const elementEcran = document.getElementById("texte-ecran");
-
-function miseAJourAffichage() {
-  // TODO: Mettre la valeur de texteEcran dans l'élément de l'écran avec innerText.
-}
-
-// TODO: Change texteEcran pour un autre mot.
-
-// TODO: Appelle miseAJourAffichage().
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="alerte-liste">
-  <h4>Écran système</h4>
-  <div class="alerte">
-    <p id="texte-ecran" class="etat">Bonjour</p>
-  </div>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.alerte {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: #ffffff;
-}
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-let texteEcran = "Bonjour";
-const elementEcran = document.getElementById("texte-ecran");
-
-function miseAJourAffichage() {
-  elementEcran.innerText = texteEcran;
-}
-
-texteEcran = "Alerte";
-miseAJourAffichage();
-</textarea>
-        </div>
-
-        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
-          data-title="Exercice 2 - scores avec backticks"
-          data-instructions="Utilise le format fourni en commentaire pour générer et ajouter toutes les lignes de score.">
-          <textarea class="source-code-html" hidden>
-<div class="alerte-liste">
-  <h4>Tableau des scores</h4>
-  <ul id="liste-scores"></ul>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-#liste-scores {
-  margin: 0;
-  padding-left: 20px;
-  color: #475569;
-}
-
-#liste-scores li {
-  margin-bottom: 6px;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-const scores = [12, 18, 9, 24];
-const listeScores = document.getElementById("liste-scores");
-
-// Format attendu pour chaque ligne:
-// `<li>Joueur ${i + 1} : ${scores[i]} pts</li>`
-
-for (let i = 0; i < scores.length; i++) {
-  // TODO: Génère une ligne avec un template string (backticks + ${}).
-  // TODO: Ajoute la ligne dans la liste avec innerHTML += ...
-}
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="alerte-liste">
-  <h4>Tableau des scores</h4>
-  <ul id="liste-scores"></ul>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-#liste-scores {
-  margin: 0;
-  padding-left: 20px;
-  color: #475569;
-}
-
-#liste-scores li {
-  margin-bottom: 6px;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-const scores = [12, 18, 9, 24];
-const listeScores = document.getElementById("liste-scores");
-
-for (let i = 0; i < scores.length; i++) {
-  const ligne = `<li>Joueur ${i + 1} : ${scores[i]} pts</li>`;
-  listeScores.innerHTML += ligne;
-}
-</textarea>
-        </div>
-
-        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
-          data-title="Exercice 3 - remplacer avec value"
-          data-instructions="Lis la valeur de l'input prérempli et remplace le texte affiché.">
-          <textarea class="source-code-html" hidden>
-<div class="alerte-liste">
-  <h4>Message rapide</h4>
-  <label for="message-input">Message</label>
-  <input id="message-input" type="text" value="Mission prête" />
-  <p id="message-sortie" class="etat">Message : ...</p>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
 }
 
 .alerte-liste label {
@@ -744,19 +730,20 @@ for (let i = 0; i < scores.length; i++) {
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-const inputMessage = document.getElementById("message-input");
-const sortieMessage = document.getElementById("message-sortie");
+let elementSaisieNomJoueur = document.getElementById("saisie-nom-joueur");
+let elementTexteNomJoueur = document.getElementById("texte-nom-joueur");
 
-// TODO:
-// 1. Lis la valeur de l'input avec .value
-// 2. Remplace le texte de sortie avec innerText
+// TODO 1: Lis la valeur avec .value et stocke-la dans la variable nomSaisi.
+
+
+// TODO 2: Mets elementTexteNomJoueur.innerText = `Nom : ${nomSaisi}`.
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="alerte-liste">
-  <h4>Message rapide</h4>
-  <label for="message-input">Message</label>
-  <input id="message-input" type="text" value="Mission prête" />
-  <p id="message-sortie" class="etat">Message : ...</p>
+  <h4>Profil joueur</h4>
+  <label for="saisie-nom-joueur">Nom</label>
+  <input id="saisie-nom-joueur" type="text" value="Lina" />
+  <p id="texte-nom-joueur" class="etat">Nom : ...</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -769,11 +756,6 @@ const sortieMessage = document.getElementById("message-sortie");
   max-width: 440px;
   font-family: "JetBrains Mono", monospace;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
 }
 
 .alerte-liste label {
@@ -797,11 +779,14 @@ const sortieMessage = document.getElementById("message-sortie");
 }
 </textarea>
           <textarea class="solution-code-js" hidden>
-const inputMessage = document.getElementById("message-input");
-const sortieMessage = document.getElementById("message-sortie");
+let elementSaisieNomJoueur;
+let elementTexteNomJoueur;
 
-const texte = inputMessage.value;
-sortieMessage.innerText = `Message : ${texte}`;
+elementSaisieNomJoueur = document.getElementById("saisie-nom-joueur");
+elementTexteNomJoueur = document.getElementById("texte-nom-joueur");
+
+let nomSaisi = elementSaisieNomJoueur.value;
+elementTexteNomJoueur.innerText = `Nom : ${nomSaisi}`;
 </textarea>
         </div>
       </section>
@@ -810,149 +795,279 @@ sortieMessage.innerText = `Message : ${texte}`;
         <div class="section-header">
           <h3>Modifier l'apparence</h3>
         </div>
-        <p>Pour le style, on combine souvent :</p>
-        <ul>
-          <li><code>classList.add/remove/toggle</code> pour appliquer une règle CSS réutilisable.</li>
-          <li><code>element.style</code> pour un ajustement ponctuel (ex: <code>transform</code>).</li>
-        </ul>
+        <p>On peut changer l'apparence avec une classe CSS ou avec <code>style</code>.</p>
 
-        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
-          data-title="classList + style"
-          data-instructions="Exécutez pour appliquer une classe puis un style inline.">
+        <h4>1) Ajouter une classe avec <code>classList.add()</code></h4>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.classList.add("ma-classe")</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Ajouter une classe"
+          data-toolbar-text='Commande: element.classList.add("nom-classe")'
+          data-instructions="Exécutez pour appliquer la classe visuelle.">
           <textarea class="source-code-html" hidden>
-<div class="alerte-liste" id="carte-statut">
-  <h4 id="titre-statut">Statut du système</h4>
-  <p id="texte-statut" class="etat">Mode : normal</p>
+<div class="carte-apparence" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Produit</h4>
+  <p id="prix-produit">Prix : 79,99 $ CA</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
 }
 
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
-
-.alerte-liste-active {
-  border-color: #1d4ed8;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+.carte-apparence-active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-const carteStatut = document.getElementById("carte-statut");
-const titreStatut = document.getElementById("titre-statut");
-const texteStatut = document.getElementById("texte-statut");
-
-// 1) Ajouter une classe CSS pour changer l'apparence globale.
-carteStatut.classList.add("alerte-liste-active");
-
-// 2) Ajouter un style inline ponctuel.
-carteStatut.style.transform = "translateY(-2px)";
-
-// 3) Mettre le contenu à jour.
-titreStatut.innerText = "Statut du système : alerte";
-texteStatut.innerText = "Mode : surveillance";
+// Obtient la carte produit avec son id.
+let elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+// Ajoute la classe visuelle sur la carte.
+elementConteneurCarteProduit.classList.add("carte-apparence-active");
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
-          data-title="appliquer une classe d'alerte"
-          data-instructions="Complète les TODO pour changer le style et le texte.">
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Ajouter une classe (pratique)"
+          data-toolbar-text='Commande: element.classList.add("nom-classe")'
+          data-instructions="Cible la carte puis ajoute la classe carte-apparence-active.">
           <textarea class="source-code-html" hidden>
-<div class="alerte-liste" id="carte-exo-style">
-  <h4 id="titre-exo-style">Zone de statut</h4>
-  <p id="texte-exo-style" class="etat">Statut : normal</p>
+<div class="carte-apparence" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Produit</h4>
+  <p id="prix-produit">Prix : 79,99 $ CA</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
 }
 
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
-
-.zone-alerte {
-  border-color: #dc2626;
-  background: #fef2f2;
+.carte-apparence-active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// TODO 1: Sélectionne #carte-exo-style, #titre-exo-style et #texte-exo-style.
-// TODO 2: Ajoute la classe "zone-alerte" sur la carte.
-// TODO 3: Mets le titre à "Zone de statut : alerte".
-// TODO 4: Mets le texte à "Statut : critique".
+let elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+
+// TODO 1: Ajoute la classe "carte-apparence-active" sur elementConteneurCarteProduit.
 </textarea>
           <textarea class="solution-code-html" hidden>
-<div class="alerte-liste" id="carte-exo-style">
-  <h4 id="titre-exo-style">Zone de statut</h4>
-  <p id="texte-exo-style" class="etat">Statut : normal</p>
+<div class="carte-apparence" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Produit</h4>
+  <p id="prix-produit">Prix : 79,99 $ CA</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
 }
 
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
-
-.zone-alerte {
-  border-color: #dc2626;
-  background: #fef2f2;
+.carte-apparence-active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 </textarea>
           <textarea class="solution-code-js" hidden>
-const carte = document.getElementById("carte-exo-style");
-const titre = document.getElementById("titre-exo-style");
-const texte = document.getElementById("texte-exo-style");
+let elementConteneurCarteProduit;
+elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+elementConteneurCarteProduit.classList.add("carte-apparence-active");
+</textarea>
+        </div>
 
-carte.classList.add("zone-alerte");
-titre.innerText = "Zone de statut : alerte";
-texte.innerText = "Statut : critique";
+        <h4>2) Retirer une classe avec <code>classList.remove()</code></h4>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.classList.remove("ma-classe")</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Retirer une classe"
+          data-toolbar-text='Commande: element.classList.remove("nom-classe")'>
+          <textarea class="source-code-html" hidden>
+<div class="carte-apparence carte-apparence-active" id="conteneur-carte-produit">
+  <h4>Produit</h4>
+  <p>Prix : 79,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
+}
+
+.carte-apparence-active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient la carte produit qui possède déjà une classe active.
+let elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+// Retire la classe visuelle.
+elementConteneurCarteProduit.classList.remove("carte-apparence-active");
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Retirer une classe (pratique)"
+          data-toolbar-text='Commande: element.classList.remove("nom-classe")'
+          data-instructions="Cible la carte puis retire la classe carte-apparence-active.">
+          <textarea class="source-code-html" hidden>
+<div class="carte-apparence carte-apparence-active" id="conteneur-carte-produit">
+  <h4>Produit</h4>
+  <p>Prix : 79,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
+}
+
+.carte-apparence-active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+
+// TODO 1: Retire la classe "carte-apparence-active" de elementConteneurCarteProduit.
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="carte-apparence carte-apparence-active" id="conteneur-carte-produit">
+  <h4>Produit</h4>
+  <p>Prix : 79,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
+}
+
+.carte-apparence-active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementConteneurCarteProduit;
+elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+elementConteneurCarteProduit.classList.remove("carte-apparence-active");
+</textarea>
+        </div>
+
+        <h4>3) Modifier directement avec <code>style</code></h4>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.style.backgroundColor = "#fef3c7"</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Modifier avec style"
+          data-toolbar-text='Commande: element.style.propriete = "valeur"'>
+          <textarea class="source-code-html" hidden>
+<div class="carte-apparence" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Produit</h4>
+  <p>Prix : 79,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient les éléments à styliser.
+let elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+let elementTitreProduit = document.getElementById("titre-produit");
+
+// Applique un style de fond puis une couleur de texte.
+elementConteneurCarteProduit.style.backgroundColor = "#fef3c7";
+elementTitreProduit.style.color = "#92400e";
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Modifier avec style (pratique)"
+          data-toolbar-text='Commande: element.style.propriete = "valeur"'
+          data-instructions="Cible le conteneur et le titre, puis applique un fond bleu clair et un texte bleu foncé.">
+          <textarea class="source-code-html" hidden>
+<div class="carte-apparence" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Produit</h4>
+  <p>Prix : 79,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+let elementTitreProduit = document.getElementById("titre-produit");
+
+// TODO 1: Mets le backgroundColor de elementConteneurCarteProduit à "#dbeafe".
+
+
+// TODO 2: Mets la couleur du texte de elementTitreProduit à "#1e3a8a".
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="carte-apparence" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Produit</h4>
+  <p>Prix : 79,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.carte-apparence {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 12px;
+  max-width: 360px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementConteneurCarteProduit;
+let elementTitreProduit;
+
+elementConteneurCarteProduit = document.getElementById("conteneur-carte-produit");
+elementTitreProduit = document.getElementById("titre-produit");
+
+elementConteneurCarteProduit.style.backgroundColor = "#dbeafe";
+elementTitreProduit.style.color = "#1e3a8a";
 </textarea>
         </div>
       </section>
@@ -961,21 +1076,24 @@ texte.innerText = "Statut : critique";
         <div class="section-header">
           <h3>Modifier les attributs</h3>
         </div>
-        <p>Un attribut décrit une propriété d'un élément HTML (<code>href</code>, <code>src</code>, <code>title</code>, <code>data-*</code>).</p>
+        <p>Un attribut décrit une propriété d'un élément HTML (<code>src</code>, <code>onclick</code>, <code>href</code>, etc.).</p>
         <ul>
           <li><code>setAttribute(nom, valeur)</code> modifie un attribut.</li>
-          <li><code>getAttribute(nom)</code> lit sa valeur actuelle.</li>
         </ul>
 
-        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
-          data-title="setAttribute et getAttribute"
-          data-instructions="Exécutez pour mettre à jour un lien, une image et un attribut data.">
+        <h4>Ex. Mettre à jour <code>src</code> d'une image</h4>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.setAttribute("src", "url-image")</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="Changer le src d'une image"
+          data-toolbar-text='Commande: element.setAttribute("src", "url-image")'
+          data-instructions="Exécutez pour remplacer l'image affichée.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
-  <h4>Ressource active</h4>
-  <a id="lien-doc" href="#" target="_blank" rel="noreferrer">Documentation</a>
-  <img id="image-doc" src="https://placehold.co/220x90?text=Initial" alt="Image initiale">
-  <p id="etat-doc" class="etat">Lien actuel : #</p>
+  <h4>Image de personnage</h4>
+  <img id="image-personnage" src="https://picsum.photos/id/1015/220/90" alt="Image avant">
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -995,11 +1113,6 @@ texte.innerText = "Statut : critique";
   color: #0f172a;
 }
 
-.alerte-liste a {
-  color: #1d4ed8;
-  text-decoration: underline;
-}
-
 .alerte-liste img {
   display: block;
   width: 220px;
@@ -1007,40 +1120,23 @@ texte.innerText = "Statut : critique";
   margin: 10px 0;
   border-radius: 8px;
 }
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
 </textarea>
           <textarea class="source-code-js" hidden>
-const lienDoc = document.getElementById("lien-doc");
-const imageDoc = document.getElementById("image-doc");
-const etatDoc = document.getElementById("etat-doc");
-
-// 1) Mettre a jour les attributs du lien.
-lienDoc.setAttribute("href", "https://developer.mozilla.org/fr/docs/Web/API/Document_Object_Model");
-lienDoc.setAttribute("title", "Documentation DOM");
-lienDoc.setAttribute("data-section", "dom");
-
-// 2) Mettre a jour les attributs de l'image.
-imageDoc.setAttribute("src", "https://placehold.co/220x90?text=DOM");
-imageDoc.setAttribute("alt", "Banniere DOM");
-
-// 3) Relire la valeur de href et l'afficher.
-etatDoc.innerText = "Lien actuel : " + lienDoc.getAttribute("href");
+// Obtient l'image avec son id.
+let elementImagePersonnage = document.getElementById("image-personnage");
+// Remplace la source de l'image.
+elementImagePersonnage.setAttribute("src", "https://picsum.photos/id/1025/220/90");
 </textarea>
         </div>
 
-        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
-          data-title="mettre a jour des attributs"
-          data-instructions="Complète les TODO pour configurer le lien et l'image.">
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Mettre à jour le src d'une image"
+          data-toolbar-text='Commande: element.setAttribute("src", "url-image")'
+          data-instructions="L'image est déjà ciblée. Ajoute seulement le setAttribute sur src.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
-  <h4>Configuration rapide</h4>
-  <a id="doc-link" href="#" target="_blank" rel="noreferrer">Documentation</a>
-  <img id="doc-img" src="https://placehold.co/220x90?text=Avant" alt="Avant">
-  <p id="doc-etat" class="etat">Lien actuel : #</p>
+  <h4>Image de personnage</h4>
+  <img id="image-personnage-exercice" src="https://picsum.photos/id/1015/220/90" alt="Image avant">
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -1060,11 +1156,6 @@ etatDoc.innerText = "Lien actuel : " + lienDoc.getAttribute("href");
   color: #0f172a;
 }
 
-.alerte-liste a {
-  color: #1d4ed8;
-  text-decoration: underline;
-}
-
 .alerte-liste img {
   display: block;
   width: 220px;
@@ -1072,24 +1163,16 @@ etatDoc.innerText = "Lien actuel : " + lienDoc.getAttribute("href");
   margin: 10px 0;
   border-radius: 8px;
 }
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
 </textarea>
           <textarea class="source-code-js" hidden>
-// TODO 1: Sélectionne #doc-link, #doc-img et #doc-etat.
-// TODO 2: Mets href et title sur le lien avec setAttribute.
-// TODO 3: Mets src et alt sur l'image avec setAttribute.
-// TODO 4: Mets "Lien actuel : ..." dans #doc-etat avec getAttribute("href").
+let elementImagePersonnage = document.getElementById("image-personnage-exercice");
+
+// TODO 1: Mets le src de elementImagePersonnage à "https://picsum.photos/id/1003/220/90".
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="alerte-liste">
-  <h4>Configuration rapide</h4>
-  <a id="doc-link" href="#" target="_blank" rel="noreferrer">Documentation</a>
-  <img id="doc-img" src="https://placehold.co/220x90?text=Avant" alt="Avant">
-  <p id="doc-etat" class="etat">Lien actuel : #</p>
+  <h4>Image de personnage</h4>
+  <img id="image-personnage-exercice" src="https://picsum.photos/id/1015/220/90" alt="Image avant">
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -1109,11 +1192,6 @@ etatDoc.innerText = "Lien actuel : " + lienDoc.getAttribute("href");
   color: #0f172a;
 }
 
-.alerte-liste a {
-  color: #1d4ed8;
-  text-decoration: underline;
-}
-
 .alerte-liste img {
   display: block;
   width: 220px;
@@ -1121,337 +1199,13 @@ etatDoc.innerText = "Lien actuel : " + lienDoc.getAttribute("href");
   margin: 10px 0;
   border-radius: 8px;
 }
-
-.etat {
-  margin: 0;
-  color: #475569;
-}
 </textarea>
           <textarea class="solution-code-js" hidden>
-const lien = document.getElementById("doc-link");
-const image = document.getElementById("doc-img");
-const etat = document.getElementById("doc-etat");
-
-lien.setAttribute("href", "https://developer.mozilla.org/fr/docs/Web/API/Element/setAttribute");
-lien.setAttribute("title", "Doc setAttribute");
-image.setAttribute("src", "https://placehold.co/220x90?text=Apres");
-image.setAttribute("alt", "Image configuree");
-etat.innerText = "Lien actuel : " + lien.getAttribute("href");
+let elementImagePersonnage = document.getElementById("image-personnage-exercice");
+elementImagePersonnage.setAttribute("src", "https://picsum.photos/id/1003/220/90");
 </textarea>
         </div>
       </section>
-
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Création dynamique</h3>
-        </div>
-        <p>La creation dynamique consiste a fabriquer des noeuds en JavaScript puis les inserer dans la page.</p>
-        <ul>
-          <li><code>createElement()</code> cree un element en memoire.</li>
-          <li><code>appendChild()</code> l'ajoute comme enfant.</li>
-          <li><code>classList.add()</code> et <code>setAttribute()</code> le configurent avant insertion.</li>
-        </ul>
-
-        <div class="playground-container" data-output-default="render" data-type="example" data-console-open="true"
-          data-title="createElement + appendChild"
-          data-instructions="Exécutez pour générer trois badges automatiquement.">
-          <textarea class="source-code-html" hidden>
-<div class="alerte-liste">
-  <h4>Badges générés</h4>
-  <div id="tag-zone" class="tag-zone"></div>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-.tag-zone {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.badge {
-  border: 1px solid #93c5fd;
-  background: #eff6ff;
-  color: #1e3a8a;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-const zone = document.getElementById("tag-zone");
-const labels = ["DOM", "CSS", "HTML"];
-
-for (let i = 0; i < labels.length; i++) {
-  // 1) Créer un élément span pour chaque badge.
-  const badge = document.createElement("span");
-  // 2) Ajouter une classe et un attribut data.
-  badge.classList.add("badge");
-  badge.setAttribute("data-index", String(i));
-  // 3) Remplir le texte puis insérer dans la zone.
-  badge.innerText = labels[i];
-  zone.appendChild(badge);
-}
-</textarea>
-        </div>
-
-        <div class="playground-container" data-output-default="render" data-type="exercise" data-console-open="true"
-          data-title="generer une liste dynamique"
-          data-instructions="Complète les TODO pour créer des lignes avec createElement et appendChild.">
-          <textarea class="source-code-html" hidden>
-<div class="alerte-liste">
-  <h4>Liste des missions</h4>
-  <ul id="todo-list"></ul>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-#todo-list {
-  margin: 0;
-  padding-left: 20px;
-  color: #475569;
-}
-
-#todo-list li {
-  margin-bottom: 6px;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-const missions = ["Analyser le DOM", "Modifier un attribut", "Créer un élément"];
-const liste = document.getElementById("todo-list");
-
-for (let i = 0; i < missions.length; i++) {
-  // TODO 1: Crée un élément <li> avec createElement.
-  // TODO 2: Mets le texte de la mission avec innerText.
-  // TODO 3: Ajoute le <li> dans la liste avec appendChild.
-}
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="alerte-liste">
-  <h4>Liste des missions</h4>
-  <ul id="todo-list"></ul>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.alerte-liste {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 16px;
-  color: #0f172a;
-  max-width: 440px;
-  font-family: "JetBrains Mono", monospace;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.alerte-liste h4 {
-  margin: 0 0 12px;
-  color: #0f172a;
-}
-
-#todo-list {
-  margin: 0;
-  padding-left: 20px;
-  color: #475569;
-}
-
-#todo-list li {
-  margin-bottom: 6px;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-const missions = ["Analyser le DOM", "Modifier un attribut", "Créer un élément"];
-const liste = document.getElementById("todo-list");
-
-for (let i = 0; i < missions.length; i++) {
-  const item = document.createElement("li");
-  item.innerText = missions[i];
-  liste.appendChild(item);
-}
-</textarea>
-        </div>
-      </section>
-
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Tableaux parallèles vers HTML</h3>
-        </div>
-        <p>
-          Une technique fréquente consiste à stocker plusieurs informations liées dans des tableaux parallèles
-          (même index = même entité), puis à générer l'affichage HTML avec une boucle.
-        </p>
-        <div class="info-box info">
-          <p>
-            Exemple : <code>noms[i]</code>, <code>roles[i]</code> et <code>scores[i]</code> décrivent le même joueur.
-            On crée ensuite un élément DOM pour chaque index.
-          </p>
-        </div>
-
-        <div class="playground-container" data-output-default="render" data-type="example"
-          data-title="cartes joueurs depuis tableaux parallèles">
-          <textarea class="source-code-html" hidden>
-<section class="team-ui">
-  <h4>Escouade</h4>
-  <div id="team-list"></div>
-</section>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.team-ui {
-  max-width: 560px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-#team-list {
-  display: grid;
-  gap: 8px;
-}
-
-.team-card {
-  border: 1px solid #3b82f6;
-  border-radius: 8px;
-  background: #172554;
-  padding: 8px 10px;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-const noms = ["Alya", "Kael", "Lina"];
-const roles = ["Rodeuse", "Tank", "Mage"];
-const scores = [120, 95, 140];
-const list = document.getElementById("team-list");
-
-// Même index = même joueur dans les 3 tableaux.
-for (let i = 0; i < noms.length; i++) {
-  const card = document.createElement("article");
-  card.classList.add("team-card");
-  card.innerHTML = `
-    <strong>${noms[i]}</strong> - ${roles[i]}<br />
-    Score: ${scores[i]}
-  `;
-  list.appendChild(card);
-}
-</textarea>
-        </div>
-
-        <div class="playground-container" data-output-default="render" data-type="exercise"
-          data-title="générer un classement depuis tableaux parallèles">
-          <textarea class="source-code-html" hidden>
-<section class="team-ui">
-  <h4>Classement</h4>
-  <div id="ranking-list"></div>
-</section>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.team-ui {
-  max-width: 560px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-#ranking-list {
-  display: grid;
-  gap: 8px;
-}
-
-.ranking-row {
-  border: 1px solid #16a34a;
-  border-radius: 8px;
-  background: #052e16;
-  padding: 8px 10px;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-const noms = ["Nora", "Timo", "Sana"];
-const classes = ["Archer", "Guerrier", "Healer"];
-const points = [18, 24, 21];
-
-// TODO:
-// 1. Récupère #ranking-list avec document.getElementById(...)
-// 2. Parcours les tableaux avec l'index i.
-// 3. Crée un <div> avec class "ranking-row".
-// 4. Mets en innerHTML: "<nom> (<classe>) - <points> pts".
-// 5. Ajoute chaque ligne dans ranking.
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<section class="team-ui">
-  <h4>Classement</h4>
-  <div id="ranking-list"></div>
-</section>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.team-ui {
-  max-width: 560px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-#ranking-list {
-  display: grid;
-  gap: 8px;
-}
-
-.ranking-row {
-  border: 1px solid #16a34a;
-  border-radius: 8px;
-  background: #052e16;
-  padding: 8px 10px;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-const noms = ["Nora", "Timo", "Sana"];
-const classes = ["Archer", "Guerrier", "Healer"];
-const points = [18, 24, 21];
-const ranking = document.getElementById("ranking-list");
-
-for (let i = 0; i < noms.length; i++) {
-  const row = document.createElement("div");
-  row.classList.add("ranking-row");
-  row.innerHTML = `${noms[i]} (${classes[i]}) - ${points[i]} pts`;
-  ranking.appendChild(row);
-}
-</textarea>
-        </div>
-      </section>
-
     </main>
   </div>
 
