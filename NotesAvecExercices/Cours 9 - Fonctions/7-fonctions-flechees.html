@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours JavaScript - Fonctions Fléchées</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../editor/editor.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Flèches</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Fonctions Fléchées</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="section-spy">
+                <div class="info-box info">
+                    <strong>Prérequis :</strong> Les fonctions classiques (déclaration, paramètres, return) sont dans
+                    <a href="./7-fonctions.html">la page Fonctions classiques</a>.
+                </div>
+            </section>
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Fonctions fléchées</h3>
+                </div>
+                <p>Les fonctions fléchées sont une syntaxe plus courte et moderne pour écrire des fonctions.</p>
+                
+                <h4>Syntaxe des fonctions fléchées :</h4>
+                <ul>
+                    <li><strong>Avec 1 paramètre :</strong> <code>const nomFonction = (param) =&gt; { /* code */ };</code></li>
+                    <li><strong>Avec 2 paramètres :</strong> <code>const nomFonction = (param1, param2) =&gt; { /* code */ };</code></li>
+                    <li>La flèche <code>=&gt;</code> remplace le mot-clé <code>function</code>.</li>
+                    <li>Le <code>return</code> fonctionne de la même manière.</li>
+                </ul>
+
+                <h4>Comparaison : Syntaxe classique vs Syntaxe fléchée</h4>
+                <div class="playground-container" data-type="example" data-title="Syntaxe classique">
+                    <textarea class="source-code" hidden>
+// Version classique avec function
+function doubler(n) {
+  return n * 2;
+}
+
+function additionner(a, b) {
+  return a + b;
+}
+
+console.log(doubler(6));      // 12
+console.log(additionner(5, 3)); // 8
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Syntaxe fléchée (arrow)" data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// Version fléchée avec =>
+const doubler = (n) => n * 2;
+
+const doublerV2 = (n) => {
+    return n * 2;
+}
+
+const additionner = (a, b) => {
+  return a + b;
+};
+
+console.log(doubler(6));      
+console.log(doublerV2(6));    
+console.log(additionner(5, 3)); 
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Fonction fléchée estPair"
+                    data-instructions="Traduis cette fonction classique en fonction fléchée (arrow function)."
+                    data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// Fonction classique
+function estPair(nombre) {
+  return nombre % 2 === 0;
+}
+
+// TODO: Réécris cette fonction en version fléchée (arrow function)
+// const estPair = ...
+
+console.log(estPair(8));
+console.log(estPair(7));
+</textarea>
+                    <textarea class="solution-code" hidden>
+// Fonction classique
+function estPair(nombre) {
+  return nombre % 2 === 0;
+}
+
+// Version fléchée
+const estPairArrow = (nombre) => {
+  return nombre % 2 === 0;
+};
+
+console.log(estPairArrow(8));
+console.log(estPairArrow(7));
+</textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../editor/editor.js"></script>
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>

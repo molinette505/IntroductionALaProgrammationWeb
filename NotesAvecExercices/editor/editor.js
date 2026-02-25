@@ -1037,7 +1037,12 @@ ${html}
 
         const inlineValue = (value) => {
             const text = stringifyValue(value);
-            return text.includes('\n') ? `${text.split('\n')[0]} ...` : text;
+            if (!text.includes('\n')) return text;
+
+            const lines = text.split('\n');
+            const firstNonEmpty = lines.find((line) => line.trim().length > 0);
+            const preview = (firstNonEmpty || lines[0] || '').trim();
+            return `${preview || '[multiline]'} ...`;
         };
 
         const isErrorLike = (value) => {

@@ -14,12 +14,13 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -27,6 +28,7 @@
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../editor/editor.css">
+    <link rel="stylesheet" href="../quiz/quiz.css">
     <style>
         #intro,
         #output {
@@ -103,103 +105,132 @@
                     </p>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Utiliser console.log() pour afficher des messages">
+                <div class="playground-container" data-type="example" data-title="Afficher un message"
+                    data-toolbar-text="Utiliser console.log(message) pour afficher un message."
+                    data-instructions="N'oubliez pas le point-virgule ; à la fin de chaque ligne de code!">
                     <textarea class="source-code" hidden>
-// 1. Afficher un message simple
-console.log("Système prêt.");
+// 1. Pour afficher du texte, on met le texte entre guillemets.
+console.log("Ceci affiche du texte.");
+
+// 2. Pour afficher un nombre, on écrit seulement le nombre.
+console.log(150);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example"
+                    data-title="Afficher un message composé de plusieurs textes et nombre"
+                    data-toolbar-text="Utiliser console.log(message1, message2, message3, ...) en séparant chaque élément par des virgules">
+                    <textarea class="source-code" hidden>
+// 1. Afficher plusieurs messages à la suite
+console.log("Mon nom est Victor et j'ai", 15, "ans!");
 
 // 2. Afficher plusieurs messages à la suite
 console.log("État du joueur :", "En vie", "| HP :", 100);
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Journal de quête" data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de la ligne !">
+                <div class="playground-container" data-type="exercise"
+                    data-title="Afficher un journal de quête: un message seulement"
+                    data-toolbar-text="Utiliser console.log(message)"
+                    data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de chaque ligne !">
                     <textarea class="source-code" hidden>
-// TODO 1: Affiche "Nouvelle quête activée: Trouver l'épée"
-
-// TODO 2: Affiche "Récompense:" suivi du nombre 500 et du mot "écus"
-// Utilise 3 arguments séparés par des virgules dans le log
-// Exemple: Récompense: 500 écus
+// TODO: Affiche "Nouvelle quête activée: Trouver l'épée"
+// N'oublie pas d'utiliser
 
 </textarea>
                     <textarea class="solution-code" hidden>
 console.log("Quête activée: Trouver l'épée");
-console.log("Récompense:", 500, "écus");
 </textarea>
                 </div>
-            </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Les Variables</h3>
+            <div class="playground-container" data-type="exercise" data-title="Afficher un journal de quête"
+                data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de chaque ligne !">
+                <textarea class="source-code" hidden>
+// TODO: Affiche "Récompense:" suivi du nombre 500 et du mot "écus"
+// Utilise 3 arguments séparés par des virgules dans le log
+// Exemple: Récompense: 500 écus
+
+</textarea>
+                <textarea class="solution-code" hidden>
+console.log("Quête activée: Trouver l'épée");
+console.log("Récompense:", 500, "écus");
+</textarea>
+            </div>
+
+            <div class="section-header">
+                <h3>Les Variables</h3>
+            </div>
+
+            <p>Une variable est un espace réservé dans la mémoire de l'ordinateur.</p>
+            <p>Imaginez une <strong>boîte</strong> avec une étiquette.</p>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon"><i data-lucide="box"></i></div>
+                    <span class="concept-tag">Étape 1</span>
+                    <h4>Créer</h4>
+                    <code>let score;</code>
+                    <ul style="text-align: left;">
+                        <li>L'ordinateur <strong>réserve un bloc de mémoire</strong></li>
+                        <li>Il lui donne le nom "score".</li>
+                        <li>À ce stade, la boîte est vide, sa valeur est <code>undefined</code>.</li>
+                    </ul>
                 </div>
 
-                <p>Une variable est un espace réservé dans la mémoire de l'ordinateur.</p>
-                <p>Imaginez une <strong>boîte</strong> avec une étiquette.</p>
-
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-icon"><i data-lucide="box"></i></div>
-                        <span class="concept-tag">Étape 1</span>
-                        <h4>Déclaration</h4>
-                        <code>let score;</code>
-                        <ul style="text-align: left;">
-                            <li>L'ordinateur <strong>réserve un bloc de mémoire</strong></li>
-                            <li>Il lui donne le nom "score".</li>
-                            <li>À ce stade, la boîte est vide, sa valeur est <code>undefined</code>.</li>
-                        </ul>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-icon"><i data-lucide="download"></i></div>
-                        <span class="concept-tag">Étape 2</span>
-                        <h4>Assignation</h4>
-                        <code>score = 10;</code>
-                        <ul style="text-align: left;">
-                            <li>On place la valeur <code>10</code> dans la boîte.</li>
-                            <li>Si on change la valeur plus tard,
-                                <strong>l'ancienne est écrasée</strong> et perdue à jamais.
-                            </li>
-                            </p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-icon"><i data-lucide="eye"></i></div>
-                        <span class="concept-tag">Étape 3</span>
-                        <h4>Lecture / Usage</h4>
-                        <code>console.log(score);</code>
-                        <ul style="text-align: left;">
-                            <li>L'ordinateur va lire le contenu de la boîte</li>
-                            <li>Il va ensuite remplacer <code>score</code> dans le code par sa valeur <code>10</code>
-                            </li>
-                            <li>Pour l'ordinateur <code>console.log(score);</code> devient <code>console.log(10);</code>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="step-card">
+                    <div class="step-icon"><i data-lucide="download"></i></div>
+                    <span class="concept-tag">Étape 2</span>
+                    <h4>Écriture</h4>
+                    <code>score = 10;</code>
+                    <ul style="text-align: left;">
+                        <li>On place la valeur <code>10</code> dans la boîte.</li>
+                        <li>Si on change la valeur plus tard,
+                            <strong>l'ancienne est écrasée</strong> et perdue à jamais.
+                        </li>
+                        </p>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Modification de valeur">
-                    <textarea class="source-code" hidden>
-// Déclaration: Crée la variable
+                <div class="step-card">
+                    <div class="step-icon"><i data-lucide="eye"></i></div>
+                    <span class="concept-tag">Étape 3</span>
+                    <h4>Lecture</h4>
+                    <code>console.log(score);</code>
+                    <ul style="text-align: left;">
+                        <li>L'ordinateur va lire le contenu de la boîte</li>
+                        <li>Il va ensuite remplacer <code>score</code> dans le code par sa valeur <code>10</code>
+                        </li>
+                        <li>Pour l'ordinateur <code>console.log(score);</code> devient <code>console.log(10);</code>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="playground-container" data-type="example" data-title="Modification de valeur">
+                <textarea class="source-code" hidden>
+// Crée la variable, on utilise let
 let vie;
-console.log("La variable est crée, mais vide:", vie)
+console.log("La variable est crée, mais vide:", vie) //vie est undefined
 
-// Assignation: Mets 100 à l'intérieur de la variable
+// Mets 100 à l'intérieur de la variable
 vie = 100;
-console.log("Vie au départ :", vie);
+console.log("Vie :", vie);
 
-//Assignation: Mets 50 à l'intérieur de la variable
+// Mets 50 à l'intérieur de la variable, écrase la valeur 100
 vie = 50;
 console.log("Modification de la vie :", vie)
 
-//Déclaration et assignation en une seule instruction
-let nomPersonnage = "Link";
-console.log("Mon personnage s'appelle :", nomPersonnage);
-</textarea>
-                </div>
+// Création et écriture en une seule étape
+let classePersonnage = "Mage";
+console.log("Classe de mon personnage :", classePersonnage);
 
-                <div class="playground-container" data-type="exercise" data-title="Changement d'équipement">
-                    <textarea class="source-code" hidden>
+// Mets "Guerrier" à l'intérieur de la variable
+classePersonnage = "Guerrier";
+
+</textarea>
+            </div>
+
+            <div class="playground-container" data-type="exercise" data-title="Changement d'équipement">
+                <textarea class="source-code" hidden>
 // 1. Déclare une variable 'armePrincipale' et donne lui la valeur "Arc"
 
 // 2. Affiche : "Arme équipée : Arc" en utilisant la variable
@@ -208,62 +239,15 @@ console.log("Mon personnage s'appelle :", nomPersonnage);
 
 // 4. Affiche à nouveau l'arme équipée pour vérifier le changement
 </textarea>
-                    <textarea class="solution-code" hidden>
+                <textarea class="solution-code" hidden>
 let armePrincipale = "Arc";
 console.log("Arme équipée :", armePrincipale);
 
 armePrincipale = "Épée de feu";
 console.log("Arme équipée :", armePrincipale);
 </textarea>
-                </div>
+            </div>
 
-                </section>
-                <section>
-                 <div class="section-header">
-                    <h3>Les Constantes</h3>
-                </div>
-                <p>Il existe deux façons modernes de déclarer une variable :</p>
-
-                <div class="grid-2">
-                    <div class="info-box tip">
-                        <h4><code>let</code></h4>
-                        <p>Pour une valeur qui <strong>peut changer</strong> (score, vie, position).</p>
-                        <pre style="margin-top:5px; background:rgba(0,0,0,0.2); padding:5px;">let vie = 3;</pre>
-                    </div>
-                    <div class="info-box tip">
-                        <h4><code>const</code></h4>
-                        <p>Pour une valeur <strong>fixe</strong> (nom du jeu, gravité, pi).</p>
-                        <pre style="margin-top:5px; background:rgba(0,0,0,0.2); padding:5px;">const GRAVITE = 9.81;</pre>
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <h4><i data-lucide="shield-check"></i> Utilisez <code>const</code> par défaut</h4>
-                    <p>
-                        Partez du principe que votre variable ne changera pas. C'est plus sûr et ça évite les bugs
-                        accidentels.
-                    </p>
-                    <p>
-                        Si (et seulement si) vous réalisez en codant que la valeur <strong>doit changer</strong>
-                        pendant l'exécution du programme (comme un score ou des PV), alors changez le mot-clé pour
-                        <code>let</code>.
-                    </p>
-                </div>
-                <div class="playground-container" data-type="exercise" data-title="Constante fatale">
-                    <textarea class="source-code" hidden>
-// 1. Déclare une constante nommée gainEnergiePotion et assigne lui la valeur 20
-
-// 2. Tente de changer la valeur de gainEnergiePotion pour 10 (cela va causer une erreur !)
-
-// 3. Affiche le gain d'énergie d'une potion dans la console. 
-// Observez l'erreur dans la console si vous tentez de modifier une constante !
-</textarea>
-                    <textarea class="solution-code" hidden>
-const gainEnergiePotion = 20;
-// gainEnergiePotion = 10; // Décommenter cette ligne causera une erreur
-console.log("Le gain d'énergie d'une potion est de  :", gainEnergiePotion);
-</textarea>
-                </div>
             </section>
 
             <section class="section-spy">
@@ -277,44 +261,6 @@ console.log("Le gain d'énergie d'une potion est de  :", gainEnergiePotion);
                     <li><strong>Number (Nombre) :</strong> Entier ou à virgule <code>3.1416</code></li>
                     <li><strong>Boolean (Logique) :</strong> Soit <code>true</code> ou <code>false</code></li>
                 </ul>
-
-                <div class="info-box success">
-                    <strong>Astuce :</strong> Utilisez <code>typeof</code> pour demander à l'ordinateur le type d'une
-                    variable.
-                </div>
-
-                <div class="playground-container" data-type="example" data-title="Les 3 types essentiels">
-                    <textarea class="source-code" hidden>
-let pseudo = "Victor";   // String
-let niveau = 12;         // Number
-let estEnLigne = true;   // Boolean
-
-console.log(typeof pseudo, typeof niveau, typeof estEnLigne);
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise" data-title="Analyse d'interface (UI)">
-                    <textarea class="source-code" hidden>
-// Voici trois variables typiques d'un menu de jeu :
-let volumeSonore = 0.75;
-let nomDuServeur = 'Montreal_Pro_Player';
-let pleinEcran = false;
-
-// TODO: Affiche le TYPE (typeof) de la variable volumeSonore
-// 
-
-// TODO: Affiche le TYPE de nomDuServeur
-// 
-
-// TODO: Affiche le TYPE de pleinEcran
-// 
-</textarea>
-                    <textarea class="solution-code" hidden>
-console.log(typeof volumeSonore); // number
-console.log(typeof nomDuServeur); // string
-console.log(typeof pleinEcran);  // boolean
-</textarea>
-                </div>
             </section>
 
             <section class="section-spy">
@@ -342,71 +288,132 @@ console.log(typeof pleinEcran);  // boolean
                     </div>
                 </div>
             </section>
+
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Erreurs Fréquentes</h3>
+                    <h3>Quiz de révision</h3>
                 </div>
-                <p>Voici quelques erreurs fréquentes avec les variables.</p>
 
-                <div class="info-box error">
-                    <h4><i data-lucide="layers-2"></i> La double déclaration</h4>
-                    <p>
-                        Utiliser <code>let</code> deux fois sur le même nom de variable, c'est comme essayer de
-                        contruire la boîte deux fois.
+                <div class="quiz-template" data-type="single" data-title="Déclaration">
+                    <p class="quiz-prompt">
+                        Vous codez un jeu vidéo. La valeur de la <strong>gravité</strong> ne changera jamais.
+                        Quel mot-clé devez-vous utiliser ?
                     </p>
-                    <pre><code class="language-javascript">let pseudo = "Gamer123";
-let pseudo = "Mario";  // 🚫 ERREUR ! La boîte 'pseudo' existe déjà.</code></pre>
-                    <br />
-                    <pre><code class="language-javascript">let pseudo = "Gamer123";
-pseudo = "Mario";  // ✅ CORRECT ! On utilise seulement que le symbole d'assignation =.</code></pre>
+                    <ul class="quiz-options">
+                        <li data-value="let">let</li>
+                        <li data-value="const">const</li>
+                        <li data-value="var">var</li>
+                    </ul>
+                    <script type="application/json" class="quiz-config">{ "answer": "const" }</script>
+                    <textarea class="quiz-solution" hidden>
+On utilise const (constante) pour une valeur fixe afin d'eviter les bugs.
+let est reserve aux valeurs qui varient.
+                    </textarea>
                 </div>
 
-                <div class="info-box error">
-                    <h4><i data-lucide="archive-x"></i> Le piège du <code>undefined</code></h4>
-                    <p>
-                        Si vous essayez d'utiliser (lire) une variable que vous avez <strong>déclarée</strong> mais
-                        jamais
-                        <strong>assignée</strong>, JavaScript retournera <code>undefined</code>. C'est une erreur
-                        commune !
+                <div class="quiz-template" data-type="multi" data-title="Règles de nommage">
+                    <p class="quiz-prompt">Quels noms de variables sont valides ?</p>
+                    <ul class="quiz-options">
+                        <li data-value="a">monScore</li>
+                        <li data-value="b">MonScore</li>
+                        <li data-value="c">2joueurs</li>
+                        <li data-value="d">pointsDeVie</li>
+                        <li data-value="e">points_de_vie</li>
+                        <li data-value="f">joueur2</li>
+                    </ul>
+                    <script type="application/json" class="quiz-config">{ "answers": ["a", "d", "f"] }</script>
+                    <textarea class="quiz-solution" hidden>
+En camelCase, le premier mot est en minuscule.
+Un nom ne peut pas commencer par un chiffre.
+                    </textarea>
+                </div>
+
+                <div class="quiz-template" data-type="text" data-title="Identification">
+                    <p class="quiz-prompt">
+                        Quel est le type de la variable suivante :
+                        <code>let estActif = false;</code> ?
                     </p>
+                    <script type="application/json" class="quiz-config">
+                        {
+                            "answers": ["boolean", "booléen", "bool"],
+                            "caseSensitive": false,
+                            "placeholder": "Votre réponse..."
+                        }
+                    </script>
+                    <textarea class="quiz-solution" hidden>
+C'est un booleen (boolean). Il ne peut prendre que deux valeurs : true ou false.
+                    </textarea>
                 </div>
-<div class="playground-container" data-type="exercise" data-title="Défi : Corrigez l'erreur">
-    
-    <textarea class="source-code" hidden>
-let classe = "Elf";
-let arme1 = "Épée"; 
-let arme2 = "Sceptre";
-let arme3 = "Dague";
-let armePrincipale;
-let armeSecondaire;
 
-let classe = "Guerrier";
-armePrincipale = arme1;
-armeSecondaire = arme3;
+                <div class="quiz-template" data-type="single" data-title="Attention au détail">
+                    <p class="quiz-prompt">
+                        Observez bien ce code :<br>
+                        <code>let x = 10;</code><br>
+                        <code>x + 5;</code><br>
+                        Quelle est la valeur de <code>x</code> à la fin ?
+                    </p>
+                    <ul class="quiz-options">
+                        <li data-value="10">10</li>
+                        <li data-value="15">15</li>
+                    </ul>
+                    <script type="application/json" class="quiz-config">{ "answer": "10" }</script>
+                    <textarea class="quiz-solution" hidden>
+La reponse est 10. Le calcul x + 5 n'est pas assigne.
+Il fallait ecrire : x = x + 5;
+                    </textarea>
+                </div>
 
-console.log("\n classe :", classe, "\n arme principale :", armePrincipale, "\n arme secondaire :", armeSecondaire);
-</textarea>
-    <textarea class="solution-code" hidden>
-let classe = "Elf";
-let arme1 = "Épée"; 
-let arme2 = "Dague";
-let arme3 = "Sceptre";
-let armePrincipale;
-let armeSecondaire;
+                <div class="quiz-template" data-type="mixAndMatch" data-title="Associer les concepts">
+                    <p class="quiz-prompt">Reliez chaque concept à sa définition.</p>
+                    <ul class="quiz-match-pairs">
+                        <li data-left="let">Déclare une variable modifiable</li>
+                        <li data-left="const">Déclare une valeur fixe</li>
+                        <li data-left="=">Assigne une valeur (met dans la boite)</li>
+                        <li data-left="undefined">Variable vide (non definie)</li>
+                    </ul>
+                    <textarea class="quiz-solution" hidden></textarea>
+                </div>
 
-classe = "Guerrier";
-armePrincipale = arme1;
-armeSecondaire = arme3;
+                <div class="quiz-template" data-type="single" data-title="Mise à jour d'une variable">
+                    <p class="quiz-prompt">
+                        Votre joueur a un <code>score</code> de 10. Quelle ligne ajoute 5 points et sauvegarde le
+                        resultat ?
+                    </p>
+                    <ul class="quiz-options">
+                        <li data-value="a">score + 5;</li>
+                        <li data-value="b">score = score + 5;</li>
+                        <li data-value="c">10 + 5 = score;</li>
+                    </ul>
+                    <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
+                    <textarea class="quiz-solution" hidden>
+Le signe d'assignation = est obligatoire pour ecraser l'ancienne valeur.
+                    </textarea>
+                </div>
 
-console.log("\n classe :", classe, "\n arme principale :", armePrincipale, "\n arme secondaire :", armeSecondaire);
-</textarea>
-</div>
+                <div class="quiz-template" data-type="text" data-title="Deviner la sortie">
+                    <div class="quiz-prompt">
+                        Quelle sortie produit ce code ?
+                        <pre><code class="language-js">const a = 2;
+console.log(a + 3);</code></pre>
+                    </div>
+                    <script type="application/json" class="quiz-config">
+                        {
+                            "answers": ["5"],
+                            "caseSensitive": false,
+                            "placeholder": "Entrez le chiffre..."
+                        }
+                    </script>
+                    <textarea class="quiz-solution" hidden>
+L'ordinateur remplace a par 2, puis affiche 5.
+                    </textarea>
+                </div>
             </section>
 
         </main>
     </div>
 
     <script src="../editor/editor.js"></script>
+    <script src="../quiz/quiz.js"></script>
     <script src="../scripts/script.js"></script>
     <script>
         console.log("Ceci est un console.log!");

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Opérateurs de Comparaison et Logique</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../editor/editor.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Opérateurs</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Comparaison & Logique</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="section-spy">
+                <div class="info-box info">
+                    <strong>Prérequis :</strong> Les opérations arithmétiques (+, -, *, /, %) sont présentées dans
+                    <a href="./2-operateurs.html">la page Opérateurs arithmétiques</a>.
+                </div>
+            </section>
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Opérateurs de Comparaison</h3>
+                </div>
+                <p>Ces opérateurs comparent deux valeurs et retournent un <strong>booléen</strong> (true ou false).</p>
+
+                <div class="grid-2">
+                    <div class="info-box success">
+                        <h4>Grandeur</h4>
+                        <ul class="code-list">
+                            <li><code>></code> Plus grand que</li>
+                            <li><code><</code> Plus petit que</li>
+                            <li><code>>=</code> Plus grand ou égal</li>
+                            <li><code><=</code> Plus petit ou égal</li>
+                        </ul>
+                    </div>
+                    <div class="info-box error">
+                        <h4>Égalité</h4>
+                        <ul class="code-list">
+                            <li><code>===</code> Strictement égal</li>
+                            <li><code>!==</code> Différent de</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Comparaisons de base">
+                    <textarea class="source-code" hidden>
+console.log("Est-ce que 10 > 5 ?", 10 > 5);   // true
+console.log("Est-ce que 10 === 5 ?", 10 === 5); // false
+console.log("Est-ce que '10' === 10 ?", '10' === 10); // false (type différent)
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Vérification du Boss">
+                    <textarea class="source-code" hidden>
+let bossHP = 0;
+let inventairePlein = true;
+
+// 1. Est-ce que le boss est mort ? (hp égal à 0)
+let estVaincu = ?;
+
+// 2. Est-ce que l'inventaire n'est PAS plein ? (différent de true)
+let peutRamasserLoot = ?;
+
+console.log("Vaincu :", estVaincu);
+console.log("Ramasser :", peutRamasserLoot);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let bossHP = 0;
+let inventairePlein = true;
+
+let estVaincu = bossHP === 0;
+let peutRamasserLoot = inventairePlein !== true;
+
+console.log("Vaincu :", estVaincu);
+console.log("Ramasser :", peutRamasserLoot);
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Logique Booléenne</h3>
+                </div>
+                <p>Permet de combiner plusieurs conditions ensemble.</p>
+
+                <section class="section-spy">
+
+                    <div class="grid-2">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent); margin-bottom: 15px;">
+                                <i data-lucide="check-square"></i> L'oprérateur ET (<code>&&</code>).
+                                <p>Les deux côtés doivent être vrai.</p>
+                            </h4>
+                            <table class="logic-table">
+                                <thead>
+                                    <tr>
+                                        <th>Valeur A</th>
+                                        <th class="op-col">Op</th>
+                                        <th>Valeur B</th>
+                                        <th>Résultat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="val-true">true</span></td>
+                                        <td class="op-col">&&</td>
+                                        <td><span class="val-true">true</span></td>
+                                        <td><b class="val-true">true</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-true">true</span></td>
+                                        <td class="op-col">&&</td>
+                                        <td><span class="val-false">false</span></td>
+                                        <td><b class="val-false">false</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-false">false</span></td>
+                                        <td class="op-col">&&</td>
+                                        <td><span class="val-true">true</span></td>
+                                        <td><b class="val-false">false</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-false">false</span></td>
+                                        <td class="op-col">&&</td>
+                                        <td><span class="val-false">false</span></td>
+                                        <td><b class="val-false">false</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="info-box">
+                            <h4 style="color: var(--accent); margin-bottom: 15px;">
+                                <i data-lucide="layers"></i> L'opérateur OU (<code>||</code>).
+                                <p>Un des deux côtés doit être vrai.</p>
+                            </h4>
+                            <table class="logic-table">
+                                <thead>
+                                    <tr>
+                                        <th>Valeur A</th>
+                                        <th class="op-col">Op</th>
+                                        <th>Valeur B</th>
+                                        <th>Résultat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="val-true">true</span></td>
+                                        <td class="op-col">||</td>
+                                        <td><span class="val-true">true</span></td>
+                                        <td><b class="val-true">true</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-true">true</span></td>
+                                        <td class="op-col">||</td>
+                                        <td><span class="val-false">false</span></td>
+                                        <td><b class="val-true">true</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-false">false</span></td>
+                                        <td class="op-col">||</td>
+                                        <td><span class="val-true">true</span></td>
+                                        <td><b class="val-true">true</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="val-false">false</span></td>
+                                        <td class="op-col">||</td>
+                                        <td><span class="val-false">false</span></td>
+                                        <td><b class="val-false">false</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 20px; max-width: 400px;">
+                        <h4 style="margin-bottom: 15px;"><i data-lucide="refresh-cw"></i> L'inversion du NON
+                            (<code>!</code>)
+                            <p>Inverse le booléen. <code>true</code> devient <code>false</code></p>
+                        </h4>
+                        <table class="logic-table">
+                            <thead>
+                                <tr>
+                                    <th class="op-col">Op</th>
+                                    <th>Valeur A</th>
+                                    <th>Résultat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="op-col">!</td>
+                                    <td><span class="val-true">true</span></td>
+                                    <td><b class="val-false">false</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="op-col">!</td>
+                                    <td><span class="val-false">false</span></td>
+                                    <td><b class="val-true">true</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <div class="playground-container" data-type="example" data-title="La logique en action">
+                    <textarea class="source-code" hidden>
+// 1. L'opérateur ET (&&) : Condition de victoire
+let nbEnnemisVaincus = 2;
+let orbsObtenus = 3;
+
+// Il faut les DEUX conditions pour gagner
+let estPartieReussie = nbEnnemisVaincus >= 5 && orbsObtenus >=3;
+console.log("La partie est-elle réussie ? :", estPartieReussie); // false
+
+// 2. L'opérateur OU (||) : Fin de partie
+let vie = 0;
+let tempsEcoule = true;
+
+// Il suffit d'une seule condition pour perdre
+let estGameOver = (vie === 0) || tempsEcoule;
+console.log("Game Over ? :", estGameOver); // true
+
+// 3. L'opérateur NON (!) : Inverser un état
+let estInvincible = true;
+
+// Si on n'est PAS invincible, on prend des dégâts
+let prendDegats = !estInvincible;
+console.log("Prend des dégâts ? :", prendDegats); // false
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="L'interrupteur (Toggle)">
+    <textarea class="source-code" hidden>
+let modeSombreActif = false;
+console.log("Mode sombre actif ?", modeSombreActif);
+
+// On utilise ! pour inverser la valeur actuelle et la sauvegarder
+modeSombreActif = !modeSombreActif;
+console.log("Bascule 1 :", modeSombreActif); // true
+
+modeSombreActif = !modeSombreActif;
+console.log("Bascule 2 :", modeSombreActif); // false
+
+modeSombreActif = !modeSombreActif;
+console.log("Bascule 3 :", modeSombreActif); // true
+    </textarea>
+</div>
+
+                <div class="playground-container" data-type="exercise" data-title="Accès Admin">
+                    <textarea class="source-code" hidden>
+let estAdmin = true;
+let aLeCode = false;
+
+// TODO: Accès si l'utilisateur est admin OU s'il a le code
+let accesAutorise = ?;
+
+console.log("Accès :", accesAutorise);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let estAdmin = true;
+let aLeCode = false;
+let accesAutorise = estAdmin || aLeCode;
+console.log("Accès :", accesAutorise);
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Le Grand Défi : La Porte du Donjon</h3>
+                </div>
+
+                <p>Combinez tout ce que vous avez appris : arithmétique, comparaison et logique.</p>
+
+                <div class="playground-container" data-type="example" data-title="Système de décollage">
+                    <textarea class="source-code" hidden>
+let carburant = 50;
+let moteurOk = true;
+let modeUrgenceActif = false;
+
+// Décollage si (moteur ok ET carburant suffisant) OU si mode urgence actif
+let decollage = (moteurOk && carburant >= 40) || modeUrgenceActif;
+console.log("Vaisseau prêt :", decollage);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise"
+                    data-title="Ouverture de la porte">
+                    <textarea class="source-code" hidden>
+let clesPossedees = 2;
+let clesRequises = 3;
+let niveauJoueur = 15;
+let estVivant = true;
+
+// TODO: La porte peut ouvrir si :
+// Le joueur est vivant 
+// ET (il a assez de clés OU son niveau est supérieur ou égal à 20)
+
+let portePeutOuvrir = ?;
+
+console.log("La porte peut ouvrir? :", portePeutOuvrir);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let clesPossedees = 2;
+let clesRequises = 3;
+let niveauJoueur = 15;
+let estVivant = true;
+
+let portePeutOuvrir = estVivant && (clesPossedees >= clesRequises || niveauJoueur >= 20);
+
+console.log("La porte peut ouvrir? :", portePeutOuvrir);
+</textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../editor/editor.js"></script>
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>

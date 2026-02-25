@@ -51,13 +51,6 @@
         <main class="main-content">
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Méthodes d'ajout, retrait et découpe</h3>
-                </div>
-                <p>Cette page regroupe les méthodes les plus utiles pour manipuler rapidement un tableau: <code>push</code>, <code>pop</code>, <code>shift</code>, <code>unshift</code> et <code>slice</code>.</p>
-            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
                     <h3>Ajouter des éléments : Push & Unshift</h3>
                 </div>
 
@@ -165,40 +158,6 @@ let premier = inventaire.shift();
 console.log("Dernier retiré:", dernier);
 console.log("Premier retiré:", premier);
 console.log("Restant:", inventaire);
-</textarea>
-                </div>
-            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Découper (Slice)</h3>
-                </div>
-
-                <p>Permet de <strong>copier</strong> une partie sans modifier l'original. <code>slice(début, fin_exclue)</code>.</p>
-
-                <div class="playground-container" data-type="example" data-title="Top 3">
-<textarea class="source-code" hidden>
-let joueurs = ["Alexandre", "Juliette", "Anne-Marie", "Alan"];
-let podium = joueurs.slice(0, 3);
-console.log(podium);
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise" data-title="Extraire une portion">
-<textarea class="source-code" hidden>
-let niveaux = [1, 2, 3, 4, 5, 6];
-
-// TODO: Copie les niveaux 2, 3 et 4 (indices 1 à 3) dans "moyen"
-
-// TODO: Affiche "moyen" et "niveaux"
-</textarea>
-<textarea class="solution-code" hidden>
-let niveaux = [1, 2, 3, 4, 5, 6];
-
-let moyen = niveaux.slice(1, 4);
-
-console.log(moyen);
-console.log(niveaux);
 </textarea>
                 </div>
             </section>

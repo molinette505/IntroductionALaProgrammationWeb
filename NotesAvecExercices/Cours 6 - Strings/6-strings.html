@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS - Les Strings (Chaînes de caractères)</title>
+    <title>JS - Strings (Bases)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -35,7 +35,7 @@
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <span class="js-badge">JS</span>
-                <h1>Les Strings</h1>
+                <h1>Strings (Bases)</h1>
             </div>
             <nav class="sidebar-nav">
                 <a href="../../index.html" class="nav-link">Retour</a>
@@ -51,11 +51,7 @@
                 <p>
                     Une <strong>string</strong> (chaîne de caractères) est une séquence de lettres, de chiffres ou de symboles utilisée pour représenter du texte en programmation.
                 </p>
-                <div class="info-box info">
-                    <p>
-                        C'est un type de donnée fondamental. Dès que vous voulez afficher une phrase, un nom ou un code postal, vous utilisez une String.
-                    </p>
-                </div>            </section>
+           </section>
 
             <section class="section-spy">
                 <div class="section-header">
@@ -71,9 +67,8 @@
                         <p><strong>Usage :</strong> Texte simple et court sans variables.</p>
                         <p><strong>Pourquoi ?</strong></p>
                         <ul class="code-list">
-                            <li>Compatible avec tout le vieux code JS.</li>
-                            <li>Utilisez les <code>" "</code> si votre texte contient une apostrophe (ex: J'aime).</li>
-                            <li>Utilisez les <code>' '</code> si le texte a du HTML (ex: <code>&lt;div id="test"&gt;</code>).</li>
+                            <li>Utilisez les <code>" "</code> si votre texte contient une apostrophe<br> (ex: J'aime).</li>
+                            <li>Utilisez les <code>' '</code> si le texte contient des guillemets <br>(ex: 'document.getElementById("mon-id")')</li>
                         </ul>
                     </div>
 
@@ -82,116 +77,198 @@
                         <p><strong>Usage :</strong> Messages complexes et dynamiques.</p>
                         <p><strong>Pourquoi ?</strong></p>
                         <ul class="code-list">
-                            <li><strong>Interpolation (Template Literals) :</strong> Insérer des variables directement avec <code>${}</code>.</li>
+                            <li><strong>Interpolation (Template Literals) :</strong> Insérer des variables directement dans le texte avec <code>${}</code>.</li>
                             <li><strong>Multi-ligne :</strong> Créer des paragraphes sur plusieurs lignes.</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Utilisation de guillemets et de backticks">
+                <div class="playground-container" data-type="example" data-title="Utilisation de guillemets" data-toolbar-text="Pratique pour les textes courts" data-auto-height="true">
 <textarea class="source-code" hidden>
 // Guillemets
-let prenom = "Victor Hugo";
+let texte = "Je n'ai pas assez de mana!";
+
+console.log(texte);
+</textarea>
+                </div>        
+                            <div class="playground-container" data-type="example" data-title="Utilisation de backticks et template literals" data-toolbar-text="Pratique pour les textes sur plusieurs lignes comme le html et pour insérer des variables." data-auto-height="true">
+<textarea class="source-code" hidden>
+// Guillemets
+let nom = "Marcus"
+let race = "Humain"
+let classe = "Guerrier";
+let niveau = 60;
 
 let html = `
     <div>
-        <p>Bonjour, je m'appelle ${prenom}.</p>
+        <h1>${nom}</h1>
+        <ul>
+            <li><strong>Ma race:</strong> ${race}</li>
+            <li><strong>Ma classe:</strong> ${classe}</li>
+            <li><strong>Mon niveau:</strong> ${niveau}</li>
+        </ul>
     </div>
 `;
 
 console.log(html);
 </textarea>
-                </div>            </section>
+                </div>   
+            
+            </section>
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Concaténation (fusionner du texte et des variables)</h3>
+                    <h3>Concaténation</h3>
                 </div>
-                <p>Assembler du texte et des variables est essentiel pour créer des messages dynamiques.</p>
+                <p>La concaténation est une opération qui consiste à joindre deux ou plusieurs chaînes de caractères (du texte) pour en former une seule, plus longue.</p>
 
-                <div class="grid-2">
-                    <div class="info-box">
-                        <h4>La méthode classique (<code>+</code>)</h4>
-                        <code>"Bonjour " + nom + "!"</code>
-                    </div>
-                    <div class="info-box success">
-                        <h4>La méthode moderne (<code>` `</code>)</h4>
-                        <code>`Bonjour ${nom}!`</code>
-                        <p class="tiny-note">Utilise les backticks et <code>${ }</code>. C'est plus lisible.</p>
-                    </div>
+                <div class="info-box">
+                    <p>Pour se faire on additionne deux chaînes de caractères (strings) (<code>+</code>)</p>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="En utilisant les guillemets et la concaténation (+)">
+                <div class="playground-container" data-type="example" data-title="Additionner deux strings pour les combiner" data-toolbar-text="Javascript fusionne les deux strings pour en obtenir une seule" data-auto-height="true">
+<textarea class="source-code" hidden>
+// Nous additionnons deux strings et obtenons une seule string: Chaton
+let mot = "Cha" + "ton";
+
+console.log(mot);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Additionner une string et un nombre pour les combiner" data-toolbar-text="Javascript convertit automatiquement le number en string, c'est pourquoi le résultat est '546' et non 60" data-auto-height="true">
+<textarea class="source-code" hidden>
+let concatenation = "54" + 6; // Ici nous additionnons une string et un number : concatenation
+console.log(concatenation);
+
+let addition = 54 + 6; // Ici il n'y a pas de string, c'est donc une addition normale
+console.log(addition)
+</textarea>
+                </div>
+
+<div class="playground-container" data-type="example" data-title="Utile pour ajouter des variables dans le texte, mais pas efficace" data-toolbar-text="Nous verrons dans le prochain exemple que les template literals sont beauocup plus lisibles" data-auto-height="true">
 <textarea class="source-code" hidden>
 // Texte simple en utilisant les guillemets
 let prenom = "Victor";
 let age = 5;
 
 // On utilise + pour combiner texte et variables.
-let html = "<div><p>Bonjour, je m'appelle " + prenom + " et j'ai " + age + " ans.</p></div>";
+let texte = "Bonjour, je m'appelle " + prenom + " et j'ai " + age + " ans.";
 
-console.log(html);
+console.log(texte);
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="En utilisant les backticks et l'interpolation ${}" data-instructions="Beaucoup plus lisible!">
+                <div class="playground-container" data-type="example" data-title="En utilisant les backticks et l'interpolation ${}" data-toolbar-text="Beaucoup plus lisible!" data-auto-height="true">
 <textarea class="source-code" hidden>
 // Version moderne avec les template literals (`backticks`)
 let prenom = "Victor";
 let age = 5;
 
-let html = `
-    <div>
-        <p>Bonjour, je m'appelle ${prenom} et j'ai ${age} ans.</p>
-    </div>
-`;
+let texte = `Bonjour, je m'appelle ${prenom} et j'ai ${age} ans.`;
 
-console.log(html);
+console.log(texte);
+</textarea>
+                </div>
+
+                <div class="playground-container"
+                    data-type="exercise"
+                    data-title="Exercice - Combiner deux strings"
+                    data-toolbar-text="Crée une variable motComplet qui combine les deux morceaux de texte."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+let debut = "Progra";
+let fin = "mmation";
+
+// TODO: Combine les strings debut et fin avec l'operateur + et met le résultat dans la variable motComplet
+// Le resultat devrait être "Programmation"
+let motComplet;
+
+console.log(motComplet);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let debut = "Progra";
+let fin = "mmation";
+
+let motComplet = debut + fin;
+
+console.log(motComplet);
+</textarea>
+                </div>
+
+                <div class="playground-container"
+                    data-type="exercise"
+                    data-title="Exercice - String + nombre"
+                    data-toolbar-text="Affiche le score sous la forme: Score: 25"
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+let codeSaisi = "";
+codeSaisi += "E";
+codeSaisi += "3";
+
+// Une personne entre E3 sur le clavier d'une machine distributrice.
+// TODO: La personne entre maintenant 2. Ajoute 2 au codeSaisie
+// Le resultat devrait être "E32"
+
+console.log(codeSaisi);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let codeSaisi = "";
+codeSaisi += "E";
+codeSaisi += "3";
+
+// Une personne entre E3 sur le clavier d'une machine distributrice.
+// La personne entre maintenant 2.
+codeSaisi += "2";
+
+console.log(codeSaisi);
+</textarea>
+                </div>
+
+                <div class="playground-container"
+                    data-type="exercise"
+                    data-title="Exercice 3 - String avec variables"
+                    data-toolbar-text="Utilise la concaténation (+) pour former une phrase complète qui contient des variables."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+let produit = "Lime";
+let prix = 3.50;
+
+// TODO: Cree la string: "1. Nom du produit: Lime, prix du produit: 3.50$" en utilisant les variables produit et prix
+// et met la dans la variable infosProduit.
+let infosProduit;
+
+console.log(infosProduit);
+</textarea>
+                    <textarea class="solution-code" hidden>
+let produit = "Lime";
+let prix = 3.50;
+let infosProduit = "1. Nom du produit: " + produit + ", prix du produit: " + 3.50 + "$";
+
+console.log(infosProduit);
 </textarea>
                 </div>
 
                 <div class="playground-container" 
                     data-type="exercise" 
                     data-title="Utiliser les guillemets et les backticks"  
-                    data-instructions="Créer l'élément HTML en commentaire en utilisant les guillemets et les backticks">
+                    data-toolbar-text="Faire l'exercice précédent, mais utiliser les backticks ` ` et les template literals ${} plutôt que la concaténation"
+                    data-auto-height="auto">
                     <textarea class="source-code" hidden>
-// <div class="message">
-//  <div class="message-entete">
-//    <span class="message-auteur">Marc-Alexandre</span>
-//    <span class="message-date">28 janvier 22h30</span>
-//  </div>
-//  <div class="message-texte">
-//    Ceci est le message.
-//  </div>
-// </div>
+let produit = "Lime";
+let prix = 3.50;
 
-let auteurMessage = "Marc-Alexandre";
-let dateMessage = "28 janvier 22h30";
-let texteMessage = "Ceci est le message.";
+// TODO: Cree la string: "1. Nom du produit: Lime, prix du produit: 3.50$" en utilisant les variables produit et prix
+// et met la dans la variable infosProduit.
+let infosProduit;
 
-// TODO: Utiliser les backticks pour créer l'élément HTML de façon dynamique.
-let html = ...;
-
-console.log(html);
+console.log(infosProduit);
 </textarea>
                     <textarea class="solution-code" hidden>
-let auteurMessage = "Marc-Alexandre";
-let dateMessage = "28 janvier 22h30";
-let texteMessage = "Ceci est le message.";
+let produit = "Lime";
+let prix = 3.50;
+let infosProduit = `1. Nom du produit: ${produit}, prix du produit: " + 3.50 + "$";
 
-let html = `
-<div class="message">
-  <div class="message-entete">
-    <span class="message-auteur">${auteurMessage}</span>
-    <span class="message-date">${dateMessage}</span>
-  </div>
-  <div class="message-texte">
-    ${texteMessage}
-  </div>
-</div>
-`;
-
-console.log(html);
+console.log(infosProduit);
 
 </textarea>
                 </div>            </section>
@@ -214,7 +291,7 @@ console.log(html);
                 </div>
 
                 <div class="info-box">
-                    <h4><i data-lucide="info"></i>Ne pas oublier .length!</h4>
+                    <h4><i data-lucide="warning"></i>Ne pas oublier .length!</h4>
                     <p>
                         Attention de ne pas oublier <code>.length</code>! 
                         <br>
@@ -222,7 +299,7 @@ console.log(html);
                     </p>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Mesurer le texte" data-instructions="S'assurer qu'un mot de passe ne soit pas vide ET qu'il contienne au plus 5 caractères.">
+                <div class="playground-container" data-type="example" data-title="Valider la longueur d'un texte" data-instructions="S'assurer qu'un mot de passe ne soit pas vide ET qu'il contienne au plus 5 caractères." data-auto-height="true">
 <textarea class="source-code" hidden>
 let motDePasse = "T1M2026!"; // Changer pour T1M pour qu'il soit valide
 
@@ -235,7 +312,7 @@ if(motDePasse.length > 0 && motDePasse.length <= 5)
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Vérifier la longueur" data-instructions="S'assurer qu'un mot de passe ait au moins 8 caractère ET qu'il contienne au plus 12 caractères.">
+                <div class="playground-container" data-type="exercise" data-title="Valider la longueur d'un texte" data-toolbar-text="S'assurer qu'un mot de passe ait au moins 8 caractère ET qu'il contienne au plus 12 caractères." data-auto-height="true">
                     <textarea class="source-code" hidden>
 let motDePasse = "T1M-1Ntr0Pr0graMaT10N"; //Tester avec différentes longueurs
 
@@ -250,136 +327,9 @@ if(motDePasse.length >= 8 && motDePasse.length <= 12)
     console.log("Mot de passe invalide");
 }
 </textarea>
-                </div>            </section>
+                </div>         
+               </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>La position des lettres</h3>
-                </div>
-                <p>
-                    Pour l'ordinateur, chaque lettre occupe une position précise appelée <strong>index</strong>. 
-                    <br>
-                    <strong>Attention :</strong> En programmation, on commence toujours à compter à partir de <strong>0</strong>.
-                </p>
-
-                <div class="grid-2">
-                    <div class="info-box info">
-                        <h4>Premier caractère</h4>
-                        <code>message[0]</code>
-                    </div>
-                    <div class="info-box success">
-                        <h4>Dernier caractère</h4>
-                        <code>message[message.length - 1]</code>
-                    </div>
-                </div>
-
-                <div class="playground-container" data-type="example" data-title="Accéder aux index">
-<textarea class="source-code" hidden>
-let mot = "JavaScript";
-
-let premiereLettre = mot[0];
-let cinquiemeLettre = mot[4];
-let derniereLettre = mot[mot.length-1];
-
-console.log("Première lettre :", premiereLettre); // "J"
-console.log("5e lettre :", cinquiemeLettre); // "S"
-console.log("Dernière lettre :", derniereLettre); // "t"
-</textarea>
-                </div>            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Méthodes helpers</h3>
-                </div>
-                <p>JavaScript offre des fonctions prêtes à l'emploi (méthodes) pour transformer vos chaînes.</p>
-
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <h4><code>replace(searchValue, replaceValue)</code></h4>
-                        <p>Remplace la première occurrence trouvée.</p>
-                    </div>
-                    <div class="step-card">
-                        <h4><code>includes(searchString)</code></h4>
-                        <p>Retourne <code>true</code> si le texte contient la valeur.</p>
-                    </div>
-                    <div class="step-card">
-                        <h4><code>slice(start, end)</code></h4>
-                        <p>Extrait une portion de chaîne sans modifier l'originale.</p>
-                    </div>
-                    <div class="step-card">
-                        <h4><code>toUpperCase()</code></h4>
-                        <p>Met tous les caractères en MAJUSCULES.</p>
-                    </div>
-                </div>
-
-                <div class="playground-container" data-type="example" data-title="Remplacer un mot par un autre">
-<textarea class="source-code" hidden>
-let texte = "Le javascript est un langage pour les idiots";
-let texteCensure = texte.replace("idiots", "!#@$#!");
-
-console.log(texte);
-console.log(texteCensure);
-</textarea>
-                </div>
-
-                                <div class="playground-container" data-type="example" data-title="Est-ce qu'un texte contient un mot?">
-<textarea class="source-code" hidden>
-let questionExamen = "Quel langage apprenons-nous dans ce cours ?";
-let bonneReponse = "javascript";
-
-let reponseEtudiant = "Le javascript est le langage que nous apprenons";
-
-if(reponseEtudiant.includes(bonneReponse)){
-    console.log("Félicitations, vous avez la bonne réponse!");
-} else {
-    console.log("Désolé, vous avez la mauvaise réponse!");
-}
-
-</textarea>
-                </div>                    </textarea>
-
-                    <script type="application/json" class="quiz-config">
-{
-  "checks": [
-    {
-      "type": "variable",
-      "name": "message",
-      "equals": "DRAGON (dra)!",
-      "message": "La variable message doit valoir DRAGON (dra)!"
-    },
-    {
-      "type": "consoleIncludes",
-      "value": "DRAGON (dra)!",
-      "message": "console.log doit afficher DRAGON (dra)!"
-    },
-    {
-      "type": "domText",
-      "selector": "#resultat",
-      "includes": "DRAGON (dra)!",
-      "message": "#resultat doit contenir DRAGON (dra)!"
-    }
-  ]
-}
-                    </script>
-
-                    <textarea class="quiz-validator" hidden>
-return {
-  valid: quizApi.text("#resultat").trim().endsWith("!"),
-  message: "Validation custom: le rendu doit finir par un point d'exclamation."
-};
-                    </textarea>
-
-                    <textarea class="quiz-solution-code" hidden>
-const pseudo = "dragon";
-const version = pseudo.toUpperCase();
-const extrait = pseudo.slice(0, 3);
-
-const message = `${version} (${extrait})!`;
-console.log(message);
-document.querySelector("#resultat").textContent = message;
-                    </textarea>
-                </div>
-            </section>
         </main>
     </div>
 

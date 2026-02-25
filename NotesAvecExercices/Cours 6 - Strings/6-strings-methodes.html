@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Méthodes utiles des strings</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../editor/editor.css">
+</head>
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Strings</span>
+    </header>
+
+    <div class="app-container">
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Méthodes de strings</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="section-spy">
+                <div class="info-box info">
+                    <strong>Rappel :</strong> La syntaxe des strings, la concaténation et <code>.length</code> sont dans
+                    <a href="./6-strings.html">la page Strings (bases)</a>.
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>La position des lettres (index)</h3>
+                </div>
+                <p>
+                    Chaque caractère est accessible par son index, en commençant à <strong>0</strong>.
+                </p>
+
+                <div class="grid-2">
+                    <div class="info-box info">
+                        <h4>Premier caractère</h4>
+                        <code>message[0]</code>
+                    </div>
+                    <div class="info-box success">
+                        <h4>Dernier caractère</h4>
+                        <code>message[message.length - 1]</code>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Accéder aux index">
+<textarea class="source-code" hidden>
+let mot = "JavaScript";
+
+let premiereLettre = mot[0];
+let cinquiemeLettre = mot[4];
+let derniereLettre = mot[mot.length - 1];
+
+console.log("Première lettre :", premiereLettre);
+console.log("5e lettre :", cinquiemeLettre);
+console.log("Dernière lettre :", derniereLettre);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Récupérer des lettres" data-instructions="Affiche la 2e et la dernière lettre du mot.">
+<textarea class="source-code" hidden>
+let mot = "dragon";
+
+// TODO: crée une variable deuxiemeLettre
+// TODO: crée une variable derniereLettre
+// TODO: affiche les deux variables dans la console
+</textarea>
+<textarea class="solution-code" hidden>
+let mot = "dragon";
+
+let deuxiemeLettre = mot[1];
+let derniereLettre = mot[mot.length - 1];
+
+console.log("2e lettre :", deuxiemeLettre);
+console.log("Dernière lettre :", derniereLettre);
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Méthodes utiles</h3>
+                </div>
+                <p>Ces méthodes aident à rechercher, extraire et transformer du texte rapidement.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <h4><code>replace(searchValue, replaceValue)</code></h4>
+                        <p>Remplace la première occurrence trouvée.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><code>includes(searchString)</code></h4>
+                        <p>Retourne <code>true</code> si le texte contient la valeur.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><code>slice(start, end)</code></h4>
+                        <p>Extrait une portion de chaîne sans modifier l'originale.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><code>toUpperCase()</code></h4>
+                        <p>Convertit la chaîne en majuscules.</p>
+                    </div>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="replace() + includes()">
+<textarea class="source-code" hidden>
+let texte = "Le javascript est un langage accessible";
+let texteCorrige = texte.replace("javascript", "JavaScript");
+
+console.log("Texte corrigé :", texteCorrige);
+console.log("Contient 'langage' ?", texteCorrige.includes("langage"));
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="slice() + toUpperCase()">
+<textarea class="source-code" hidden>
+let pseudo = "dragon";
+let prefixe = pseudo.slice(0, 3);
+let versionMajuscule = pseudo.toUpperCase();
+
+console.log("Préfixe :", prefixe);
+console.log("Majuscule :", versionMajuscule);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Créer un tag normalisé" data-instructions="Construis et affiche le texte DRAGON (dra)!">
+<textarea class="source-code" hidden>
+let pseudo = "dragon";
+
+// TODO: versionMajuscule = pseudo en MAJUSCULES
+// TODO: extrait = les 3 premières lettres
+// TODO: message = `${versionMajuscule} (${extrait})!`
+// TODO: console.log(message)
+</textarea>
+<textarea class="solution-code" hidden>
+let pseudo = "dragon";
+
+let versionMajuscule = pseudo.toUpperCase();
+let extrait = pseudo.slice(0, 3);
+let message = `${versionMajuscule} (${extrait})!`;
+
+console.log(message);
+</textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../editor/editor.js"></script>
+    <script src="../scripts/script.js"></script>
+</body>
+</html>
