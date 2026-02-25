@@ -1512,17 +1512,14 @@ ${html}
         }
 
         const codeWithSource = `${code}\n//# sourceURL=${STUDENT_SOURCE_FILE}`;
-        let runnable;
-
         try {
-            runnable = frameWindow.Function('console', 'document', 'window', codeWithSource);
-        } catch (error) {
-            print('error', [error], { uncaught: true, error });
-            return;
-        }
-
-        try {
-            runnable.call(frameWindow, mockConsole, frameDocument, frameWindow);
+            // Execute student code as a real script in the frame global scope.
+            // This ensures inline handlers like onclick="maFonction()" can resolve
+            // top-level function declarations.
+            const studentScript = frameDocument.createElement('script');
+            studentScript.textContent = codeWithSource;
+            frameDocument.body.appendChild(studentScript);
+            studentScript.remove();
         } catch (error) {
             print('error', [error], { uncaught: true, error });
         }
