@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rappel HTML et CSS</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    .cheat-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .cheat-table th,
+    .cheat-table td {
+      border: 1px solid #334155;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .cheat-table th {
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">HTML CSS</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">WEB</span>
+        <h1>Rappel HTML et CSS</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="../Cours 11 - Recap/11-recap-pratique.html" class="nav-link">Recap pratique JS</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">Cheat Sheet HTML et CSS</h2>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>1) La structure HTML</h3>
+        </div>
+        <div class="info-box info">
+          <p><strong>Conteneurs:</strong> <code>&lt;div&gt;</code> (bloc), <code>&lt;span&gt;</code> (inline).</p>
+          <p><strong>Contenu:</strong> <code>&lt;h1&gt;</code> a <code>&lt;h4&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>.</p>
+          <p><strong>Interaction:</strong> <code>&lt;img&gt;</code> avec <code>src</code>/<code>alt</code>, <code>&lt;a&gt;</code> avec <code>href</code>, <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>.</p>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>2) Les poignées (attributs)</h3>
+        </div>
+        <table class="cheat-table">
+          <thead>
+            <tr>
+              <th>Attribut</th>
+              <th>Pourquoi c'est crucial en JS ?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>id</code></td>
+              <td>Cibler un seul element precis.</td>
+            </tr>
+            <tr>
+              <td><code>class</code></td>
+              <td>Cibler un groupe d'elements.</td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>Lire la saisie utilisateur dans un input.</td>
+            </tr>
+            <tr>
+              <td><code>style</code></td>
+              <td>Modifier l'apparence en direct.</td>
+            </tr>
+            <tr>
+              <td><code>onclick</code></td>
+              <td>Declencher une fonction au clic.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>3) Les selecteurs CSS</h3>
+        </div>
+        <div class="info-box">
+          <p><strong>Selecteurs de base:</strong> <code>#id</code>, <code>.classe</code>, <code>balise</code>.</p>
+          <p><strong>Descendance:</strong> <code>div p</code> (descendant), <code>div &gt; p</code> (enfant direct).</p>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Exemples pratiques rapides</h3>
+        </div>
+
+        <h4>Selection CSS avec querySelector</h4>
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Cibler #id, .classe et div > p"
+          data-toolbar-text='Commande: document.querySelector("selecteur")'
+          data-instructions="Executez pour voir les 3 selections appliquees.">
+          <textarea class="source-code-html" hidden>
+<section class="mini-ui" id="conteneur-aide-memoire">
+  <h4 id="titre-aide-memoire">Cheat Sheet</h4>
+  <p class="texte-aide-memoire">Texte de base</p>
+  <div id="conteneur-cible">
+    <p>Paragraphe enfant direct</p>
+  </div>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.mini-ui {
+  max-width: 520px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTitreAideMemoire = document.querySelector("#titre-aide-memoire");
+let elementTexteAideMemoire = document.querySelector(".texte-aide-memoire");
+let elementParagrapheEnfantDirect = document.querySelector("#conteneur-cible > p");
+
+elementTitreAideMemoire.innerText = `${"Cheat Sheet HTML/CSS"}`;
+elementTexteAideMemoire.innerText = `${"Selection par classe"}`;
+elementParagrapheEnfantDirect.innerText = `${"Selection enfant direct"}`;
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Completer les selecteurs"
+          data-toolbar-text='Commande: querySelector("#id") / querySelector(".classe") / querySelector("div > p")'
+          data-instructions="Complete les 3 selections puis les 3 innerText.">
+          <textarea class="source-code-html" hidden>
+<section class="mini-ui" id="conteneur-aide-memoire">
+  <h4 id="titre-aide-memoire">Cheat Sheet</h4>
+  <p class="texte-aide-memoire">Texte de base</p>
+  <div id="conteneur-cible">
+    <p>Paragraphe enfant direct</p>
+  </div>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.mini-ui {
+  max-width: 520px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTitreAideMemoire;
+let elementTexteAideMemoire;
+let elementParagrapheEnfantDirect;
+
+// TODO 1: Cible #titre-aide-memoire.
+
+
+// TODO 2: Cible .texte-aide-memoire.
+
+
+// TODO 3: Cible #conteneur-cible > p.
+
+
+// TODO 4: Mets le titre a "Cheat Sheet HTML/CSS".
+
+
+// TODO 5: Mets le texte classe a "Selection par classe".
+
+
+// TODO 6: Mets le texte enfant direct a "Selection enfant direct".
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="mini-ui" id="conteneur-aide-memoire">
+  <h4 id="titre-aide-memoire">Cheat Sheet</h4>
+  <p class="texte-aide-memoire">Texte de base</p>
+  <div id="conteneur-cible">
+    <p>Paragraphe enfant direct</p>
+  </div>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.mini-ui {
+  max-width: 520px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementTitreAideMemoire;
+let elementTexteAideMemoire;
+let elementParagrapheEnfantDirect;
+
+elementTitreAideMemoire = document.querySelector("#titre-aide-memoire");
+elementTexteAideMemoire = document.querySelector(".texte-aide-memoire");
+elementParagrapheEnfantDirect = document.querySelector("#conteneur-cible > p");
+
+elementTitreAideMemoire.innerText = `${"Cheat Sheet HTML/CSS"}`;
+elementTexteAideMemoire.innerText = `${"Selection par classe"}`;
+elementParagrapheEnfantDirect.innerText = `${"Selection enfant direct"}`;
+</textarea>
+        </div>
+
+        <h4>Attributs value et onclick</h4>
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Lire value et declencher onclick"
+          data-toolbar-text='Commandes: value + onclick'
+          data-instructions="Executez puis cliquez sur le bouton.">
+          <textarea class="source-code-html" hidden>
+<section class="mini-ui" id="conteneur-action-rapide">
+  <label for="saisie-prenom">Prenom</label>
+  <input id="saisie-prenom" type="text" value="Lina" />
+  <button id="bouton-afficher-prenom" onclick="afficherPrenom()">Afficher</button>
+  <p id="texte-prenom">Prenom : ...</p>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.mini-ui {
+  max-width: 520px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.mini-ui input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #020617;
+  color: #e2e8f0;
+  padding: 8px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSaisiePrenom = document.getElementById("saisie-prenom");
+let elementTextePrenom = document.getElementById("texte-prenom");
+
+function afficherPrenom() {
+  let prenomSaisi = elementSaisiePrenom.value;
+  elementTextePrenom.innerText = `Prenom : ${prenomSaisi}`;
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Afficher la valeur d'un input"
+          data-toolbar-text='Commandes: value + innerText'
+          data-instructions="Le ciblage est fait. Complete seulement la logique dans la fonction.">
+          <textarea class="source-code-html" hidden>
+<section class="mini-ui" id="conteneur-action-rapide">
+  <label for="saisie-prenom">Prenom</label>
+  <input id="saisie-prenom" type="text" value="Lina" />
+  <button id="bouton-afficher-prenom" onclick="afficherPrenom()">Afficher</button>
+  <p id="texte-prenom">Prenom : ...</p>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.mini-ui {
+  max-width: 520px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.mini-ui input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #020617;
+  color: #e2e8f0;
+  padding: 8px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSaisiePrenom = document.getElementById("saisie-prenom");
+let elementTextePrenom = document.getElementById("texte-prenom");
+
+function afficherPrenom() {
+  // TODO 1: Lis la valeur de elementSaisiePrenom dans la variable prenomSaisi.
+
+
+  // TODO 2: Mets elementTextePrenom.innerText a `Prenom : ${prenomSaisi}`.
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="mini-ui" id="conteneur-action-rapide">
+  <label for="saisie-prenom">Prenom</label>
+  <input id="saisie-prenom" type="text" value="Lina" />
+  <button id="bouton-afficher-prenom" onclick="afficherPrenom()">Afficher</button>
+  <p id="texte-prenom">Prenom : ...</p>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.mini-ui {
+  max-width: 520px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.mini-ui input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #020617;
+  color: #e2e8f0;
+  padding: 8px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementSaisiePrenom = document.getElementById("saisie-prenom");
+let elementTextePrenom = document.getElementById("texte-prenom");
+
+function afficherPrenom() {
+  let prenomSaisi = elementSaisiePrenom.value;
+  elementTextePrenom.innerText = `Prenom : ${prenomSaisi}`;
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="info-box info">
+          <p>
+            <strong>L'essentiel a retenir :</strong><br>
+            HTML = ce qui est ecrit sur la page.<br>
+            CSS = comment on le trouve et comment on le decores.<br>
+            JS = comment on le fait bouger en utilisant les deux precedents.
+          </p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - Recap pratique</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS Recap</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Recap pratique</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="../Cours 11 - Recap/11-rappel-html-css.html" class="nav-link">Rappel HTML CSS</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">Recap pratique JS</h2>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Grille de produits depuis tableaux paralleles</h3>
+        </div>
+        <p>On combine tableaux, boucles, DOM et <code>createElement</code> pour generer une interface complete.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">for (...) + createElement() + innerHTML + appendChild()</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Generer une grille de cartes produits"
+          data-toolbar-text='Commande: boucle + createElement() + appendChild()'
+          data-instructions="Executez pour creer les cartes produits automatiquement.">
+          <textarea class="source-code-html" hidden>
+<section class="recap-ui">
+  <h4>Produits</h4>
+  <div id="conteneur-grille-produits" class="grille-produits"></div>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.recap-ui {
+  max-width: 720px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.grille-produits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.carte-produit {
+  border: 1px solid #3b82f6;
+  border-radius: 10px;
+  padding: 10px;
+  background: #172554;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let nomsProduits = ["Souris", "Clavier", "Ecran"];
+let prixProduits = [39, 79, 249];
+let elementsDisponibilite = ["En stock", "En stock", "Bientot"];
+let elementConteneurGrilleProduits = document.getElementById("conteneur-grille-produits");
+
+for (let i = 0; i < nomsProduits.length; i++) {
+  let elementCarteProduit = document.createElement("article");
+  elementCarteProduit.classList.add("carte-produit");
+  elementCarteProduit.innerHTML = `
+    <h5>${nomsProduits[i]}</h5>
+    <p>Prix : ${prixProduits[i]} $</p>
+    <p>Statut : ${elementsDisponibilite[i]}</p>
+  `;
+  elementConteneurGrilleProduits.appendChild(elementCarteProduit);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Construire une grille avec tableaux paralleles"
+          data-toolbar-text='Commande: createElement() + innerHTML + appendChild()'
+          data-instructions="Le conteneur et les tableaux sont prets. Complete la creation des cartes.">
+          <textarea class="source-code-html" hidden>
+<section class="recap-ui">
+  <h4>Produits</h4>
+  <div id="conteneur-grille-produits" class="grille-produits"></div>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.recap-ui {
+  max-width: 720px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.grille-produits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.carte-produit {
+  border: 1px solid #3b82f6;
+  border-radius: 10px;
+  padding: 10px;
+  background: #172554;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let nomsProduits = ["Webcam", "Micro", "Casque"];
+let prixProduits = [89, 129, 69];
+let elementsDisponibilite = ["En stock", "En rupture", "En stock"];
+let elementConteneurGrilleProduits = document.getElementById("conteneur-grille-produits");
+
+for (let i = 0; i < nomsProduits.length; i++) {
+  let elementCarteProduit;
+
+  // TODO 1: Cree un element article et stocke-le dans elementCarteProduit.
+
+
+  // TODO 2: Ajoute la classe "carte-produit".
+
+
+  // TODO 3: Mets en innerHTML le nom, le prix et le statut avec l'index i.
+
+
+  // TODO 4: Ajoute la carte dans elementConteneurGrilleProduits.
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="recap-ui">
+  <h4>Produits</h4>
+  <div id="conteneur-grille-produits" class="grille-produits"></div>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.recap-ui {
+  max-width: 720px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.grille-produits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.carte-produit {
+  border: 1px solid #3b82f6;
+  border-radius: 10px;
+  padding: 10px;
+  background: #172554;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let nomsProduits = ["Webcam", "Micro", "Casque"];
+let prixProduits = [89, 129, 69];
+let elementsDisponibilite = ["En stock", "En rupture", "En stock"];
+let elementConteneurGrilleProduits = document.getElementById("conteneur-grille-produits");
+
+for (let i = 0; i < nomsProduits.length; i++) {
+  let elementCarteProduit;
+  elementCarteProduit = document.createElement("article");
+  elementCarteProduit.classList.add("carte-produit");
+  elementCarteProduit.innerHTML = `
+    <h5>${nomsProduits[i]}</h5>
+    <p>Prix : ${prixProduits[i]} $</p>
+    <p>Statut : ${elementsDisponibilite[i]}</p>
+  `;
+  elementConteneurGrilleProduits.appendChild(elementCarteProduit);
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Analyser un mot de passe depuis un input</h3>
+        </div>
+        <p>On combine <code>value</code>, conditions, boucles et evenements pour valider une saisie utilisateur.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">input.value + addEventListener("click") + if</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Verifier un mot de passe"
+          data-toolbar-text='Commande: value + if + addEventListener("click")'
+          data-instructions="Entrez un mot de passe puis cliquez sur Verifier.">
+          <textarea class="source-code-html" hidden>
+<section class="recap-ui">
+  <h4>Validation mot de passe</h4>
+  <label for="saisie-mot-de-passe">Mot de passe</label>
+  <input id="saisie-mot-de-passe" type="text" value="Abc12345" />
+  <button id="bouton-verifier-mot-de-passe">Verifier</button>
+  <p id="texte-resultat-mot-de-passe">Resultat : ...</p>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.recap-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.recap-ui label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.recap-ui input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #020617;
+  color: #e2e8f0;
+  padding: 8px;
+}
+
+.recap-ui button {
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.valide {
+  color: #34d399;
+}
+
+.invalide {
+  color: #f87171;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSaisieMotDePasse = document.getElementById("saisie-mot-de-passe");
+let elementBoutonVerifierMotDePasse = document.getElementById("bouton-verifier-mot-de-passe");
+let elementTexteResultatMotDePasse = document.getElementById("texte-resultat-mot-de-passe");
+
+elementBoutonVerifierMotDePasse.addEventListener("click", function () {
+  let motDePasse = elementSaisieMotDePasse.value;
+  let contientChiffre = false;
+
+  for (let i = 0; i < motDePasse.length; i++) {
+    let caractere = motDePasse[i];
+    if (caractere >= "0" && caractere <= "9") {
+      contientChiffre = true;
+    }
+  }
+
+  if (motDePasse.length >= 8 && contientChiffre === true) {
+    elementTexteResultatMotDePasse.innerText = `${"Resultat : mot de passe valide"}`;
+    elementTexteResultatMotDePasse.classList.remove("invalide");
+    elementTexteResultatMotDePasse.classList.add("valide");
+  } else {
+    elementTexteResultatMotDePasse.innerText = `${"Resultat : minimum 8 caracteres et 1 chiffre"}`;
+    elementTexteResultatMotDePasse.classList.remove("valide");
+    elementTexteResultatMotDePasse.classList.add("invalide");
+  }
+});
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Valider une saisie mot de passe"
+          data-toolbar-text='Commande: value + for + if + addEventListener("click")'
+          data-instructions="Le ciblage est prete. Complete seulement la logique de validation.">
+          <textarea class="source-code-html" hidden>
+<section class="recap-ui">
+  <h4>Validation mot de passe</h4>
+  <label for="saisie-mot-de-passe">Mot de passe</label>
+  <input id="saisie-mot-de-passe" type="text" value="test" />
+  <button id="bouton-verifier-mot-de-passe">Verifier</button>
+  <p id="texte-resultat-mot-de-passe">Resultat : ...</p>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.recap-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.recap-ui label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.recap-ui input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #020617;
+  color: #e2e8f0;
+  padding: 8px;
+}
+
+.recap-ui button {
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.valide {
+  color: #34d399;
+}
+
+.invalide {
+  color: #f87171;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSaisieMotDePasse = document.getElementById("saisie-mot-de-passe");
+let elementBoutonVerifierMotDePasse = document.getElementById("bouton-verifier-mot-de-passe");
+let elementTexteResultatMotDePasse = document.getElementById("texte-resultat-mot-de-passe");
+
+elementBoutonVerifierMotDePasse.addEventListener("click", function () {
+  let motDePasse = elementSaisieMotDePasse.value;
+  let contientChiffre = false;
+
+  // TODO 1: Parcours motDePasse et passe contientChiffre a true si un caractere est entre "0" et "9".
+
+
+  // TODO 2: Si motDePasse a au moins 8 caracteres et contientChiffre est true, affiche "Resultat : mot de passe valide".
+
+
+  // TODO 3: Sinon, affiche "Resultat : minimum 8 caracteres et 1 chiffre".
+});
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<section class="recap-ui">
+  <h4>Validation mot de passe</h4>
+  <label for="saisie-mot-de-passe">Mot de passe</label>
+  <input id="saisie-mot-de-passe" type="text" value="test" />
+  <button id="bouton-verifier-mot-de-passe">Verifier</button>
+  <p id="texte-resultat-mot-de-passe">Resultat : ...</p>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.recap-ui {
+  max-width: 560px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.recap-ui label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.recap-ui input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #020617;
+  color: #e2e8f0;
+  padding: 8px;
+}
+
+.recap-ui button {
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.valide {
+  color: #34d399;
+}
+
+.invalide {
+  color: #f87171;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementSaisieMotDePasse = document.getElementById("saisie-mot-de-passe");
+let elementBoutonVerifierMotDePasse = document.getElementById("bouton-verifier-mot-de-passe");
+let elementTexteResultatMotDePasse = document.getElementById("texte-resultat-mot-de-passe");
+
+elementBoutonVerifierMotDePasse.addEventListener("click", function () {
+  let motDePasse = elementSaisieMotDePasse.value;
+  let contientChiffre = false;
+
+  for (let i = 0; i < motDePasse.length; i++) {
+    let caractere = motDePasse[i];
+    if (caractere >= "0" && caractere <= "9") {
+      contientChiffre = true;
+    }
+  }
+
+  if (motDePasse.length >= 8 && contientChiffre === true) {
+    elementTexteResultatMotDePasse.innerText = `${"Resultat : mot de passe valide"}`;
+  } else {
+    elementTexteResultatMotDePasse.innerText = `${"Resultat : minimum 8 caracteres et 1 chiffre"}`;
+  }
+});
+</textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>
