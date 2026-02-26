@@ -128,7 +128,7 @@
 // Obtient le titre avec son id.
 let elementTitreProduit = document.getElementById("titre-produit");
 // Met à jour le texte du titre.
-elementTitreProduit.innerText = `${"Casque audio Bluetooth"}`;
+elementTitreProduit.innerText = "Casque audio Bluetooth";
 </textarea>
         </div>
 
@@ -171,13 +171,13 @@ let elementPrixProduit;
 
 
 // Remplace son texte par "Souris gaming RGB".
-elementTitreProduit.innerText = `${"Souris gaming RGB"}`;
+elementTitreProduit.innerText = "Souris gaming RGB";
 
 // TODO 2: Cible <p id="prix-produit"> et stocke-le dans la variable elementPrixProduit.
 
 
 // Remplace son texte par "Prix : 54,99 $ CA".
-elementPrixProduit.innerText = `${"Prix : 54,99 $ CA"}`;
+elementPrixProduit.innerText = "Prix : 54,99 $ CA";
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="carte-produit-simple" id="conteneur-carte-produit">
@@ -209,10 +209,10 @@ elementPrixProduit.innerText = `${"Prix : 54,99 $ CA"}`;
 </textarea>
           <textarea class="solution-code-js" hidden>
 let elementTitreProduit = document.getElementById("titre-produit");
-elementTitreProduit.innerText = `${"Souris gaming RGB"}`;
+elementTitreProduit.innerText = "Souris gaming RGB";
 
 let elementPrixProduit = document.getElementById("prix-produit");
-elementPrixProduit.innerText = `${"Prix : 54,99 $ CA"}`;
+elementPrixProduit.innerText = "Prix : 54,99 $ CA";
 </textarea>
         </div>
 
@@ -261,7 +261,7 @@ elementPrixProduit.innerText = `${"Prix : 54,99 $ CA"}`;
 // Obtient le prix avec querySelector.
 let elementPrixProduit = document.querySelector("#conteneur-carte-produit .prix-produit");
 // Met à jour le texte du prix.
-elementPrixProduit.innerText = `${"Prix : 119,00 $ CA"}`;
+elementPrixProduit.innerText = "Prix : 119,00 $ CA";
 </textarea>
         </div>
 
@@ -379,12 +379,12 @@ elementMessageProduit.innerText = `Produit : ${elementSaisieNom.value}`;
         <h4><code>innerText</code></h4>
         <p>Utilise <code>innerText</code> pour changer uniquement le texte visible d'un élément.</p>
         <div class="info-box">
-          <pre><code class="language-javascript">element.innerText = `${texte}`</code></pre>
+          <pre><code class="language-javascript">element.innerText = "Mon texte"</code></pre>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
           data-title="innerText"
-          data-toolbar-text='Commande: element.innerText = `${texte}`'
+          data-toolbar-text='Commande: element.innerText = "Mon texte"'
           data-instructions="Exécutez pour changer le texte du titre.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
@@ -417,13 +417,13 @@ elementMessageProduit.innerText = `Produit : ${elementSaisieNom.value}`;
 // Obtient le titre système avec son id.
 let elementTitreSysteme = document.getElementById("titre-systeme");
 // Remplace le texte du titre.
-elementTitreSysteme.innerText = `${"Système en alerte"}`;
+elementTitreSysteme.innerText = "Système en alerte";
 </textarea>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
           data-title="innerText (pratique)"
-          data-toolbar-text='Commande: element.innerText = `${texte}`'
+          data-toolbar-text='Commande: element.innerText = "Mon texte"'
           data-instructions="Cible les deux éléments puis change les deux textes avec innerText.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
@@ -495,8 +495,8 @@ let elementEtatSysteme;
 elementTitreSysteme = document.getElementById("titre-systeme");
 elementEtatSysteme = document.getElementById("etat-systeme");
 
-elementTitreSysteme.innerText = `${"Système critique"}`;
-elementEtatSysteme.innerText = `${"État : intervention requise"}`;
+elementTitreSysteme.innerText = "Système critique";
+elementEtatSysteme.innerText = "État : intervention requise";
 </textarea>
         </div>
 

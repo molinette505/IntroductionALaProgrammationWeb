@@ -268,10 +268,10 @@ console.log(verifierAcces(25)); // Affiche "Bienvenue..."
                     data-instructions="Créez une fonction rechercherElement qui prend 2 paramètres (un tableau et un élément) et cherche cet élément. Utilisez une boucle et faites un return dès que vous le trouvez."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
-// TODO: Créer la fonction avec 2 paramètres : 'inventaire' et 'element'
+// TODO: Créer la fonction avec 2 paramètres : 'tableau' et 'element'
 function rechercherElement(tableau, element) {
-    for (let i = 0; i < inventaire.length; i++) {
-        if (inventaire[i] === element) {
+    for (let i = 0; i < tableau.length; i++) {
+        if (tableau[i] === element) {
             // TODO: Sortir immédiatement ici en retournant "Trouvé !"
         }
     }
@@ -284,8 +284,8 @@ console.log(rechercherElement(stock, "Raisin"));
 </textarea>
                     <textarea class="solution-code" hidden>
 function rechercherElement(tableau, element) {
-    for (let i = 0; i < inventaire.length; i++) {
-        if (inventaire[i] === element) {
+    for (let i = 0; i < tableau.length; i++) {
+        if (tableau[i] === element) {
             return "Trouvé !";
         }
     }

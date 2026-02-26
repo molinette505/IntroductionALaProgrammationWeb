@@ -132,13 +132,13 @@ function activerStatutJeu() {
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Activer un statut avec onclick"
+          data-console-open="true" data-title="Incrementer un niveau avec onclick"
           data-toolbar-text='Commande: onclick="maFonction()"'
-          data-instructions="La fonction est deja appelee par onclick. Complete seulement les actions dans la fonction.">
+          data-instructions="La fonction est deja appelee par onclick. Complete la logique de progression.">
           <textarea class="source-code-html" hidden>
 <div class="zone-evenement" id="conteneur-statut-jeu">
-  <h4 id="titre-statut-jeu">Statut : en attente</h4>
-  <button onclick="activerStatutJeu()">Activer</button>
+  <h4 id="texte-niveau">Niveau : 1</h4>
+  <button onclick="augmenterNiveau()">+1 niveau</button>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -161,24 +161,22 @@ function activerStatutJeu() {
   cursor: pointer;
 }
 
-.statut-actif {
-  color: #34d399;
-}
 </textarea>
           <textarea class="source-code-js" hidden>
-let elementTitreStatutJeu = document.getElementById("titre-statut-jeu");
+let elementTexteNiveau = document.getElementById("texte-niveau");
+let niveau = 1;
 
-function activerStatutJeu() {
-  // TODO 1: Mets elementTitreStatutJeu.innerText a "Statut : actif".
+function augmenterNiveau() {
+  // TODO 1: Augmente la variable niveau de 1.
 
 
-  // TODO 2: Ajoute la classe "statut-actif" sur elementTitreStatutJeu.
+  // TODO 2: Mets elementTexteNiveau.innerText au format "Niveau : X".
 }
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="zone-evenement" id="conteneur-statut-jeu">
-  <h4 id="titre-statut-jeu">Statut : en attente</h4>
-  <button onclick="activerStatutJeu()">Activer</button>
+  <h4 id="texte-niveau">Niveau : 1</h4>
+  <button onclick="augmenterNiveau()">+1 niveau</button>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -201,16 +199,14 @@ function activerStatutJeu() {
   cursor: pointer;
 }
 
-.statut-actif {
-  color: #34d399;
-}
 </textarea>
           <textarea class="solution-code-js" hidden>
-let elementTitreStatutJeu = document.getElementById("titre-statut-jeu");
+let elementTexteNiveau = document.getElementById("texte-niveau");
+let niveau = 1;
 
-function activerStatutJeu() {
-  elementTitreStatutJeu.innerText = `${"Statut : actif"}`;
-  elementTitreStatutJeu.classList.add("statut-actif");
+function augmenterNiveau() {
+  niveau = niveau + 1;
+  elementTexteNiveau.innerText = `Niveau : ${niveau}`;
 }
 </textarea>
         </div>
@@ -579,17 +575,18 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Ajouter un style au survol"
-          data-toolbar-text='Commande: event.target + addEventListener("mouseover")'
-          data-instructions="La liste est deja ciblee. Ajoute seulement les ecouteurs de survol.">
+          data-console-open="true" data-title="Afficher l'action cliquee"
+          data-toolbar-text='Commande: event.target + addEventListener("click")'
+          data-instructions="Utilise event.target pour afficher la valeur de data-action.">
           <textarea class="source-code-html" hidden>
 <div class="zone-evenement" id="conteneur-actions-combat">
   <h4>Actions</h4>
   <div class="groupe-actions-combat">
-    <button class="bouton-action-combat">Attaque</button>
-    <button class="bouton-action-combat">Parade</button>
-    <button class="bouton-action-combat">Esquive</button>
+    <button class="bouton-action-combat" data-action="attaque">Attaque</button>
+    <button class="bouton-action-combat" data-action="parade">Parade</button>
+    <button class="bouton-action-combat" data-action="esquive">Esquive</button>
   </div>
+  <p id="texte-action-combat">Action : aucune</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -625,28 +622,28 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
 </textarea>
           <textarea class="source-code-js" hidden>
 let elementsBoutonActionCombat = document.querySelectorAll(".bouton-action-combat");
+let elementTexteActionCombat = document.getElementById("texte-action-combat");
 
-function activerSurvolBoutonActionCombat(event) {
-  // TODO 1: Ajoute la classe "bouton-action-combat-survole" sur event.target.
-}
+function afficherActionCombat(event) {
+  // TODO 1: Lis la valeur data-action de event.target.
+  // Exemple: let action = event.target.getAttribute("data-action");
 
-function desactiverSurvolBoutonActionCombat(event) {
-  // TODO 2: Retire la classe "bouton-action-combat-survole" sur event.target.
+  // TODO 2: Mets le texte "Action : ... " dans elementTexteActionCombat.
 }
 
 elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
-  // TODO 3: Ajoute un ecouteur mouseover avec activerSurvolBoutonActionCombat.
-  // TODO 4: Ajoute un ecouteur mouseout avec desactiverSurvolBoutonActionCombat.
+  // TODO 3: Ajoute un ecouteur click avec afficherActionCombat.
 });
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="zone-evenement" id="conteneur-actions-combat">
   <h4>Actions</h4>
   <div class="groupe-actions-combat">
-    <button class="bouton-action-combat">Attaque</button>
-    <button class="bouton-action-combat">Parade</button>
-    <button class="bouton-action-combat">Esquive</button>
+    <button class="bouton-action-combat" data-action="attaque">Attaque</button>
+    <button class="bouton-action-combat" data-action="parade">Parade</button>
+    <button class="bouton-action-combat" data-action="esquive">Esquive</button>
   </div>
+  <p id="texte-action-combat">Action : aucune</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -682,18 +679,15 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
 </textarea>
           <textarea class="solution-code-js" hidden>
 let elementsBoutonActionCombat = document.querySelectorAll(".bouton-action-combat");
+let elementTexteActionCombat = document.getElementById("texte-action-combat");
 
-function activerSurvolBoutonActionCombat(event) {
-  event.target.classList.add("bouton-action-combat-survole");
-}
-
-function desactiverSurvolBoutonActionCombat(event) {
-  event.target.classList.remove("bouton-action-combat-survole");
+function afficherActionCombat(event) {
+  let action = event.target.getAttribute("data-action");
+  elementTexteActionCombat.innerText = `Action : ${action}`;
 }
 
 elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
-  elementBoutonActionCombat.addEventListener("mouseover", activerSurvolBoutonActionCombat);
-  elementBoutonActionCombat.addEventListener("mouseout", desactiverSurvolBoutonActionCombat);
+  elementBoutonActionCombat.addEventListener("click", afficherActionCombat);
 });
 </textarea>
         </div>
@@ -759,14 +753,14 @@ elementSaisieClavier.addEventListener("keydown", afficherTouchePressee);
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Afficher la touche dans un texte"
+          data-console-open="true" data-title="Compter les frappes clavier"
           data-toolbar-text='Commande: addEventListener("keydown", callback)'
-          data-instructions="Le ciblage est deja fait. Ajoute seulement l'ecouteur keydown.">
+          data-instructions="Incremente un compteur a chaque touche et detecte Enter.">
           <textarea class="source-code-html" hidden>
 <div class="zone-evenement" id="conteneur-clavier">
   <label for="saisie-clavier">Tapez une touche</label>
   <input id="saisie-clavier" type="text" />
-  <p id="texte-touche-clavier">Derniere touche : ...</p>
+  <p id="texte-touche-clavier">Frappes : 0</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -798,18 +792,22 @@ elementSaisieClavier.addEventListener("keydown", afficherTouchePressee);
           <textarea class="source-code-js" hidden>
 let elementSaisieClavier = document.getElementById("saisie-clavier");
 let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
+let nombreFrappes = 0;
 
 function afficherTouchePressee(event) {
-  // TODO 1: Mets elementTexteToucheClavier.innerText a `Derniere touche : ${event.key}`.
+  // TODO 1: Ajoute 1 a nombreFrappes.
+
+  // TODO 2: Si event.key est "Enter", affiche "Frappes : X (validation)".
+  // Sinon, affiche "Frappes : X".
 }
 
-// TODO 2: Ajoute un ecouteur keydown sur elementSaisieClavier avec afficherTouchePressee.
+// TODO 3: Ajoute un ecouteur keydown sur elementSaisieClavier avec afficherTouchePressee.
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="zone-evenement" id="conteneur-clavier">
   <label for="saisie-clavier">Tapez une touche</label>
   <input id="saisie-clavier" type="text" />
-  <p id="texte-touche-clavier">Derniere touche : ...</p>
+  <p id="texte-touche-clavier">Frappes : 0</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -841,9 +839,16 @@ function afficherTouchePressee(event) {
           <textarea class="solution-code-js" hidden>
 let elementSaisieClavier = document.getElementById("saisie-clavier");
 let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
+let nombreFrappes = 0;
 
 function afficherTouchePressee(event) {
-  elementTexteToucheClavier.innerText = `Derniere touche : ${event.key}`;
+  nombreFrappes += 1;
+
+  if (event.key === "Enter") {
+    elementTexteToucheClavier.innerText = `Frappes : ${nombreFrappes} (validation)`;
+  } else {
+    elementTexteToucheClavier.innerText = `Frappes : ${nombreFrappes}`;
+  }
 }
 
 elementSaisieClavier.addEventListener("keydown", afficherTouchePressee);
