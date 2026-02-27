@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - DOM : attributs</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS DOM</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>DOM - Attributs</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section class="section-spy">
+        <h2 class="section-title">La manipulation du DOM : rendre le Web vivant</h2>
+      </section>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Modifier les attributs</h3>
+        </div>
+        <p>Un attribut décrit une propriété d'un élément HTML (<code>src</code>, <code>onclick</code>, <code>href</code>, etc.).</p>
+        <ul>
+          <li><code>setAttribute(nom, valeur)</code> modifie un attribut.</li>
+        </ul>
+
+        <h4>Ex. Mettre à jour <code>src</code> d'une image</h4>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.setAttribute("src", "url-image")</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="Changer le src d'une image"
+          data-toolbar-text='Commande: element.setAttribute("src", "url-image")'
+          data-instructions="Exécutez pour remplacer l'image affichée.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Image de personnage</h4>
+  <img id="image-personnage" src="https://picsum.photos/id/1015/220/90" alt="Image avant">
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste img {
+  display: block;
+  width: 220px;
+  height: 90px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient l'image avec son id.
+let elementImagePersonnage = document.getElementById("image-personnage");
+// Remplace la source de l'image.
+elementImagePersonnage.setAttribute("src", "https://picsum.photos/id/1025/220/90");
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Mettre à jour le src d'une image"
+          data-toolbar-text='Commande: element.setAttribute("src", "url-image")'
+          data-instructions="L'image est déjà ciblée. Ajoute seulement le setAttribute sur src.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Image de personnage</h4>
+  <img id="image-personnage-exercice" src="https://picsum.photos/id/1015/220/90" alt="Image avant">
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste img {
+  display: block;
+  width: 220px;
+  height: 90px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementImagePersonnage = document.getElementById("image-personnage-exercice");
+
+// TODO 1: Mets le src de elementImagePersonnage à "https://picsum.photos/id/1003/220/90".
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Image de personnage</h4>
+  <img id="image-personnage-exercice" src="https://picsum.photos/id/1015/220/90" alt="Image avant">
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.alerte-liste img {
+  display: block;
+  width: 220px;
+  height: 90px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementImagePersonnage = document.getElementById("image-personnage-exercice");
+elementImagePersonnage.setAttribute("src", "https://picsum.photos/id/1003/220/90");
+</textarea>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

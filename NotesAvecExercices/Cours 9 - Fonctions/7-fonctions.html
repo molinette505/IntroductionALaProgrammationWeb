@@ -80,13 +80,9 @@ function calculerMoyenne(notes) {
     return total / notes.length;
 }
 
-// Tableaux de notes pour deux groupes
-let notesEtudiantsGr1 = [85, 90, 78, 92, 88];
-
-// Appel de la fonction pour chaque groupe, pas besoin de réécrire le code de calcul 2 fois
-let moyenneGroupe1 = calculerMoyenne(notesEtudiantsGr1);
-
-console.log("Moyenne groupe 1 :", moyenneGroupe1); // Moyenne groupe 1 : 86.6
+// Appel de la fonction pour chaque groupe, pas besoin de réécrire le code de calcul 2 foiss
+console.log("Moyenne groupe 1 :", calculerMoyenne([85, 90, 78, 92, 88]));
+console.log("Moyenne groupe 2 :", calculerMoyenne([58, 72, 60, 70, 63]));
 </textarea>
                 </div>
             </section>
@@ -99,7 +95,7 @@ console.log("Moyenne groupe 1 :", moyenneGroupe1); // Moyenne groupe 1 : 86.6
                 </div>
 
 
-                <h4>Déclaration d'une fonction en JavaScript :</h4>
+                <h4>Déclaration (création) d'une fonction en JavaScript :</h4>
                 <pre><code>function nomFonction(param1, param2) {
     // instructions à exécuter
 }</code></pre>
@@ -124,19 +120,20 @@ console.log("Moyenne groupe 1 :", moyenneGroupe1); // Moyenne groupe 1 : 86.6
                 </div>
 
                 <h4>Appel d'une fonction en JavaScript :</h4>
-                <p>Déclarer une fonction permet de définir un nouveau bloc de code réutilisable, mais ce code n'est pas
-                    exécuté immédiatement.</p>
                 <p>Pour exécuter la fonction, il faut <strong>l'appeler</strong> en écrivant son nom suivi de
                     parenthèses&nbsp;: <code>nomDeLaFonction()</code>.</p>
                 <div class="playground-container" data-type="example"
                     data-title="Déclarer et exécuter une fonction de bienvenue">
                     <textarea class="source-code" hidden>
-// Déclaration de la fonction
+// Déclaration (création) de la fonction
 function direBienvenue() {
     console.log("Bienvenue dans le programme !");
 }
 
-// Appel de la fonctions, c'est ici que l'exécution commence
+// Appel de la fonctions, c'est ici que l'exécution commence.
+direBienvenue(); 
+
+// Vous pouvez l'appeler autant de fois que vous le voulez!
 direBienvenue(); 
                     </textarea>
                 </div>
@@ -177,6 +174,7 @@ function saluer(nom) {
 }
 
 // ici "Ada" et "Linus" sont des arguments, des valeurs passées à la fonction
+// dans la fonction, le paramètre nom prendra la valeur des arguments.
 saluer("Ada");
 saluer("Linus");
 </textarea>
@@ -188,9 +186,9 @@ saluer("Linus");
                     <textarea class="source-code" hidden>
 // TODO: Créer la fonction presenterJoueur(nom, points)
 
-// TODO: Appeler la fonction avec le nom "Maya" et 120 points
+// TODO: Appeler la fonction avec le nom "Maya" et 120 points comme arguments
 
-// TODO: Appeler la fonction avec le nom "Alex" et 80 points
+// TODO: Appeler la fonction avec le nom "Alex" et 80 points comme arguments
 
 </textarea>
                     <textarea class="solution-code" hidden>
@@ -210,32 +208,40 @@ presenterJoueur("Alex", 80);
                 </div>
                 <ul>
                     <li>Une fonction peut <strong>retourner</strong> une valeur grâce à <code>return</code>. Cela permet de réutiliser le résultat ailleurs.</li>
-                    <li><code>return</code> est facultatif. Si on ne l'utilise pas, la fonction retourne <code>undefined</code> par défaut.</li>
+                    <li><code>return</code> est optionnel</li>
                 </ul>
                 <div class="playground-container" data-type="example" data-title="addition()">
                     <textarea class="source-code" hidden>
 function addition(a, b) {
-  return a + b;
+    // retourne le résultat de l'addition
+    return a + b;
 }
 
+// appelle la fonction avec 5 et 7 comme arguments et stock le résultat de l'addition dans la variable résultat.
 let resultat = addition(5, 7);
-console.log("Résultat :", resultat);
+
+// affoche le résultat avec console.log
+console.log(`Résultat : ${resultat}`);
 </textarea>
                 </div>
                 <div class="playground-container" data-type="exercise" data-title="retour de valeur (temps de trajet)"
                     data-instructions="Complète la fonction pour qu'elle retourne le temps de trajet en heures."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
-function calculerTempsTrajet(distanceKm, vitesseKmH) {
+// Fonction qui prend comme entrée la distance en km et la vitesse en km/h 
+et retourne le temps requis pour parcourir la distance
+function calculerTempsTrajet(distance, vitesse) {
   // TODO: Retourne le temps en heures (distance / vitesse)
 }
 
-let temps = calculerTempsTrajet(180, 90);
-console.log(`Temps : ${temps} heures`);
+// TODO: Appeler la fonction avec 80 km et 90 km/h comme arguments et stocker la valeur de retour dans la variable temps
+let temps;
+
+// TODO: afficher avec console.log() `Temps : X heures` ou X sera remplacé par la variable de retour
 </textarea>
                     <textarea class="solution-code" hidden>
-function calculerTempsTrajet(distanceKm, vitesseKmH) {
-  return distanceKm / vitesseKmH;
+function calculerTempsTrajet(distance, vitesse) {
+  return distance / vitesse;
 }
 
 let temps = calculerTempsTrajet(180, 90);
@@ -268,14 +274,14 @@ console.log(verifierAcces(25)); // Affiche "Bienvenue..."
                     data-instructions="Créez une fonction rechercherElement qui prend 2 paramètres (un tableau et un élément) et cherche cet élément. Utilisez une boucle et faites un return dès que vous le trouvez."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
-// TODO: Créer la fonction avec 2 paramètres : 'tableau' et 'element'
-function rechercherElement(tableau, element) {
+// Fonction crée avec 2 paramètres : 'tableau' et 'elementRecherche'
+function rechercherElement(tableau, elementRecherche) {
     for (let i = 0; i < tableau.length; i++) {
-        if (tableau[i] === element) {
-            // TODO: Sortir immédiatement ici en retournant "Trouvé !"
+        if (tableau[i] === elementRecherche) {
+            // TODO: Sortir immédiatement ici en retournant la string "Trouvé !"
         }
     }
-    // TODO: Retourner ceci si la boucle finit sans succès "Non disponible"
+    // TODO: Retourner ceci lorsque la boucle finit sans succès "Non disponible"
 }
 
 let stock = ["Banane", "Orange", "Pomme", "Poire"];
@@ -283,9 +289,9 @@ console.log(rechercherElement(stock, "Pomme"));
 console.log(rechercherElement(stock, "Raisin"));
 </textarea>
                     <textarea class="solution-code" hidden>
-function rechercherElement(tableau, element) {
+function rechercherElement(tableau, elementRecherche) {
     for (let i = 0; i < tableau.length; i++) {
-        if (tableau[i] === element) {
+        if (tableau[i] === elementRecherche) {
             return "Trouvé !";
         }
     }

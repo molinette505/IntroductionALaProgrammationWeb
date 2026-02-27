@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - DOM : contenu</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS DOM</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>DOM - Contenu</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section class="section-spy">
+        <h2 class="section-title">La manipulation du DOM : rendre le Web vivant</h2>
+      </section>
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Modifier le contenu</h3>
+        </div>
+        <p>Cette section montre trois façons simples de modifier le contenu affiché dans la page.</p>
+
+        <h4><code>innerText</code></h4>
+        <p>Utilise <code>innerText</code> pour changer uniquement le texte visible d'un élément.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.innerText = "Mon texte"</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="innerText"
+          data-toolbar-text='Commande: element.innerText = "Mon texte"'
+          data-instructions="Exécutez pour changer le texte du titre.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4 id="titre-systeme">Système normal</h4>
+  <p id="etat-systeme" class="etat">État : actif</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 10px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient le titre système avec son id.
+let elementTitreSysteme = document.getElementById("titre-systeme");
+// Remplace le texte du titre.
+elementTitreSysteme.innerText = "Système en alerte";
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="innerText (pratique)"
+          data-toolbar-text='Commande: element.innerText = "Mon texte"'
+          data-instructions="Cible les deux éléments puis change les deux textes avec innerText.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4 id="titre-systeme">Système normal</h4>
+  <p id="etat-systeme" class="etat">État : actif</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 10px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTitreSysteme = document.getElementById("titre-systeme");
+let elementEtatSysteme = document.getElementById("etat-systeme");
+
+// TODO 1: Change le texte du titre pour afficher "Système critique".
+
+
+// TODO 2: Change le texte de l'état pour afficher "État : intervention requise".
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="alerte-liste">
+  <h4 id="titre-systeme">Système normal</h4>
+  <p id="etat-systeme" class="etat">État : actif</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste h4 {
+  margin: 0 0 10px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementTitreSysteme;
+let elementEtatSysteme;
+
+elementTitreSysteme = document.getElementById("titre-systeme");
+elementEtatSysteme = document.getElementById("etat-systeme");
+
+elementTitreSysteme.innerText = "Système critique";
+elementEtatSysteme.innerText = "État : intervention requise";
+</textarea>
+        </div>
+
+        <h4><code>innerHTML</code></h4>
+        <p>Utilise <code>innerHTML</code> pour remplacer le contenu avec du HTML (texte + balises).</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">element.innerHTML = `${html}`</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="innerHTML"
+          data-toolbar-text='Commande: element.innerHTML = `${html}`'
+          data-instructions="Exécutez pour générer une fiche joueur HTML.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Fiche joueur</h4>
+  <div id="conteneur-fiche-joueur" class="alerte">Aucune fiche</div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  background: #ffffff;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient le conteneur de fiche joueur.
+let elementConteneurFicheJoueur = document.getElementById("conteneur-fiche-joueur");
+let nomJoueur = "Lina";
+let classeJoueur = "Mage";
+// Remplace son contenu avec du HTML.
+elementConteneurFicheJoueur.innerHTML = `
+  <p><strong>Nom :</strong> ${nomJoueur}</p>
+  <p><strong>Classe :</strong> ${classeJoueur}</p>
+`;
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="innerHTML (pratique)"
+          data-toolbar-text='Commande: element.innerHTML = `${html}`'
+          data-instructions="Cible le conteneur puis remplace son contenu avec deux lignes HTML (nom + classe).">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Fiche joueur</h4>
+  <div id="conteneur-fiche-joueur" class="alerte">Aucune fiche</div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  background: #ffffff;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementConteneurFicheJoueur = document.getElementById("conteneur-fiche-joueur");
+
+// TODO 1: Remplace le contenu avec innerHTML pour afficher:
+// "<p><strong>Nom :</strong> Kael</p><p><strong>Classe :</strong> Guerrier</p>"
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Fiche joueur</h4>
+  <div id="conteneur-fiche-joueur" class="alerte">Aucune fiche</div>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  background: #ffffff;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementConteneurFicheJoueur;
+let nomJoueur = "Kael";
+let classeJoueur = "Guerrier";
+
+elementConteneurFicheJoueur = document.getElementById("conteneur-fiche-joueur");
+elementConteneurFicheJoueur.innerHTML = `
+  <p><strong>Nom :</strong> ${nomJoueur}</p>
+  <p><strong>Classe :</strong> ${classeJoueur}</p>
+`;
+</textarea>
+        </div>
+
+        <h4><code>value</code></h4>
+        <p>Utilise <code>value</code> pour lire ce qui est saisi dans un champ de formulaire.</p>
+        <div class="info-box">
+          <pre><code class="language-javascript">let texte = elementInput.value</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="value"
+          data-toolbar-text='Commande: elementInput.value'
+          data-instructions="Exécutez pour lire la valeur du champ et l'afficher.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Profil joueur</h4>
+  <label for="saisie-nom-joueur">Nom</label>
+  <input id="saisie-nom-joueur" type="text" value="PixelNinja" />
+  <p id="texte-nom-joueur" class="etat">Nom : ...</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.alerte-liste input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 8px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient le champ de saisie et le paragraphe de sortie.
+let elementSaisieNomJoueur = document.getElementById("saisie-nom-joueur");
+let elementTexteNomJoueur = document.getElementById("texte-nom-joueur");
+
+// Lit la valeur puis l'affiche dans le texte.
+let nomSaisi = elementSaisieNomJoueur.value;
+elementTexteNomJoueur.innerText = `Nom : ${nomSaisi}`;
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="value (pratique)"
+          data-toolbar-text='Commandes: elementInput.value + element.innerText'
+          data-instructions="Cible l'input et le texte de sortie, puis affiche la valeur lue.">
+          <textarea class="source-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Profil joueur</h4>
+  <label for="saisie-nom-joueur">Nom</label>
+  <input id="saisie-nom-joueur" type="text" value="Lina" />
+  <p id="texte-nom-joueur" class="etat">Nom : ...</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.alerte-liste input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 8px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSaisieNomJoueur = document.getElementById("saisie-nom-joueur");
+let elementTexteNomJoueur = document.getElementById("texte-nom-joueur");
+
+// TODO 1: Lis la valeur avec .value et stocke-la dans la variable nomSaisi.
+
+
+// TODO 2: Mets elementTexteNomJoueur.innerText = `Nom : ${nomSaisi}`.
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="alerte-liste">
+  <h4>Profil joueur</h4>
+  <label for="saisie-nom-joueur">Nom</label>
+  <input id="saisie-nom-joueur" type="text" value="Lina" />
+  <p id="texte-nom-joueur" class="etat">Nom : ...</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.alerte-liste {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.alerte-liste label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.alerte-liste input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 8px;
+}
+
+.etat {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementSaisieNomJoueur;
+let elementTexteNomJoueur;
+
+elementSaisieNomJoueur = document.getElementById("saisie-nom-joueur");
+elementTexteNomJoueur = document.getElementById("texte-nom-joueur");
+
+let nomSaisi = elementSaisieNomJoueur.value;
+elementTexteNomJoueur.innerText = `Nom : ${nomSaisi}`;
+</textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>
