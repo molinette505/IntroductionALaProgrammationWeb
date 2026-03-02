@@ -36,22 +36,43 @@
       box-sizing: border-box;
     }
 
-    .cheat-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
+    .attribute-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
     }
 
-    .cheat-table th,
-    .cheat-table td {
+    .attribute-card {
       border: 1px solid #334155;
-      padding: 8px;
-      text-align: left;
+      border-radius: 12px;
+      padding: 16px;
+      background: rgba(15, 23, 42, 0.75);
     }
 
-    .cheat-table th {
-      background: #0f172a;
-      color: #e2e8f0;
+    .attribute-card h4,
+    .code-panel h4 {
+      margin-top: 0;
+    }
+
+    .code-sample-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .code-panel {
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+      background: #020617;
+    }
+
+    .code-panel pre,
+    .attribute-card pre {
+      margin-bottom: 0;
+      overflow-x: auto;
     }
   </style>
 </head>
@@ -80,320 +101,313 @@
     <main class="main-content">
 
       <section class="section-spy">
-        <h2 class="section-title">Cheat Sheet HTML et CSS</h2>
-      </section>
-
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>1) La structure HTML</h3>
-        </div>
+        <h2 class="section-title">HTML et CSS : les bases a retenir</h2>
+        <p>Cette page resume ce que sont les elements HTML, a quoi servent leurs attributs, puis comment CSS selectionne ces elements pour leur appliquer un style.</p>
         <div class="info-box info">
-          <p><strong>Conteneurs:</strong> <code>&lt;div&gt;</code> (bloc), <code>&lt;span&gt;</code> (inline).</p>
-          <p><strong>Contenu:</strong> <code>&lt;h1&gt;</code> a <code>&lt;h4&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>.</p>
-          <p><strong>Interaction:</strong> <code>&lt;img&gt;</code> avec <code>src</code>/<code>alt</code>, <code>&lt;a&gt;</code> avec <code>href</code>, <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>.</p>
+          <p><strong>Ordre logique :</strong> on construit d'abord la page avec HTML, puis on utilise CSS pour choisir les elements a styliser.</p>
         </div>
       </section>
 
       <section class="section-spy">
         <div class="section-header">
-          <h3>2) Les poignées (attributs)</h3>
+          <h3>1) Les elements HTML</h3>
         </div>
-        <table class="cheat-table">
-          <thead>
-            <tr>
-              <th>Attribut</th>
-              <th>Pourquoi c'est crucial en JS ?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>id</code></td>
-              <td>Cibler un seul element precis.</td>
-            </tr>
-            <tr>
-              <td><code>class</code></td>
-              <td>Cibler un groupe d'elements.</td>
-            </tr>
-            <tr>
-              <td><code>value</code></td>
-              <td>Lire la saisie utilisateur dans un input.</td>
-            </tr>
-            <tr>
-              <td><code>style</code></td>
-              <td>Modifier l'apparence en direct.</td>
-            </tr>
-            <tr>
-              <td><code>onclick</code></td>
-              <td>Declencher une fonction au clic.</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>Un element HTML represente un morceau de la page. Cela peut etre un titre, un paragraphe, une image, un lien, un champ de saisie ou un bouton.</p>
+
+        <div class="info-box info">
+          <p><strong>Structure classique :</strong> une balise ouvrante, un contenu, puis une balise fermante.</p>
+          <pre><code class="language-html">&lt;p&gt;Bonjour tout le monde&lt;/p&gt;</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true"
+          data-start-editor="html" data-title="Exemple de petit bloc HTML"
+          data-toolbar-text='Dans cet exemple, chaque element joue un role precis dans la page.'
+          data-auto-height="true"
+          >
+          <textarea class="source-code-html" hidden>
+<section class="carte-produit-demo">
+  <h2>Casque audio</h2>
+  <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" alt="Casque audio noir">
+  <p>Un modele confortable pour etudier et ecouter de la musique.</p>
+  <a href="#">Voir le produit</a>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-demo {
+  max-width: 340px;
+  padding: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.carte-produit-demo h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.carte-produit-demo img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.carte-produit-demo p {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.carte-produit-demo a {
+  display: inline-block;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Aucun JS pour cet exemple.
+</textarea>
+        </div>
+
+        <div class="info-box">
+          <h4>Les elements les plus courants</h4>
+          <ul>
+            <li><code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code> : pour les titres et sous-titres.</li>
+            <li><code>&lt;p&gt;</code> : pour un paragraphe de texte.</li>
+            <li><code>&lt;div&gt;</code> et <code>&lt;section&gt;</code> : pour regrouper du contenu.</li>
+            <li><code>&lt;img&gt;</code> : pour afficher une image.</li>
+            <li><code>&lt;a&gt;</code> : pour creer un lien.</li>
+            <li><code>&lt;input&gt;</code> et <code>&lt;button&gt;</code> : pour l'interaction.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>2) Les attributs HTML</h3>
+        </div>
+        <p>Les attributs ajoutent des informations a un element. Ils s'ecrivent dans la balise ouvrante et precisent le role ou le comportement de cet element.</p>
+
+        <div class="info-box info">
+          <p>Dans l'exemple suivant, <code>id</code>, <code>class</code>, <code>type</code> et <code>value</code> sont des attributs.</p>
+          <pre><code class="language-html">&lt;input id="prenom" class="champ-saisie" type="text" value="Lina"&gt;</code></pre>
+        </div>
+
+          <div class="info-box info">
+            <h4><code>id</code></h4>
+            <p>Un <code>id</code> identifie un element unique dans la page. On s'en sert souvent en CSS et en JavaScript pour viser un element precis.</p>
+            <pre><code class="language-html">&lt;h1 id="titre-principal"&gt;Bienvenue&lt;/h1&gt;</code></pre>
+          </div>
+
+          <div class="info-box info">
+            <h4><code>class</code></h4>
+            <p>Une <code>class</code> sert a donner le meme nom a plusieurs elements qui partagent le meme style ou la meme fonction.</p>
+            <pre><code class="language-html">&lt;p class="message-important"&gt;Attention&lt;/p&gt;</code></pre>
+          </div>
+
+          <div class="info-box info">
+            <h4><code>src</code> et <code>alt</code> pour une image</h4>
+            <p><code>src</code> indique le fichier image a charger. <code>alt</code> decrit l'image si elle ne s'affiche pas et aide aussi l'accessibilite.</p>
+            <pre><code class="language-html">&lt;img src="avatar.png" alt="Portrait de Lea"&gt;</code></pre>
+          </div>
+
+          <div class="info-box info">
+            <h4><code>href</code> pour un lien</h4>
+            <p><code>href</code> contient l'adresse vers laquelle le lien doit envoyer l'utilisateur.</p>
+            <pre><code class="language-html">&lt;a href="https://exemple.com"&gt;Visiter le site&lt;/a&gt;</code></pre>
+          </div>
+
+          <div class="info-box info">
+            <h4><code>type="text"</code> et <code>value</code> pour un input</h4>
+            <p><code>type="text"</code> indique que le champ sert a ecrire du texte. <code>value</code> represente la valeur actuelle du champ.</p>
+            <pre><code class="language-html">&lt;input type="text" value="Lina"&gt;</code></pre>
+          </div>
       </section>
 
       <section class="section-spy">
         <div class="section-header">
           <h3>3) Les selecteurs CSS</h3>
         </div>
-        <div class="info-box">
-          <p><strong>Selecteurs de base:</strong> <code>#id</code>, <code>.classe</code>, <code>balise</code>.</p>
-          <p><strong>Descendance:</strong> <code>div p</code> (descendant), <code>div &gt; p</code> (enfant direct).</p>
-        </div>
-      </section>
+        <p>Un selecteur CSS sert a choisir quels elements HTML vont recevoir un style. On ecrit d'abord le selecteur, puis les proprietes entre accolades.</p>
 
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Exemples pratiques rapides</h3>
+        <div class="info-box info">
+          <pre><code class="language-css">selecteur {
+  propriete: valeur;
+}</code></pre>
         </div>
 
-        <h4>Selection CSS avec querySelector</h4>
+        <h4>Le selecteur par <code>id</code></h4>
+        <p>Un selecteur par <code>id</code> commence par <code>#</code>. Il cible un element unique de la page.</p>
+
+        <div class="code-sample-grid">
+          <div class="code-panel">
+            <h4>HTML</h4>
+            <pre><code class="language-html">&lt;h2 id="titre-principal"&gt;Bienvenue&lt;/h2&gt;</code></pre>
+          </div>
+          <div class="code-panel">
+            <h4>CSS</h4>
+            <pre><code class="language-css">#titre-principal {
+  color: #2563eb;
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="info-box tip">
+          <p>Un <code>id</code> doit rester <strong>unique</strong> dans une page. Si plusieurs elements ont besoin du meme style, il faut plutot utiliser une <code>class</code>.</p>
+        </div>
+
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true" data-title="Cibler #id, .classe et div > p"
-          data-toolbar-text='Commande: document.querySelector("selecteur")'
-          data-instructions="Executez pour voir les 3 selections appliquees.">
+          data-console-open="true"
+          data-start-editor="css" data-title="Exemple - selecteur par id"
+          data-toolbar-text='Selecteur CSS: #titre-principal'
+          data-instructions="Modifiez le CSS pour changer l'apparence de l'element qui possede cet id.">
           <textarea class="source-code-html" hidden>
-<section class="mini-ui" id="conteneur-aide-memoire">
-  <h4 id="titre-aide-memoire">Cheat Sheet</h4>
-  <p class="texte-aide-memoire">Texte de base</p>
-  <div id="conteneur-cible">
-    <p>Paragraphe enfant direct</p>
-  </div>
+<section class="mini-ui-id">
+  <h3 id="titre-principal">Bienvenue sur la page</h3>
+  <p>Le titre ci-dessus est cible avec un id unique.</p>
 </section>
 </textarea>
           <textarea class="source-code-css" hidden>
-.mini-ui {
+.mini-ui-id {
   max-width: 520px;
-  border: 1px solid #334155;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 16px;
+}
+
+#titre-principal {
+  color: #2563eb;
+  background: #dbeafe;
+  padding: 8px;
+  border-radius: 8px;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-let elementTitreAideMemoire = document.querySelector("#titre-aide-memoire");
-let elementTexteAideMemoire = document.querySelector(".texte-aide-memoire");
-let elementParagrapheEnfantDirect = document.querySelector("#conteneur-cible > p");
-
-elementTitreAideMemoire.innerText = `${"Cheat Sheet HTML/CSS"}`;
-elementTexteAideMemoire.innerText = `${"Selection par classe"}`;
-elementParagrapheEnfantDirect.innerText = `${"Selection enfant direct"}`;
+// Aucun JS pour cet exemple.
 </textarea>
         </div>
 
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Completer les selecteurs"
-          data-toolbar-text='Commande: querySelector("#id") / querySelector(".classe") / querySelector("div > p")'
-          data-instructions="Complete les 3 selections puis les 3 innerText.">
-          <textarea class="source-code-html" hidden>
-<section class="mini-ui" id="conteneur-aide-memoire">
-  <h4 id="titre-aide-memoire">Cheat Sheet</h4>
-  <p class="texte-aide-memoire">Texte de base</p>
-  <div id="conteneur-cible">
-    <p>Paragraphe enfant direct</p>
-  </div>
-</section>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.mini-ui {
-  max-width: 520px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let elementTitreAideMemoire;
-let elementTexteAideMemoire;
-let elementParagrapheEnfantDirect;
+        <h4>Le selecteur par <code>class</code></h4>
+        <p>Un selecteur par <code>class</code> commence par <code>.</code>. Il permet de cibler plusieurs elements qui partagent le meme nom de classe.</p>
 
-// TODO 1: Cible #titre-aide-memoire.
-
-
-// TODO 2: Cible .texte-aide-memoire.
-
-
-// TODO 3: Cible #conteneur-cible > p.
-
-
-// TODO 4: Mets le titre a "Cheat Sheet HTML/CSS".
-
-
-// TODO 5: Mets le texte classe a "Selection par classe".
-
-
-// TODO 6: Mets le texte enfant direct a "Selection enfant direct".
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<section class="mini-ui" id="conteneur-aide-memoire">
-  <h4 id="titre-aide-memoire">Cheat Sheet</h4>
-  <p class="texte-aide-memoire">Texte de base</p>
-  <div id="conteneur-cible">
-    <p>Paragraphe enfant direct</p>
-  </div>
-</section>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.mini-ui {
-  max-width: 520px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-let elementTitreAideMemoire;
-let elementTexteAideMemoire;
-let elementParagrapheEnfantDirect;
-
-elementTitreAideMemoire = document.querySelector("#titre-aide-memoire");
-elementTexteAideMemoire = document.querySelector(".texte-aide-memoire");
-elementParagrapheEnfantDirect = document.querySelector("#conteneur-cible > p");
-
-elementTitreAideMemoire.innerText = `${"Cheat Sheet HTML/CSS"}`;
-elementTexteAideMemoire.innerText = `${"Selection par classe"}`;
-elementParagrapheEnfantDirect.innerText = `${"Selection enfant direct"}`;
-</textarea>
+        <div class="code-sample-grid">
+          <div class="code-panel">
+            <h4>HTML</h4>
+            <pre><code class="language-html">&lt;p class="important"&gt;Examen lundi&lt;/p&gt;
+&lt;p class="important"&gt;Remise mardi&lt;/p&gt;</code></pre>
+          </div>
+          <div class="code-panel">
+            <h4>CSS</h4>
+            <pre><code class="language-css">.important {
+  color: #b91c1c;
+  font-weight: 700;
+}</code></pre>
+          </div>
         </div>
 
-        <h4>Attributs value et onclick</h4>
+        <div class="info-box tip">
+          <p>Une <code>class</code> est utile quand plusieurs elements doivent partager le meme style visuel.</p>
+        </div>
+
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true" data-title="Lire value et declencher onclick"
-          data-toolbar-text='Commandes: value + onclick'
-          data-instructions="Executez puis cliquez sur le bouton.">
+          data-console-open="true"
+          data-start-editor="css" data-title="Exemple - selecteur par class"
+          data-toolbar-text='Selecteur CSS: .carte-produit'
+          data-instructions="Modifiez le CSS pour styliser tous les elements qui portent la meme classe.">
           <textarea class="source-code-html" hidden>
-<section class="mini-ui" id="conteneur-action-rapide">
-  <label for="saisie-prenom">Prenom</label>
-  <input id="saisie-prenom" type="text" value="Lina" />
-  <button id="bouton-afficher-prenom" onclick="afficherPrenom()">Afficher</button>
-  <p id="texte-prenom">Prenom : ...</p>
+<section class="zone-cartes">
+  <article class="carte-produit">
+    <h3>Casque</h3>
+    <p>Modele confortable.</p>
+  </article>
+
+  <article class="carte-produit">
+    <h3>Souris</h3>
+    <p>Modele compact.</p>
+  </article>
 </section>
 </textarea>
           <textarea class="source-code-css" hidden>
-.mini-ui {
-  max-width: 520px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
+.zone-cartes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
-.mini-ui input {
-  width: 100%;
-  margin: 6px 0 10px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #020617;
-  color: #e2e8f0;
-  padding: 8px;
+.carte-produit {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 12px;
+}
+
+.carte-produit h3 {
+  margin-top: 0;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-let elementSaisiePrenom = document.getElementById("saisie-prenom");
-let elementTextePrenom = document.getElementById("texte-prenom");
-
-function afficherPrenom() {
-  let prenomSaisi = elementSaisiePrenom.value;
-  elementTextePrenom.innerText = `Prenom : ${prenomSaisi}`;
-}
+// Aucun JS pour cet exemple.
 </textarea>
         </div>
 
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Afficher la valeur d'un input"
-          data-toolbar-text='Commandes: value + innerText'
-          data-instructions="Le ciblage est fait. Complete seulement la logique dans la fonction.">
-          <textarea class="source-code-html" hidden>
-<section class="mini-ui" id="conteneur-action-rapide">
-  <label for="saisie-prenom">Prenom</label>
-  <input id="saisie-prenom" type="text" value="Lina" />
-  <button id="bouton-afficher-prenom" onclick="afficherPrenom()">Afficher</button>
-  <p id="texte-prenom">Prenom : ...</p>
-</section>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.mini-ui {
-  max-width: 520px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
+        <h4>Le selecteur par balise</h4>
+        <p>Quand on ecrit directement le nom d'une balise, CSS cible tous les elements de ce type dans la zone concernee.</p>
+
+        <div class="code-sample-grid">
+          <div class="code-panel">
+            <h4>HTML</h4>
+            <pre><code class="language-html">&lt;p&gt;Premier paragraphe&lt;/p&gt;
+&lt;p&gt;Deuxieme paragraphe&lt;/p&gt;</code></pre>
+          </div>
+          <div class="code-panel">
+            <h4>CSS</h4>
+            <pre><code class="language-css">p {
+  line-height: 1.6;
+  color: #334155;
+}</code></pre>
+          </div>
+        </div>
+
+        <h4>Les selecteurs combines</h4>
+        <p>On peut aussi cibler un element selon son emplacement dans la structure HTML, par exemple un paragraphe a l'interieur d'une carte ou un enfant direct.</p>
+
+        <div class="code-sample-grid">
+          <div class="code-panel">
+            <h4>HTML</h4>
+            <pre><code class="language-html">&lt;div class="carte"&gt;
+  &lt;p&gt;Texte dans la carte&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ul class="liste"&gt;
+  &lt;li&gt;Item 1&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+          </div>
+          <div class="code-panel">
+            <h4>CSS</h4>
+            <pre><code class="language-css">.carte p {
+  color: #475569;
 }
 
-.mini-ui input {
-  width: 100%;
-  margin: 6px 0 10px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #020617;
-  color: #e2e8f0;
-  padding: 8px;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let elementSaisiePrenom = document.getElementById("saisie-prenom");
-let elementTextePrenom = document.getElementById("texte-prenom");
-
-function afficherPrenom() {
-  // TODO 1: Lis la valeur de elementSaisiePrenom dans la variable prenomSaisi.
-
-
-  // TODO 2: Mets elementTextePrenom.innerText a `Prenom : ${prenomSaisi}`.
-}
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<section class="mini-ui" id="conteneur-action-rapide">
-  <label for="saisie-prenom">Prenom</label>
-  <input id="saisie-prenom" type="text" value="Lina" />
-  <button id="bouton-afficher-prenom" onclick="afficherPrenom()">Afficher</button>
-  <p id="texte-prenom">Prenom : ...</p>
-</section>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.mini-ui {
-  max-width: 520px;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-.mini-ui input {
-  width: 100%;
-  margin: 6px 0 10px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #020617;
-  color: #e2e8f0;
-  padding: 8px;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-let elementSaisiePrenom = document.getElementById("saisie-prenom");
-let elementTextePrenom = document.getElementById("texte-prenom");
-
-function afficherPrenom() {
-  let prenomSaisi = elementSaisiePrenom.value;
-  elementTextePrenom.innerText = `Prenom : ${prenomSaisi}`;
-}
-</textarea>
+.liste &gt; li {
+  font-weight: 700;
+}</code></pre>
+          </div>
         </div>
       </section>
 
       <section class="section-spy">
         <div class="info-box info">
-          <p>
-            <strong>L'essentiel a retenir :</strong><br>
-            HTML = ce qui est ecrit sur la page.<br>
-            CSS = comment on le trouve et comment on le decores.<br>
-            JS = comment on le fait bouger en utilisant les deux precedents.
-          </p>
+          <p><strong>A retenir :</strong> HTML cree les elements de la page. Les attributs donnent des informations a ces elements. CSS utilise des selecteurs comme <code>#id</code>, <code>.class</code> ou <code>p</code> pour leur appliquer un style.</p>
         </div>
       </section>
 

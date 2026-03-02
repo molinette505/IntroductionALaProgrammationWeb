@@ -543,18 +543,12 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     };
 
     const getCompletionCursorOffset = (insertText) => {
-        if (insertText === '\'\'') return 1;
-        if (insertText === '""') return 1;
-        if (insertText === '``') return 1;
         if (insertText === '${}') return 2;
         if (/\(\)$/.test(insertText)) return insertText.length - 1;
         return insertText.length;
     };
 
     const isCursorInsideCompletion = (insertText) => {
-        if (insertText === '\'\'') return true;
-        if (insertText === '""') return true;
-        if (insertText === '``') return true;
         if (insertText === '${}') return true;
         return /\(\)$/.test(insertText);
     };
@@ -965,10 +959,8 @@ ${html}
 
         const code = runFiles.js;
 
-        const clampText = (text, max = 320) => {
-            const str = String(text == null ? '' : text);
-            if (str.length <= max) return str;
-            return `${str.slice(0, max - 3)}...`;
+        const clampText = (text) => {
+            return String(text == null ? '' : text);
         };
 
         const isDomNodeLike = (value) => {
@@ -1013,9 +1005,8 @@ ${html}
             const typeName = (value && value.constructor && value.constructor.name) || 'Collection';
             const head = `${typeName}(${arr.length})`;
             if (!arr.length) return head;
-            const sample = arr.slice(0, 3).map((item) => domNodePreview(item));
-            const suffix = arr.length > 3 ? ', ...' : '';
-            return `${head} ${sample.join(', ')}${suffix}`;
+            const items = arr.map((item) => domNodePreview(item));
+            return `${head} ${items.join(', ')}`;
         };
 
         const stringifyValue = (value) => {
@@ -1036,13 +1027,7 @@ ${html}
         };
 
         const inlineValue = (value) => {
-            const text = stringifyValue(value);
-            if (!text.includes('\n')) return text;
-
-            const lines = text.split('\n');
-            const firstNonEmpty = lines.find((line) => line.trim().length > 0);
-            const preview = (firstNonEmpty || lines[0] || '').trim();
-            return `${preview || '[multiline]'} ...`;
+            return stringifyValue(value);
         };
 
         const isErrorLike = (value) => {

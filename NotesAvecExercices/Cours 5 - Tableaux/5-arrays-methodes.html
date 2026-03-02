@@ -51,113 +51,207 @@
         <main class="main-content">
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Ajouter des éléments : Push & Unshift</h3>
+                    <h3>Push : ajouter un élément à la <strong>fin</strong> du tableau.</h3>
                 </div>
 
-                <p>Ces méthodes ajoutent un élément, soit à la fin, soit au début du tableau.</p>
-                <p><code>push</code> et <code>unshift</code> retournent la <strong>nouvelle taille</strong> du tableau.</p>
-                <p><code>unshift</code> décale <strong>tous les éléments</strong> vers la droite.</p>
+                <ul>
+                    <li>Retourne la nouvelle taille du tableau.</li>
+                </ul>
 
-                <div class="grid-2">
-                    <div class="info-box success">
-                        <h4>push(valeur)</h4>
-                        <p>Ajoute à la fin. Retourne la nouvelle taille.</p>
-                    </div>
-                    <div class="info-box warning">
-                        <h4>unshift(valeur)</h4>
-                        <p>Ajoute au début. Retourne la nouvelle taille.</p>
-                    </div>
+                <div class="info-box info">
+                    <h4>Syntaxe</h4>
+                    <pre><code class="language-javascript">tableauNomJoueurs.push("Bob");</code></pre>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Ajouter et récupérer la taille">
+                <div class="playground-container" data-auto-height="true" data-type="example"
+                    data-title="Exemple - push" data-toolbar-text='Commande: tableau.push(element)'>
 <textarea class="source-code" hidden>
+// Tableau de départ
 let scores = [12, 18];
 
-let taille1 = scores.push(20);
-console.log("Après push:", scores, "taille:", taille1);
+// Ajoute 20 à la fin du tableau
+let nouvelleTaille = scores.push(20);
 
-let taille2 = scores.unshift(5);
-console.log("Après unshift:", scores, "taille:", taille2);
+// Affiche le tableau modifié et la taille retournée
+console.log("Tableau après push:", scores);
+console.log("Nouvelle taille:", nouvelleTaille);
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Push puis Unshift">
+                <div class="playground-container" data-auto-height="true" data-type="exercise"
+                    data-title="Exercice - push" data-toolbar-text='Commande: tableau.push(element)'>
 <textarea class="source-code" hidden>
 let scores = [7, 14, 21];
 
-// TODO1: Ajoute 28 à la fin, stocke la taille retournée
+// TODO1: Ajoute 28 à la fin du tableau et stocke la taille retournée
 
-// TODO2: Ajoute 3 au début, stocke la taille retournée
-
-// TODO3: Affiche les tailles et le tableau
+// TODO2: Affiche la taille et le tableau
 </textarea>
 <textarea class="solution-code" hidden>
 let scores = [7, 14, 21];
 
 let tailleApresPush = scores.push(28);
-let tailleApresUnshift = scores.unshift(3);
 
 console.log("Taille après push:", tailleApresPush);
-console.log("Taille après unshift:", tailleApresUnshift);
-console.log(scores);
+console.log("Tableau:", scores);
 </textarea>
                 </div>
             </section>
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Retirer des éléments : Pop & Shift</h3>
+                    <h3>unshift(element): Ajouter un élément au <strong>début</strong> du tableau.</h3>
                 </div>
 
-                <div class="grid-2">
-                    <div class="info-box error">
-                        <h4>pop()</h4>
-                        <p>Retire à la fin. <strong>Retourne la valeur retirée.</strong></p>
-                    </div>
-                    <div class="info-box warning">
-                        <h4>shift()</h4>
-                        <p>Retire au début. Retourne la valeur retirée.</p>
-                    </div>
+                <ul>
+                    <li>Retourne la nouvelle taille du tableau.</li>
+                </ul>
+
+                <div class="info-box info">
+                    <h4>Syntaxe</h4>
+                    <pre><code class="language-javascript">tableauNomJoueurs.unshift("Michael");</code></pre>
                 </div>
 
                 <div class="info-box warning">
                     <h4><i data-lucide="zap"></i> Coût de performance</h4>
-                    <p>C'est <strong>plus lent</strong> que push/pop car l'ordinateur doit décaler tous les index du tableau.</p>
+                    <p><code>unshift()</code> est plus lent que <code>push()</code> car les index doivent être décalés.</p>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Retirer et récupérer la valeur">
+                <div class="playground-container" data-auto-height="true" data-type="example"
+                    data-title="Exemple - unshift" data-toolbar-text='Commande: tableau.unshift(element)'>
 <textarea class="source-code" hidden>
+// Tableau de départ
+let fileAttente = ["Client 2", "Client 3"];
+
+// Ajoute "Client 1" au début du tableau
+let nouvelleTaille = fileAttente.unshift("Client 1");
+
+// Affiche le tableau modifié et la taille retournée
+console.log("File après unshift:", fileAttente);
+console.log("Nouvelle taille:", nouvelleTaille);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-auto-height="true" data-type="exercise"
+                    data-title="Exercice - unshift" data-toolbar-text='Commande: tableau.unshift(element)'>
+<textarea class="source-code" hidden>
+let priorites = [2, 3, 4];
+
+// TODO1: Ajoute 1 au début du tableau et stocke la taille retournée
+
+// TODO2: Affiche la taille et le tableau
+</textarea>
+<textarea class="solution-code" hidden>
+let priorites = [2, 3, 4];
+
+let tailleApresUnshift = priorites.unshift(1);
+
+console.log("Taille après unshift:", tailleApresUnshift);
+console.log("Tableau:", priorites);
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>pop(): Retirer le <strong>dernier</strong> élément du tableau.</h3>
+                </div>
+
+                <ul>
+                    <li>Retire le <strong>dernier</strong> élément du tableau.</li>
+                    <li>Retourne l'élément retiré.</li>
+                </ul>
+
+                <div class="info-box tip">
+                    <h4>Syntaxe</h4>
+                    <pre><code class="language-javascript">tableauScores.pop();</code></pre>
+                </div>
+
+                <div class="playground-container" data-auto-height="true" data-type="example"
+                    data-title="Exemple - pop" data-toolbar-text='Commande: tableau.pop()'>
+<textarea class="source-code" hidden>
+// Tableau de départ
+let inventaire = ["Épée", "Bouclier", "Potion"];
+
+// Retire le dernier élément du tableau
+let dernierObjet = inventaire.pop();
+
+// Affiche l'élément retiré et le tableau restant
+console.log("Objet retiré:", dernierObjet);
+console.log("Inventaire restant:", inventaire);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-auto-height="true" data-type="exercise"
+                    data-title="Exercice - pop" data-toolbar-text='Commande: tableau.pop()'>
+<textarea class="source-code" hidden>
+let pile = ["A", "B", "C"];
+
+// TODO1: Retire le dernier élément et stocke-le
+
+// TODO2: Affiche l'élément retiré et le tableau restant
+</textarea>
+<textarea class="solution-code" hidden>
+let pile = ["A", "B", "C"];
+
+let dernier = pile.pop();
+
+console.log("Retiré:", dernier);
+console.log("Restant:", pile);
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>shift(): Retirer le <strong>premier</strong> élément du tableau.</h3>
+                </div>
+
+                <ul>
+                    <li>Retourne l'élément retiré.</li>
+                </ul>
+
+                <div class="info-box tip">
+                    <h4>Syntaxe</h4>
+                    <pre><code class="language-javascript">tableauScores.shift();</code></pre>
+                </div>
+
+                <div class="info-box warning">
+                    <h4><i data-lucide="zap"></i> Coût de performance</h4>
+                    <p><code>shift()</code> est plus lent que <code>pop()</code> car les index doivent être décalés.</p>
+                </div>
+
+                <div class="playground-container" data-auto-height="true" data-type="example"
+                    data-title="Exemple - shift" data-toolbar-text='Commande: tableau.shift()'>
+<textarea class="source-code" hidden>
+// Tableau de départ
 let file = ["Client 1", "Client 2", "Client 3"];
 
-let dernier = file.pop();
-console.log("Pop:", dernier);
+// Retire le premier élément du tableau
+let premierClient = file.shift();
 
-let premier = file.shift();
-console.log("Shift:", premier);
-
+// Affiche l'élément retiré et le tableau restant
+console.log("Client retiré:", premierClient);
 console.log("File restante:", file);
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Pop puis Shift">
+                <div class="playground-container" data-auto-height="true" data-type="exercise"
+                    data-title="Exercice - shift" data-toolbar-text='Commande: tableau.shift()'>
 <textarea class="source-code" hidden>
-let inventaire = ["Épée", "Bouclier", "Potion"];
+let file = ["Alice", "Bob", "Charlie"];
 
-// TODO1: Retire le dernier élément et stocke-le
+// TODO1: Retire le premier élément et stocke-le
 
-// TODO2: Retire le premier élément et stocke-le
-
-// TODO3: Affiche les deux éléments retirés et l'inventaire restant
+// TODO2: Affiche l'élément retiré et le tableau restant
 </textarea>
 <textarea class="solution-code" hidden>
-let inventaire = ["Épée", "Bouclier", "Potion"];
+let file = ["Alice", "Bob", "Charlie"];
 
-let dernier = inventaire.pop();
-let premier = inventaire.shift();
+let premier = file.shift();
 
-console.log("Dernier retiré:", dernier);
-console.log("Premier retiré:", premier);
-console.log("Restant:", inventaire);
+console.log("Retiré:", premier);
+console.log("Restant:", file);
 </textarea>
                 </div>
             </section>
