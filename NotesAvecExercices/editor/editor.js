@@ -917,19 +917,16 @@ ${html}
 
     if (btnReset) {
         btnReset.addEventListener('click', async () => {
-            if (!confirm('Recommencer l\'exercice ?')) return;
-
-            userFiles = cloneFiles(initialPrimaryFiles);
-            secondaryFiles = cloneFiles(initialSecondaryFiles);
+            if (activeMode === 'solution') {
+                secondaryFiles = cloneFiles(initialSecondaryFiles);
+            } else {
+                userFiles = cloneFiles(initialPrimaryFiles);
+            }
             setOutputView(initialOutputView);
             clearConsole();
             showConsolePlaceholder();
 
-            if (activeMode === 'solution' && (isExerciseType || compareIsReadOnly)) {
-                setEditorMode('user');
-            } else {
-                setEditorFile(activeFile, { persist: false });
-            }
+            setEditorFile(activeFile, { persist: false });
 
             if (shouldAutoExecuteForMode(activeMode)) {
                 await runPlayground(false);

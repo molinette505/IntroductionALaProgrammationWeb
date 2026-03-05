@@ -55,9 +55,6 @@
 
       <nav class="sidebar-nav">
         <a href="../../index.html" class="nav-link">Retour</a>
-        <a href="./10-timers-exercices.html" class="nav-link">Exercices Timers</a>
-        <a href="./10-timeout.html" class="nav-link">Compte a rebours</a>
-        <a href="./10-evenements.html" class="nav-link">Evenements</a>
       </nav>
     </aside>
 
@@ -68,8 +65,7 @@
         <h2 class="section-title">Intervals avec <code>setInterval</code></h2>
 
         <p>
-          <code>setInterval</code> sert à répéter une action automatiquement, à chaque X millisecondes (ms).
-          <code>clearInterval</code> sert à arrêter cette répétition.
+          <code>setInterval</code> sert à exécuter une fonction automatiquement, à chaque X millisecondes (ms).
         </p>
 
         <div class="info-box info">
@@ -77,42 +73,39 @@
           <ul>
             <li><strong>Intervalle</strong> = une action qui se répète.</li>
             <li><strong>Callback</strong> = la fonction exécutée à chaque répétition.</li>
-            <li><strong>ID d’intervalle</strong> = le numéro retourné par <code>setInterval</code> (utile pour arrêter).</li>
-            <li><strong>ms</strong> = millisecondes (1000 ms = 1 seconde).</li>
+            <li><strong>ID d’intervalle</strong> = le numéro retourné par <code>setInterval</code>.</li>
+            <li><strong>Durée</strong> en millisecondes (1000 ms = 1 seconde).</li>
           </ul>
         </div>
       </section>
 
+      <!-- SECTION 1 : setInterval -->
       <section class="section-spy">
         <div class="section-header">
-          <h3><code>setInterval</code> et <code>clearInterval</code></h3>
+          <h3>1) <code>setInterval</code> (démarrer la répétition)</h3>
         </div>
 
         <p>
-          Pour arrêter un intervalle, il faut conserver l’ID retourné par <code>setInterval</code>.
+          <code>setInterval</code> démarre une répétition.
         </p>
 
         <div class="info-box">
-          <pre><code class="language-javascript">let id = setInterval(maFonction, 1000);
-// plus tard...
-clearInterval(id);</code></pre>
+          <pre><code class="language-javascript">let id = setInterval(maFonction, 1000);</code></pre>
         </div>
 
         <div class="info-box info">
-          <h4>Étapes (toujours les mêmes)</h4>
+          <h4>Étapes</h4>
           <ul>
-            <li>Créer une variable compteur (ex : <code>tick</code>).</li>
-            <li>Démarrer l’intervalle et garder son ID.</li>
-            <li>Dans la fonction : augmenter le compteur, puis vérifier une condition.</li>
-            <li>Si la condition est atteinte : arrêter avec <code>clearInterval(id)</code>.</li>
+            <li>Écrire la fonction qui sera répétée (callback).</li>
+            <li>Démarrer l’intervalle : <code>setInterval(...)</code>.</li>
           </ul>
         </div>
 
-        <!-- EXEMPLE -->
-        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="example"
-          data-console-open="true" data-title="Compter 5 ticks avec une fonction anonyme"
-          data-toolbar-text='Commandes : setInterval(...) + clearInterval(...)'
-          data-instructions="Exécute. Observe la console : un tick par seconde, puis arrêt après 5.">
+        <!-- EXEMPLE : fonction anonyme -->
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-auto-execute="false"
+          data-type="example" data-console-open="true" data-title="Compter 5 ticks (fonction anonyme)"
+          data-toolbar-text='setInterval(...) : démarre et répète toutes les 1000 ms.'
+          data-auto-height="true">
           <textarea class="source-code-html" hidden>
 <div class="zone-timer">
   <p>Observe les ticks dans la console.</p>
@@ -130,19 +123,168 @@ clearInterval(id);</code></pre>
 }
 </textarea>
           <textarea class="source-code-js" hidden>
+// Compte combien de fois l'intervalle s'est exécuté.
 let compteurTick = 0;
 
-/*
-  Plan :
-  1) Démarrer un intervalle (1 tick / seconde)
-  2) À chaque tick : compteurTick + 1
-  3) Si on arrive à 5 on arrête l'interval : clearInterval(...)
-*/
-
+// Démarre un intervalle qui s'exécute toutes les 1000 ms (1 seconde).
+// setInterval retourne un ID : on le stocke pour pouvoir l'arrêter plus tard.
 let intervalleTick = setInterval(function () {
+  // Incrémente le compteur à chaque tick.
   compteurTick += 1;
   console.log(`Tick ${compteurTick}`);
 
+  // Ici on laisse tourner : l'arrêt sera vu dans la section clearInterval.
+}, 1000);
+</textarea>
+        </div>
+
+        <!-- EXEMPLE : fonction externe -->
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-auto-execute="false"
+          data-type="example" data-console-open="true" data-title="Intervalle qui appelle une fonction"
+          data-toolbar-text='setInterval(executerTick, 1000) : appelle executerTick à chaque tick.'
+          data-auto-height="true">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer">
+  <p>Observe l’appel d’une fonction à chaque tick.</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Compteur global, mis à jour par la fonction executerTick.
+let nombreDeTicks = 0;
+
+// Démarre l'intervalle : executerTick() sera appelée chaque seconde.
+let idIntervalTick = setInterval(executerTick, 1000);
+
+// Fonction callback exécutée à chaque tick.
+function executerTick() {
+  nombreDeTicks += 1;
+  console.log(`Tick : ${nombreDeTicks}`);
+
+  // Ici on ne coupe pas encore l'intervalle.
+}
+</textarea>
+        </div>
+
+        <div class="playground-container"
+  data-auto-height="true"
+  data-output-default="console"
+  data-auto-execute="false"
+  data-type="exercise"
+  data-console-open="true"
+  data-title="Exercice : message répété (sans clearInterval)"
+  data-toolbar-text='Objectif : démarrer un setInterval qui affiche un message en console toutes les 1000 ms. (Aucun clearInterval dans cet exercice.)'>
+  <textarea class="source-code-html" hidden>
+<div class="zone-timer">
+  <p>Ouvre la console : un message apparaît chaque seconde.</p>
+</div>
+</textarea>
+  <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+  <textarea class="source-code-js" hidden>
+// TODO 1 : Crée une fonction afficherMessage() qui fait un console.log("Ping !")
+
+// TODO 2 : Démarre un intervalle qui appelle afficherMessage toutes les 1000 ms
+// Indice : setInterval(afficherMessage, 1000);
+</textarea>
+
+  <textarea class="solution-code-html" hidden>
+<div class="zone-timer">
+  <p>Ouvre la console : un message apparaît chaque seconde.</p>
+</div>
+</textarea>
+  <textarea class="solution-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+  <textarea class="solution-code-js" hidden>
+function afficherMessage() {
+  console.log("Ping !");
+}
+
+setInterval(afficherMessage, 1000);
+</textarea>
+</div>
+      </section>
+
+      <!-- SECTION 2 : clearInterval -->
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>2) <code>clearInterval</code> (arrêter la répétition)</h3>
+        </div>
+
+        <p>
+          <code>clearInterval(idInterval)</code> sert à arrêter un intervalle.
+          On doit lui donner l’<strong>ID</strong> retourné par <code>setInterval</code>.
+        </p>
+
+        <div class="info-box info">
+          <h4>Étapes</h4>
+          <ul>
+            <li>Garder l’id retourner par setInterval dans une variable. <code>let idInterval = setInterval(...);</code></li>
+            <li>Décider quand arrêter (ex : quand un compteur atteint 5).</li>
+            <li>Appeler <code>clearInterval(idInterval)</code>.</li>
+          </ul>
+        </div>
+
+        <!-- EXEMPLE : arrêt après 5 -->
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-auto-execute="false"
+          data-type="example" data-console-open="true" data-title="Arrêter après 5 ticks"
+          data-toolbar-text='clearInterval(id) : ici on arrête quand compteurTick >= 5.'
+          data-auto-height="true">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer">
+  <p>Observe : l’intervalle s’arrête après 5.</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Compte les répétitions.
+let compteurTick = 0;
+
+// Lance un tick toutes les secondes.
+let intervalleTick = setInterval(function () {
+  // Mise à jour du compteur et affichage.
+  compteurTick += 1;
+  console.log(`Tick ${compteurTick}`);
+
+  // Condition d'arrêt : après 5 ticks, on coupe l'intervalle.
   if (compteurTick >= 5) {
     clearInterval(intervalleTick);
     console.log("Intervalle arrêté");
@@ -151,14 +293,14 @@ let intervalleTick = setInterval(function () {
 </textarea>
         </div>
 
-        <!-- EXEMPLE 2 -->
-        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="example"
-          data-console-open="true" data-title="Intervalle qui appelle une fonction externe"
-          data-toolbar-text='Commandes : setInterval(...) + clearInterval(...)'
-          data-instructions="Exécute. Ici, setInterval appelle une fonction, qui elle-même appelle une fonction externe.">
+        <!-- EXEMPLE : arrêt après 3 (fonction externe) -->
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-auto-execute="false"
+          data-type="example" data-console-open="true" data-title="Arrêter dans une fonction (3 ticks)"
+          data-toolbar-text='On arrête l’intervalle à l’intérieur de executerTick() avec clearInterval(idIntervalTick).'
+          data-auto-height="true">
           <textarea class="source-code-html" hidden>
 <div class="zone-timer">
-  <p>Observe l’appel d’une fonction externe à chaque tick.</p>
+  <p>Observe : arrêt au 3e tick.</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -173,33 +315,37 @@ let intervalleTick = setInterval(function () {
 }
 </textarea>
           <textarea class="source-code-js" hidden>
+// Compteur des ticks.
 let nombreDeTicks = 0;
+
+// On démarre l'intervalle en appelant executerTick chaque seconde.
 let idIntervalTick = setInterval(executerTick, 1000);
 
+// Fonction appelée automatiquement à chaque tick.
 function executerTick() {
   nombreDeTicks += 1;
   console.log(`Tick : ${nombreDeTicks}`);
 
-  //arrête l'interval au troisième tick
+  // On stoppe l'intervalle après 3 répétitions.
   if (nombreDeTicks >= 3) {
     clearInterval(idIntervalTick);
-    console.log("Demo terminée");
+    console.log("Démo terminée");
   }
 }
 </textarea>
         </div>
 
         <!-- EXERCICE -->
-        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
-          data-console-open="true" data-title="Exercice : énergie par intervalle"
-          data-toolbar-text='Commandes : setInterval(...) + clearInterval(...)'
-          data-instructions="Objectif : augmenter l’énergie de +10 toutes les 800 ms. Arrêter quand énergie atteint 50 ou plus.">
-          <textarea class="source-code-html" hidden>
+<div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
+  data-console-open="true" data-title="Exercice : dégâts de poison par intervalle"
+  data-toolbar-text='Objectif : setInterval(appliquerDeDegatsPoison, 800). Enlève 7 pointsDeVie à chaque tick. Quand pointsDeVie <= 0 : clearInterval(id) + "KO (poison)".'
+  data-auto-height="true">
+  <textarea class="source-code-html" hidden>
 <div class="zone-timer">
-  <p>Augmente l’énergie en console jusqu’à 50.</p>
+  <p>Le poison enlève des points de vie en console jusqu'à 0.</p>
 </div>
 </textarea>
-          <textarea class="source-code-css" hidden>
+  <textarea class="source-code-css" hidden>
 .zone-timer {
   max-width: 440px;
   padding: 14px;
@@ -210,38 +356,40 @@ function executerTick() {
   font-family: "JetBrains Mono", monospace;
 }
 </textarea>
-          <textarea class="source-code-js" hidden>
-let energie = 0;
+  <textarea class="source-code-js" hidden>
+let pointsDeVie = 40;
 
 /*
   Important :
   - setInterval retourne un ID.
   - On doit garder cet ID dans une variable pour pouvoir arrêter l’intervalle.
 */
-let idIntervalEnergie;
+let idIntervalPoison;
 
-// TODO 1 : Démarre l’intervalle.
-// Indices :
-// - setInterval(monterEnergie, 800)
-// - Stocke le résultat dans idIntervalEnergie
+// TODO 1 : Démarre l’intervalle et stocke l’ID dans idIntervalPoison.
+// Indice : idIntervalPoison = setInterval(appliquerDeDegatsPoison, 800);
 
-function monterEnergie() {
-  energie += 10;
-  console.log(`Énergie : ${energie}`);
+function appliquerDeDegatsPoison() {
+  // TODO 2 : Crée une variable degatsPoison = 7
+  // Indice : let degatsPoison = 7;
 
-  // TODO 2 : Si energie >= 50, arrête l’intervalle.
-  // Indice : clearInterval(idIntervalEnergie)
+  // TODO 3 : Enlève degatsPoison à pointsDeVie
 
-  // TODO 3 : Après l’arrêt, affiche : "Énergie au maximum"
-  // Indice : console.log(...)
+  // TODO 4 : Affiche : `Poison : -X | PV restants : Y`
+
+  // TODO 5 : Si pointsDeVie <= 0, arrête l’intervalle.
+  // Indice : clearInterval(idIntervalPoison)
+
+  // TODO 6 : Après l’arrêt, affiche : "KO (poison)"
 }
 </textarea>
-          <textarea class="solution-code-html" hidden>
+
+  <textarea class="solution-code-html" hidden>
 <div class="zone-timer">
-  <p>Augmente l’énergie jusqu’à 50.</p>
+  <p>Le poison enlève des points de vie en console jusqu'à 0.</p>
 </div>
 </textarea>
-          <textarea class="solution-code-css" hidden>
+  <textarea class="solution-code-css" hidden>
 .zone-timer {
   max-width: 440px;
   padding: 14px;
@@ -252,37 +400,26 @@ function monterEnergie() {
   font-family: "JetBrains Mono", monospace;
 }
 </textarea>
-          <textarea class="solution-code-js" hidden>
-let energie = 0;
-let idIntervalEnergie = null;
+  <textarea class="solution-code-js" hidden>
+let pointsDeVie = 40;
+let idIntervalPoison = null;
 
-function monterEnergie() {
-  energie += 10;
-  console.log(`Énergie : ${energie}`);
+function appliquerDeDegatsPoison() {
+  let degatsPoison = 7;
 
-  if (energie >= 50) {
-    clearInterval(idIntervalEnergie);
-    console.log("Énergie au maximum");
+  pointsDeVie -= degatsPoison;
+  console.log(`Poison : -${degatsPoison} | PV restants : ${pointsDeVie}`);
+
+  if (pointsDeVie <= 0) {
+    clearInterval(idIntervalPoison);
+    console.log("KO (poison)");
   }
 }
 
-idIntervalEnergie = setInterval(monterEnergie, 800);
+idIntervalPoison = setInterval(appliquerDeDegatsPoison, 800);
 </textarea>
-        </div>
+</div>
       </section>
-
-      <!-- MINI RÉCAP -->
-      <section class="section-spy">
-        <div class="info-box info">
-          <h4>Mini récap</h4>
-          <ul>
-            <li><code>setInterval(fonction, duree)</code> répète <code>fonction</code> toutes les <code>duree</code> millisecondes.</li>
-            <li>On garde l’ID retourné : <code>let id = setInterval(...)</code>.</li>
-            <li>On arrête avec <code>clearInterval(id)</code>.</li>
-          </ul>
-        </div>
-      </section>
-
     </main>
   </div>
 

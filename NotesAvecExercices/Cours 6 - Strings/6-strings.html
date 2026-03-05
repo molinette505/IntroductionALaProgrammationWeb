@@ -1,339 +1,364 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS - Strings (Bases)</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - Strings (bases)</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../editor/editor.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
 </head>
+
 <body>
 
-    <header class="mobile-header">
-        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
-        <span class="logo">JS Strings</span>
-    </header>
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS Strings</span>
+  </header>
 
-    <div class="app-container">
-        
-        <aside id="sidebar" class="sidebar">
-            <div class="sidebar-header">
-                <span class="js-badge">JS</span>
-                <h1>Strings (Bases)</h1>
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="nav-link">Retour</a>
-            </nav>
-        </aside>
+  <div class="app-container">
 
-        <main class="main-content">
-            
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Qu'est-ce qu'une String ?</h3>
-                </div>
-                <p>
-                    Une <strong>string</strong> (chaîne de caractères) est une séquence de lettres, de chiffres ou de symboles utilisée pour représenter du texte en programmation.
-                </p>
-           </section>
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Strings (bases)</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Guillemets ou Backticks ?</h3>
-                </div>
-                <p>
-                    JavaScript offre trois façons de créer des strings. Bien qu'elles se ressemblent, elles servent des besoins différents.
-                </p>
+    <main class="main-content">
 
-                <div class="grid-2">
-                    <div class="info-box info">
-                        <h4><i data-lucide="quote"></i> Guillemets (' ou ")</h4>
-                        <p><strong>Usage :</strong> Texte simple et court sans variables.</p>
-                        <p><strong>Pourquoi ?</strong></p>
-                        <ul class="code-list">
-                            <li>Utilisez les <code>" "</code> si votre texte contient une apostrophe<br> (ex: J'aime).</li>
-                            <li>Utilisez les <code>' '</code> si le texte contient des guillemets <br>(ex: 'document.getElementById("mon-id")')</li>
-                        </ul>
-                    </div>
+      <!-- SECTION 1 : DÉFINITION -->
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Qu’est-ce qu’une string ?</h3>
+        </div>
 
-                    <div class="info-box success">
-                        <h4><i data-lucide="code-2"></i> Backticks ( ` )</h4>
-                        <p><strong>Usage :</strong> Messages complexes et dynamiques.</p>
-                        <p><strong>Pourquoi ?</strong></p>
-                        <ul class="code-list">
-                            <li><strong>Interpolation (Template Literals) :</strong> Insérer des variables directement dans le texte avec <code>${}</code>.</li>
-                            <li><strong>Multi-ligne :</strong> Créer des paragraphes sur plusieurs lignes.</li>
-                        </ul>
-                    </div>
-                </div>
+        <p>
+          Une <strong>string</strong> (chaîne de caractères) est du <strong>texte</strong> en programmation :
+          lettres, chiffres, espaces, symboles.
+        </p>
 
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Utilisation de guillemets" data-toolbar-text="Pratique pour les textes courts" data-auto-height="true">
-<textarea class="source-code" hidden>
-// Guillemets
-let texte = "Je n'ai pas assez de mana!";
+        <div class="info-box info">
+          <h4><i data-lucide="info"></i> À retenir</h4>
+          <ul>
+            <li>Une string est toujours entourée par des guillemets ou des backticks.</li>
+            <li>Exemples : <code>"Bonjour"</code>, <code>'Hello'</code>, <code>`Hola`</code></li>
+          </ul>
+        </div>
+      </section>
 
+      <!-- SECTION 2 : GUILLEMETS -->
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Créer du texte : guillemets simples ou doubles</h3>
+        </div>
+
+        <p>
+          Pour une string simple, on utilise des guillemets :
+          <code>' '</code> ou <code>" "</code>.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-box info">
+            <h4><i data-lucide="quote"></i> Règle simple</h4>
+            <ul class="code-list">
+              <li>Si le texte contient une apostrophe (ex. <code>J'aime</code>), utilise <code>" "</code></li>
+              <li>Si le texte contient des guillemets (ex. <code>"..."</code>), utilise <code>' '</code></li>
+            </ul>
+          </div>
+
+          <div class="info-box tip">
+            <h4><i data-lucide="sparkles"></i> Astuce</h4>
+            <p>
+              On peut aussi “échapper” un caractère avec <code>\</code>, mais au début, le plus simple est de choisir
+              l’autre type de guillemets.
+            </p>
+          </div>
+        </div>
+
+        <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Texte simple (guillemets)"
+          data-toolbar-text='Objectif : créer une string simple. Ici on utilise " " car il y a une apostrophe.'
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let texte = "Je n'ai pas assez de mana !";
 console.log(texte);
 </textarea>
-                </div>        
-                            <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Utilisation de backticks et template literals" data-toolbar-text="Pratique pour les textes sur plusieurs lignes comme le html et pour insérer des variables." data-auto-height="true">
-<textarea class="source-code" hidden>
-// Guillemets
-let nom = "Marcus"
-let race = "Humain"
+        </div>
+      </section>
+
+      <!-- SECTION 3 : BACKTICKS + ${} -->
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Mettre des variables dans le texte : backticks et <code>${}</code></h3>
+        </div>
+
+        <p>
+          Les <strong>backticks</strong> (<code>`</code>) servent à créer des messages plus lisibles, surtout quand on veut
+          insérer des variables.
+        </p>
+
+        <div class="info-box info">
+          <h4><i data-lucide="code-2"></i> Pourquoi c’est pratique ?</h4>
+          <ul class="code-list">
+            <li><strong>Interpolation</strong> : on insère une variable avec <code>${variable}</code></li>
+            <li><strong>Multi-ligne</strong> : on peut écrire une string sur plusieurs lignes (utile pour du HTML)</li>
+          </ul>
+        </div>
+
+
+        <div class="playground-container" data-type="compare"
+          data-title="HTML avec guillemets vs HTML avec backticks"
+          data-toolbar-text="Guillemets classiques à gauche, template literal à droite. Regardez le rendu HTML en plus de la console."
+          data-label-a="Avec guillemets"
+          data-label-b="Avec backticks"
+          data-console-open="true"
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let titre = "Fiche personnage";
+let description = "Cette fiche a été générée en JS.";
+
+// Ancienne méthode : concaténation + retours de ligne avec \n
+let fiche = "<div class=\"fiche-personnage\">\n"
+  + "  <h2>" + titre + "</h2>\n"
+  + "  <p>" + description + "</p>\n"
+  + "</div>";
+
+console.log(fiche);
+document.body.innerHTML = fiche;
+</textarea>
+          <textarea class="compare-code" hidden>
+let titre = "Fiche personnage";
+let description = "Cette fiche a été générée en JS.";
+
+// Méthode moderne : backticks + interpolation + multi-ligne naturel
+let fiche = 
+`<div class="fiche-personnage">
+  <h2>${titre}</h2>
+  <p>${description}</p>
+</div>`;
+
+console.log(fiche);
+document.body.innerHTML = fiche;
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-execute="false" data-type="example"
+          data-title="Template literal : insérer des variables"
+          data-toolbar-text="Backticks + ${} : insère nom, classe, niveau directement dans le texte."
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let nom = "Marcus";
 let classe = "Guerrier";
 let niveau = 60;
 
-let html = `
-    <div>
-        <h1>${nom}</h1>
-        <ul>
-            <li><strong>Ma race:</strong> ${race}</li>
-            <li><strong>Ma classe:</strong> ${classe}</li>
-            <li><strong>Mon niveau:</strong> ${niveau}</li>
-        </ul>
-    </div>
+let message = `Nom : ${nom} | Classe : ${classe} | Niveau : ${niveau}`;
+console.log(message);
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-execute="false" data-type="example"
+          data-title="Template literal : multi-ligne"
+          data-toolbar-text="Backticks : permet d'écrire du texte sur plusieurs lignes (souvent du HTML)."
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let titre = "Fiche personnage";
+let contenu = `
+<div>
+  <h1>${titre}</h1>
+  <p>Cette fiche a été générée en JS.</p>
+</div>
 `;
 
-console.log(html);
+console.log(contenu);
 </textarea>
-                </div>   
-            
-            </section>
+        </div>
+      </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Concaténation</h3>
-                </div>
-                <p>La concaténation est une opération qui consiste à joindre deux ou plusieurs chaînes de caractères (du texte) pour en former une seule, plus longue.</p>
+      <!-- SECTION 4 : CONCATÉNATION -->
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Concaténation : combiner des strings avec <code>+</code></h3>
+        </div>
 
-                <div class="info-box">
-                    <p>Pour se faire on additionne deux chaînes de caractères (strings) (<code>+</code>)</p>
-                </div>
+        <p>
+          La <strong>concaténation</strong> consiste à coller du texte ensemble: <br>
+        <code>"Score: " + 100 + " points;</code>
+        </p>
 
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Additionner deux strings pour les combiner" data-toolbar-text="Javascript fusionne les deux strings pour en obtenir une seule" data-auto-height="true">
-<textarea class="source-code" hidden>
-// Nous additionnons deux strings et obtenons une seule string: Chaton
+        <div class="info-box warning">
+          <h4><i data-lucide="alert-triangle"></i> Attention : string + nombre</h4>
+          <ul>
+            <li><code>"54" + 6</code>: <strong>"546"</strong> (le nombre devient du texte)</li>
+            <li><code>54 + 6</code>: <strong>60</strong> (addition normale)</li>
+          </ul>
+        </div>
+
+        <div class="playground-container" data-auto-execute="false" data-type="example"
+          data-title="Concaténer deux strings"
+          data-toolbar-text='Exemple : "Cha" + "ton" -> "Chaton"'
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
 let mot = "Cha" + "ton";
-
 console.log(mot);
 </textarea>
-                </div>
+        </div>
 
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Additionner une string et un nombre pour les combiner" data-toolbar-text="Javascript convertit automatiquement le number en string, c'est pourquoi le résultat est '546' et non 60" data-auto-height="true">
-<textarea class="source-code" hidden>
-let concatenation = "54" + 6; // Ici nous additionnons une string et un number : concatenation
+        <div class="playground-container" data-auto-execute="false" data-type="example"
+          data-title="String + nombre : différence entre concaténation et addition"
+          data-toolbar-text='Observe : "54" + 6 donne "546" (texte). 54 + 6 donne 60 (nombre).'
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let concatenation = "54" + 6;
 console.log(concatenation);
 
-let addition = 54 + 6; // Ici il n'y a pas de string, c'est donc une addition normale
-console.log(addition)
+let addition = 54 + 6;
+console.log(addition);
 </textarea>
-                </div>
+        </div>
 
-<div class="playground-container" data-auto-execute="false" data-type="example" data-title="Utile pour ajouter des variables dans le texte, mais pas efficace" data-toolbar-text="Nous verrons dans le prochain exemple que les template literals sont beauocup plus lisibles" data-auto-height="true">
-<textarea class="source-code" hidden>
-// Texte simple en utilisant les guillemets
-let prenom = "Victor";
-let age = 5;
-
-// On utilise + pour combiner texte et variables.
-let texte = "Bonjour, je m'appelle " + prenom + " et j'ai " + age + " ans.";
-
-console.log(texte);
-</textarea>
-                </div>
-
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="En utilisant les backticks et l'interpolation ${}" data-toolbar-text="Beaucoup plus lisible!" data-auto-height="true">
-<textarea class="source-code" hidden>
-// Version moderne avec les template literals (`backticks`)
-let prenom = "Victor";
-let age = 5;
-
-let texte = `Bonjour, je m'appelle ${prenom} et j'ai ${age} ans.`;
-
-console.log(texte);
-</textarea>
-                </div>
-
-                <div class="playground-container" data-auto-execute="false"
-                    data-type="exercise"
-                    data-title="Exercice - Combiner deux strings"
-                    data-toolbar-text="Crée une variable motComplet qui combine les deux morceaux de texte."
-                    data-auto-height="true">
-                    <textarea class="source-code" hidden>
+        <!-- EXERCICES -->
+        <div class="playground-container" data-auto-execute="false" data-type="exercise"
+          data-title="Combiner deux strings"
+          data-toolbar-text='TODO : combine debut + fin avec + pour obtenir "Programmation".'
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
 let debut = "Progra";
 let fin = "mmation";
 
-// TODO: Combine les strings debut et fin avec l'operateur + et met le résultat dans la variable motComplet
-// Le resultat devrait être "Programmation"
+// TODO : Combine debut et fin avec + et mets le résultat dans motComplet
 let motComplet;
 
 console.log(motComplet);
 </textarea>
-                    <textarea class="solution-code" hidden>
+          <textarea class="solution-code" hidden>
 let debut = "Progra";
 let fin = "mmation";
 
 let motComplet = debut + fin;
-
 console.log(motComplet);
 </textarea>
-                </div>
+        </div>
 
-                <div class="playground-container" data-auto-execute="false"
-                    data-type="exercise"
-                    data-title="Exercice - String + nombre"
-                    data-toolbar-text="Affiche le score sous la forme: Score: 25"
-                    data-auto-height="true">
-                    <textarea class="source-code" hidden>
+        <div class="playground-container" data-auto-execute="false" data-type="exercise"
+          data-title="Construire un code (+=)"
+          data-toolbar-text='On construit un code caractère par caractère. TODO : ajoute "2" pour obtenir "E32".'
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
 let codeSaisi = "";
 codeSaisi += "E";
 codeSaisi += "3";
 
-// Une personne entre E3 sur le clavier d'une machine distributrice.
-// TODO: La personne entre maintenant 2. Ajoute 2 au codeSaisie
-// Le resultat devrait être "E32"
+// TODO : La personne entre maintenant 2. Ajoute "2" à codeSaisi.
+// Résultat attendu : "E32"
 
 console.log(codeSaisi);
 </textarea>
-                    <textarea class="solution-code" hidden>
+          <textarea class="solution-code" hidden>
 let codeSaisi = "";
 codeSaisi += "E";
 codeSaisi += "3";
 
-// Une personne entre E3 sur le clavier d'une machine distributrice.
-// La personne entre maintenant 2.
 codeSaisi += "2";
-
 console.log(codeSaisi);
 </textarea>
-                </div>
+        </div>
 
-                <div class="playground-container" data-auto-execute="false"
-                    data-type="exercise"
-                    data-title="Exercice 3 - String avec variables"
-                    data-toolbar-text="Utilise la concaténation (+) pour former une phrase complète qui contient des variables."
-                    data-auto-height="true">
-                    <textarea class="source-code" hidden>
-let produit = "Lime";
-let prix = 3.50;
 
-// TODO: Cree la string: "1. Nom du produit: Lime, prix du produit: 3.50$" en utilisant les variables produit et prix
-// et met la dans la variable infosProduit.
-let infosProduit;
+      </section>
 
-console.log(infosProduit);
-</textarea>
-                    <textarea class="solution-code" hidden>
-let produit = "Lime";
-let prix = 3.50;
-let infosProduit = "1. Nom du produit: " + produit + ", prix du produit: " + 3.50 + "$";
+      <!-- SECTION 5 : LENGTH -->
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Longueur d’un texte : <code>.length</code></h3>
+        </div>
 
-console.log(infosProduit);
-</textarea>
-                </div>
+        <p>
+          La propriété <code>.length</code> donne le <strong>nombre de caractères</strong> dans une string.
+          Les espaces et symboles comptent aussi.
+        </p>
 
-                <div class="playground-container" data-auto-execute="false" 
-                    data-type="exercise" 
-                    data-title="Utiliser les guillemets et les backticks"  
-                    data-toolbar-text="Faire l'exercice précédent, mais utiliser les backticks ` ` et les template literals ${} plutôt que la concaténation"
-                    data-auto-height="auto">
-                    <textarea class="source-code" hidden>
-let produit = "Lime";
-let prix = 3.50;
+        <div class="info-box warning">
+          <h4><i data-lucide="alert-triangle"></i> Erreur fréquente</h4>
+          <p>
+            On ne compare pas la string directement :
+            <code>motDePasse &gt; 0</code> ❌
+            <br>
+            On compare sa longueur :
+            <code>motDePasse.length &gt; 0</code> ✅
+          </p>
+        </div>
 
-// TODO: Cree la string: "1. Nom du produit: Lime, prix du produit: 3.50$" en utilisant les variables produit et prix
-// et met la dans la variable infosProduit.
-let infosProduit;
+        <div class="playground-container" data-auto-execute="false" data-type="example"
+          data-title="Exemple : valider la longueur"
+          data-toolbar-text="Valide si longueur entre 1 et 5 (inclus). Teste en changeant le mot de passe."
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let motDePasse = "T1M"; // Essaie aussi : "" ou "T1M2026!"
 
-console.log(infosProduit);
-</textarea>
-                    <textarea class="solution-code" hidden>
-let produit = "Lime";
-let prix = 3.50;
-let infosProduit = `1. Nom du produit: ${produit}, prix du produit: " + 3.50 + "$";
-
-console.log(infosProduit);
-
-</textarea>
-                </div>            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>La longueur du texte: la propriété Length</h3>
-                </div>
-                
-                <div class="info-box tip">
-                    <h4><i data-lucide="ruler"></i> Compter les caractères</h4>
-                    <p>
-                        La propriété <code>.length</code> renvoie le nombre total de caractères dans la chaîne.
-                        <br>
-                        <strong>Attention :</strong> Les espaces, la ponctuation et les symboles comptent.
-                        <br>
-                        <br>
-                        Utile pour valider qu'un champs texte n'est pas vide ou comporte un nombre minimal/maximal de caractères.
-                    </p>
-                </div>
-
-                <div class="info-box">
-                    <h4><i data-lucide="warning"></i>Ne pas oublier .length!</h4>
-                    <p>
-                        Attention de ne pas oublier <code>.length</code>! 
-                        <br>
-                        L'erreur fréquente au début est de faire <code>if(motDePasse > 0)</code> au lieu de <code>if(motDePasse.length > 0)</code>
-                    </p>
-                </div>
-
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Valider la longueur d'un texte" data-instructions="S'assurer qu'un mot de passe ne soit pas vide ET qu'il contienne au plus 5 caractères." data-auto-height="true">
-<textarea class="source-code" hidden>
-let motDePasse = "T1M2026!"; // Changer pour T1M pour qu'il soit valide
-
-if(motDePasse.length > 0 && motDePasse.length <= 5)
-{
-    console.log("Mot de passe valide");
+if (motDePasse.length > 0 && motDePasse.length <= 5) {
+  console.log("Mot de passe valide");
 } else {
-    console.log("Mot de passe invalide");
+  console.log("Mot de passe invalide");
 }
 </textarea>
-                </div>
+        </div>
 
-                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Valider la longueur d'un texte" data-toolbar-text="S'assurer qu'un mot de passe ait au moins 8 caractère ET qu'il contienne au plus 12 caractères." data-auto-height="true">
-                    <textarea class="source-code" hidden>
-let motDePasse = "T1M-1Ntr0Pr0graMaT10N"; //Tester avec différentes longueurs
+        <div class="playground-container" data-auto-execute="false" data-type="exercise"
+          data-title="Exercice : valider un mot de passe"
+          data-toolbar-text="TODO: Valide si la longueur du mot de passe est entre 8 et 12 caractères inclus. Affiche valide ou invalide."
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let motDePasse = "T1M-1Ntr0Pr0graMaT10N"; // Teste avec différentes longueurs
 
 </textarea>
-                    <textarea class="solution-code" hidden>
-let motDePasse = "T1M-1Ntr0Pr0graMaT10N"; //Tester avec différentes longueurs
+          <textarea class="solution-code" hidden>
+let motDePasse = "T1M-1Ntr0Pr0graMaT10N";
 
-if(motDePasse.length >= 8 && motDePasse.length <= 12)
-{
-    console.log("Mot de passe valide");
+if (motDePasse.length >= 8 && motDePasse.length <= 12) {
+  console.log("Mot de passe valide");
 } else {
-    console.log("Mot de passe invalide");
+  console.log("Mot de passe invalide");
 }
 </textarea>
-                </div>         
-               </section>
+        </div>
+      </section>
 
-        </main>
-    </div>
+    </main>
+  </div>
 
-    <script src="../editor/editor.js"></script>
-    <script src="../scripts/script.js"></script>
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+  <script>lucide.createIcons();</script>
 </body>
+
 </html>

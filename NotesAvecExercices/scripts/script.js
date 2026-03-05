@@ -482,7 +482,56 @@ const initComparisonBlocks = () => {
     });
 };
 
+const initIndexLinkBadges = () => {
+    const links = Array.from(document.querySelectorAll('.card-list a[data-badges]'));
+    if (!links.length) return;
+
+    const kindMap = {
+        important: 'important',
+        exercice: 'exercise',
+        exercise: 'exercise',
+        demo: 'demo',
+        'démo': 'demo'
+    };
+
+    links.forEach((link) => {
+        if (link.querySelector('.link-badges')) return;
+
+        const rawBadges = String(link.dataset.badges || '');
+        const badgeLabels = rawBadges
+            .split(/[|,]/)
+            .map((item) => item.trim())
+            .filter(Boolean);
+        if (!badgeLabels.length) return;
+
+        const linkText = (link.textContent || '').trim();
+        link.textContent = '';
+        link.classList.add('card-link');
+
+        const textEl = document.createElement('span');
+        textEl.className = 'card-link-text';
+        textEl.textContent = linkText;
+
+        const badgesEl = document.createElement('span');
+        badgesEl.className = 'link-badges';
+
+        badgeLabels.forEach((label) => {
+            const normalized = label.toLowerCase();
+            const badgeKind = kindMap[normalized]
+                || (/^tp\s*\d*$/i.test(label.trim()) ? 'tp' : '');
+            const badgeEl = document.createElement('span');
+            badgeEl.className = `link-badge${badgeKind ? ` link-badge--${badgeKind}` : ''}`;
+            badgeEl.textContent = label;
+            badgesEl.appendChild(badgeEl);
+        });
+
+        link.appendChild(textEl);
+        link.appendChild(badgesEl);
+    });
+};
+
 buildAutoSectionsAndNav();
 initScrollSpy();
 initImageLightbox();
 initComparisonBlocks();
+initIndexLinkBadges();

@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JS - Parcours d'un tableau</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
@@ -16,15 +23,27 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../quiz/quiz.css">
   <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
 </head>
+
 <body>
+
   <header class="mobile-header">
     <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
     <span class="logo">Parcours d'un tableau</span>
   </header>
+
   <div class="app-container">
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
@@ -35,68 +54,206 @@
         <a href="../../index.html" class="nav-link">Retour</a>
       </nav>
     </aside>
+
     <main class="main-content">
+
       <section class="section-spy">
         <div class="section-header">
           <h3>Parcourir un tableau</h3>
         </div>
-        <p>On parcourt un tableau avec une boucle pour lire chaque élément par son indice <code>i</code>. La borne haute est <code>tableau.length</code> pour éviter de sortir du tableau.</p>
-        <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Parcours d'un tableau de noms" data-auto-height="true">
-          <textarea class="source-code" hidden>
-// Declaration d'un tableau contenant les noms des etudiants
-let etudiants = ["Lea", "Antoine", "Sophie", "Marc"];
 
-// i commence a 0 et s'arrete avant etudiants.length (donc de 0 a 3)
-for (let i = 0; i < etudiants.length; i++) {
-    // Affiche le nom de l'etudiant a l'indice i
-    console.log(`${etudiants[i]} est present(e).`);
-}
-          </textarea>
-        </div>
-        <div class="info-box warning">
-          <h4>Rappel sur les indices</h4>
+        <p>
+          Parcourir un tableau = lire chaque élément, un par un, grâce à son <strong>index</strong> (souvent <code>i</code>).
+        </p>
+
+        <div class="info-box info">
+          <h4><i data-lucide="info"></i> La recette (à mémoriser)</h4>
           <ul>
-            <li>Chaque element a une position appelee <strong>indice</strong>, en commencant a <code>0</code>.</li>
-            <li>On lit une valeur avec <code>tableau[indice]</code>.</li>
-            <li>La taille d'un tableau est donnee par <code>tableau.length</code>.</li>
-            <li>Le dernier indice valide est <code>tableau.length - 1</code>.</li>
+            <li><strong>Départ</strong> : <code>i = 0</code> (premier élément)</li>
+            <li><strong>Condition</strong> : <code>i <= tableau.length - 1</code> ou <code>i < tableau.length</code>(dernier élément)</li>
+            <li><strong>Pas</strong> : <code>i++</code> (on avance d’une case du tableau à chaque itération)</li>
+            <li><strong>Lecture</strong> : <code>tableau[i]</code> (on lit le ième élément à chaque répétition)</li>
           </ul>
         </div>
-        <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Analyse des résultats" data-instructions="Objectif : Afficher chaque note et indiquer si c'est un succès (60+) ou un échec." data-auto-height="true">
+
+        <div class="info-box warning">
+          <h4><i data-lucide="shield-alert"></i> Erreur classique</h4>
+          <p>
+            Ne fais pas <code>i &lt;= tableau.length</code> : quand i est égale à tableau.length,
+            <code>tableau[i]</code> est hors du tableau et donne donc <code>undefined</code> .
+          </p>
+        </div>
+
+        <div class="info-box">
+          <h4>Format standard</h4>
+          <pre><code class="language-javascript">for (let i = 0; i <= tableau.length - 1; i++) {
+  console.log(tableau[i]);
+}</code></pre>
+        </div>
+
+        <div class="playground-container"
+          data-auto-execute="false"
+          data-type="compare"
+          data-title="Comparaison : sans boucle for vs avec boucle for"
+          data-toolbar-text="Même tableau, deux approches : lecture manuelle des index vs parcours automatique avec for."
+          data-label-a="Sans boucle for"
+          data-label-b="Avec boucle for"
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let fruits = ["Pomme", "Banane", "Cerise", "Orange"];
+
+// Sans boucle for : on écrit chaque accès à la main.
+console.log(fruits[0]);
+console.log(fruits[1]);
+console.log(fruits[2]);
+console.log(fruits[3]);
+</textarea>
+          <textarea class="compare-code" hidden>
+let fruits = ["Pomme", "Banane", "Cerise", "Orange"];
+
+// Avec boucle for : on parcourt automatiquement tous les éléments.
+for (let i = 0; i < fruits.length; i++) {
+  console.log(fruits[i]);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container"
+          data-auto-execute="false"
+          data-type="example"
+          data-title="Parcourir des noms d'étudiants"
+          data-toolbar-text="i commence à l'index 0, va jusqu'au dernier index du tableau (etudiants.length - 1) et augmente de 1 à chaque tour."
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+// Déclaration d'un tableau contenant des noms d'étudiants
+let etudiants = ["Léa", "Antoine", "Sophie", "Marc"];
+
+// i commence à 0 et s'arrête à etudiants.length - 1 (donc de 0 à 3)
+for (let i = 0; i <= etudiants.length - 1; i++) {
+
+  console.log(`${etudiants[i]}`);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container"
+          data-auto-execute="false"
+          data-type="example"
+          data-title="Afficher un inventaire"
+          data-toolbar-text="Affiche l'index i et la valeur tableau[i]."
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let inventaire = ["Potion", "Clé", "Carte"];
+
+for (let i = 0; i <= inventaire.length - 1; i++) {
+  console.log(`Index ${i}: ${inventaire[i]}`);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container"
+          data-auto-execute="false"
+          data-type="exercise"
+          data-title="Calculer la moyenne"
+          data-toolbar-text="Objectif : additionner toutes les notes avec une boucle for, puis calculer la moyenne."
+          data-auto-height="true">
           <textarea class="source-code" hidden>
 let notes = [85, 42, 90, 65, 30];
+let totalNotes = 0;
 
-// TODO: Créez une boucle 'for' qui parcourt le tableau 'notes'.
-for (let i = ...; i < ... ; ...) {
-    let noteActuelle = ...;
-    // TODO: Si la noteActuelle est supérieure ou égale à 60
-    // --affichez "Note : X/100 - Réussite"
-    // Sinon
-    // --affichez "Note : X/100 - Échec".
-}
+// TODO 1 : Crée une boucle for qui parcourt le tableau notes et ajoute la note au total de notes.
+// Indice : for (let i = 0; i < notes.length; i++) et totalNotes += ___
+
+// TODO 2 : À l'extérieur de la boucle, calcule la moyenne : totalNotes / notes.length
+// Stock le résultat dans la variable moyenne
+let moyenne;
+
+// TODO 4 : Affiche la moyenne
+// Résultat attendu : "Moyenne : 62.40/100"
           </textarea>
           <textarea class="solution-code" hidden>
 let notes = [85, 42, 90, 65, 30];
+let totalNotes = 0;
 
-// On utilise i < notes.length pour ne pas dépasser la taille du tableau
 for (let i = 0; i < notes.length; i++) {
-    let noteActuelle = notes[i];
-    
-    if (noteActuelle >= 60) {
-        console.log(`Note : ${noteActuelle}/100 - Réussite`);
-    } else {
-        console.log(`Note : ${noteActuelle}/100 - Échec`);
-    }
+  totalNotes += notes[i];
 }
-          </textarea>
+
+let moyenne = totalNotes / notes.length;
+console.log(`Moyenne : ${moyenne.toFixed(2)}/100`);
+</textarea>
+        </div>
+
+        <div class="info-box info">
+          <h4>Mini récap</h4>
+          <ul>
+            <li>On commence à <code>0</code>.</li>
+            <li>On s’arrête à <code>&lt; i < tableau.length</code> ou <code>&lt; i <= tableau.length - 1</code>.</li>
+            <li>On lit avec <code>tableau[i]</code>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Parcourir un tableau parallèle</h3>
+        </div>
+        <p>
+          Avec des tableaux parallèles, le même index <code>i</code> représente la même ligne logique dans chaque tableau.
+        </p>
+
+        <div class="playground-container"
+          data-auto-execute="false"
+          data-type="example"
+          data-title="Tableaux parallèles : produits et prix"
+          data-toolbar-text="Même index i dans les deux tableaux : nomProduits[i] correspond à prixProduits[i]."
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let nomProduits = ["Pomme", "Banane", "Cerise", "Orange"];
+let prixProduits = [1.50, 0.75, 3.20, 1.10];
+
+for (let i = 0; i < nomProduits.length; i++) {
+  console.log(`${nomProduits[i]} : ${prixProduits[i]} $`);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container"
+          data-auto-execute="false"
+          data-type="exercise"
+          data-title="Tableaux parallèles (films)"
+          data-toolbar-text="Objectif : parcourir deux tableaux parallèles et afficher le film + sa durée."
+          data-auto-height="true">
+          <textarea class="source-code" hidden>
+let films = ["Inception", "Coco", "Avatar", "Interstellar"];
+let durees = [148, 105, 162, 169];
+
+// TODO 1 : Crée une boucle for qui parcourt le tableau films.
+// Indice : for (let i = 0; i < films.length; i++)
+
+for (let i = ...; i < ...; ...) {
+  // TODO 2 : Affiche le film et sa durée avec le même index i.
+  // Format attendu : "Film: Inception - Durée: 148 min"
+}
+</textarea>
+          <textarea class="solution-code" hidden>
+let films = ["Inception", "Coco", "Avatar", "Interstellar"];
+let durees = [148, 105, 162, 169];
+
+for (let i = 0; i < films.length; i++) {
+  console.log(`Film: ${films[i]} - Durée: ${durees[i]} min`);
+}
+</textarea>
         </div>
       </section>
 
     </main>
   </div>
+
   <script src="../quiz/quiz.js"></script>
   <script src="../editor/editor.js"></script>
   <script src="../scripts/script.js"></script>
   <script>lucide.createIcons();</script>
 </body>
+
 </html>
