@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atelier pratique - Evenements</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS Atelier Evenements</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">TP</span>
+        <h1>Atelier : Evenements</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./10-evenements.html" class="nav-link">Theorie</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section class="section-spy">
+        <h2 class="section-title">Exercices progressifs - Evenements</h2>
+        <p>Le dernier exercice recapitule les notions de la section (listener, target, callback).</p>
+      </section>
+
+      <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+        data-title="Clic simple" data-toolbar-text='Commande: addEventListener("click", ...)'>
+        <textarea class="source-code-html" hidden>
+<div class="zone-evenement">
+  <p id="texte-clic">Total : 0</p>
+  <button id="btn-clic">+1</button>
+</div>
+</textarea>
+        <textarea class="source-code-css" hidden>
+.zone-evenement {
+  max-width: 420px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+#btn-clic {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+}
+</textarea>
+        <textarea class="source-code-js" hidden>
+let total = 0;
+let texte = document.getElementById("texte-clic");
+let bouton = document.getElementById("btn-clic");
+
+// TODO: Ajoute un listener click qui incremente total et met a jour texte.innerText.
+</textarea>
+        <textarea class="solution-code-js" hidden>
+let total = 0;
+let texte = document.getElementById("texte-clic");
+let bouton = document.getElementById("btn-clic");
+
+bouton.addEventListener("click", function () {
+  total += 1;
+  texte.innerText = `Total : ${total}`;
+});
+</textarea>
+      </div>
+
+      <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+        data-title="event.target + dataset" data-toolbar-text='event.target + getAttribute("data-couleur")'>
+        <textarea class="source-code-html" hidden>
+<div class="zone-evenement" id="zone-couleur">
+  <p id="etat-couleur">Choisis une couleur</p>
+  <button class="btn-couleur" data-couleur="#1d4ed8">Bleu</button>
+  <button class="btn-couleur" data-couleur="#dc2626">Rouge</button>
+</div>
+</textarea>
+        <textarea class="source-code-css" hidden>
+.zone-evenement {
+  max-width: 420px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.btn-couleur {
+  margin-right: 8px;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+}
+</textarea>
+        <textarea class="source-code-js" hidden>
+let zone = document.getElementById("zone-couleur");
+let texte = document.getElementById("etat-couleur");
+let boutons = document.querySelectorAll(".btn-couleur");
+
+for (let i = 0; i < boutons.length; i++) {
+  // TODO: au clic, lire data-couleur sur event.target et appliquer zone.style.backgroundColor.
+}
+</textarea>
+        <textarea class="solution-code-js" hidden>
+let zone = document.getElementById("zone-couleur");
+let texte = document.getElementById("etat-couleur");
+let boutons = document.querySelectorAll(".btn-couleur");
+
+for (let i = 0; i < boutons.length; i++) {
+  boutons[i].addEventListener("click", function (event) {
+    let couleur = event.target.getAttribute("data-couleur");
+    zone.style.backgroundColor = couleur;
+    texte.innerText = `Couleur active : ${couleur}`;
+  });
+}
+</textarea>
+      </div>
+
+      <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+        data-title="Recap evenements" data-toolbar-text='Recap: addEventListener + event.target + removeEventListener'>
+        <textarea class="source-code-html" hidden>
+<div class="zone-evenement">
+  <p id="etat-recap">Aucun choix</p>
+  <button class="btn-action" data-action="Attaquer">Attaquer</button>
+  <button class="btn-action" data-action="Defendre">Defendre</button>
+  <button id="btn-stop">Stop listeners</button>
+</div>
+</textarea>
+        <textarea class="source-code-css" hidden>
+.zone-evenement {
+  max-width: 460px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.btn-action,
+#btn-stop {
+  margin-right: 8px;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+}
+</textarea>
+        <textarea class="source-code-js" hidden>
+let etat = document.getElementById("etat-recap");
+let actions = document.querySelectorAll(".btn-action");
+let boutonStop = document.getElementById("btn-stop");
+
+function gererAction(event) {
+  // TODO 1: lire data-action via event.target et afficher "Action: ..." dans etat
+}
+
+for (let i = 0; i < actions.length; i++) {
+  // TODO 2: ajouter le listener click sur chaque bouton d'action
+}
+
+// TODO 3: au clic sur boutonStop, retirer le listener de chaque bouton et afficher "Listeners retires"
+</textarea>
+        <textarea class="solution-code-js" hidden>
+let etat = document.getElementById("etat-recap");
+let actions = document.querySelectorAll(".btn-action");
+let boutonStop = document.getElementById("btn-stop");
+
+function gererAction(event) {
+  let action = event.target.getAttribute("data-action");
+  etat.innerText = `Action: ${action}`;
+}
+
+for (let i = 0; i < actions.length; i++) {
+  actions[i].addEventListener("click", gererAction);
+}
+
+boutonStop.addEventListener("click", function () {
+  for (let i = 0; i < actions.length; i++) {
+    actions[i].removeEventListener("click", gererAction);
+  }
+  etat.innerText = "Listeners retires";
+});
+</textarea>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

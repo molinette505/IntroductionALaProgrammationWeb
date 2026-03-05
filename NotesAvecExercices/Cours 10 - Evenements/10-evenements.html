@@ -55,6 +55,9 @@
 
       <nav class="sidebar-nav">
         <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./10-evenements-exercices.html" class="nav-link">Exercices</a>
+        <a href="./10-timeout.html" class="nav-link">Compte a rebours</a>
+        <a href="./10-intervals.html" class="nav-link">Intervals</a>
       </nav>
     </aside>
 
@@ -88,177 +91,11 @@
         </p>
 
         <div class="info-box info">
-          <p>
-            L’idée est simple :
-            <strong>1) l’utilisateur fait une action</strong> →
-            <strong>2) le navigateur détecte l’événement</strong> →
-            <strong>3) JavaScript exécute une fonction</strong> (notre réaction).
-          </p>
-          <p style="margin-top: 10px;">
-            Cette fonction s’appelle souvent un <strong>callback</strong> :
-            c’est “le code à exécuter quand l’événement arrive”.
-          </p>
-        </div>
-      </section>
-
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Propriété <code>element.onclick</code></h3>
-        </div>
-
-        <p>
-          Première façon (simple) : on met une fonction dans la propriété <code>onclick</code>.
-          Cette fonction sera appelée <strong>à chaque clic</strong> sur l’élément.
-        </p>
-
-        <div class="info-box info">
-          <p>
-            ⚠️ Attention : <code>onclick</code> ne garde qu’<strong>une seule</strong> fonction.
-            Si tu réassignes <code>onclick</code> plus tard, tu écrases l’ancienne.
-            C’est pour ça qu’on préfère souvent <code>addEventListener</code>.
-          </p>
-        </div>
-
-        <div class="info-box">
-          <pre><code class="language-javascript">element.onclick = function (event) {
-  // code exécuté au clic
-};</code></pre>
-        </div>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true" data-title="Augmenter un score avec element.onclick"
-          data-toolbar-text='Commande : element.onclick = function (event) { ... }'
-          data-instructions="Exécute puis clique sur le bouton.">
-          <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-score-jeu">
-  <p id="texte-score-jeu">Score : 0</p>
-  <button id="bouton-score-jeu">+5 points</button>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-evenement {
-  max-width: 380px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-
-#bouton-score-jeu {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let elementBoutonScoreJeu = document.getElementById("bouton-score-jeu");
-let elementTexteScoreJeu = document.getElementById("texte-score-jeu");
-let scoreJeu = 0;
-
-// 1) On écoute le clic via la propriété onclick.
-// 2) Quand le clic arrive, le navigateur appelle notre fonction (callback).
-elementBoutonScoreJeu.onclick = function (event) {
-  // Ici, on met la réaction au clic :
-  scoreJeu = scoreJeu + 5;
-  elementTexteScoreJeu.innerText = `Score : ${scoreJeu}`;
-};
-</textarea>
-        </div>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Changer un titre h2 avec element.onclick"
-          data-toolbar-text='Commande : element.onclick = function (event) { ... }'
-          data-instructions="Le ciblage est déjà fait. Au clic, change seulement le texte du titre.">
-          <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-titre-page">
-  <h2 id="titre-page">Mon premier titre</h2>
-  <button id="bouton-titre-page">Changer le titre</button>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-evenement {
-  max-width: 380px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.zone-evenement h2 {
-  margin: 0 0 10px;
-}
-
-#bouton-titre-page {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let boutonTitre = document.getElementById("bouton-titre-page");
-let titrePage = document.getElementById("titre-page");
-
-/*
-  Objectif :
-  - Quand on clique sur le bouton, on change le texte du <h2>.
-
-  Indice :
-  - Le texte se change avec : titrePage.innerText = "...";
-*/
-
-// TODO 1 : Mets une fonction dans boutonTitre.onclick
-// TODO 2 : Dans la fonction, mets titrePage.innerText à "Bienvenue dans le cours"
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="zone-evenement" id="conteneur-titre-page">
-  <h2 id="titre-page">Mon premier titre</h2>
-  <button id="bouton-titre-page">Changer le titre</button>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.zone-evenement {
-  max-width: 380px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.zone-evenement h2 {
-  margin: 0 0 10px;
-}
-
-#bouton-titre-page {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-let boutonTitre = document.getElementById("bouton-titre-page");
-let titrePage = document.getElementById("titre-page");
-
-boutonTitre.onclick = function (event) {
-  titrePage.innerText = "Bienvenue dans le cours";
-};
-</textarea>
+          <ul>
+            <li><strong>1) L’utilisateur fait une action</strong></li>
+            <li><strong>2) Le navigateur détecte l’événement</strong></li>
+            <li><strong>3) JavaScript exécute une fonction</strong> (notre réaction face à l'événement)</li>
+          </ul>
         </div>
       </section>
 
@@ -273,14 +110,6 @@ boutonTitre.onclick = function (event) {
           <strong>“Quand l’événement arrive, exécute cette fonction.”</strong>
         </p>
 
-        <div class="info-box info">
-          <p>
-            Pourquoi c’est mieux ?
-            <br>✅ on peut ajouter <strong>plusieurs</strong> réactions au même élément
-            <br>✅ c’est plus clair et plus standard dans le monde web
-          </p>
-        </div>
-
         <div class="info-box">
           <pre><code class="language-javascript">element.addEventListener("click", function (event) {
   // code exécuté au clic
@@ -288,7 +117,7 @@ boutonTitre.onclick = function (event) {
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true" data-title="Ajouter un clic avec addEventListener"
+          data-console-open="true" data-title="Exécuter une fonction lorsqu'un élément est cliqué avec addEventListener"
           data-toolbar-text='Commande : element.addEventListener("click", function (event) { ... })'
           data-instructions="Exécute puis clique sur +1.">
           <textarea class="source-code-html" hidden>
@@ -321,13 +150,6 @@ boutonTitre.onclick = function (event) {
 let elementBoutonCompteurClic = document.getElementById("bouton-compteur-clic");
 let elementTexteCompteurClic = document.getElementById("texte-compteur-clic");
 let totalClic = 0;
-
-/*
-  Plan mental :
-  1) Je cible les éléments (getElementById)
-  2) J’ajoute un écouteur (addEventListener)
-  3) Dans la fonction, je change le DOM (innerText)
-*/
 
 // Ajoute l’écouteur de clic.
 elementBoutonCompteurClic.addEventListener("click", function (event) {
@@ -679,6 +501,25 @@ elementFormeCouleurVerte.addEventListener("click", function (event) {
 
       <section class="section-spy">
         <div class="section-header">
+          <h3>Passer une fonction nommée</h3>
+        </div>
+
+        <p>
+          Au lieu d’écrire <code>function (event) { ... }</code> directement dans
+          <code>addEventListener</code>, on peut créer une fonction séparée et la passer.
+        </p>
+
+        <div class="info-box">
+          <pre><code class="language-javascript">function gererToucheAppuyee(event) {
+  console.log(event.key);
+}
+
+element.addEventListener("keydown", gererToucheAppuyee);</code></pre>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
           <h3>Événement clavier <code>keydown</code></h3>
         </div>
 
@@ -786,7 +627,7 @@ let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
 
 /*
   Plan :
-  1) écouter "keydown" sur l’input
+  1) écouter l'événement "keydown" sur l’input elementSaisieClavier
   2) regarder event.key
   3) afficher le bon texte
 

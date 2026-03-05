@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - setTimeout</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS setTimeout</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Compte a rebours</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./10-timers-exercices.html" class="nav-link">Exercices Timers</a>
+        <a href="./10-intervals.html" class="nav-link">Intervals</a>
+        <a href="./10-evenements.html" class="nav-link">Evenements</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">Compte a rebours avec setTimeout</h2>
+        <p><code>setTimeout</code> execute une fonction une seule fois apres un delai.</p>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>setTimeout</h3>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="example"
+          data-console-open="true" data-title="Ordre d'execution avec setTimeout"
+          data-toolbar-text='Commande: setTimeout(nomFonction, delai)'>
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer">
+  <p>Regarde la console pour voir l'ordre des messages.</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+console.log("Debut du script");
+
+setTimeout(function () {
+  console.log("Message retarde de 2 secondes");
+}, 2000);
+
+console.log("Fin immediate du script");
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
+          data-console-open="true" data-title="Exercice : deux alertes retardees"
+          data-toolbar-text='Commandes: setTimeout(...) + console.log(...)'>
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer">
+  <p>Complete les TODO puis ouvre la console.</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+function annoncerPreparation() {
+  console.log("Preparation du sort...");
+}
+
+function annoncerLancement() {
+  console.log("Sort lance !");
+}
+
+console.log("Sequence demarree");
+
+// TODO 1: Lance annoncerPreparation apres 1000 ms.
+
+// TODO 2: Lance annoncerLancement apres 2500 ms.
+
+console.log("Attente des timers...");
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="zone-timer">
+  <p>Complete les TODO puis ouvre la console.</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+function annoncerPreparation() {
+  console.log("Preparation du sort...");
+}
+
+function annoncerLancement() {
+  console.log("Sort lance !");
+}
+
+console.log("Sequence demarree");
+setTimeout(annoncerPreparation, 1000);
+setTimeout(annoncerLancement, 2500);
+console.log("Attente des timers...");
+</textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

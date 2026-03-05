@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atelier pratique - Variables</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS Atelier Variables</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">TP</span>
+        <h1>Atelier : Variables</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./2-variables.html" class="nav-link">Theorie</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">Exercices progressifs - Variables</h2>
+        <p>Du plus simple au plus complet. Le dernier exercice recapitule toutes les notions de la section.</p>
+      </section>
+
+      <div class="playground-container" data-type="exercise" data-title="Creer, ecrire, lire"
+        data-toolbar-text="let -> = -> console.log" data-auto-height="true">
+        <textarea class="source-code" hidden>
+// 1) Cree une variable score.
+
+// 2) Mets la valeur 120 dans score.
+
+// 3) Affiche score dans la console.
+</textarea>
+        <textarea class="solution-code" hidden>
+let score;
+score = 120;
+console.log(score);
+</textarea>
+      </div>
+
+      <div class="playground-container" data-type="exercise" data-title="Ecraser une valeur"
+        data-toolbar-text="Reaffecter une variable" data-auto-height="true">
+        <textarea class="source-code" hidden>
+let pointsDeVie = 80;
+
+// 1) Affiche la valeur initiale.
+
+// 2) Ecrase la variable pour la mettre a 65.
+
+// 3) Affiche la nouvelle valeur.
+</textarea>
+        <textarea class="solution-code" hidden>
+let pointsDeVie = 80;
+console.log(pointsDeVie);
+
+pointsDeVie = 65;
+console.log(pointsDeVie);
+</textarea>
+      </div>
+
+      <div class="playground-container" data-type="exercise" data-title="Recap variables : fiche joueur"
+        data-toolbar-text="Recap: nommage + types + ecriture + affichage" data-auto-height="true">
+        <textarea class="source-code" hidden>
+// Recap de la section Variables
+// Objectif: creer 3 variables avec des types differents,
+// puis modifier une valeur et tout afficher.
+
+// 1) Cree ces variables:
+// - nomJoueur (string)
+// - niveauJoueur (number)
+// - estEnLigne (boolean)
+
+// 2) Affiche une ligne pour chaque variable.
+
+// 3) Le joueur gagne un niveau: modifie niveauJoueur et reaffiche la nouvelle valeur.
+</textarea>
+        <textarea class="solution-code" hidden>
+let nomJoueur = "Alya";
+let niveauJoueur = 12;
+let estEnLigne = true;
+
+console.log("Nom:", nomJoueur);
+console.log("Niveau:", niveauJoueur);
+console.log("En ligne:", estEnLigne);
+
+niveauJoueur = 13;
+console.log("Nouveau niveau:", niveauJoueur);
+</textarea>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

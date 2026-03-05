@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atelier pratique - Timers</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS Atelier Timers</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">TP</span>
+        <h1>Atelier : Timers</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./10-timeout.html" class="nav-link">Compte a rebours</a>
+        <a href="./10-intervals.html" class="nav-link">Intervals</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section class="section-spy">
+        <h2 class="section-title">Exercices progressifs - Timers</h2>
+        <p>Le dernier exercice recapitule setTimeout et setInterval.</p>
+      </section>
+
+      <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
+        data-title="setTimeout simple" data-toolbar-text='Commande: setTimeout(...)'>
+        <textarea class="source-code-html" hidden>
+<div class="zone-timer"><p>Observe la console.</p></div>
+</textarea>
+        <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+        <textarea class="source-code-js" hidden>
+console.log("Demarrage");
+
+// TODO: Affiche "3 secondes plus tard" avec setTimeout apres 3000 ms.
+
+console.log("Suite immediate");
+</textarea>
+        <textarea class="solution-code-js" hidden>
+console.log("Demarrage");
+
+setTimeout(function () {
+  console.log("3 secondes plus tard");
+}, 3000);
+
+console.log("Suite immediate");
+</textarea>
+      </div>
+
+      <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
+        data-title="setInterval + arret" data-toolbar-text='Commandes: setInterval(...) + clearInterval(...)'>
+        <textarea class="source-code-html" hidden>
+<div class="zone-timer"><p>Observe la console.</p></div>
+</textarea>
+        <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+        <textarea class="source-code-js" hidden>
+let secondes = 0;
+let id = null;
+
+function tic() {
+  secondes += 1;
+  console.log(`Seconde ${secondes}`);
+
+  // TODO: Arrete l'intervalle quand secondes atteint 4.
+}
+
+// TODO: Demarre l'intervalle toutes les 1000 ms.
+</textarea>
+        <textarea class="solution-code-js" hidden>
+let secondes = 0;
+let id = null;
+
+function tic() {
+  secondes += 1;
+  console.log(`Seconde ${secondes}`);
+
+  if (secondes >= 4) {
+    clearInterval(id);
+  }
+}
+
+id = setInterval(tic, 1000);
+</textarea>
+      </div>
+
+      <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
+        data-title="Recap Timers" data-toolbar-text='Recap: setTimeout + setInterval + clearInterval'>
+        <textarea class="source-code-html" hidden>
+<div class="zone-timer"><p>Observe la console.</p></div>
+</textarea>
+        <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+        <textarea class="source-code-js" hidden>
+let compte = 5;
+let idCompte = null;
+
+function demarrerCompte() {
+  // TODO 1: Demarre un intervalle qui affiche "Compte: X" chaque seconde,
+  //         puis diminue compte.
+  // TODO 2: Quand compte < 0, stoppe l'intervalle et affiche "Depart!".
+}
+
+// TODO 3: Avant de demarrer le compte, affiche "Preparation..." apres 1500 ms avec setTimeout,
+//         puis appelle demarrerCompte() dans ce setTimeout.
+</textarea>
+        <textarea class="solution-code-js" hidden>
+let compte = 5;
+let idCompte = null;
+
+function demarrerCompte() {
+  idCompte = setInterval(function () {
+    console.log(`Compte: ${compte}`);
+    compte -= 1;
+
+    if (compte < 0) {
+      clearInterval(idCompte);
+      console.log("Depart!");
+    }
+  }, 1000);
+}
+
+setTimeout(function () {
+  console.log("Preparation...");
+  demarrerCompte();
+}, 1500);
+</textarea>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

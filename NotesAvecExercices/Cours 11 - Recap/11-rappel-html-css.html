@@ -94,42 +94,55 @@
 
       <nav class="sidebar-nav">
         <a href="../../index.html" class="nav-link">Retour</a>
-        <a href="../Cours 11 - Recap/11-recap-pratique.html" class="nav-link">Recap pratique JS</a>
       </nav>
     </aside>
 
     <main class="main-content">
 
+      <!-- INTRO -->
       <section class="section-spy">
-        <h2 class="section-title">HTML et CSS : les bases a retenir</h2>
-        <p>Cette page resume ce que sont les elements HTML, a quoi servent leurs attributs, puis comment CSS selectionne ces elements pour leur appliquer un style.</p>
+        <h2 class="section-title">HTML et CSS : les bases à retenir</h2>
+        <p>
+          <strong>HTML</strong> sert à construire la page (le contenu).
+          <strong>CSS</strong> sert à choisir des éléments et à leur donner un style (l’apparence).
+        </p>
+
         <div class="info-box info">
-          <p><strong>Ordre logique :</strong> on construit d'abord la page avec HTML, puis on utilise CSS pour choisir les elements a styliser.</p>
+          <ul>
+            <li><strong>Ordre logique :</strong></li>
+            <li>1) j’écris le HTML</li>
+            <li>2) je cible en CSS</li>
+            <li>3) j’ajuste le style</li>
+          </ul>
         </div>
       </section>
 
+      <!-- 1) HTML -->
       <section class="section-spy">
         <div class="section-header">
-          <h3>1) Les elements HTML</h3>
+          <h3>1) Les éléments HTML</h3>
         </div>
-        <p>Un element HTML represente un morceau de la page. Cela peut etre un titre, un paragraphe, une image, un lien, un champ de saisie ou un bouton.</p>
+
+        <p>
+          Un <strong>élément HTML</strong> est un “bloc” de la page : un titre, un paragraphe, une image, un lien, etc.
+          La plupart ont une <strong>balise ouvrante</strong> et une <strong>balise fermante</strong>.
+        </p>
 
         <div class="info-box info">
-          <p><strong>Structure classique :</strong> une balise ouvrante, un contenu, puis une balise fermante.</p>
+          <p><strong>Exemple :</strong> la balise <code>&lt;p&gt;</code> crée un paragraphe.</p>
           <pre><code class="language-html">&lt;p&gt;Bonjour tout le monde&lt;/p&gt;</code></pre>
         </div>
 
+        <!-- EXEMPLE (HTML/CSS) -->
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true"
-          data-start-editor="html" data-title="Exemple de petit bloc HTML"
-          data-toolbar-text='Dans cet exemple, chaque element joue un role precis dans la page.'
-          data-auto-height="true"
-          >
+          data-console-open="true" data-start-editor="html" data-title="Exemple : une petite carte en HTML"
+          data-toolbar-text="Objectif : observer la structure HTML, puis le style CSS."
+          data-instructions="Lis le HTML : quels éléments vois-tu ? Ensuite, modifie le texte et regarde le rendu.">
           <textarea class="source-code-html" hidden>
 <section class="carte-produit-demo">
   <h2>Casque audio</h2>
   <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" alt="Casque audio noir">
-  <p>Un modele confortable pour etudier et ecouter de la musique.</p>
+  <p>Un modèle confortable pour étudier et écouter de la musique.</p>
   <a href="#">Voir le produit</a>
 </section>
 </textarea>
@@ -177,74 +190,255 @@
         </div>
 
         <div class="info-box">
-          <h4>Les elements les plus courants</h4>
+          <h4>Éléments courants (à connaître)</h4>
           <ul>
-            <li><code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code> : pour les titres et sous-titres.</li>
-            <li><code>&lt;p&gt;</code> : pour un paragraphe de texte.</li>
-            <li><code>&lt;div&gt;</code> et <code>&lt;section&gt;</code> : pour regrouper du contenu.</li>
-            <li><code>&lt;img&gt;</code> : pour afficher une image.</li>
-            <li><code>&lt;a&gt;</code> : pour creer un lien.</li>
-            <li><code>&lt;input&gt;</code> et <code>&lt;button&gt;</code> : pour l'interaction.</li>
+            <li><code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code> : titres et sous-titres.</li>
+            <li><code>&lt;p&gt;</code> : paragraphe.</li>
+            <li><code>&lt;div&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code> : regrouper du contenu.</li>
+            <li><code>&lt;img&gt;</code> : image.</li>
+            <li><code>&lt;a&gt;</code> : lien.</li>
+            <li><code>&lt;input&gt;</code>, <code>&lt;button&gt;</code> : interaction.</li>
           </ul>
+        </div>
+
+        <!-- EXERCICE 1 (HTML seulement) -->
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-start-editor="html" data-title="Exercice 1 : compléter le HTML"
+          data-toolbar-text="HTML : ajoute un titre, un paragraphe et un lien"
+          data-instructions="À faire : 1) ajoute un titre h2, 2) ajoute un paragraphe p, 3) ajoute un lien a. (Pas de CSS, pas de JS.)">
+          <textarea class="source-code-html" hidden>
+<section class="mini-carte">
+  <!-- TODO 1 : Ajoute un titre (h2) : Ma mini-carte  -->
+  <!-- TODO 2 : Ajoute un paragraphe (p) : J’écris mon contenu avec des éléments HTML. -->
+  <!-- TODO 3 : Ajoute un lien (a) avec comme href="#" : Lire la suite -->
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.mini-carte {
+  max-width: 360px;
+  padding: 14px;
+  border: 1px dashed #94a3b8;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: Inter, sans-serif;
+}
+.mini-carte a { color: #2563eb; font-weight: 700; text-decoration: none; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Aucun JS pour cet exercice.
+</textarea>
+
+          <textarea class="solution-code-html" hidden>
+<section class="mini-carte">
+  <h2>Ma mini-carte</h2>
+  <p>J’écris mon contenu avec des éléments HTML.</p>
+  <a href="#">Lire la suite</a>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.mini-carte {
+  max-width: 360px;
+  padding: 14px;
+  border: 1px dashed #94a3b8;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: Inter, sans-serif;
+}
+.mini-carte a { color: #2563eb; font-weight: 700; text-decoration: none; }
+</textarea>
+          <textarea class="solution-code-js" hidden>
+// Aucun JS.
+</textarea>
         </div>
       </section>
 
+      <!-- 2) ATTRIBUTS -->
       <section class="section-spy">
         <div class="section-header">
           <h3>2) Les attributs HTML</h3>
         </div>
-        <p>Les attributs ajoutent des informations a un element. Ils s'ecrivent dans la balise ouvrante et precisent le role ou le comportement de cet element.</p>
+
+        <p>
+          Les <strong>attributs</strong> ajoutent des informations à un élément.
+          Ils s’écrivent dans la balise ouvrante (ex : <code>id</code>, <code>class</code>, <code>src</code>, <code>href</code>).
+        </p>
 
         <div class="info-box info">
-          <p>Dans l'exemple suivant, <code>id</code>, <code>class</code>, <code>type</code> et <code>value</code> sont des attributs.</p>
+          <p><strong>Exemple :</strong> ici, <code>id</code>, <code>class</code>, <code>type</code> et <code>value</code> sont des attributs.</p>
           <pre><code class="language-html">&lt;input id="prenom" class="champ-saisie" type="text" value="Lina"&gt;</code></pre>
         </div>
 
-          <div class="info-box info">
+        <div class="attribute-grid">
+
+          <div class="attribute-card">
             <h4><code>id</code></h4>
-            <p>Un <code>id</code> identifie un element unique dans la page. On s'en sert souvent en CSS et en JavaScript pour viser un element precis.</p>
+            <ul>
+              <li>Un <code>id</code> identifie <strong>un seul</strong> élément (unique dans la page).</li>
+              <li>Très utile pour viser un élément précis.</li>
+              <li>On peu par exemple ajouter un style CSS sur un élément précis.</li>
+            </ul>
             <pre><code class="language-html">&lt;h1 id="titre-principal"&gt;Bienvenue&lt;/h1&gt;</code></pre>
           </div>
 
-          <div class="info-box info">
+          <div class="attribute-card">
             <h4><code>class</code></h4>
-            <p>Une <code>class</code> sert a donner le meme nom a plusieurs elements qui partagent le meme style ou la meme fonction.</p>
-            <pre><code class="language-html">&lt;p class="message-important"&gt;Attention&lt;/p&gt;</code></pre>
+            <ul>
+              <li>Une <code>class</code> peut être partagée par <strong>plusieurs</strong> éléments.</li>
+              <li>On peu par exemple ajouter un style CSS sur plusieurs éléments qui ont la classe.</li>
+            </ul>
+            <pre><code class="language-html">&lt;p class="important"&gt;Attention&lt;/p&gt;</code></pre>
           </div>
 
-          <div class="info-box info">
-            <h4><code>src</code> et <code>alt</code> pour une image</h4>
-            <p><code>src</code> indique le fichier image a charger. <code>alt</code> decrit l'image si elle ne s'affiche pas et aide aussi l'accessibilite.</p>
-            <pre><code class="language-html">&lt;img src="avatar.png" alt="Portrait de Lea"&gt;</code></pre>
+          <div class="attribute-card">
+            <h4><code>src</code> et <code>alt</code></h4>
+            <ul>
+              <li><code>src</code> = fichier à charger.</li>
+              <li><code>alt</code> = description (utile si l’image ne charge pas + accessibilité).</li>
+            </ul>
+            <pre><code class="language-html">&lt;img src="avatar.png" alt="Portrait de Léa"&gt;</code></pre>
           </div>
 
-          <div class="info-box info">
-            <h4><code>href</code> pour un lien</h4>
-            <p><code>href</code> contient l'adresse vers laquelle le lien doit envoyer l'utilisateur.</p>
+          <div class="attribute-card">
+            <h4><code>href</code></h4>
+            <p>
+              Pour un lien : <code>href</code> = url de destination.
+            </p>
             <pre><code class="language-html">&lt;a href="https://exemple.com"&gt;Visiter le site&lt;/a&gt;</code></pre>
           </div>
 
-          <div class="info-box info">
-            <h4><code>type="text"</code> et <code>value</code> pour un input</h4>
-            <p><code>type="text"</code> indique que le champ sert a ecrire du texte. <code>value</code> represente la valeur actuelle du champ.</p>
-            <pre><code class="language-html">&lt;input type="text" value="Lina"&gt;</code></pre>
-          </div>
+        </div>
+
+        <!-- EXERCICE 2 (HTML + attributs) -->
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-start-editor="html" data-title="Exercice 2 : ajouter des attributs"
+          data-toolbar-text="HTML : id + class + src + alt + href"
+          data-instructions="À faire : 1) donne un id au h2, 2) donne la même class aux deux paragraphes, 3) ajoute src et alt à l’image, 4) mets un href au lien.">
+          <textarea class="source-code-html" hidden>
+<section class="bloc-attributs">
+  <!-- TODO 1 : Ajoute le id "titre-attributs" au h2 -->
+  <h2>Explorer la planète Mars</h2>
+
+  <!-- TODO 2 : Ajoute une URL d'image sur Mars dans src "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" à img-->
+  <!-- TODO 3: Ajoute "La planète Mars vue depuis l'espace" dans alt à img-->
+  <img>
+
+  <!-- TODO 4 : Ajoute la classe "texte-info" aux paragraphes-->
+  <p>Mars est une planète rocheuse connue pour sa couleur rouge.</p>
+  <p>Des rovers comme Curiosity analysent son sol et son climat.</p>
+
+  <!-- TODO 6 : Ajoute href vers une page sur Mars https://fr.wikipedia.org/wiki/Mars_(plan%C3%A8te)-->
+  <a>En savoir plus</a>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.bloc-attributs {
+  max-width: 460px;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: Inter, sans-serif;
+}
+
+#titre-attributs {
+  margin: 0 0 8px;
+  color: #1d4ed8;
+  font-size: 1.35rem;
+}
+
+.texte-info {
+  margin: 6px 0;
+  line-height: 1.45;
+}
+
+.bloc-attributs img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  margin: 10px 0;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Aucun JS.
+</textarea>
+
+          <textarea class="solution-code-html" hidden>
+<section class="bloc-attributs">
+  <h2 id="titre-attributs">Explorer la planète Mars</h2>
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg"
+    alt="La planète Mars vue depuis l'espace">
+
+  <p class="texte-info">Mars est une planète rocheuse connue pour sa couleur rouge.</p>
+  <p class="texte-info">Des rovers comme Curiosity analysent son sol et son climat.</p>
+
+  <a href="https://fr.wikipedia.org/wiki/Mars_(plan%C3%A8te)">En savoir plus</a>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.bloc-attributs {
+  max-width: 460px;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: Inter, sans-serif;
+}
+
+#titre-attributs {
+  margin: 0 0 8px;
+  color: #1d4ed8;
+  font-size: 1.35rem;
+}
+
+.texte-info {
+  margin: 6px 0;
+  line-height: 1.45;
+}
+
+.bloc-attributs img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  margin: 10px 0;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+// Aucun JS.
+</textarea>
+        </div>
       </section>
 
+      <!-- 3) SÉLECTEURS CSS -->
       <section class="section-spy">
         <div class="section-header">
-          <h3>3) Les selecteurs CSS</h3>
+          <h3>3) Les sélecteurs CSS</h3>
         </div>
-        <p>Un selecteur CSS sert a choisir quels elements HTML vont recevoir un style. On ecrit d'abord le selecteur, puis les proprietes entre accolades.</p>
+
+        <p>
+          Un <strong>sélecteur</strong> sert à choisir quels éléments HTML vont recevoir un style.
+        </p>
 
         <div class="info-box info">
-          <pre><code class="language-css">selecteur {
-  propriete: valeur;
+          <pre><code class="language-css">sélecteur {
+  propriété: valeur;
 }</code></pre>
         </div>
 
-        <h4>Le selecteur par <code>id</code></h4>
-        <p>Un selecteur par <code>id</code> commence par <code>#</code>. Il cible un element unique de la page.</p>
+        <!-- ID -->
+        <h4>3.1) Sélecteur par <code>id</code></h4>
+        <p>
+          Un sélecteur par <code>id</code> commence par <code>#</code>.
+          Il vise <strong>un élément unique</strong>.
+        </p>
 
         <div class="code-sample-grid">
           <div class="code-panel">
@@ -260,18 +454,21 @@
         </div>
 
         <div class="info-box tip">
-          <p>Un <code>id</code> doit rester <strong>unique</strong> dans une page. Si plusieurs elements ont besoin du meme style, il faut plutot utiliser une <code>class</code>.</p>
+          <p>
+            <strong>Règle :</strong> un <code>id</code> doit rester unique.
+            Si plusieurs éléments partagent le même style, utilise une <code>class</code>.
+          </p>
         </div>
 
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true"
-          data-start-editor="css" data-title="Exemple - selecteur par id"
-          data-toolbar-text='Selecteur CSS: #titre-principal'
-          data-instructions="Modifiez le CSS pour changer l'apparence de l'element qui possede cet id.">
+        <!-- EXERCICE 3 (CSS) -->
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-start-editor="css" data-title="Exercice 3 : styliser un id"
+          data-toolbar-text="Sélecteur CSS : #titre-principal"
+          data-instructions="À faire (CSS) : 1) change la couleur, 2) ajoute un background, 3) ajoute du padding, 4) arrondis les coins.">
           <textarea class="source-code-html" hidden>
 <section class="mini-ui-id">
   <h3 id="titre-principal">Bienvenue sur la page</h3>
-  <p>Le titre ci-dessus est cible avec un id unique.</p>
+  <p>Le titre ci-dessus est ciblé avec un id unique.</p>
 </section>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -284,20 +481,52 @@
   padding: 16px;
 }
 
+/* TODO : stylise l'élément avec id titre-principal avec :
+   - color: #2563eb;
+   - background: #dbeafe;
+   - padding: 10px;
+   - border-radius: 10px;
+*/
+
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Aucun JS.
+</textarea>
+
+          <textarea class="solution-code-html" hidden>
+<section class="mini-ui-id">
+  <h3 id="titre-principal">Bienvenue sur la page</h3>
+  <p>Le titre ci-dessus est ciblé avec un id unique.</p>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.mini-ui-id {
+  max-width: 520px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 16px;
+}
+
 #titre-principal {
   color: #2563eb;
   background: #dbeafe;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 10px;
 }
 </textarea>
-          <textarea class="source-code-js" hidden>
-// Aucun JS pour cet exemple.
+          <textarea class="solution-code-js" hidden>
+// Aucun JS.
 </textarea>
         </div>
 
-        <h4>Le selecteur par <code>class</code></h4>
-        <p>Un selecteur par <code>class</code> commence par <code>.</code>. Il permet de cibler plusieurs elements qui partagent le meme nom de classe.</p>
+        <!-- CLASS -->
+        <h4>3.2) Sélecteur par <code>class</code></h4>
+        <p>
+          Un sélecteur par <code>class</code> commence par <code>.</code>.
+          Il peut viser <strong>plusieurs</strong> éléments.
+        </p>
 
         <div class="code-sample-grid">
           <div class="code-panel">
@@ -314,25 +543,21 @@
           </div>
         </div>
 
-        <div class="info-box tip">
-          <p>Une <code>class</code> est utile quand plusieurs elements doivent partager le meme style visuel.</p>
-        </div>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true"
-          data-start-editor="css" data-title="Exemple - selecteur par class"
-          data-toolbar-text='Selecteur CSS: .carte-produit'
-          data-instructions="Modifiez le CSS pour styliser tous les elements qui portent la meme classe.">
+        <!-- EXERCICE 4 (CSS class) -->
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-start-editor="css" data-title="Exercice 4 : styliser une class"
+          data-toolbar-text="Sélecteur CSS : .carte-produit"
+          data-instructions="À faire (CSS) : stylise .carte-produit pour que les deux cartes aient le même style.">
           <textarea class="source-code-html" hidden>
 <section class="zone-cartes">
   <article class="carte-produit">
     <h3>Casque</h3>
-    <p>Modele confortable.</p>
+    <p>Modèle confortable.</p>
   </article>
 
   <article class="carte-produit">
     <h3>Souris</h3>
-    <p>Modele compact.</p>
+    <p>Modèle compact.</p>
   </article>
 </section>
 </textarea>
@@ -343,72 +568,187 @@
   gap: 12px;
 }
 
-.carte-produit {
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  background: #ffffff;
-  color: #0f172a;
-  padding: 12px;
-}
+/* TODO : ajoute du style à tous les éléments qui 
+on la classe carte-produit avec :
+   - border: 1px solid #cbd5e1;
+   - border-radius: 12px;
+   - padding: 12px;
+   - background: #ffffff;
+   - box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+*/
+
+
+
 
 .carte-produit h3 {
   margin-top: 0;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-// Aucun JS pour cet exemple.
+// Aucun JS.
+</textarea>
+
+          <textarea class="solution-code-html" hidden>
+<section class="zone-cartes">
+  <article class="carte-produit">
+    <h3>Casque</h3>
+    <p>Modèle confortable.</p>
+  </article>
+
+  <article class="carte-produit">
+    <h3>Souris</h3>
+    <p>Modèle compact.</p>
+  </article>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.zone-cartes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.carte-produit {
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+}
+
+.carte-produit h3 {
+  margin-top: 0;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+// Aucun JS.
 </textarea>
         </div>
 
-        <h4>Le selecteur par balise</h4>
-        <p>Quand on ecrit directement le nom d'une balise, CSS cible tous les elements de ce type dans la zone concernee.</p>
+        <!-- BALISE -->
+        <h4>3.3) Sélecteur par balise</h4>
+        <p>
+          Quand on écrit directement le nom d’une balise, CSS cible tous les éléments de ce type.
+          Exemple : <code>p { ... }</code>
+        </p>
 
         <div class="code-sample-grid">
           <div class="code-panel">
             <h4>HTML</h4>
             <pre><code class="language-html">&lt;p&gt;Premier paragraphe&lt;/p&gt;
-&lt;p&gt;Deuxieme paragraphe&lt;/p&gt;</code></pre>
+&lt;p&gt;Deuxième paragraphe&lt;/p&gt;</code></pre>
           </div>
           <div class="code-panel">
             <h4>CSS</h4>
             <pre><code class="language-css">p {
   line-height: 1.6;
-  color: #334155;
 }</code></pre>
           </div>
         </div>
 
-        <h4>Les selecteurs combines</h4>
-        <p>On peut aussi cibler un element selon son emplacement dans la structure HTML, par exemple un paragraphe a l'interieur d'une carte ou un enfant direct.</p>
+        <!-- COMBINÉS -->
+        <h4>3.4) Sélecteurs combinés</h4>
+        <p>
+          On peut cibler selon l’emplacement : seulement un paragraphe dans une carte
+        </p>
 
         <div class="code-sample-grid">
           <div class="code-panel">
             <h4>HTML</h4>
             <pre><code class="language-html">&lt;div class="carte"&gt;
   &lt;p&gt;Texte dans la carte&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;ul class="liste"&gt;
-  &lt;li&gt;Item 1&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
+&lt;/div&gt;</code></pre>
           </div>
           <div class="code-panel">
             <h4>CSS</h4>
             <pre><code class="language-css">.carte p {
   color: #475569;
-}
-
-.liste &gt; li {
-  font-weight: 700;
 }</code></pre>
           </div>
         </div>
-      </section>
 
-      <section class="section-spy">
-        <div class="info-box info">
-          <p><strong>A retenir :</strong> HTML cree les elements de la page. Les attributs donnent des informations a ces elements. CSS utilise des selecteurs comme <code>#id</code>, <code>.class</code> ou <code>p</code> pour leur appliquer un style.</p>
+        <!-- EXERCICE 5 (sélecteur combiné) -->
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-start-editor="css" data-title="Exercice 5 : sélecteur combiné"
+          data-toolbar-text="CSS : .carte p"
+          data-instructions="À faire : stylise seulement le paragraphe dans la carte (pas celui en dehors). Indice : .carte p">
+          <textarea class="source-code-html" hidden>
+<section class="zone-combinee">
+  <div class="carte">
+    <h3>Dans la carte</h3>
+    <p>Ce paragraphe doit être stylisé.</p>
+  </div>
+
+  <p>Ce paragraphe est en dehors : il ne doit pas changer.</p>
+</section>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-combinee {
+  max-width: 520px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-family: Inter, sans-serif;
+}
+
+.carte {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  margin-bottom: 10px;
+}
+
+/* TODO : cible seulement le p à l'intérieur de .carte, puis applique :
+   - color: #2563eb;
+   - font-weight: 700;
+*/
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Aucun JS.
+</textarea>
+
+          <textarea class="solution-code-html" hidden>
+<section class="zone-combinee">
+  <div class="carte">
+    <h3>Dans la carte</h3>
+    <p>Ce paragraphe doit être stylisé.</p>
+  </div>
+
+  <p>Ce paragraphe est en dehors : il ne doit pas changer.</p>
+</section>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.zone-combinee {
+  max-width: 520px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-family: Inter, sans-serif;
+}
+
+.carte {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  margin-bottom: 10px;
+}
+
+.carte p {
+  color: #2563eb;
+  font-weight: 700;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+// Aucun JS.
+</textarea>
         </div>
+
       </section>
 
     </main>

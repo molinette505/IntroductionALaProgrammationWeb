@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - setInterval</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS setInterval</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Intervals</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./10-timers-exercices.html" class="nav-link">Exercices Timers</a>
+        <a href="./10-timeout.html" class="nav-link">Compte a rebours</a>
+        <a href="./10-evenements.html" class="nav-link">Evenements</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <!-- INTRO -->
+      <section class="section-spy">
+        <h2 class="section-title">Intervals avec <code>setInterval</code></h2>
+
+        <p>
+          <code>setInterval</code> sert à répéter une action automatiquement, à chaque X millisecondes (ms).
+          <code>clearInterval</code> sert à arrêter cette répétition.
+        </p>
+
+        <div class="info-box info">
+          <h4>À retenir</h4>
+          <ul>
+            <li><strong>Intervalle</strong> = une action qui se répète.</li>
+            <li><strong>Callback</strong> = la fonction exécutée à chaque répétition.</li>
+            <li><strong>ID d’intervalle</strong> = le numéro retourné par <code>setInterval</code> (utile pour arrêter).</li>
+            <li><strong>ms</strong> = millisecondes (1000 ms = 1 seconde).</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3><code>setInterval</code> et <code>clearInterval</code></h3>
+        </div>
+
+        <p>
+          Pour arrêter un intervalle, il faut conserver l’ID retourné par <code>setInterval</code>.
+        </p>
+
+        <div class="info-box">
+          <pre><code class="language-javascript">let id = setInterval(maFonction, 1000);
+// plus tard...
+clearInterval(id);</code></pre>
+        </div>
+
+        <div class="info-box info">
+          <h4>Étapes (toujours les mêmes)</h4>
+          <ul>
+            <li>Créer une variable compteur (ex : <code>tick</code>).</li>
+            <li>Démarrer l’intervalle et garder son ID.</li>
+            <li>Dans la fonction : augmenter le compteur, puis vérifier une condition.</li>
+            <li>Si la condition est atteinte : arrêter avec <code>clearInterval(id)</code>.</li>
+          </ul>
+        </div>
+
+        <!-- EXEMPLE -->
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="example"
+          data-console-open="true" data-title="Compter 5 ticks avec une fonction anonyme"
+          data-toolbar-text='Commandes : setInterval(...) + clearInterval(...)'
+          data-instructions="Exécute. Observe la console : un tick par seconde, puis arrêt après 5.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer">
+  <p>Observe les ticks dans la console.</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let compteurTick = 0;
+
+/*
+  Plan :
+  1) Démarrer un intervalle (1 tick / seconde)
+  2) À chaque tick : compteurTick + 1
+  3) Si on arrive à 5 on arrête l'interval : clearInterval(...)
+*/
+
+let intervalleTick = setInterval(function () {
+  compteurTick += 1;
+  console.log(`Tick ${compteurTick}`);
+
+  if (compteurTick >= 5) {
+    clearInterval(intervalleTick);
+    console.log("Intervalle arrêté");
+  }
+}, 1000);
+</textarea>
+        </div>
+
+        <!-- EXEMPLE 2 -->
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="example"
+          data-console-open="true" data-title="Intervalle qui appelle une fonction externe"
+          data-toolbar-text='Commandes : setInterval(...) + clearInterval(...)'
+          data-instructions="Exécute. Ici, setInterval appelle une fonction, qui elle-même appelle une fonction externe.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer">
+  <p>Observe l’appel d’une fonction externe à chaque tick.</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let nombreDeTicks = 0;
+let idIntervalTick = setInterval(executerTick, 1000);
+
+function executerTick() {
+  nombreDeTicks += 1;
+  console.log(`Tick : ${nombreDeTicks}`);
+
+  //arrête l'interval au troisième tick
+  if (nombreDeTicks >= 3) {
+    clearInterval(idIntervalTick);
+    console.log("Demo terminée");
+  }
+}
+</textarea>
+        </div>
+
+        <!-- EXERCICE -->
+        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
+          data-console-open="true" data-title="Exercice : énergie par intervalle"
+          data-toolbar-text='Commandes : setInterval(...) + clearInterval(...)'
+          data-instructions="Objectif : augmenter l’énergie de +10 toutes les 800 ms. Arrêter quand énergie atteint 50 ou plus.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-timer">
+  <p>Augmente l’énergie en console jusqu’à 50.</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let energie = 0;
+
+/*
+  Important :
+  - setInterval retourne un ID.
+  - On doit garder cet ID dans une variable pour pouvoir arrêter l’intervalle.
+*/
+let idIntervalEnergie;
+
+// TODO 1 : Démarre l’intervalle.
+// Indices :
+// - setInterval(monterEnergie, 800)
+// - Stocke le résultat dans idIntervalEnergie
+
+function monterEnergie() {
+  energie += 10;
+  console.log(`Énergie : ${energie}`);
+
+  // TODO 2 : Si energie >= 50, arrête l’intervalle.
+  // Indice : clearInterval(idIntervalEnergie)
+
+  // TODO 3 : Après l’arrêt, affiche : "Énergie au maximum"
+  // Indice : console.log(...)
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="zone-timer">
+  <p>Augmente l’énergie jusqu’à 50.</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.zone-timer {
+  max-width: 440px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let energie = 0;
+let idIntervalEnergie = null;
+
+function monterEnergie() {
+  energie += 10;
+  console.log(`Énergie : ${energie}`);
+
+  if (energie >= 50) {
+    clearInterval(idIntervalEnergie);
+    console.log("Énergie au maximum");
+  }
+}
+
+idIntervalEnergie = setInterval(monterEnergie, 800);
+</textarea>
+        </div>
+      </section>
+
+      <!-- MINI RÉCAP -->
+      <section class="section-spy">
+        <div class="info-box info">
+          <h4>Mini récap</h4>
+          <ul>
+            <li><code>setInterval(fonction, duree)</code> répète <code>fonction</code> toutes les <code>duree</code> millisecondes.</li>
+            <li>On garde l’ID retourné : <code>let id = setInterval(...)</code>.</li>
+            <li>On arrête avec <code>clearInterval(id)</code>.</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

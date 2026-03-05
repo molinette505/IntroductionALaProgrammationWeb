@@ -6,36 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JS - Timers</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
-
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../editor/editor.css">
-
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-  </style>
 </head>
 
 <body>
@@ -55,234 +29,26 @@
 
       <nav class="sidebar-nav">
         <a href="../../index.html" class="nav-link">Retour</a>
-        <a href="./10-evenements.html" class="nav-link">Evenements</a>
+        <a href="./10-timeout.html" class="nav-link">Compte a rebours</a>
+        <a href="./10-intervals.html" class="nav-link">Intervals</a>
+        <a href="./10-timers-exercices.html" class="nav-link">Exercices</a>
       </nav>
     </aside>
 
     <main class="main-content">
-
       <section class="section-spy">
-        <h2 class="section-title">Timers en JavaScript</h2>
-        <p>On commence par des exercices avec <code>console.log</code>, puis on applique les timers au DOM.</p>
+        <h2 class="section-title">Timers</h2>
+        <p>Choisis un sous-cours pour travailler les delais uniques et les repetitions.</p>
+        <ul class="card-list">
+          <li><a href="./10-timeout.html">Compte a rebours (setTimeout)</a></li>
+          <li><a href="./10-intervals.html">Intervals (setInterval et clearInterval)</a></li>
+          <li><a href="./10-timers-exercices.html">Exercices progressifs Timers</a></li>
+        </ul>
       </section>
-
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>setTimeout (niveau console)</h3>
-        </div>
-        <p><code>setTimeout</code> lance une fonction une seule fois apres un delai (en millisecondes).</p>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="example"
-          data-console-open="true" data-title="Ordre d'execution avec setTimeout"
-          data-toolbar-text='Commande: setTimeout(nomFonction, delai)'>
-          <textarea class="source-code-html" hidden>
-<div class="zone-timer">
-  <p>Regarde la console pour voir l'ordre des messages.</p>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-timer {
-  max-width: 440px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-console.log("Debut du script");
-
-setTimeout(function () {
-  console.log("Message retarde de 2 secondes");
-}, 2000);
-
-console.log("Fin immediate du script");
-</textarea>
-        </div>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
-          data-console-open="true" data-title="Exercice : deux alertes retardees"
-          data-toolbar-text='Commandes: setTimeout(...) + console.log(...)'>
-          <textarea class="source-code-html" hidden>
-<div class="zone-timer">
-  <p>Complete les TODO puis ouvre la console.</p>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-timer {
-  max-width: 440px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-function annoncerPreparation() {
-  console.log("Preparation du sort...");
-}
-
-function annoncerLancement() {
-  console.log("Sort lance !");
-}
-
-console.log("Sequence demarree");
-
-// TODO 1: Lance annoncerPreparation apres 1000 ms.
-
-// TODO 2: Lance annoncerLancement apres 2500 ms.
-
-console.log("Attente des timers...");
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="zone-timer">
-  <p>Complete les TODO puis ouvre la console.</p>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.zone-timer {
-  max-width: 440px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-function annoncerPreparation() {
-  console.log("Preparation du sort...");
-}
-
-function annoncerLancement() {
-  console.log("Sort lance !");
-}
-
-console.log("Sequence demarree");
-setTimeout(annoncerPreparation, 1000);
-setTimeout(annoncerLancement, 2500);
-console.log("Attente des timers...");
-</textarea>
-        </div>
-      </section>
-
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>setInterval et clearInterval (niveau console)</h3>
-        </div>
-        <p><code>setInterval</code> repete une action. On l'arrete avec <code>clearInterval</code>.</p>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="example"
-          data-console-open="true" data-title="Compter 5 ticks en console"
-          data-toolbar-text='Commandes: setInterval(...) + clearInterval(...)'>
-          <textarea class="source-code-html" hidden>
-<div class="zone-timer">
-  <p>Observe les ticks dans la console.</p>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-timer {
-  max-width: 440px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let compteurTick = 0;
-
-let intervalleTick = setInterval(function () {
-  compteurTick += 1;
-  console.log(`Tick ${compteurTick}`);
-
-  if (compteurTick === 5) {
-    clearInterval(intervalleTick);
-    console.log("Intervalle arrete");
-  }
-}, 1000);
-</textarea>
-        </div>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
-          data-console-open="true" data-title="Exercice : energie par intervalle"
-          data-toolbar-text='Commandes: setInterval(...) + clearInterval(...)'>
-          <textarea class="source-code-html" hidden>
-<div class="zone-timer">
-  <p>Augmente l'energie en console jusqu'a 50.</p>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-timer {
-  max-width: 440px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let energie = 0;
-let identifiantEnergie = null;
-
-function monterEnergie() {
-  energie += 10;
-  console.log(`Energie : ${energie}`);
-
-  // TODO 1: Si energie >= 50, arrete l'intervalle avec clearInterval(...)
-  // TODO 2: Ajoute un console.log("Energie au maximum")
-}
-
-// TODO 3: Demarre l'intervalle (toutes les 800 ms) et stocke son id dans identifiantEnergie
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="zone-timer">
-  <p>Augmente l'energie en console jusqu'a 50.</p>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.zone-timer {
-  max-width: 440px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-let energie = 0;
-let identifiantEnergie = null;
-
-function monterEnergie() {
-  energie += 10;
-  console.log(`Energie : ${energie}`);
-
-  if (energie >= 50) {
-    clearInterval(identifiantEnergie);
-    console.log("Energie au maximum");
-  }
-}
-
-identifiantEnergie = setInterval(monterEnergie, 800);
-</textarea>
-        </div>
-      </section>
-
     </main>
+
   </div>
 
-  <script src="../editor/editor.js"></script>
   <script src="../scripts/script.js"></script>
 </body>
 
