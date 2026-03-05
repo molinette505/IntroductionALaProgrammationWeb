@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Conditions Switch</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../editor/editor.css">
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Switch</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Switch</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Le switch</h3>
+                </div>
+
+                <p>
+                    Le <code>switch</code> sert à choisir une action selon une valeur précise.
+                    C'est pratique quand on compare <strong>la même variable</strong> à plusieurs valeurs possibles.
+                </p>
+
+                <div class="info-box info">
+                    <h4><i data-lucide="help-circle"></i> A retenir</h4>
+                    <ul class="code-list">
+                        <li><strong><code>switch (valeur)</code></strong> : la valeur qu'on veut tester.</li>
+                        <li><strong><code>case "X"</code></strong> : un cas possible (comparaison stricte <code>===</code>).</li>
+                        <li><strong><code>break;</code></strong> : on arrête le switch (très important).</li>
+                        <li><strong><code>default</code></strong> : cas "sinon" si rien ne correspond.</li>
+                    </ul>
+                </div>
+
+                <div class="info-box error">
+                    <h4><i data-lucide="shield-alert"></i> Erreur classique : oublier <code>break</code></h4>
+                    <p>
+                        Sans <code>break;</code>, JavaScript continue au <code>case</code> suivant même si ce n'est pas le bon
+                        (on appelle ça le <em>fall-through</em>).
+                    </p>
+                </div>
+
+                <div class="playground-container"
+                    data-auto-execute="false"
+                    data-type="compare"
+                    data-title="Comparaison : if / else if vs switch"
+                    data-toolbar-text="Même logique, deux syntaxes. Compare les deux versions pour le même résultat."
+                    data-label-a="Switch"
+                    data-label-b="If / else if"
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+let itemSelectionne = "Épée";
+
+switch (itemSelectionne) {
+  case "Épée":
+    console.log("Attaque : +10");
+    break;
+  case "Bouclier":
+    console.log("Défense : +5");
+    break;
+  case "Baguette":
+    console.log("Magie : +20");
+    break;
+  default:
+    console.log("Aucun bonus.");
+}
+</textarea>
+                    <textarea class="compare-code" hidden>
+let itemSelectionne = "Épée";
+
+if (itemSelectionne === "Épée") {
+  console.log("Attaque : +10");
+} else if (itemSelectionne === "Bouclier") {
+  console.log("Défense : +5");
+} else if (itemSelectionne === "Baguette") {
+  console.log("Magie : +20");
+} else {
+  console.log("Aucun bonus.");
+}
+</textarea>
+                </div>
+
+                <div class="playground-container"
+                    data-auto-execute="false"
+                    data-type="example"
+                    data-title="Inventaire : bonus d'un objet"
+                    data-toolbar-text='Switch : on teste "itemSelectionne". Cas possibles : "Épée", "Bouclier", "Baguette". N'oublie pas break;'
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+let itemSelectionne = "Épée";
+
+switch (itemSelectionne) {
+  case "Épée":
+    console.log("Attaque : +10");
+    break;
+  case "Bouclier":
+    console.log("Défense : +5");
+    break;
+  case "Baguette":
+    console.log("Magie : +20");
+    break;
+  default:
+    console.log("Aucun bonus.");
+}
+</textarea>
+                </div>
+
+                <div class="playground-container"
+                    data-auto-execute="false"
+                    data-type="exercise"
+                    data-title="Contrôleur de touches"
+                    data-toolbar-text='Objectif : compléter le switch. Si "ArrowUp" -> "Le personnage monte". Si "ArrowDown" -> "Le personnage descend". Sinon -> "Aucun mouvement".'
+                    data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// Simule une touche pressée sur un clavier
+let touchePressee = "ArrowUp";
+
+// TODO 1 : Mets touchePressee dans le switch (switch (touchePressee))
+// TODO 2 : case "ArrowUp" -> console.log("Le personnage monte"); + break;
+// TODO 3 : case "ArrowDown" -> console.log("Le personnage descend"); + break;
+// TODO 4 : default -> console.log("Aucun mouvement");
+
+switch (touchePressee) {
+  // Écris tes cases ici...
+}
+</textarea>
+
+                    <textarea class="solution-code" hidden>
+let touchePressee = "ArrowUp";
+
+switch (touchePressee) {
+  case "ArrowUp":
+    console.log("Le personnage monte");
+    break;
+  case "ArrowDown":
+    console.log("Le personnage descend");
+    break;
+  default:
+    console.log("Aucun mouvement");
+}
+</textarea>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../editor/editor.js"></script>
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>

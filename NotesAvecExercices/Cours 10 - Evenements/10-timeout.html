@@ -50,35 +50,55 @@
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
         <span class="js-badge">JS</span>
-        <h1>Compte a rebours</h1>
+        <h1>Compte à rebours</h1>
       </div>
 
       <nav class="sidebar-nav">
         <a href="../../index.html" class="nav-link">Retour</a>
         <a href="./10-timers-exercices.html" class="nav-link">Exercices Timers</a>
         <a href="./10-intervals.html" class="nav-link">Intervals</a>
-        <a href="./10-evenements.html" class="nav-link">Evenements</a>
+        <a href="./10-evenements.html" class="nav-link">Événements</a>
       </nav>
     </aside>
 
     <main class="main-content">
 
+      <!-- INTRO -->
       <section class="section-spy">
-        <h2 class="section-title">Compte a rebours avec setTimeout</h2>
-        <p><code>setTimeout</code> execute une fonction une seule fois apres un delai.</p>
+        <h2 class="section-title">Délais avec <code>setTimeout</code></h2>
+        <p>
+          <code>setTimeout</code> exécute une fonction après un certain délai (en millisecondes).
+        </p>
+
+        <div class="info-box info">
+          <h4>À retenir</h4>
+          <ul>
+            <li><strong>Timeout</strong> = une action retardée (une fois).</li>
+            <li><strong>Callback</strong> = la fonction exécutée après le délai.</li>
+            <li><strong>Délais</strong> = temps avant que la fonction ne soit exécutée en millisecondes (1000 ms = 1 seconde).</li>
+            <li><code>setTimeout(fonction, délais)</code> : lance <code>fonction</code> après <code>délais</code> millisecondes.</li>
+          </ul>
+        </div>
       </section>
 
       <section class="section-spy">
         <div class="section-header">
-          <h3>setTimeout</h3>
+          <h3><code>setTimeout</code> (exécuter plus tard)</h3>
         </div>
 
+        <p>
+          Important : le script continue d’exécuter le reste du code pendant que le timer “attend”.
+          C’est pour ça que l’ordre des messages en console peut parfois surprendre.
+        </p>
+
+        <!-- EXEMPLE -->
         <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="example"
-          data-console-open="true" data-title="Ordre d'execution avec setTimeout"
-          data-toolbar-text='Commande: setTimeout(nomFonction, delai)'>
+          data-console-open="true" data-title="Ordre d’exécution avec setTimeout"
+          data-toolbar-text='Commande : setTimeout(nomFonction, délai)'
+          data-instructions="Exécute et lis la console : début → fin immédiate → message retardé.">
           <textarea class="source-code-html" hidden>
 <div class="zone-timer">
-  <p>Regarde la console pour voir l'ordre des messages.</p>
+  <p>Regarde la console pour voir l’ordre des messages.</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -93,22 +113,24 @@
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-console.log("Debut du script");
+console.log("Début du script");
 
 setTimeout(function () {
-  console.log("Message retarde de 2 secondes");
+  console.log("Message retardé de 2 secondes");
 }, 2000);
 
-console.log("Fin immediate du script");
+console.log("Fin immédiate du script");
 </textarea>
         </div>
 
+        <!-- EXERCICE -->
         <div class="playground-container" data-auto-height="true" data-output-default="console" data-type="exercise"
-          data-console-open="true" data-title="Exercice : deux alertes retardees"
-          data-toolbar-text='Commandes: setTimeout(...) + console.log(...)'>
+          data-console-open="true" data-title="Exercice : deux messages retardés"
+          data-toolbar-text='Commandes : setTimeout(...) + console.log(...)'
+          data-instructions="Objectif : planifier 2 actions. 1) après 1000 ms, 2) après 2500 ms.">
           <textarea class="source-code-html" hidden>
 <div class="zone-timer">
-  <p>Complete les TODO puis ouvre la console.</p>
+  <p>Complète les TODO puis ouvre la console.</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -124,24 +146,30 @@ console.log("Fin immediate du script");
 </textarea>
           <textarea class="source-code-js" hidden>
 function annoncerPreparation() {
-  console.log("Preparation du sort...");
+  console.log("Préparation du sort...");
 }
 
 function annoncerLancement() {
-  console.log("Sort lance !");
+  console.log("Sort lancé !");
 }
 
-console.log("Sequence demarree");
+console.log("Séquence démarrée");
 
-// TODO 1: Lance annoncerPreparation apres 1000 ms.
+/*
+  Indice :
+  setTimeout(annoncerPreparation, 1000);
+  setTimeout(annoncerLancement, 2500);
+*/
 
-// TODO 2: Lance annoncerLancement apres 2500 ms.
+// TODO 1 : Lance annoncerPreparation après 1000 ms.
+
+// TODO 2 : Lance annoncerLancement après 2500 ms.
 
 console.log("Attente des timers...");
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="zone-timer">
-  <p>Complete les TODO puis ouvre la console.</p>
+  <p>Complète les TODO puis ouvre la console.</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -157,18 +185,32 @@ console.log("Attente des timers...");
 </textarea>
           <textarea class="solution-code-js" hidden>
 function annoncerPreparation() {
-  console.log("Preparation du sort...");
+  console.log("Préparation du sort...");
 }
 
 function annoncerLancement() {
-  console.log("Sort lance !");
+  console.log("Sort lancé !");
 }
 
-console.log("Sequence demarree");
+console.log("Séquence démarrée");
+
 setTimeout(annoncerPreparation, 1000);
 setTimeout(annoncerLancement, 2500);
+
 console.log("Attente des timers...");
 </textarea>
+        </div>
+      </section>
+
+      <!-- MINI RÉCAP -->
+      <section class="section-spy">
+        <div class="info-box info">
+          <h4>Mini récap</h4>
+          <ul>
+            <li><code>setTimeout(fn, ms)</code> exécute <code>fn</code une fois après <code>ms</code>.</li>
+            <li>Le code continue pendant l’attente (ce n’est pas “bloquant”).</li>
+            <li>Pour un compte à rebours, on utilise souvent plusieurs timeouts ou un intervalle (vu dans le cours précédent).</li>
+          </ul>
         </div>
       </section>
 

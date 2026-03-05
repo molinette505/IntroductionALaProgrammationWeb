@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -13,12 +14,12 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -26,6 +27,14 @@
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../editor/editor.css">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 
 <body>
@@ -40,7 +49,7 @@
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <span class="js-badge">JS</span>
-                <h1>Fonctions Classiques</h1>
+                <h1>Fonctions classiques</h1>
             </div>
             <nav class="sidebar-nav">
                 <a href="../../index.html" class="nav-link">Retour</a>
@@ -49,147 +58,201 @@
 
         <main class="main-content">
 
+            <!-- INTRO -->
             <section class="section-spy">
                 <h2 class="section-title">Introduction</h2>
-                <p>Une fonction est un <strong>bloc de code réutilisable</strong> conçu pour exécuter une tâche précise.
-                </p>
-                <p>Son but principal est de respecter le principe DRY (<em>Don't Repeat Yourself</em>) :</p>
-                <ul>
-                    <li>Au lieu d'écrire 10 fois le même code, on l'écrit une fois dans une fonction et on l'appelle
-                        quand on en a besoin.</li>
-                </ul>
-                <p>C'est comme une <strong>usine</strong> :</p>
-                <ul>
-                    <li>On lui donne des valeurs en entrée (paramètres).</li>
-                    <li>Elle fait un travail en utilisant ces paramètres.</li>
-                    <li>Elle retourne un résultat (avec <code>return</code>).</li>
-                </ul>
 
-                <div class="playground-container" data-auto-execute="false" data-type="example"
-                    data-title="Automatisation du calcul d'une moyenne"
-                    data-instructions="Une fonction qui calcule la moyenne d'un tableau de notes."
+                <p>
+                    Une <strong>fonction</strong> est un bloc de code qu’on peut <strong>réutiliser</strong> pour faire
+                    une tâche précise.
+                    On l’écrit une fois, puis on l’appelle quand on en a besoin.
+                </p>
+
+                <div class="info-box info">
+                    <h4>Pourquoi utiliser des fonctions ?</h4>
+                    <ul>
+                        <li><strong>Éviter la répétition</strong> (principe DRY : <em>Don’t Repeat Yourself</em>).</li>
+                        <li><strong>Rendre le code plus clair</strong> (on lit des “actions” : <code>calculerMoyenne()</code>).</li>
+                        <li><strong>Faciliter la maintenance</strong> (si on corrige, on corrige à un seul endroit).</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Image mentale : une petite “machine”</h4>
+                    <ul>
+                        <li>Elle reçoit des <strong>entrées</strong> (paramètres).</li>
+                        <li>Elle fait un travail.</li>
+                        <li>Elle peut renvoyer une <strong>sortie</strong> (avec <code>return</code>).</li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="compare"
+                    data-title="Comparaison : sans fonction vs avec fonction"
+                    data-toolbar-text="Observe la différence: répétition du code sans fonction, puis version réutilisable avec fonction."
+                    data-label-a="Sans fonction" data-label-b="Avec fonction"
                     data-auto-height="true">
                     <textarea class="source-code" hidden>
-// Définition de la fonction
+// SANS FONCTION : on répète le même algorithme
+let notesGroupe1 = [85, 90, 78, 92, 88];
+let totalGroupe1 = 0;
+for (let i = 0; i < notesGroupe1.length; i++) {
+  totalGroupe1 += notesGroupe1[i];
+}
+let moyenneGroupe1 = totalGroupe1 / notesGroupe1.length;
+console.log("Sans fonction - Moyenne groupe 1 :", moyenneGroupe1);
+
+let notesGroupe2 = [58, 72, 60, 70, 63];
+let totalGroupe2 = 0;
+for (let i = 0; i < notesGroupe2.length; i++) {
+  totalGroupe2 += notesGroupe2[i];
+}
+let moyenneGroupe2 = totalGroupe2 / notesGroupe2.length;
+console.log("Sans fonction - Moyenne groupe 2 :", moyenneGroupe2);
+
+let notesGroupe3 = [30, 70, 89, 58, 75];
+let totalGroupe3 = 0;
+for (let i = 0; i < notesGroupe3.length; i++) {
+  totalGroupe3 += notesGroupe3[i];
+}
+let moyenneGroupe3 = totalGroupe3 / notesGroupe3.length;
+console.log("Sans fonction - Moyenne groupe 3 :", moyenneGroupe3);
+</textarea>
+                    <textarea class="compare-code" hidden>
+// AVEC FONCTION : on écrit le calcul une seule fois
 function calculerMoyenne(notes) {
-    // Calcule la moyenne des valeurs du tableau notes
-    let total = 0;
-    for (let i = 0; i < notes.length; i++) {
-        total += notes[i];
-    }
-    return total / notes.length;
+  let total = 0;
+  for (let i = 0; i < notes.length; i++) {
+    total += notes[i];
+  }
+  return total / notes.length;
 }
 
-// Appel de la fonction pour chaque groupe, pas besoin de réécrire le code de calcul 2 foiss
-console.log("Moyenne groupe 1 :", calculerMoyenne([85, 90, 78, 92, 88]));
-console.log("Moyenne groupe 2 :", calculerMoyenne([58, 72, 60, 70, 63]));
+console.log("Avec fonction - Moyenne groupe 1 :", calculerMoyenne([85, 90, 78, 92, 88]));
+console.log("Avec fonction - Moyenne groupe 2 :", calculerMoyenne([58, 72, 60, 70, 63]));
+console.log("Avec fonction - Moyenne groupe 3 :", calculerMoyenne([30, 70, 89, 58, 75]));
 </textarea>
                 </div>
             </section>
 
-
-            <!-- SECTION : Déclaration et Appel -->
+            <!-- SECTION : Déclaration et appel -->
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>2. Déclaration et appel</h3>
+                    <h3>1) Déclarer et appeler une fonction</h3>
                 </div>
 
+                <p>
+                    Il y a deux étapes :
+                    <strong>1) déclarer</strong> la fonction (la créer),
+                    puis <strong>2) l’appeler</strong> (l’exécuter).
+                </p>
 
-                <h4>Déclaration (création) d'une fonction en JavaScript :</h4>
-                <pre><code>function nomFonction(param1, param2) {
-    // instructions à exécuter
+                <div class="info-box">
+                    <h4>Déclaration (création)</h4>
+                    <pre><code class="language-javascript">function nomFonction(param1, param2) {
+  // instructions à exécuter
 }</code></pre>
-                <ul>
-                    <li><strong>Déclaration :</strong> <code>function</code> indique qu'on crée une fonction.
-                    </li>
-                    <li><strong>Nom :</strong> <code>nomFonction</code> est le nom choisi (souvent un verbe).
-                    </li>
-                    <li><strong>Paramètres :</strong> <code>param1, param2</code> sont les valeurs reçues en
-                        entrée (facultatifs).</li>
-                    <li><strong>Bloc / Corps :</strong> Le code entre <code>{ ... }</code> s'exécute à chaque
-                        appel.</li>
-                    <li><strong>Retour :</strong> <code>return</code> permet de renvoyer un résultat à l'endroit
-                        où la fonction est appelée(facultatif).</li>
-                </ul>
 
-                <div class="info-box tip">
-                    <h4><i data-lucide="sparkles"></i>Bon réflexe</h4>
-                    <p>Un nom de fonction doit commencer par un verbe : <code>afficherScore</code>,
-                        <code>calculerTotal</code>, etc.
+                    <ul>
+                        <li><code>function</code> : mot-clé pour créer une fonction.</li>
+                        <li><code>nomFonction</code> : le nom (souvent un verbe).</li>
+                        <li><code>param1, param2</code> : les entrées (facultatives).</li>
+                        <li>Le code entre <code>{ ... }</code> s’exécute à chaque appel.</li>
+                    </ul>
+
+                    <p>
+                        Conseil : donne un nom qui dit l’action :
+                        <code>afficherScore</code>, <code>calculerTotal</code>, <code>verifierAcces</code>.
                     </p>
                 </div>
 
-                <h4>Appel d'une fonction en JavaScript :</h4>
-                <p>Pour exécuter la fonction, il faut <strong>l'appeler</strong> en écrivant son nom suivi de
-                    parenthèses&nbsp;: <code>nomDeLaFonction()</code>.</p>
-                <div class="playground-container" data-auto-execute="false" data-type="example"
-                    data-title="Déclarer et exécuter une fonction de bienvenue">
-                    <textarea class="source-code" hidden>
-// Déclaration (création) de la fonction
-function direBienvenue() {
-    console.log("Bienvenue dans le programme !");
-}
-
-// Appel de la fonctions, c'est ici que l'exécution commence.
-direBienvenue(); 
-
-// Vous pouvez l'appeler autant de fois que vous le voulez!
-direBienvenue(); 
-                    </textarea>
+                <div class="info-box">
+                    <h4>Appel (exécution)</h4>
+                    <p>
+                        Pour exécuter la fonction :
+                        <code>nomFonction()</code>
+                        (le nom + des parenthèses).
+                    </p>
                 </div>
 
-                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Créer une première fonction"
-                    data-instructions='Instructions : Créez une fonction nommée preparerCafe qui affiche "Le café est en cours de préparation...".'>
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Déclarer et exécuter une fonction de bienvenue"
+                    data-toolbar-text="Observe : le code dans la fonction s’exécute seulement quand on l’appelle.">
                     <textarea class="source-code" hidden>
-// TODO: Définir la fonction preparerCafe
-
-// TODO: Appeler la fonction
-                    </textarea>
-                    <textarea class="solution-code" hidden>
-// TODO: Définir la fonction preparerCafe
-function preparerCafe() {
-    console.log("Le café est en cours de préparation...");
+// Déclaration (création)
+function direBienvenue() {
+  console.log("Bienvenue dans le programme !");
 }
 
-// TODO: Appeler la fonction
+// Appels (exécution)
+direBienvenue();
+direBienvenue();
+</textarea>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="exercise"
+                    data-title="Exercice : créer une première fonction"
+                    data-toolbar-text='Crée une fonction nommée preparerCafe qui affiche "Le café est en cours de préparation...". Puis appelle-la une fois.'>
+                    <textarea class="source-code" hidden>
+// TODO 1 : Crée la fonction preparerCafe()
+// Indice : function preparerCafe() { ... }
+
+// TODO 2 : Dans la fonction, fais un console.log(...)
+
+// TODO 3 : Appelle la fonction
+</textarea>
+                    <textarea class="solution-code" hidden>
+function preparerCafe() {
+  console.log("Le café est en cours de préparation...");
+}
+
 preparerCafe();
-                    </textarea>
+</textarea>
                 </div>
             </section>
 
+            <!-- PARAMÈTRES & ARGUMENTS -->
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Paramètres & Arguments</h3>
+                    <h3>2) Paramètres et arguments</h3>
                 </div>
-                <p>C'est ici qu'on personnalise le comportement d'une fonction en lui donnant des données à traiter.</p>
-                <ul>
-                    <li><strong>Paramètre :</strong> C'est la variable "placeholder" écrite dans la <strong>définition</strong> de la fonction (ex : <code>function afficherNom(nom)</code>).</li>
-                    <li><strong>Argument :</strong> C'est la valeur réelle que l'on passe lors de l'<strong>appel</strong> (ex : <code>afficherNom("Alice")</code>).</li>
-                </ul>
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Fonction saluer(nom) avec un paramètre nom">
+
+                <p>
+                    Les paramètres servent à <strong>personnaliser</strong> une fonction.
+                    On exécute la même fonction, mais avec des valeurs différentes.
+                </p>
+
+                <div class="info-box info">
+                    <h4>Vocabulaire</h4>
+                    <ul>
+                        <li><strong>Paramètre</strong> : variable écrite dans la définition <code>function saluer(nom)</code>.</li>
+                        <li><strong>Argument</strong> : valeur donnée lors de l’appel <code>saluer("Emma")</code>.</li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Exemple : saluer(nom)"
+                    data-instructions="Même fonction, deux appels avec des arguments différents.">
                     <textarea class="source-code" hidden>
-// ici nom est un paramètre, une variable locale à la fonction
 function saluer(nom) {
   console.log(`Salut, ${nom} !`);
 }
 
-// ici "Ada" et "Linus" sont des arguments, des valeurs passées à la fonction
-// dans la fonction, le paramètre nom prendra la valeur des arguments.
-saluer("Ada");
-saluer("Linus");
+saluer("Victor");
+saluer("Emma");
 </textarea>
                 </div>
 
-                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="présenter un joueur"
-                    data-instructions="Créer une fonction qui prend un nom et un nombre de points comme paramètres et affiche 'Le joueur X a Y points'."
+                <div class="playground-container" data-auto-execute="false" data-type="exercise"
+                    data-title="Exercice : présenter un joueur"
+                    data-toolbar-text="Crée une fonction presenterJoueur(nom, points) qui affiche : Le joueur X a Y points. Puis appelle-la 2 fois."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
-// TODO: Créer la fonction presenterJoueur(nom, points)
+// TODO 1 : Crée la fonction presenterJoueur(nom, points)
+// Indice : console.log(`Le joueur ${nom} a ${points} points`);
 
-// TODO: Appeler la fonction avec le nom "Maya" et 120 points comme arguments
+// TODO 2 : Appelle la fonction avec ("Maya", 120)
 
-// TODO: Appeler la fonction avec le nom "Alex" et 80 points comme arguments
-
+// TODO 3 : Appelle la fonction avec ("Alex", 80)
 </textarea>
                     <textarea class="solution-code" hidden>
 function presenterJoueur(nom, points) {
@@ -202,136 +265,210 @@ presenterJoueur("Alex", 80);
                 </div>
             </section>
 
+            <!-- RETURN -->
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Retourner une valeur</h3>
+                    <h3>3) Retourner une valeur (<code>return</code>)</h3>
                 </div>
-                <ul>
-                    <li>Une fonction peut <strong>retourner</strong> une valeur grâce à <code>return</code>. Cela permet de réutiliser le résultat ailleurs.</li>
-                    <li><code>return</code> est optionnel</li>
-                </ul>
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="addition()">
-                    <textarea class="source-code" hidden>
-function addition(a, b) {
-    // retourne le résultat de l'addition
-    return a + b;
+
+                <p>
+                    Une fonction peut <strong>retourner</strong> un résultat.
+                    Ce résultat peut ensuite être stocké dans une variable, affiché, ou réutilisé ailleurs.
+                </p>
+
+                <div class="info-box info">
+                    <h4>À retenir</h4>
+                    <ul>
+                        <li><code>return</code> renvoie une valeur.</li>
+                        <li>Sans <code>return</code>, la fonction ne renvoie rien d’utile (souvent <code>undefined</code>).</li>
+                    </ul>
+                </div>
+
+<div class="playground-container"
+  data-type="example"
+  data-title="Fonction qui calcul des dégâts avec un bonus critique"
+  data-toolbar-text="calculerDegatsCritique(degatsBase, bonusCritique)">
+  <textarea class="source-code" hidden>
+// Exemple jeu : dégâts critiques avec un bonus multiplicateur.
+let degatsTotaux;
+
+function calculerDegatsCritique(degatsBase, bonusCritique) {
+    let degatsCritique = degatsBase * bonusCritique
+
+    return degatsBase + degatsCritique;
 }
 
-// appelle la fonction avec 5 et 7 comme arguments et stock le résultat de l'addition dans la variable résultat.
-let resultat = addition(5, 7);
+// 40 de dégâts et 0.5x de bonus
+degatsTotaux = calculerDegatsCritique(40, 0.5);
+console.log(`Dégâts avec bonus critique : ${degatsTotaux}`);
 
-// affoche le résultat avec console.log
-console.log(`Résultat : ${resultat}`);
+// 30 de dégâts et 1.5x de bonus
+degatsTotaux = calculerDegatsCritique(30, 1.5);
+console.log(`Dégâts avec bonus critique : ${degatsTotaux}`);
 </textarea>
-                </div>
-                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="retour de valeur (temps de trajet)"
-                    data-instructions="Complète la fonction pour qu'elle retourne le temps de trajet en heures."
-                    data-auto-height="false">
-                    <textarea class="source-code" hidden>
-// Fonction qui prend comme entrée la distance en km et la vitesse en km/h 
-et retourne le temps requis pour parcourir la distance
-function calculerTempsTrajet(distance, vitesse) {
-  // TODO: Retourne le temps en heures (distance / vitesse)
+</div>
+
+<div class="playground-container"
+  data-auto-execute="false"
+  data-type="exercise"
+  data-title="Exercice : acheterProduit(code)"
+  data-toolbar-text='Crée une fonction acheterProduit(code) qui utilise un switch pour retourner le nom du produit que tu as acheté. Retourner "Code invalide" sinon.'
+  data-auto-height="false">
+
+  <textarea class="source-code" hidden>
+// Objectif :
+// 1) Créer une fonction acheterProduit(code)
+// 2) Utiliser un switch (code) à l'intérieur de la fonction
+// 3) Retourner une string qui contient le nom du produit selon le code
+        // Codes à gérer dans le switch:
+        // "A1" -> retourner "Chips"
+        // "A2" -> retourner "Chocolat"
+        // "B1" -> retourner "Jus"
+        // "B2" -> retourner "Eau"
+// 4) Si le code n'existe pas, retourner "Code invalide"
+// 5) Afficher le resultat lors qu'on passe A2, B1 et Z8 comme arguments
+        // console.log(acheterProduit("A2"));
+        // console.log(acheterProduit("B1"));
+        // console.log(acheterProduit("Z8"));
+
+</textarea>
+
+  <textarea class="solution-code" hidden>
+function acheterProduit(code) {
+  switch (code) {
+    case "A1":
+      return "Tu as acheté : Chips";
+    case "A2":
+      return "Tu as acheté : Chocolat";
+    case "B1":
+      return "Tu as acheté : Jus";
+    case "B2":
+      return "Tu as acheté : Eau";
+    default:
+      return "Code invalide";
+  }
 }
 
-// TODO: Appeler la fonction avec 80 km et 90 km/h comme arguments et stocker la valeur de retour dans la variable temps
-let temps;
-
-// TODO: afficher avec console.log() `Temps : X heures` ou X sera remplacé par la variable de retour
+console.log(acheterProduit("A2"));
+console.log(acheterProduit("B1"));
+console.log(acheterProduit("Z8"));
 </textarea>
-                    <textarea class="solution-code" hidden>
-function calculerTempsTrajet(distance, vitesse) {
-  return distance / vitesse;
-}
+</div>
 
-let temps = calculerTempsTrajet(180, 90);
-console.log(`Temps : ${temps} heures`);
-</textarea>
-                </div>
-                
+
                 <h4>Sortie immédiate (Early Exit)</h4>
-                <ul>
-                    <li>Il est possible d'utiliser plusieurs <code>return</code> dans une fonction</li>
-                    <li>Dès que JavaScript rencontre <code>return</code>, il quitte la fonction immédiatement, même s'il reste du code après.</li>
-                    <li>C'est utile pour arrêter une boucle ou valider une condition rapidement.</li>
-                </ul>
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Sortie anticipée (Early Exit)">
+                <p>
+                    Dès que JavaScript rencontre <code>return</code>, il quitte la fonction immédiatement.
+                    C’est utile pour arrêter vite quand une condition est remplie.
+                </p>
+
+                <div class="info-box info">
+                    <ul>
+                        <li>On peut avoir <strong>plusieurs</strong> <code>return</code>.</li>
+                        <li>Le premier <code>return</code> exécuté arrête la fonction.</li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Exemple : sortie anticipée">
                     <textarea class="source-code" hidden>
 function verifierAcces(age) {
-    if (age < 18) {
-        return "Accès refusé : Trop jeune."; // La fonction s'arrête ICI si age < 18
-    }
-    
-    // Ce code ne s'exécutera que si le return ci-dessus n'est pas activé
-    return "Bienvenue dans l'espace membre !";
+  if (age < 18) {
+    return "Accès refusé : trop jeune.";
+  }
+  return "Bienvenue dans l’espace membre !";
 }
 
-console.log(verifierAcces(15)); // Affiche "Accès refusé..."
-console.log(verifierAcces(25)); // Affiche "Bienvenue..."
+console.log(verifierAcces(15));
+console.log(verifierAcces(25));
 </textarea>
                 </div>
-                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Recherche d'un élément"
-                    data-instructions="Créez une fonction rechercherElement qui prend 2 paramètres (un tableau et un élément) et cherche cet élément. Utilisez une boucle et faites un return dès que vous le trouvez."
+
+                <div class="playground-container" data-auto-execute="false" data-type="exercise"
+                    data-title="Exercice : recherche d’un élément (Early Exit)"
+                    data-instructions="Complète la fonction : si l’élément est trouvé, retourne 'Trouvé !' tout de suite. Sinon, retourne 'Non disponible' à la fin."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
-// Fonction crée avec 2 paramètres : 'tableau' et 'elementRecherche'
 function rechercherElement(tableau, elementRecherche) {
-    for (let i = 0; i < tableau.length; i++) {
-        if (tableau[i] === elementRecherche) {
-            // TODO: Sortir immédiatement ici en retournant la string "Trouvé !"
-        }
+  for (let i = 0; i < tableau.length; i++) {
+    if (tableau[i] === elementRecherche) {
+      // TODO 1 : Retourne "Trouvé !" immédiatement
     }
-    // TODO: Retourner ceci lorsque la boucle finit sans succès "Non disponible"
+  }
+  // TODO 2 : Retourne "Non disponible" si la boucle finit sans trouver
 }
 
 let stock = ["Banane", "Orange", "Pomme", "Poire"];
-console.log(rechercherElement(stock, "Pomme")); 
+console.log(rechercherElement(stock, "Pomme"));
 console.log(rechercherElement(stock, "Raisin"));
 </textarea>
                     <textarea class="solution-code" hidden>
 function rechercherElement(tableau, elementRecherche) {
-    for (let i = 0; i < tableau.length; i++) {
-        if (tableau[i] === elementRecherche) {
-            return "Trouvé !";
-        }
+  for (let i = 0; i < tableau.length; i++) {
+    if (tableau[i] === elementRecherche) {
+      return "Trouvé !";
     }
-    return "Non disponible";
+  }
+  return "Non disponible";
 }
 
 let stock = ["Banane", "Orange", "Pomme", "Poire"];
-console.log(rechercherElement(stock, "Pomme")); 
+console.log(rechercherElement(stock, "Pomme"));
 console.log(rechercherElement(stock, "Raisin"));
 </textarea>
                 </div>
-
             </section>
 
+            <!-- SCOPE -->
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Portée des variables</h3>
+                    <h3>4) Portée des variables (scope)</h3>
                 </div>
+
+                <div class="info-box info">
+                    <h4>À retenir</h4>
                 <p>
-                    Une variable déclarée dans une fonction n'existe <strong>que dans cette fonction</strong>.
-                    On parle de portée (scope).
+                    Une variable crée <strong>dans</strong> une fonction n’existe que <strong>dans</strong> cette fonction.
+                    On dit qu’elle est <strong>locale</strong>.
                 </p>
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="portée locale">
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Portée locale">
                     <textarea class="source-code" hidden>
 let score = 10;
 
 function ajouterBonus() {
-  let bonus = 5;
+  let bonus = 5; // bonus est local à la fonction
   score = score + bonus;
 }
 
 ajouterBonus();
 console.log("Score :", score);
-console.log("Bonus :", bonus); // Erreur : bonus n'est pas défini en dehors de la fonction
+console.log("Bonus :", bonus); // Erreur : bonus n'existe pas ici
 </textarea>
                 </div>
-                <div class="info-box info">
-                    <strong>Important :</strong> La variable <code>bonus</code> n'existe pas en dehors de la fonction.
+
+                <div class="info-box tip">
+                    <p>
+                        <strong>Important :</strong> la variable <code>bonus</code> n’existe pas en dehors de la fonction.
+                        (C’est pour ça que la dernière ligne cause une erreur.)
+                    </p>
                 </div>
             </section>
+
+            <!-- MINI RÉCAP -->
+            <section class="section-spy">
+                <div class="info-box info">
+                    <h4>Mini récap</h4>
+                    <ul>
+                        <li>On <strong>déclare</strong> une fonction, puis on l’<strong>appelle</strong>.</li>
+                        <li><strong>Paramètres</strong> = entrées dans la définition, <strong>arguments</strong> = valeurs à l’appel.</li>
+                        <li><code>return</code> renvoie un résultat (et peut arrêter la fonction).</li>
+                        <li>Une variable déclarée dans une fonction est <strong>locale</strong> (scope).</li>
+                    </ul>
+                </div>
+            </section>
+
         </main>
     </div>
 
@@ -340,3 +477,4 @@ console.log("Bonus :", bonus); // Erreur : bonus n'est pas défini en dehors de 
 </body>
 
 </html>
+```

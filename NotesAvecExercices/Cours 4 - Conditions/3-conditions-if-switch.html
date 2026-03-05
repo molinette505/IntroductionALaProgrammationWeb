@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS - Conditions et Logique de Décision</title>
+    <title>JS - Conditions If / Else</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -44,6 +44,7 @@
             </div>
             <nav class="sidebar-nav">
                 <a href="../../index.html" class="nav-link">Retour</a>
+                <a href="./3-conditions-switch.html" class="nav-link">Switch</a>
             </nav>
         </aside>
 
@@ -198,184 +199,6 @@ if (ilPleut) {
 </textarea>
                 </div>
             </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Le Switch</h3>
-                </div>
-                <p>
-                    Le <code>switch</code> est une structure de contrôle qui permet de comparer une variable à une liste
-                    de valeurs possibles.
-                    C'est beaucoup plus lisible qu'une longue suite de <code>else if</code> quand on teste toujours la
-                    même donnée.
-                </p>
-
-                <div class="info-box info">
-                    <h4><i data-lucide="help-circle"></i> Le fonctionnement</h4>
-                    <ul class="code-list">
-                        <li><strong>switch (x):</strong> On pose la variable que l'on veut comparer.</li>
-                        <li><strong>case x:</strong> On compare avec une valeur précise (égalité stricte
-                            <code>===</code>).
-                        </li>
-                        <li><strong>break :</strong> On sort immédiatement du switch. </li>
-                        <li><strong>default :</strong> L'option par défaut si aucun cas ne correspond (équivalent du
-                            <code>else</code>).
-                        </li>
-                    </ul>
-                </div>
-                <div class="info-box error">
-                    <h4><i data-lucide="shield-alert"></i> Attention au "Fall-through"</h4>
-                    <p>Si vous oubliez le <code>break;</code>, JavaScript ne s'arrête pas ! Il va exécuter le code
-                        du <code>case</code> suivant, même s'il ne correspond pas. C'est une erreur classique.</p>
-                </div>
-
-                <div class="grid-2">
-                    <div class="info-box info">
-                        <h4>If / Else if</h4>
-                        <pre><code>let itemSelectionne = "Epee";
-
-if (itemSelectionne === "Epee") {
-    console.log("Attaque : +10");
-} else if (itemSelectionne === "Bouclier") {
-    console.log("Défense : +5");
-} else if (itemSelectionne === "Baguette") {
-    console.log("Magie : +20");
-} else {
-    console.log("Aucun bonus.");
-}</code></pre>
-                    </div>
-                    <div class="info-box info">
-                        <h4>Switch</h4>
-                        <pre><code>let itemSelectionne = "Epee";
-
-switch (itemSelectionne) {
-    case "Epee":
-        console.log("Attaque : +10");
-        break;
-    case "Bouclier":
-        console.log("Défense : +5");
-        break;
-    case "Baguette":
-        console.log("Magie : +20");
-        break;
-    default:
-        console.log("Aucun bonus.");
-}</code></pre>
-                    </div>
-                </div>
-
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Système d'inventaire">
-                    <textarea class="source-code" hidden>
-let itemSelectionne = "Epee";
-
-switch (itemSelectionne) {
-    case "Epee":
-        console.log("Attaque : +10");
-        break;
-    case "Bouclier":
-        console.log("Défense : +5");
-        break;
-    case "Baguette":
-        console.log("Magie : +20");
-        break;
-    default:
-        console.log("Aucun bonus.");
-}
-</textarea>
-                </div>
-
-                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Contrôleur de touches">
-                    <textarea class="source-code" hidden>
-// Simule une touche pressée sur un clavier
-let touchePressee = "ArrowUp"; 
-
-// TODO: Crée un switch qui vérifie 'touchePressee'
-// - cas "ArrowUp" -> affiche "Le personnage monte"
-// - cas "ArrowDown" -> affiche "Le personnage descend"
-// - default -> affiche "Aucun mouvement"
-
-switch (?) {
-    // Écris tes cases ici...
-}
-</textarea>
-                    <textarea class="solution-code" hidden>
-let touchePressee = "ArrowUp"; 
-
-switch (touchePressee) {
-    case "ArrowUp":
-        console.log("Le personnage monte");
-        break;
-    case "ArrowDown":
-        console.log("Le personnage descend");
-        break;
-    default:
-        console.log("Aucun mouvement");
-}
-</textarea>
-                </div>
-            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>L'Opérateur Ternaire</h3>
-                </div>
-                <p>
-                    L'opérateur ternaire est une <strong>alternative compacte</strong> au bloc <code>if...else</code>
-                    traditionnel.
-                    Il permet d'évaluer une condition et de retourner une valeur immédiatement, le tout sur une
-                    <strong>seule ligne de code</strong>.
-                </p>
-
-                <div class="grid-2">
-                    <div class="info-box info">
-                        <h4>La Question (Ternaire)</h4>
-                        <p><code>condition ? vrai : faux</code></p>
-                    </div>
-                    <div class="info-box info">
-                        <h4>Pourquoi l'utiliser ?</h4>
-                        <p>Pour gagner de la place et éviter de créer des structures <code>if</code> lourdes pour des
-                            petits choix.</p>
-                    </div>
-                </div>
-
-                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="UI : Bouton Jouer/Pause">
-                    <textarea class="source-code" hidden>
-let musiqueEnCours = true;
-
-// On change le texte du bouton selon l'état de la musique
-let texteBouton = musiqueEnCours ? "PAUSE" : "PLAY";
-
-console.log("Bouton :", texteBouton);
-</textarea>
-                </div>
-
-                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Traduire en Ternaire">
-                    <textarea class="source-code" hidden>
-let estVivant = true;
-
-/* TODO : Traduis ce bloc IF/ELSE en une seule ligne 
-   en utilisant l'opérateur ternaire ( ? : )
-   
-   if (estVivant) {
-       status = "Prêt au combat";
-   } else {
-       status = "Game Over";
-   }
-*/
-
-let status = ?;
-
-console.log("État du héros :", status);
-</textarea>
-                    <textarea class="solution-code" hidden>
-let estVivant = true;
-
-// Traduction en une ligne :
-let status = estVivant ? "Prêt au combat" : "Game Over";
-
-console.log("État du héros :", status);
-</textarea>
-                </div>
 
                 <script src="../editor/editor.js"></script>
     <script src="../scripts/script.js"></script>
