@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JS - Evenements</title>
+  <title>JS - Événements</title>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -50,181 +50,85 @@
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
         <span class="js-badge">JS</span>
-        <h1>Evenements</h1>
+        <h1>Événements</h1>
       </div>
 
       <nav class="sidebar-nav">
         <a href="../../index.html" class="nav-link">Retour</a>
-        <a href="./10-timers.html" class="nav-link">Timers</a>
-        <a href="../Cours 11 - Recap/11-recap-pratique.html" class="nav-link">Recap pratique</a>
       </nav>
     </aside>
 
     <main class="main-content">
 
       <section class="section-spy">
-        <h2 class="section-title">Gerer des evenements en JavaScript</h2>
+        <h2 class="section-title">Gérer des événements en JavaScript</h2>
       </section>
 
+      <!-- Mantra pédagogique -->
       <section class="section-spy">
-        <div class="section-header">
-          <h3>Qu'est-ce qu'un evenement ?</h3>
-        </div>
         <div class="info-box info">
           <p>
-            Un evenement est une action detectee par le navigateur: clic, touche clavier, survol de souris, etc.
-            JavaScript peut reagir a ces actions pour mettre a jour la page.
+            🧠 À retenir :
+            <br><strong>Événement</strong> = quelque chose arrive (clic, touche, etc.)
+            <br><strong>Listener (écouteur)</strong> = j’écoute l’événement
+            <br><strong>Callback</strong> = la fonction exécutée quand l’événement arrive
+            <br><strong>DOM</strong> = ce que je modifie (texte, classes, style)
           </p>
         </div>
       </section>
 
       <section class="section-spy">
         <div class="section-header">
-          <h3>onclick dans le HTML</h3>
-        </div>
-        <p>On peut declencher une fonction directement depuis un attribut HTML.</p>
-        <div class="info-box">
-          <pre><code class="language-javascript">&lt;button onclick="maFonction()"&gt;...&lt;/button&gt;</code></pre>
+          <h3>Qu’est-ce qu’un événement ?</h3>
         </div>
 
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true" data-title="Declencher une action avec onclick"
-          data-toolbar-text='Commande: onclick="maFonction()"'
-          data-instructions="Executez puis cliquez sur le bouton.">
-          <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-statut-jeu">
-  <h4 id="titre-statut-jeu">Statut : en attente</h4>
-  <button onclick="activerStatutJeu()">Activer</button>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-evenement {
-  max-width: 380px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
+        <p>
+          Un <strong>événement</strong>, c’est un “signal” envoyé par le navigateur quand quelque chose se produit :
+          un clic, une touche du clavier, la souris qui bouge, etc.
+        </p>
 
-.zone-evenement button {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-
-.statut-actif {
-  color: #34d399;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let elementTitreStatutJeu = document.getElementById("titre-statut-jeu");
-
-function activerStatutJeu() {
-  elementTitreStatutJeu.innerText = `${"Statut : actif"}`;
-  elementTitreStatutJeu.classList.add("statut-actif");
-}
-</textarea>
-        </div>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Incrementer un niveau avec onclick"
-          data-toolbar-text='Commande: onclick="maFonction()"'
-          data-instructions="La fonction est deja appelee par onclick. Complete la logique de progression.">
-          <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-statut-jeu">
-  <h4 id="texte-niveau">Niveau : 1</h4>
-  <button onclick="augmenterNiveau()">+1 niveau</button>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-evenement {
-  max-width: 380px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-
-.zone-evenement button {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-
-</textarea>
-          <textarea class="source-code-js" hidden>
-let elementTexteNiveau = document.getElementById("texte-niveau");
-let niveau = 1;
-
-function augmenterNiveau() {
-  // TODO 1: Augmente la variable niveau de 1.
-
-
-  // TODO 2: Mets elementTexteNiveau.innerText au format "Niveau : X".
-}
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="zone-evenement" id="conteneur-statut-jeu">
-  <h4 id="texte-niveau">Niveau : 1</h4>
-  <button onclick="augmenterNiveau()">+1 niveau</button>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.zone-evenement {
-  max-width: 380px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-
-.zone-evenement button {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-
-</textarea>
-          <textarea class="solution-code-js" hidden>
-let elementTexteNiveau = document.getElementById("texte-niveau");
-let niveau = 1;
-
-function augmenterNiveau() {
-  niveau = niveau + 1;
-  elementTexteNiveau.innerText = `Niveau : ${niveau}`;
-}
-</textarea>
+        <div class="info-box info">
+          <p>
+            L’idée est simple :
+            <strong>1) l’utilisateur fait une action</strong> →
+            <strong>2) le navigateur détecte l’événement</strong> →
+            <strong>3) JavaScript exécute une fonction</strong> (notre réaction).
+          </p>
+          <p style="margin-top: 10px;">
+            Cette fonction s’appelle souvent un <strong>callback</strong> :
+            c’est “le code à exécuter quand l’événement arrive”.
+          </p>
         </div>
       </section>
 
       <section class="section-spy">
         <div class="section-header">
-          <h3>Propriete element.onclick</h3>
+          <h3>Propriété <code>element.onclick</code></h3>
         </div>
-        <p>On peut affecter une fonction de clic en JavaScript avec la propriete <code>onclick</code>.</p>
+
+        <p>
+          Première façon (simple) : on met une fonction dans la propriété <code>onclick</code>.
+          Cette fonction sera appelée <strong>à chaque clic</strong> sur l’élément.
+        </p>
+
+        <div class="info-box info">
+          <p>
+            ⚠️ Attention : <code>onclick</code> ne garde qu’<strong>une seule</strong> fonction.
+            Si tu réassignes <code>onclick</code> plus tard, tu écrases l’ancienne.
+            C’est pour ça qu’on préfère souvent <code>addEventListener</code>.
+          </p>
+        </div>
+
         <div class="info-box">
-          <pre><code class="language-javascript">element.onclick = function () { ... }</code></pre>
+          <pre><code class="language-javascript">element.onclick = function (event) {
+  // code exécuté au clic
+};</code></pre>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
           data-console-open="true" data-title="Augmenter un score avec element.onclick"
-          data-toolbar-text='Commande: element.onclick = function () { ... }'
-          data-instructions="Executez puis cliquez sur le bouton.">
+          data-toolbar-text='Commande : element.onclick = function (event) { ... }'
+          data-instructions="Exécute puis clique sur le bouton.">
           <textarea class="source-code-html" hidden>
 <div class="zone-evenement" id="conteneur-score-jeu">
   <p id="texte-score-jeu">Score : 0</p>
@@ -256,8 +160,10 @@ let elementBoutonScoreJeu = document.getElementById("bouton-score-jeu");
 let elementTexteScoreJeu = document.getElementById("texte-score-jeu");
 let scoreJeu = 0;
 
-// Ajoute le comportement de clic via la propriete onclick.
-elementBoutonScoreJeu.onclick = function () {
+// 1) On écoute le clic via la propriété onclick.
+// 2) Quand le clic arrive, le navigateur appelle notre fonction (callback).
+elementBoutonScoreJeu.onclick = function (event) {
+  // Ici, on met la réaction au clic :
   scoreJeu = scoreJeu + 5;
   elementTexteScoreJeu.innerText = `Score : ${scoreJeu}`;
 };
@@ -265,13 +171,13 @@ elementBoutonScoreJeu.onclick = function () {
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Changer de mode avec element.onclick"
-          data-toolbar-text='Commande: element.onclick = function () { ... }'
-          data-instructions="Le ciblage est deja fait. Ajoute seulement la propriete onclick.">
+          data-console-open="true" data-title="Changer un titre h2 avec element.onclick"
+          data-toolbar-text='Commande : element.onclick = function (event) { ... }'
+          data-instructions="Le ciblage est déjà fait. Au clic, change seulement le texte du titre.">
           <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-mode-interface">
-  <p id="texte-mode-interface">Mode : jour</p>
-  <button id="bouton-mode-interface">Changer le mode</button>
+<div class="zone-evenement" id="conteneur-titre-page">
+  <h2 id="titre-page">Mon premier titre</h2>
+  <button id="bouton-titre-page">Changer le titre</button>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -286,7 +192,11 @@ elementBoutonScoreJeu.onclick = function () {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-#bouton-mode-interface {
+.zone-evenement h2 {
+  margin: 0 0 10px;
+}
+
+#bouton-titre-page {
   padding: 8px 12px;
   border: 1px solid #6366f1;
   border-radius: 8px;
@@ -294,26 +204,26 @@ elementBoutonScoreJeu.onclick = function () {
   color: #e2e8f0;
   cursor: pointer;
 }
-
-.mode-interface-nuit {
-  background: #020617;
-  color: #93c5fd;
-}
 </textarea>
           <textarea class="source-code-js" hidden>
-let elementBoutonModeInterface = document.getElementById("bouton-mode-interface");
-let elementTexteModeInterface = document.getElementById("texte-mode-interface");
-let elementConteneurModeInterface = document.getElementById("conteneur-mode-interface");
-let estModeNuit = false;
+let boutonTitre = document.getElementById("bouton-titre-page");
+let titrePage = document.getElementById("titre-page");
 
-// TODO 1: Ajoute elementBoutonModeInterface.onclick = function () { ... }.
-// TODO 2: Si estModeNuit est false, mets true, ajoute "mode-interface-nuit" et affiche "Mode : nuit".
-// TODO 3: Sinon, remets false, retire "mode-interface-nuit" et affiche "Mode : jour".
+/*
+  Objectif :
+  - Quand on clique sur le bouton, on change le texte du <h2>.
+
+  Indice :
+  - Le texte se change avec : titrePage.innerText = "...";
+*/
+
+// TODO 1 : Mets une fonction dans boutonTitre.onclick
+// TODO 2 : Dans la fonction, mets titrePage.innerText à "Bienvenue dans le cours"
 </textarea>
           <textarea class="solution-code-html" hidden>
-<div class="zone-evenement" id="conteneur-mode-interface">
-  <p id="texte-mode-interface">Mode : jour</p>
-  <button id="bouton-mode-interface">Changer le mode</button>
+<div class="zone-evenement" id="conteneur-titre-page">
+  <h2 id="titre-page">Mon premier titre</h2>
+  <button id="bouton-titre-page">Changer le titre</button>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -328,7 +238,11 @@ let estModeNuit = false;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-#bouton-mode-interface {
+.zone-evenement h2 {
+  margin: 0 0 10px;
+}
+
+#bouton-titre-page {
   padding: 8px 12px;
   border: 1px solid #6366f1;
   border-radius: 8px;
@@ -336,28 +250,13 @@ let estModeNuit = false;
   color: #e2e8f0;
   cursor: pointer;
 }
-
-.mode-interface-nuit {
-  background: #020617;
-  color: #93c5fd;
-}
 </textarea>
           <textarea class="solution-code-js" hidden>
-let elementBoutonModeInterface = document.getElementById("bouton-mode-interface");
-let elementTexteModeInterface = document.getElementById("texte-mode-interface");
-let elementConteneurModeInterface = document.getElementById("conteneur-mode-interface");
-let estModeNuit = false;
+let boutonTitre = document.getElementById("bouton-titre-page");
+let titrePage = document.getElementById("titre-page");
 
-elementBoutonModeInterface.onclick = function () {
-  if (estModeNuit === false) {
-    estModeNuit = true;
-    elementConteneurModeInterface.classList.add("mode-interface-nuit");
-    elementTexteModeInterface.innerText = `${"Mode : nuit"}`;
-  } else {
-    estModeNuit = false;
-    elementConteneurModeInterface.classList.remove("mode-interface-nuit");
-    elementTexteModeInterface.innerText = `${"Mode : jour"}`;
-  }
+boutonTitre.onclick = function (event) {
+  titrePage.innerText = "Bienvenue dans le cours";
 };
 </textarea>
         </div>
@@ -365,17 +264,33 @@ elementBoutonModeInterface.onclick = function () {
 
       <section class="section-spy">
         <div class="section-header">
-          <h3>addEventListener("click")</h3>
+          <h3><code>addEventListener("click")</code></h3>
         </div>
-        <p>La methode recommandee pour ecouter les interactions est <code>addEventListener</code>.</p>
+
+        <p>
+          La méthode recommandée : <code>addEventListener</code>.
+          On dit au navigateur :
+          <strong>“Quand l’événement arrive, exécute cette fonction.”</strong>
+        </p>
+
+        <div class="info-box info">
+          <p>
+            Pourquoi c’est mieux ?
+            <br>✅ on peut ajouter <strong>plusieurs</strong> réactions au même élément
+            <br>✅ c’est plus clair et plus standard dans le monde web
+          </p>
+        </div>
+
         <div class="info-box">
-          <pre><code class="language-javascript">element.addEventListener("click", nomFonction)</code></pre>
+          <pre><code class="language-javascript">element.addEventListener("click", function (event) {
+  // code exécuté au clic
+});</code></pre>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
           data-console-open="true" data-title="Ajouter un clic avec addEventListener"
-          data-toolbar-text='Commande: element.addEventListener("click", callback)'
-          data-instructions="Executez puis cliquez sur +1.">
+          data-toolbar-text='Commande : element.addEventListener("click", function (event) { ... })'
+          data-instructions="Exécute puis clique sur +1.">
           <textarea class="source-code-html" hidden>
 <div class="zone-evenement" id="conteneur-compteur-clic">
   <p id="texte-compteur-clic">Total : 0</p>
@@ -407,24 +322,29 @@ let elementBoutonCompteurClic = document.getElementById("bouton-compteur-clic");
 let elementTexteCompteurClic = document.getElementById("texte-compteur-clic");
 let totalClic = 0;
 
-function incrementerCompteurClic() {
+/*
+  Plan mental :
+  1) Je cible les éléments (getElementById)
+  2) J’ajoute un écouteur (addEventListener)
+  3) Dans la fonction, je change le DOM (innerText)
+*/
+
+// Ajoute l’écouteur de clic.
+elementBoutonCompteurClic.addEventListener("click", function (event) {
   totalClic = totalClic + 1;
   elementTexteCompteurClic.innerText = `Total : ${totalClic}`;
-}
-
-// Ajoute l'ecouteur de clic.
-elementBoutonCompteurClic.addEventListener("click", incrementerCompteurClic);
+});
 </textarea>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Compter les clics avec addEventListener"
-          data-toolbar-text='Commande: element.addEventListener("click", callback)'
-          data-instructions="Le ciblage est deja fait. Ajoute seulement l'ecouteur de clic.">
+          data-console-open="true" data-title="Changer un titre h2 avec addEventListener"
+          data-toolbar-text='Commande : element.addEventListener("click", function (event) { ... })'
+          data-instructions="Le ciblage est déjà fait. Au clic, change seulement le texte du titre.">
           <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-compteur-clic">
-  <p id="texte-compteur-clic">Total : 0</p>
-  <button id="bouton-compteur-clic">+1</button>
+<div class="zone-evenement" id="conteneur-titre-page">
+  <h2 id="titre-page">Mon premier titre</h2>
+  <button id="bouton-titre-page">Changer le titre</button>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -436,9 +356,14 @@ elementBoutonCompteurClic.addEventListener("click", incrementerCompteurClic);
   background: #0f172a;
   color: #e2e8f0;
   font-family: "JetBrains Mono", monospace;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-#bouton-compteur-clic {
+.zone-evenement h2 {
+  margin: 0 0 10px;
+}
+
+#bouton-titre-page {
   padding: 8px 12px;
   border: 1px solid #6366f1;
   border-radius: 8px;
@@ -448,23 +373,25 @@ elementBoutonCompteurClic.addEventListener("click", incrementerCompteurClic);
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-let elementBoutonCompteurClic = document.getElementById("bouton-compteur-clic");
-let elementTexteCompteurClic = document.getElementById("texte-compteur-clic");
-let totalClic = 0;
+let boutonTitre = document.getElementById("bouton-titre-page");
+let titrePage = document.getElementById("titre-page");
 
-function incrementerCompteurClic() {
-  // TODO 1: Incremente totalClic.
+/*
+  Objectif :
+  - Quand on clique sur le bouton, on change le texte du <h2>.
 
+  Indice :
+  - La structure ressemble à l'exemple juste au-dessus.
+  - On change le texte avec : titrePage.innerText = "...";
+*/
 
-  // TODO 2: Mets elementTexteCompteurClic.innerText a `Total : ${totalClic}`.
-}
-
-// TODO 3: Ajoute un addEventListener("click", incrementerCompteurClic) sur elementBoutonCompteurClic.
+// TODO 1 : Ajoute un addEventListener("click", function (event) { ... }) sur boutonTitre.
+// TODO 2 : Dans la fonction, mets titrePage.innerText à "Bienvenue dans le cours".
 </textarea>
           <textarea class="solution-code-html" hidden>
-<div class="zone-evenement" id="conteneur-compteur-clic">
-  <p id="texte-compteur-clic">Total : 0</p>
-  <button id="bouton-compteur-clic">+1</button>
+<div class="zone-evenement" id="conteneur-titre-page">
+  <h2 id="titre-page">Mon premier titre</h2>
+  <button id="bouton-titre-page">Changer le titre</button>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -476,9 +403,14 @@ function incrementerCompteurClic() {
   background: #0f172a;
   color: #e2e8f0;
   font-family: "JetBrains Mono", monospace;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-#bouton-compteur-clic {
+.zone-evenement h2 {
+  margin: 0 0 10px;
+}
+
+#bouton-titre-page {
   padding: 8px 12px;
   border: 1px solid #6366f1;
   border-radius: 8px;
@@ -488,206 +420,11 @@ function incrementerCompteurClic() {
 }
 </textarea>
           <textarea class="solution-code-js" hidden>
-let elementBoutonCompteurClic = document.getElementById("bouton-compteur-clic");
-let elementTexteCompteurClic = document.getElementById("texte-compteur-clic");
-let totalClic = 0;
+let boutonTitre = document.getElementById("bouton-titre-page");
+let titrePage = document.getElementById("titre-page");
 
-function incrementerCompteurClic() {
-  totalClic = totalClic + 1;
-  elementTexteCompteurClic.innerText = `Total : ${totalClic}`;
-}
-
-elementBoutonCompteurClic.addEventListener("click", incrementerCompteurClic);
-</textarea>
-        </div>
-      </section>
-
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>event.target avec le survol</h3>
-        </div>
-        <p><code>event.target</code> represente l'element exact touche par la souris.</p>
-        <div class="info-box">
-          <pre><code class="language-javascript">event.target.classList.add("ma-classe")</code></pre>
-        </div>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true" data-title="Colorer l'element survole"
-          data-toolbar-text='Commande: event.target'
-          data-instructions="Executez puis survolez les boutons.">
-          <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-actions-combat">
-  <h4>Actions</h4>
-  <div class="groupe-actions-combat">
-    <button class="bouton-action-combat">Attaque</button>
-    <button class="bouton-action-combat">Parade</button>
-    <button class="bouton-action-combat">Esquive</button>
-  </div>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-evenement {
-  max-width: 460px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-
-.groupe-actions-combat {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.bouton-action-combat {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-
-.bouton-action-combat-survole {
-  border-color: #f59e0b;
-  color: #f59e0b;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let elementsBoutonActionCombat = document.querySelectorAll(".bouton-action-combat");
-
-function activerSurvolBoutonActionCombat(event) {
-  event.target.classList.add("bouton-action-combat-survole");
-}
-
-function desactiverSurvolBoutonActionCombat(event) {
-  event.target.classList.remove("bouton-action-combat-survole");
-}
-
-elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
-  elementBoutonActionCombat.addEventListener("mouseover", activerSurvolBoutonActionCombat);
-  elementBoutonActionCombat.addEventListener("mouseout", desactiverSurvolBoutonActionCombat);
-});
-</textarea>
-        </div>
-
-        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Afficher l'action cliquee"
-          data-toolbar-text='Commande: event.target + addEventListener("click")'
-          data-instructions="Utilise event.target pour afficher la valeur de data-action.">
-          <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-actions-combat">
-  <h4>Actions</h4>
-  <div class="groupe-actions-combat">
-    <button class="bouton-action-combat" data-action="attaque">Attaque</button>
-    <button class="bouton-action-combat" data-action="parade">Parade</button>
-    <button class="bouton-action-combat" data-action="esquive">Esquive</button>
-  </div>
-  <p id="texte-action-combat">Action : aucune</p>
-</div>
-</textarea>
-          <textarea class="source-code-css" hidden>
-.zone-evenement {
-  max-width: 460px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-
-.groupe-actions-combat {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.bouton-action-combat {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-
-.bouton-action-combat-survole {
-  border-color: #f59e0b;
-  color: #f59e0b;
-}
-</textarea>
-          <textarea class="source-code-js" hidden>
-let elementsBoutonActionCombat = document.querySelectorAll(".bouton-action-combat");
-let elementTexteActionCombat = document.getElementById("texte-action-combat");
-
-function afficherActionCombat(event) {
-  // TODO 1: Lis la valeur data-action de event.target.
-  // Exemple: let action = event.target.getAttribute("data-action");
-
-  // TODO 2: Mets le texte "Action : ... " dans elementTexteActionCombat.
-}
-
-elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
-  // TODO 3: Ajoute un ecouteur click avec afficherActionCombat.
-});
-</textarea>
-          <textarea class="solution-code-html" hidden>
-<div class="zone-evenement" id="conteneur-actions-combat">
-  <h4>Actions</h4>
-  <div class="groupe-actions-combat">
-    <button class="bouton-action-combat" data-action="attaque">Attaque</button>
-    <button class="bouton-action-combat" data-action="parade">Parade</button>
-    <button class="bouton-action-combat" data-action="esquive">Esquive</button>
-  </div>
-  <p id="texte-action-combat">Action : aucune</p>
-</div>
-</textarea>
-          <textarea class="solution-code-css" hidden>
-.zone-evenement {
-  max-width: 460px;
-  padding: 14px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", monospace;
-}
-
-.groupe-actions-combat {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.bouton-action-combat {
-  padding: 8px 12px;
-  border: 1px solid #6366f1;
-  border-radius: 8px;
-  background: #1e293b;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-
-.bouton-action-combat-survole {
-  border-color: #f59e0b;
-  color: #f59e0b;
-}
-</textarea>
-          <textarea class="solution-code-js" hidden>
-let elementsBoutonActionCombat = document.querySelectorAll(".bouton-action-combat");
-let elementTexteActionCombat = document.getElementById("texte-action-combat");
-
-function afficherActionCombat(event) {
-  let action = event.target.getAttribute("data-action");
-  elementTexteActionCombat.innerText = `Action : ${action}`;
-}
-
-elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
-  elementBoutonActionCombat.addEventListener("click", afficherActionCombat);
+boutonTitre.addEventListener("click", function (event) {
+  titrePage.innerText = "Bienvenue dans le cours";
 });
 </textarea>
         </div>
@@ -695,27 +432,47 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
 
       <section class="section-spy">
         <div class="section-header">
-          <h3>Evenement clavier keydown</h3>
+          <h3>Le paramètre <code>event</code> et <code>event.target</code></h3>
         </div>
-        <p>On peut lire les touches tapees avec l'evenement <code>keydown</code>.</p>
+
+        <p>
+          Quand un événement arrive, le navigateur donne un objet <code>event</code> à notre fonction.
+          Cet objet contient des informations utiles : quelle touche, quel élément, etc.
+        </p>
+
+        <div class="info-box info">
+          <p>
+            <strong><code>event.target</code></strong> = l’élément <em>exact</em> qui a été cliqué.
+            <br>
+            <strong><code>event.currentTarget</code></strong> = l’élément sur lequel on a mis le listener
+            (souvent celui qu’on veut modifier).
+          </p>
+        </div>
+
         <div class="info-box">
-          <pre><code class="language-javascript">element.addEventListener("keydown", nomFonction)</code></pre>
+          <pre><code class="language-javascript">element.addEventListener("click", function (event) {
+  console.log(event.target);
+  console.log(event.currentTarget);
+});</code></pre>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
-          data-console-open="true" data-title="Afficher la touche pressee"
-          data-toolbar-text='Commande: addEventListener("keydown", callback)'
-          data-instructions="Executez puis tapez dans le champ.">
+          data-console-open="true" data-title="Ajouter une classe au clic"
+          data-toolbar-text='Commande : event.target.classList.add("forme-couleur-rotation");'
+          data-instructions="Exécute puis clique sur les formes.">
           <textarea class="source-code-html" hidden>
-<div class="zone-evenement" id="conteneur-clavier">
-  <label for="saisie-clavier">Tapez une touche</label>
-  <input id="saisie-clavier" type="text" />
-  <p id="texte-touche-clavier">Derniere touche : ...</p>
+<div class="zone-evenement" id="conteneur-formes-couleur">
+  <h4>Formes</h4>
+  <div class="groupe-formes-couleur">
+    <div class="forme-couleur forme-couleur-rouge" id="forme-couleur-rouge"></div>
+    <div class="forme-couleur forme-couleur-bleue" id="forme-couleur-bleue"></div>
+    <div class="forme-couleur forme-couleur-verte" id="forme-couleur-verte"></div>
+  </div>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
 .zone-evenement {
-  max-width: 420px;
+  max-width: 460px;
   padding: 14px;
   border: 1px solid #334155;
   border-radius: 12px;
@@ -724,43 +481,227 @@ elementsBoutonActionCombat.forEach(function (elementBoutonActionCombat) {
   font-family: "JetBrains Mono", monospace;
 }
 
-.zone-evenement label {
-  display: block;
-  margin-bottom: 8px;
+.groupe-formes-couleur {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-.zone-evenement input {
-  width: 100%;
-  margin: 6px 0 10px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background: #020617;
-  color: #e2e8f0;
-  padding: 8px;
+.forme-couleur {
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.forme-couleur-rouge {
+  background: #ef4444;
+}
+
+.forme-couleur-bleue {
+  background: #3b82f6;
+}
+
+.forme-couleur-verte {
+  background: #22c55e;
+}
+
+.forme-couleur-rotation {
+  transform: rotate(12deg);
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-let elementSaisieClavier = document.getElementById("saisie-clavier");
-let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
+let elementFormeCouleurRouge = document.getElementById("forme-couleur-rouge");
+let elementFormeCouleurBleue = document.getElementById("forme-couleur-bleue");
+let elementFormeCouleurVerte = document.getElementById("forme-couleur-verte");
 
-function afficherTouchePressee(event) {
-  elementTexteToucheClavier.innerText = `Derniere touche : ${event.key}`;
-}
+/*
+  Ici, on répète 3 fois le même code.
+  C’est normal au début : on apprend d’abord le concept.
+  Plus tard, on verra comment éviter la répétition avec des boucles.
+*/
 
-// Ecoute les touches pressees dans l'input.
-elementSaisieClavier.addEventListener("keydown", afficherTouchePressee);
+elementFormeCouleurRouge.addEventListener("click", function (event) {
+  event.target.classList.add("forme-couleur-rotation");
+});
+
+elementFormeCouleurBleue.addEventListener("click", function (event) {
+  event.target.classList.add("forme-couleur-rotation");
+});
+
+elementFormeCouleurVerte.addEventListener("click", function (event) {
+  event.target.classList.add("forme-couleur-rotation");
+});
 </textarea>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
-          data-console-open="true" data-title="Compter les frappes clavier"
-          data-toolbar-text='Commande: addEventListener("keydown", callback)'
-          data-instructions="Incremente un compteur a chaque touche et detecte Enter.">
+          data-console-open="true" data-title="Agrandir l’élément cliqué"
+          data-toolbar-text='Commande : event.target.style.transform = "scale(1.1)";'
+          data-instructions="Utilise event.target pour changer transform en scale(1.1) sur la forme cliquée.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-evenement" id="conteneur-formes-couleur">
+  <h4>Formes</h4>
+  <div class="groupe-formes-couleur">
+    <div class="forme-couleur forme-couleur-rouge" id="forme-couleur-rouge"></div>
+    <div class="forme-couleur forme-couleur-bleue" id="forme-couleur-bleue"></div>
+    <div class="forme-couleur forme-couleur-verte" id="forme-couleur-verte"></div>
+  </div>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-evenement {
+  max-width: 460px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.groupe-formes-couleur {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.forme-couleur {
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.forme-couleur-rouge {
+  background: #ef4444;
+}
+
+.forme-couleur-bleue {
+  background: #3b82f6;
+}
+
+.forme-couleur-verte {
+  background: #22c55e;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementFormeCouleurRouge = document.getElementById("forme-couleur-rouge");
+let elementFormeCouleurBleue = document.getElementById("forme-couleur-bleue");
+let elementFormeCouleurVerte = document.getElementById("forme-couleur-verte");
+
+/*
+  Objectif :
+  - Au clic sur une forme, on la grossit un peu.
+
+  Indice :
+  - Tu vas écrire 3 fois la même structure :
+    elementX.addEventListener("click", function (event) { ... });
+
+  Indice important :
+  - L’élément cliqué est : event.target
+  - Pour changer un style en JS : event.target.style.transform = "...";
+*/
+
+// TODO 1 : Ajoute un addEventListener("click", function (event) { ... }) sur elementFormeCouleurRouge.
+// TODO 2 : Ajoute un addEventListener("click", function (event) { ... }) sur elementFormeCouleurBleue.
+// TODO 3 : Ajoute un addEventListener("click", function (event) { ... }) sur elementFormeCouleurVerte.
+// TODO 4 : Dans chaque fonction, mets : event.target.style.transform = "scale(1.1)";
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="zone-evenement" id="conteneur-formes-couleur">
+  <h4>Formes</h4>
+  <div class="groupe-formes-couleur">
+    <div class="forme-couleur forme-couleur-rouge" id="forme-couleur-rouge"></div>
+    <div class="forme-couleur forme-couleur-bleue" id="forme-couleur-bleue"></div>
+    <div class="forme-couleur forme-couleur-verte" id="forme-couleur-verte"></div>
+  </div>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.zone-evenement {
+  max-width: 460px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.groupe-formes-couleur {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.forme-couleur {
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.forme-couleur-rouge {
+  background: #ef4444;
+}
+
+.forme-couleur-bleue {
+  background: #3b82f6;
+}
+
+.forme-couleur-verte {
+  background: #22c55e;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementFormeCouleurRouge = document.getElementById("forme-couleur-rouge");
+let elementFormeCouleurBleue = document.getElementById("forme-couleur-bleue");
+let elementFormeCouleurVerte = document.getElementById("forme-couleur-verte");
+
+elementFormeCouleurRouge.addEventListener("click", function (event) {
+  event.target.style.transform = "scale(1.1)";
+});
+
+elementFormeCouleurBleue.addEventListener("click", function (event) {
+  event.target.style.transform = "scale(1.1)";
+});
+
+elementFormeCouleurVerte.addEventListener("click", function (event) {
+  event.target.style.transform = "scale(1.1)";
+});
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Événement clavier <code>keydown</code></h3>
+        </div>
+
+        <p>
+          On peut lire les touches tapées avec l’événement <code>keydown</code>.
+          <strong>Important :</strong> clique d’abord dans le champ texte pour qu’il soit sélectionné (focus).
+        </p>
+
+        <div class="info-box">
+          <pre><code class="language-javascript">element.addEventListener("keydown", function (event) {
+  ...
+});</code></pre>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example"
+          data-console-open="true" data-title="Afficher la touche pressée"
+          data-toolbar-text='Commande : element.addEventListener("keydown", function (event) { ... })'
+          data-instructions="Exécute puis tape dans le champ.">
           <textarea class="source-code-html" hidden>
 <div class="zone-evenement" id="conteneur-clavier">
-  <label for="saisie-clavier">Tapez une touche</label>
+  <label for="saisie-clavier">Tape une touche</label>
   <input id="saisie-clavier" type="text" />
-  <p id="texte-touche-clavier">Frappes : 0</p>
+  <p id="texte-touche-clavier">Dernière touche : ...</p>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -792,22 +733,87 @@ elementSaisieClavier.addEventListener("keydown", afficherTouchePressee);
           <textarea class="source-code-js" hidden>
 let elementSaisieClavier = document.getElementById("saisie-clavier");
 let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
-let nombreFrappes = 0;
 
-function afficherTouchePressee(event) {
-  // TODO 1: Ajoute 1 a nombreFrappes.
+// 1) On écoute l’événement keydown sur l’input.
+// 2) Quand une touche est pressée, notre fonction est appelée.
+elementSaisieClavier.addEventListener("keydown", function (event) {
+  // event.key contient la touche (ex: "a", "Enter", "Shift", etc.)
+  elementTexteToucheClavier.innerText = `Dernière touche : ${event.key}`;
+});
+</textarea>
+        </div>
 
-  // TODO 2: Si event.key est "Enter", affiche "Frappes : X (validation)".
-  // Sinon, affiche "Frappes : X".
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-console-open="true" data-title="Détecter une direction avec switch"
+          data-toolbar-text='Commande : switch (event.key) { ... }'
+          data-instructions="Affiche haut, bas, gauche ou droite selon les touches w, s, a, d.">
+          <textarea class="source-code-html" hidden>
+<div class="zone-evenement" id="conteneur-clavier">
+  <label for="saisie-clavier">Tape une touche</label>
+  <input id="saisie-clavier" type="text" />
+  <p id="texte-touche-clavier">Direction : ...</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.zone-evenement {
+  max-width: 420px;
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
 }
 
-// TODO 3: Ajoute un ecouteur keydown sur elementSaisieClavier avec afficherTouchePressee.
+.zone-evenement label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.zone-evenement input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #020617;
+  color: #e2e8f0;
+  padding: 8px;
+}
+</textarea>
+<textarea class="source-code-js" hidden>
+let elementSaisieClavier = document.getElementById("saisie-clavier");
+let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
+
+/*
+  Plan :
+  1) écouter "keydown" sur l’input
+  2) regarder event.key
+  3) afficher le bon texte
+
+  Indice :
+  - switch (event.key) {
+      case "w":
+        ...
+        break;
+      default:
+        ...
+        break;
+    }
+*/
+
+// TODO 1 : Ajoute un addEventListener("keydown", function (event) { ... }) sur elementSaisieClavier.
+// TODO 2 : Dans la fonction, fais un switch sur event.key.
+// TODO 3 : Si c’est "w", affiche "Direction : haut".
+// TODO 4 : Si c’est "s", affiche "Direction : bas".
+// TODO 5 : Si c’est "a", affiche "Direction : gauche".
+// TODO 6 : Si c’est "d", affiche "Direction : droite".
+// TODO 7 : Sinon, affiche "Direction : ...".
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="zone-evenement" id="conteneur-clavier">
-  <label for="saisie-clavier">Tapez une touche</label>
+  <label for="saisie-clavier">Tape une touche</label>
   <input id="saisie-clavier" type="text" />
-  <p id="texte-touche-clavier">Frappes : 0</p>
+  <p id="texte-touche-clavier">Direction : ...</p>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -836,22 +842,29 @@ function afficherTouchePressee(event) {
   padding: 8px;
 }
 </textarea>
-          <textarea class="solution-code-js" hidden>
+<textarea class="solution-code-js" hidden>
 let elementSaisieClavier = document.getElementById("saisie-clavier");
 let elementTexteToucheClavier = document.getElementById("texte-touche-clavier");
-let nombreFrappes = 0;
 
-function afficherTouchePressee(event) {
-  nombreFrappes += 1;
-
-  if (event.key === "Enter") {
-    elementTexteToucheClavier.innerText = `Frappes : ${nombreFrappes} (validation)`;
-  } else {
-    elementTexteToucheClavier.innerText = `Frappes : ${nombreFrappes}`;
+elementSaisieClavier.addEventListener("keydown", function (event) {
+  switch (event.key) {
+    case "w":
+      elementTexteToucheClavier.innerText = "Direction : haut";
+      break;
+    case "s":
+      elementTexteToucheClavier.innerText = "Direction : bas";
+      break;
+    case "a":
+      elementTexteToucheClavier.innerText = "Direction : gauche";
+      break;
+    case "d":
+      elementTexteToucheClavier.innerText = "Direction : droite";
+      break;
+    default:
+      elementTexteToucheClavier.innerText = "Direction : ...";
+      break;
   }
-}
-
-elementSaisieClavier.addEventListener("keydown", afficherTouchePressee);
+});
 </textarea>
         </div>
       </section>

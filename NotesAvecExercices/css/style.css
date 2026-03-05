@@ -356,3 +356,50 @@ body.lightbox-open {
         max-height: 72vh;
     }
 }
+
+/* =========================================
+   7. VISUEL TABLEAUX PARALLELES
+   ========================================= */
+.parallel-table-visual {
+    margin-top: 16px;
+    overflow-x: auto;
+}
+
+.parallel-table {
+    width: 100%;
+    min-width: 620px;
+    border-collapse: collapse;
+    font-family: "JetBrains Mono", monospace;
+}
+
+.parallel-table th,
+.parallel-table td {
+    border: 1px solid #334155;
+    padding: 9px 10px;
+    text-align: left;
+}
+
+.parallel-table thead th {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+.parallel-table tbody tr {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.parallel-table tbody tr.row-highlight {
+    background: #1d4ed8;
+    color: #ffffff;
+}
+
+.parallel-table tbody tr.row-highlight td {
+    border-color: #93c5fd;
+}
+
+.parallel-note {
+    margin-top: 8px;
+    color: #94a3b8;
+    font-size: 0.92rem;
+}

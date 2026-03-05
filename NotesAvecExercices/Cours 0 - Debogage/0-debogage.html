@@ -135,10 +135,17 @@ console.log("Prêt ?");
                     <p>En JS, <code>Score</code> et <code>score</code> sont deux personnes différentes. C'est la cause n°1 des bugs débutants.</p>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Cas Pratique : L'inconnu">
+                <div class="info-box tip">
+                    <strong>Important :</strong> Dans cet exercice, le code s'exécute en mode strict. Une variable
+                    mal écrite comme <code>scrore</code> ou <code>herovie</code> déclenche donc bien un vrai
+                    <code>ReferenceError</code>.
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Cas Pratique : L'inconnu"
+                    data-js-strict="true">
                     <div class="console-mock">
                         <span class="error-msg">❌ Uncaught ReferenceError: scrore is not defined</span>
-                        <span class="line-ref">at script.js:4</span>
+                        <span class="line-ref">at file.js:5:9</span>
                     </div>
                     <textarea class="source-code" hidden>
 let score = 100;
@@ -214,9 +221,12 @@ if (pieces === 0) {
                 <div class="section-header">
                     <h3>Défi Final : Le code cassé</h3>
                 </div>
-                <p>Ce code contient <strong>3 erreurs</strong>. Essayez de les repérer sans regarder la solution.</p>
+                <p>Ce code contient <strong>3 erreurs</strong>. Au premier lancement, la console devrait d'abord vous
+                    envoyer à la ligne 8 pour la parenthèse manquante. Après cette correction, la ligne 5
+                    (<code>herovie</code>) puis la dernière ligne deviendront les prochains bugs à corriger.</p>
 
-                <div class="playground-container" data-type="exercise" data-title="Mission de réparation">
+                <div class="playground-container" data-type="exercise" data-title="Mission de réparation"
+                    data-js-strict="true">
                     <textarea class="source-code" hidden>
 let heroVie = 50;
 let potion = 20;

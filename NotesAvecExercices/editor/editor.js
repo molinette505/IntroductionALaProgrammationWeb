@@ -205,6 +205,8 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     const isAutoHeight = autoHeightFlag ?? fitCodeFlag ?? hasAutoHeightAttribute;
     const consoleOpenFlag = parseTruthyFlag(container.dataset.consoleOpen);
     const isConsoleInitialOpen = consoleOpenFlag ?? container.hasAttribute('data-console-open');
+    const jsStrictFlag = parseTruthyFlag(container.dataset.jsStrict || container.dataset.strictJs);
+    const useStrictJs = jsStrictFlag ?? false;
     container.setAttribute('data-auto-height-enabled', isAutoHeight ? 'true' : 'false');
 
     const requestedStartEditor = String(container.dataset.startEditor || container.dataset.editorStart || 'js').toLowerCase();
@@ -935,6 +937,8 @@ ${html}
         const SOURCE_FILE = 'file.js';
         const STUDENT_SOURCE_FILE = 'StudentCode.js';
         const WRAPPER_OFFSET = 2;
+        const STRICT_WRAPPER_OFFSET = 3;
+        const runtimeWrapperOffset = useStrictJs ? STRICT_WRAPPER_OFFSET : WRAPPER_OFFSET;
         const DEFAULT_LOCATION = `${SOURCE_FILE}:1:1`;
 
         const normalizeStudentCode = (value) => String(value)
@@ -1120,7 +1124,7 @@ ${html}
                 if (cleanedFnName && cleanedFnName.includes('eval')) cleanedFnName = '<global>';
                 if (cleanedFnName && cleanedFnName.includes('Object.log')) cleanedFnName = null;
 
-                const frame = toFrame(lineNum - WRAPPER_OFFSET, colNum, cleanedFnName);
+                const frame = toFrame(lineNum - runtimeWrapperOffset, colNum, cleanedFnName);
                 const key = `${frame.location}|${frame.fnName || ''}`;
                 if (seen.has(key)) return;
 
@@ -1286,11 +1290,11 @@ ${html}
 
             const stack = String(error.stack || '');
             const anonMatch = stack.match(/<anonymous>:(\d+):(\d+)/);
-            if (anonMatch) return toFrame(Number(anonMatch[1]) - WRAPPER_OFFSET, Number(anonMatch[2]));
+            if (anonMatch) return toFrame(Number(anonMatch[1]) - runtimeWrapperOffset, Number(anonMatch[2]));
 
             const lineNum = Number(error.lineNumber || error.line || 0);
             const colNum = Number(error.columnNumber || error.column || error.col || 1);
-            if (lineNum > 0) return toFrame(lineNum - WRAPPER_OFFSET, colNum);
+            if (lineNum > 0) return toFrame(lineNum - runtimeWrapperOffset, colNum);
 
             return null;
         };
@@ -1496,15 +1500,28 @@ ${html}
             return;
         }
 
-        const codeWithSource = `${code}\n//# sourceURL=${STUDENT_SOURCE_FILE}`;
+        const codeWithSource = useStrictJs
+            ? `"use strict";\n${code}\n//# sourceURL=${STUDENT_SOURCE_FILE}`
+            : `${code}\n//# sourceURL=${STUDENT_SOURCE_FILE}`;
         try {
-            // Execute student code as a real script in the frame global scope.
-            // This ensures inline handlers like onclick="maFonction()" can resolve
-            // top-level function declarations.
-            const studentScript = frameDocument.createElement('script');
-            studentScript.textContent = codeWithSource;
-            frameDocument.body.appendChild(studentScript);
-            studentScript.remove();
+            if (useStrictJs) {
+                // Some debugging exercises need strict mode so typos on undeclared
+                // variables throw a real ReferenceError.
+                const strictRunner = frameWindow.Function(codeWithSource);
+                strictRunner.call(frameWindow);
+            } else {
+                // Pre-parse first so syntax errors surface as JS errors instead of
+                // DOM errors mentioning appendChild on the injected <script>.
+                frameWindow.Function(codeWithSource);
+
+                // Execute student code as a real script in the frame global scope.
+                // This ensures inline handlers like onclick="maFonction()" can resolve
+                // top-level function declarations.
+                const studentScript = frameDocument.createElement('script');
+                studentScript.textContent = codeWithSource;
+                frameDocument.body.appendChild(studentScript);
+                studentScript.remove();
+            }
         } catch (error) {
             print('error', [error], { uncaught: true, error });
         }

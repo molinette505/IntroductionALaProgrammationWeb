@@ -22,13 +22,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../editor/editor.css">
-    <link rel="stylesheet" href="../quiz/quiz.css">
     <style>
         #intro,
         #output {
@@ -74,261 +69,165 @@
                         Prenez l'habitude de toujours le mettre.
                     </p>
                 </div>
+                <div class="info-box info">
+                    <strong>Rappel utile :</strong> Les bases de <code>console.log()</code> sont maintenant dans
+                    <a href="../Cours 0 - Debogage/0-console-log.html">la page dédiée Console.log()</a>.
+                </div>
             </section>
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Afficher des données</h3>
-                </div>
-                <p>Le développeur utilise la console pour afficher et vérifier son code en utilisant
-                    <code>console.log()</code>.
-                </p>
-                <div class="info-box info">
-                    <h3><i data-lucide="monitor"></i> Où voir le résultat ?</h3>
-
-                    <p><strong>1. Dans ces notes de cours :</strong><br>
-                        Pour faciliter l'apprentissage, le résultat s'affiche directement dans la <strong>console du
-                            simulateur</strong></p>
-
-                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 10px 0;">
-
-                    <p><strong>2. Dans la « vraie vie » (Navigateur) :</strong><br>
-                        Normalement, le résultat est caché. Pour le voir, le développeur doit ouvrir les outils de
-                        débogage :</p>
-                    <ul>
-                        <li><strong>Clavier :</strong> Appuyez sur la touche <code>F12</code>.</li>
-                        <li><strong>Souris :</strong> Faites un Clic-droit > <strong>Inspecter</strong>.</li>
-                    </ul>
-                    <p style="margin-top: 0.5rem;">
-                        Cherchez ensuite l'onglet <strong>Console</strong> (<code
-                            style="background-color: #333; color: white; padding: 2px 5px; border-radius: 3px;">&gt;_</code>).
-                    </p>
+                    <h3>Les Variables</h3>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Afficher un message"
-                    data-toolbar-text="Utiliser console.log(message) pour afficher un message."
-                    data-instructions="N'oubliez pas le point-virgule ; à la fin de chaque ligne de code!">
+                <p>Une variable est un espace réservé dans la mémoire de l'ordinateur.</p>
+                <p>Imaginez une <strong>boîte</strong> avec une étiquette.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="box"></i></div>
+                        <span class="concept-tag">Étape 1</span>
+                        <h4>Créer</h4>
+                        <code>let score;</code>
+                        <ul style="text-align: left;">
+                            <li>L'ordinateur <strong>réserve un bloc de mémoire</strong></li>
+                            <li>Il lui donne le nom "score".</li>
+                            <li>À ce stade, la boîte est vide, sa valeur est <code>undefined</code>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="download"></i></div>
+                        <span class="concept-tag">Étape 2</span>
+                        <h4>Écriture</h4>
+                        <code>score = 10;</code>
+                        <ul style="text-align: left;">
+                            <li>On place la valeur <code>10</code> dans la boîte.</li>
+                            <li>Si on change la valeur plus tard,
+                                <strong>l'ancienne est écrasée</strong> et perdue à jamais.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon"><i data-lucide="eye"></i></div>
+                        <span class="concept-tag">Étape 3</span>
+                        <h4>Utilisation</h4>
+                        <code>console.log(score);</code>
+                        <ul style="text-align: left;">
+                            <li>L'ordinateur va lire le contenu de la boîte</li>
+                            <li>Il va ensuite remplacer <code>score</code> dans le code par sa valeur <code>10</code>
+                            </li>
+                            <li>Pour l'ordinateur <code>console.log(score);</code> devient <code>console.log(10);</code>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Création, écriture et utilisation</h3>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Création, écriture et utilisation"
+                    data-toolbar-text="let nomVariable crée la variable, nomVariable = valeur écrit à l'intérieur et nomVariable lit son contenu"
+                    data-auto-height="true">
                     <textarea class="source-code" hidden>
-// 1. Pour afficher du texte, on met le texte entre guillemets.
-console.log("Ceci affiche du texte.");
-
-// 2. Pour afficher un nombre, on écrit seulement le nombre.
-console.log(150);
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="example"
-                    data-title="Afficher un message composé de plusieurs textes et nombre"
-                    data-toolbar-text='Utiliser console.log("texte", nombre, "texte", ...) en séparant chaque élément par des virgules'>
-                    <textarea class="source-code" hidden>
-// 1. Affiche "Mon nom est Victor et j'ai" suivi du nombre 15 et du texte "ans!"
-console.log("Mon nom est Victor et j'ai", 15, "ans!");
-
-// 2. Affiche "État du joueur :", suivi du texte "En vie", suivi du texte "| HP :", suivi finalement du nombre 100
-console.log("État du joueur :", "En vie", "| HP :", 100);
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise"
-                    data-title="Console.log() pour afficher un message"
-                    data-toolbar-text="Utiliser console.log(message) pour afficher un seul message"
-                    data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de chaque ligne !">
-                    <textarea class="source-code" hidden>
-// TODO: Affiche "Nouvelle quête activée: Trouver l'épée"
-// N'oublie pas de mettre ton message entre guillemets
-
-</textarea>
-                    <textarea class="solution-code" hidden>
-console.log("Quête activée: Trouver l'épée");
-</textarea>
-                </div>
-
-            <div class="playground-container" data-type="exercise" data-title="Console.log() combiner plusieurs messages"
-                data-toolbar-text='Utiliser console.log("texte", nombre, "texte") pour afficher un message comprenant plusieurs textes et nombres'
-                data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de chaque ligne !">
-                <textarea class="source-code" hidden>
-// TODO: Affiche "Récompense:" suivi du nombre 500 et du mot "écus"
-// Résultat voulu: Récompense: 500 écus
-
-</textarea>
-                <textarea class="solution-code" hidden>
-console.log("Quête activée: Trouver l'épée");
-console.log("Récompense:", 500, "écus");
-</textarea>
-            </div>
-
-            <div class="section-header">
-                <h3>Les Variables</h3>
-            </div>
-
-            <p>Une variable est un espace réservé dans la mémoire de l'ordinateur.</p>
-            <p>Imaginez une <strong>boîte</strong> avec une étiquette.</p>
-
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-icon"><i data-lucide="box"></i></div>
-                    <span class="concept-tag">Étape 1</span>
-                    <h4>Créer</h4>
-                    <code>let score;</code>
-                    <ul style="text-align: left;">
-                        <li>L'ordinateur <strong>réserve un bloc de mémoire</strong></li>
-                        <li>Il lui donne le nom "score".</li>
-                        <li>À ce stade, la boîte est vide, sa valeur est <code>undefined</code>.</li>
-                    </ul>
-                </div>
-
-                <div class="step-card">
-                    <div class="step-icon"><i data-lucide="download"></i></div>
-                    <span class="concept-tag">Étape 2</span>
-                    <h4>Écriture</h4>
-                    <code>score = 10;</code>
-                    <ul style="text-align: left;">
-                        <li>On place la valeur <code>10</code> dans la boîte.</li>
-                        <li>Si on change la valeur plus tard,
-                            <strong>l'ancienne est écrasée</strong> et perdue à jamais.
-                        </li>
-                        </p>
-                </div>
-
-                <div class="step-card">
-                    <div class="step-icon"><i data-lucide="eye"></i></div>
-                    <span class="concept-tag">Étape 3</span>
-                    <h4>Utilisation</h4>
-                    <code>console.log(score);</code>
-                    <ul style="text-align: left;">
-                        <li>L'ordinateur va lire le contenu de la boîte</li>
-                        <li>Il va ensuite remplacer <code>score</code> dans le code par sa valeur <code>10</code>
-                        </li>
-                        <li>Pour l'ordinateur <code>console.log(score);</code> devient <code>console.log(10);</code>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="playground-container" data-type="example" data-title="Création, écriture et utilisation"
-                data-toolbar-text="let nomVariable crée la variable, nomVariable = valeur écrit à l'intérieur et nomVariable lit son contenu"
-                data-auto-height="true">
-                <textarea class="source-code" hidden>
 let vie; // Création de la variable vie avec le mot-clé let. Elle ne contient rien encore (undefined)
 
 vie = 100; // On met le nombre 100 à l'intérieur avec le symbole = 
 
 console.log(vie); // Utiliser ce que la variable contient et l'afficher avec console.log();
 </textarea>
-            </div>
+                </div>
 
-                        <div class="playground-container" data-type="example" data-title="Création, écriture en une seule ligne"
-                data-toolbar-text="let nomVariable = valeur crée la variable et écrit à l'intérieur en une seule instruction"
-                data-auto-height="true">
-                <textarea class="source-code" hidden>
-let classePersonnage = "Mage"; // Crée la variable et met la string "Mage" à l'intérieur. (let et =)
-
-console.log("Classe :", classePersonnage); // Utiliser la variable et l'afficher avec console.log();
-</textarea>
-            </div>
-
-            <div class="playground-container" data-type="example" data-title="Écraser la valeur dans une variable"
-            data-toolbar-text="On peut écraser la valeur dans une variable en utilisant nomVariable = valeur; une deuxième fois"
-            data-instructions="⚠️ Attention! On utilise seulement le mot-clé let lors de la création!"
-            data-auto-height="true"
-            >
-                <textarea class="source-code" hidden>
-let armePrincipale = "Arc";
-console.log("Arme équipée :", armePrincipale);
-
-armePrincipale = "Épée de feu"; // On écrase l'ancienne valeur (⚠️ on utilise pas le mot-clé let cette fois!)
-console.log("Nouvelle arme :", armePrincipale);
-</textarea>
-            </div>
-
-            <div class="playground-container" data-type="example" data-title="Utiliser le contenu de plusieurs variables ensemble"
-            data-toolbar-text="On peut utiliser le contenu de plusieurs variables ensemble et le mettre dans une nouvelle variable"
-            data-auto-height="true">
-                <textarea class="source-code" hidden>
-let piecesOrEnBanque = 40;
-let piecesOrRecompense = 15;
-
-let totalOr = piecesOrEnBanque + piecesOrRecompense; 
-// let totalOr = piecesOrEnBanque + piecesOrRecompense;
-// let totalOr = 40 + 15;
-// let totalOr = 55;
-
-console.log("Total d'or :", totalOr);
-</textarea>
-            </div>
-
-            <div class="playground-container" data-type="exercise"
-                data-title="Création, écriture et utilisation">
-                <textarea class="source-code" hidden>
+                <div class="playground-container" data-type="exercise"
+                    data-title="Création, écriture et utilisation">
+                    <textarea class="source-code" hidden>
 // 1. Crée une variable 'mana' avec let
 
 // 2. Mets la valeur 50 dans la variable 'mana' en utilisant le symbole =
 
 // 3. Affiche la valeur de 'mana' avec console.log()
 </textarea>
-                <textarea class="solution-code" hidden>
+                    <textarea class="solution-code" hidden>
 let mana;
 mana = 50;
 console.log(mana);
 </textarea>
-            </div>
+                </div>
+            </section>
 
-                        <div class="playground-container" data-type="exercise"
-                data-title="Création et écriture en une seule instruction"
-                data-instructions='Rappel: Le texte doit être entre guillemets! Ex. "Mon texte"'>
-                <textarea class="source-code" hidden>
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Création et écriture en une seule instruction</h3>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Création, écriture en une seule ligne"
+                    data-toolbar-text="let nomVariable = valeur crée la variable et écrit à l'intérieur en une seule instruction"
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+let classePersonnage = "Mage"; // Crée la variable et met la string "Mage" à l'intérieur. (let et =)
+
+console.log("Classe :", classePersonnage); // Utilise la variable et l'afficher avec console.log();
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise"
+                    data-title="Création et écriture en une seule instruction"
+                    data-instructions='Rappel: Le texte doit être entre guillemets! Ex. "Mon texte"'>
+                    <textarea class="source-code" hidden>
 // 1. Créer une variable 'nomObjet' avec let et mettre directement "Potion de vie" à l'intérieur avec = 
 
 // 2. Afficher la valeur de 'nomObjet' avec console.log().
 
 </textarea>
-                <textarea class="solution-code" hidden>
+                    <textarea class="solution-code" hidden>
 let nomObjet = "Potion de vie";
 console.log(nomObjet);
 </textarea>
-            </div>
+                </div>
+            </section>
 
-            <div class="playground-container" data-type="exercise"
-                data-title="Écraser la valeur dans une variable"
-                data-instructions="⚠️ Attention: On met seulement le mot-clé let lorsqu'on crée la variable, ensuite, on ne l'utilise plus">
-                <textarea class="source-code" hidden>
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Écraser la valeur dans une variable</h3>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Écraser la valeur dans une variable"
+                    data-toolbar-text="On peut écraser la valeur dans une variable en utilisant nomVariable = valeur; une deuxième fois"
+                    data-instructions="⚠️ Attention! On utilise seulement le mot-clé let lors de la création!"
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+let armePrincipale = "Arc";
+console.log("Arme équipée :", armePrincipale);
+
+armePrincipale = "Épée de feu"; // On écrase l'ancienne valeur
+console.log("Nouvelle arme :", armePrincipale);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise"
+                    data-title="Écraser la valeur dans une variable"
+                    data-instructions="⚠️ Attention: On met seulement le mot-clé let lorsqu'on crée la variable, ensuite, on ne l'utilise plus">
+                    <textarea class="source-code" hidden>
 let niveauPersonnage = 60;
 
 // 1. Affiche la valeur actuelle de 'niveauPersonnage' avec console.log
 
-// 2. Change la valeur de la variable 'niveauPersonnage' pour 75. (⚠️ Ne pas utiliser le mot-clé let!)
+// 2. Change la valeur de la variable 'niveauPersonnage' pour 75.
 
 // 3. Affiche la nouvelle valeur de 'niveauPersonnage'.
 </textarea>
-                <textarea class="solution-code" hidden>
+                    <textarea class="solution-code" hidden>
 let niveauPersonnage = 60;
 console.log(niveauPersonnage);
 
 niveauPersonnage = 75;
 console.log(niveauPersonnage);
 </textarea>
-            </div>
-
-            <div class="playground-container" data-type="exercise"
-                data-title="Utiliser une autre variable"
-                data-toolbar-text='Utiliser console.log("texte", nomVariable1, "texte", nomVariable2, "texte")'>
-                <textarea class="source-code" hidden>
-let ageVictor = 3;
-
-// 1. Béatrice a le même âge que Victor, mettre l'âge de Victor dans sa variable. 
-// (indice: variable1 = variable2)
-let ageBeatrice; 
-
-// 2. Affiche "Victor a _ ans et Béatrice a aussi _ ans".
-</textarea>
-                <textarea class="solution-code" hidden>
-let ageVictor = 3;
-let ageBeatrice = ageVictor;
-
-console.log("Victor a", ageVictor, "ans et Béatrice a aussi", ageBeatrice, "ans");
-</textarea>
-            </div>
-
+                </div>
             </section>
 
             <section class="section-spy">
@@ -339,7 +238,7 @@ console.log("Victor a", ageVictor, "ans et Béatrice a aussi", ageBeatrice, "ans
 
                 <ul class="card-list">
                     <li><strong>String (Texte) :</strong> Toujours entre guillemets <code>"Bonjour!"</code>.</li>
-                    <li><strong>Number (Nombre) :</strong> Entier ou à virgule <code>3.1416</code></li>
+                    <li><strong>Number (Nombre) :</strong> <code>15</code> ou <code>3.1416</code></li>
                     <li><strong>Boolean (Logique) :</strong> Soit <code>true</code> ou <code>false</code></li>
                 </ul>
             </section>
@@ -370,129 +269,11 @@ console.log("Victor a", ageVictor, "ans et Béatrice a aussi", ageBeatrice, "ans
                 </div>
             </section>
 
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Quiz de révision</h3>
-                </div>
-
-                <div class="quiz-template" data-type="multi" data-title="Règles de nommage">
-                    <p class="quiz-prompt">Quels noms de variables sont valides ?</p>
-                    <ul class="quiz-options">
-                        <li data-value="a">monScore</li>
-                        <li data-value="b">MonScore</li>
-                        <li data-value="c">2joueurs</li>
-                        <li data-value="d">pointsDeVie</li>
-                        <li data-value="e">points_de_vie</li>
-                        <li data-value="f">joueur2</li>
-                    </ul>
-                    <script type="application/json" class="quiz-config">{ "answers": ["a", "d", "f"] }</script>
-                    <textarea class="quiz-solution" hidden>
-En camelCase, le premier mot est en minuscule.
-Un nom ne peut pas commencer par un chiffre.
-                    </textarea>
-                </div>
-
-                <div class="quiz-template" data-type="text" data-title="Les type de données">
-                    <p class="quiz-prompt">
-                        Quel est le type de la variable suivante :
-                        <code>let estActif = false;</code> ?
-                    </p>
-                    <script type="application/json" class="quiz-config">
-                        {
-                            "answers": ["boolean", "booléen", "bool"],
-                            "caseSensitive": false,
-                            "placeholder": "Votre réponse..."
-                        }
-                    </script>
-                    <textarea class="quiz-solution" hidden>
-C'est un booleen (boolean). Il ne peut prendre que deux valeurs : true ou false.
-                    </textarea>
-                </div>
-
-                <div class="quiz-template" data-type="single" data-title="Attention au détail">
-                    <p class="quiz-prompt">
-                        Observez bien ce code :<br>
-                        <code>let x = 10;</code><br>
-                        <code>x + 5;</code><br>
-                        Quelle est la valeur de <code>x</code> à la fin ?
-                    </p>
-                    <ul class="quiz-options">
-                        <li data-value="10">10</li>
-                        <li data-value="15">15</li>
-                    </ul>
-                    <script type="application/json" class="quiz-config">{ "answer": "10" }</script>
-                    <textarea class="quiz-solution" hidden>
-La reponse est 10. 
-Le calcul x + 5 n'est pas mis à l'intérieur de la variable x après le calcul.
-Il faut ecrire : x = x + 5; et non seulement x + 5;
-                    </textarea>
-                </div>
-
-                <div class="quiz-template" data-type="mixAndMatch" data-title="Cycle de vie d'une variable">
-                    <p class="quiz-prompt">Reliez chaque concept à sa définition.</p>
-                    <ul class="quiz-match-pairs">
-                        <li data-left="let maVariable;">Crée une variable (crée la boîte en mémoire) vide</li>
-                        <li data-left="maVariable = valeur;">Écrit dans la variable (met dans la valeur dans la boîte)</li>
-                        <li data-left="console.log(...);">Affiche des valeurs (nombre, texte, etc.) dans la console</li>
-                        <li data-left="let maVariable = valeur;">Crée une variable et écrit dedans</li>
-                    </ul>
-                    <textarea class="quiz-solution" hidden></textarea>
-                </div>
-
-                <div class="quiz-template" data-type="mixAndMatch" data-title="Les types de données">
-                    <p class="quiz-prompt">Reliez chaque concept à sa définition.</p>
-                    <ul class="quiz-match-pairs">
-                        <li data-left="maVariable = true;">boolean</li>
-                        <li data-left='maVariable = "65";'>string (texte)</li>
-                        <li data-left="maVariable = 65;">nombre</li>
-                        <li data-left="let maVariable;">undefined</li>
-                    </ul>
-                    <textarea class="quiz-solution" hidden></textarea>
-                </div>
-
-                <div class="quiz-template" data-type="single" data-title="Mise à jour d'une variable">
-                    <p class="quiz-prompt">
-                        Votre joueur a un <code>score</code> de 10. Quelle ligne ajoute 5 points et sauvegarde le
-                        resultat ?
-                    </p>
-                    <ul class="quiz-options">
-                        <li data-value="a">score + 5;</li>
-                        <li data-value="b">score = score + 5;</li>
-                        <li data-value="c">10 + 5 = score;</li>
-                    </ul>
-                    <script type="application/json" class="quiz-config">{ "answer": "b" }</script>
-                    <textarea class="quiz-solution" hidden>
-Le signe d'assignation = est obligatoire pour ecraser l'ancienne valeur.
-                    </textarea>
-                </div>
-
-                <div class="quiz-template" data-type="text" data-title="Deviner la sortie">
-                    <div class="quiz-prompt">
-                        Quelle sortie produit ce code ?
-                        <pre><code class="language-js">let a = 5;
-let b;
-b = a;
-a = 15;
-console.log(b);</code></pre>
-                    </div>
-                    <script type="application/json" class="quiz-config">
-                        {
-                            "answers": ["5"],
-                            "caseSensitive": false,
-                            "placeholder": "Entrez le chiffre..."
-                        }
-                    </script>
-                    <textarea class="quiz-solution" hidden>
-L'ordinateur met une copie de la valeur de a dans b (5). Même si a change, puisqu'il s'agit d'une copie, b conserve la valeur original de a (5).
-                    </textarea>
-                </div>
-            </section>
-
         </main>
     </div>
 
-    <script src="../editor/editor.js"></script>
-    <script src="../quiz/quiz.js"></script>
+    <script src="../editor/editor.js"> 
+    </script>
     <script src="../scripts/script.js"></script>
     <script>
         console.log("Ceci est un console.log!");

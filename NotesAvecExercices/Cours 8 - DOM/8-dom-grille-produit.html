@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - DOM : générer une grille de produit</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS DOM</span>
+  </header>
+
+  <div class="app-container">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>DOM - Grille produit</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section class="section-spy">
+        <h2 class="section-title">Generer une grille de produit</h2>
+      </section>
+
+      <section class="section-spy">
+        <p>Exercice: cree les cartes produits avec <code>createElement</code>, <code>innerHTML</code>, un
+          <code>onclick</code> et un message d'achat dynamique.
+        </p>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise"
+          data-title="Generer une grille de produit"
+          data-toolbar-text='Objectif: boucle + createElement + innerHTML + onclick + template literals'>
+          <textarea class="source-code-html" hidden>
+<div id="grille-produit"></div>
+<div id="message-panier">Clique sur un produit pour l'ajouter au panier.</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.carte-produit-simple:hover {
+  transform: translateY(-2px);
+}
+
+.image-produit {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #cbd5e1;
+}
+
+.titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+.prix-produit {
+  margin: 0;
+  color: #475569;
+}
+
+#grille-produit {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+}
+
+#message-panier {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let titreProduits = ["Casque audio sans fil", "Clavier mecanique", "Souris ergonomique"];
+let prixProduits = ["89.99 $", "129.99 $", "59.99 $"];
+let imageProduits = [
+  "https://picsum.photos/seed/casque-audio/320/200",
+  "https://picsum.photos/seed/clavier-gamer/320/200",
+  "https://picsum.photos/seed/souris-ergo/320/200"
+];
+
+for (let i = 0; i < titreProduits.length; i++) {
+  let elementGrilleProduit = document.getElementById("grille-produit");
+  let elementCarteProduit = document.createElement("div");
+  elementCarteProduit.classList.add("carte-produit-simple");
+
+  // TODO 1: Cree des variables intermediaires avec le titre, le prix et l'image du produit courant.
+
+
+  // TODO 2: Construis le HTML interne de la carte avec innerHTML + backticks + ${}.
+  // Indice: ajoute une image, un h3.titre-produit et un p.prix-produit.
+
+
+  // TODO 3: Ajoute un onclick qui appelle ajouterProduit(i).
+
+
+  elementGrilleProduit.appendChild(elementCarteProduit);
+}
+
+function ajouterProduit(indexProduit) {
+  // TODO 4: Recupere le titre du produit clique avec titreProduits[indexProduit].
+  // Puis construis un message du type: "X a ete ajoute au panier." et passe-le a afficherMessageAchat.
+}
+
+function afficherMessageAchat(message) {
+  // TODO 5: Cible #message-panier et remplace son contenu avec le message recu.
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div id="grille-produit"></div>
+<div id="message-panier">Clique sur un produit pour l'ajouter au panier.</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.carte-produit-simple:hover {
+  transform: translateY(-2px);
+}
+
+.image-produit {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #cbd5e1;
+}
+
+.titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+.prix-produit {
+  margin: 0;
+  color: #475569;
+}
+
+#grille-produit {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+}
+
+#message-panier {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: "JetBrains Mono", monospace;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let titreProduits = ["Casque audio sans fil", "Clavier mecanique", "Souris ergonomique"];
+let prixProduits = ["89.99 $", "129.99 $", "59.99 $"];
+let imageProduits = [
+  "https://picsum.photos/seed/casque-audio/320/200",
+  "https://picsum.photos/seed/clavier-gamer/320/200",
+  "https://picsum.photos/seed/souris-ergo/320/200"
+];
+
+for (let i = 0; i < titreProduits.length; i++) {
+  let elementGrilleProduit = document.getElementById("grille-produit");
+  let elementCarteProduit = document.createElement("div");
+  elementCarteProduit.classList.add("carte-produit-simple");
+
+  let titreProduit = titreProduits[i];
+  let prixProduit = prixProduits[i];
+  let imageProduit = imageProduits[i];
+
+  elementCarteProduit.innerHTML = `
+    <img class="image-produit" src="${imageProduit}" alt="${titreProduit}">
+    <h3 class="titre-produit">${titreProduit}</h3>
+    <p class="prix-produit">${prixProduit}</p>
+  `;
+
+  elementCarteProduit.onclick = function () {
+    ajouterProduit(i);
+  };
+
+  elementGrilleProduit.appendChild(elementCarteProduit);
+}
+
+function ajouterProduit(indexProduit) {
+  let titreProduit = titreProduits[indexProduit];
+  let message = `${titreProduit} a ete ajoute au panier.`;
+  afficherMessageAchat(message);
+}
+
+function afficherMessageAchat(message) {
+  let elementMessagePanier = document.getElementById("message-panier");
+  elementMessagePanier.innerHTML = `${message}`;
+}
+</textarea>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

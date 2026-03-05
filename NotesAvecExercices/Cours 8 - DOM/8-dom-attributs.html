@@ -65,14 +65,16 @@
         <div class="section-header">
           <h3>Modifier les attributs</h3>
         </div>
-        <p>Un attribut décrit une propriété d'un élément HTML (<code>src</code>, <code>onclick</code>, <code>href</code>, etc.).</p>
-        <ul>
-          <li><code>setAttribute(nom, valeur)</code> modifie un attribut.</li>
-        </ul>
+        <code>setAttribute(nomAttribut, valeurAttribut)</code> modifie un attribut HTML.</li>
 
-        <h4>Ex. Mettre à jour <code>src</code> d'une image</h4>
         <div class="info-box">
-          <pre><code class="language-javascript">element.setAttribute("src", "url-image")</code></pre>
+          <h4>Mettre à jour <code>src</code> d'une image</h4>
+          <pre><code class="language-javascript">element.setAttribute("src", "nouveau-url-image")</code></pre>
+        </div>
+
+        <div class="info-box">
+          <h4>Mettre à jour <code>href</code> d'un lien</h4>
+          <pre><code class="language-javascript">element.setAttribute("href", "nouveau-url-lien")</code></pre>
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
@@ -119,13 +121,13 @@ elementImagePersonnage.setAttribute("src", "https://picsum.photos/id/1025/220/90
         </div>
 
         <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
-          data-title="Mettre à jour le src d'une image"
-          data-toolbar-text='Commande: element.setAttribute("src", "url-image")'
-          data-instructions="L'image est déjà ciblée. Ajoute seulement le setAttribute sur src.">
+          data-title="Mettre à jour le href d'un lien"
+          data-toolbar-text='Commande: element.setAttribute("href", "url-lien")'
+          data-instructions="Ne pas oublier d'appuyer sur le bouton exécuter.">
           <textarea class="source-code-html" hidden>
 <div class="alerte-liste">
-  <h4>Image de personnage</h4>
-  <img id="image-personnage-exercice" src="https://picsum.photos/id/1015/220/90" alt="Image avant">
+  <h4>Lien de personnage</h4>
+  <a id="lien-personnage-exercice" href="https://fr.wikipedia.org/wiki/Personnage_de_fiction" rel="noopener noreferrer">Ouvrir le profil</a>
 </div>
 </textarea>
           <textarea class="source-code-css" hidden>
@@ -145,23 +147,22 @@ elementImagePersonnage.setAttribute("src", "https://picsum.photos/id/1025/220/90
   color: #0f172a;
 }
 
-.alerte-liste img {
-  display: block;
-  width: 220px;
-  height: 90px;
-  margin: 10px 0;
-  border-radius: 8px;
+.alerte-liste a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #2563eb;
+  text-decoration: underline;
 }
 </textarea>
           <textarea class="source-code-js" hidden>
-let elementImagePersonnage = document.getElementById("image-personnage-exercice");
+let elementLienPersonnage = document.getElementById("lien-personnage-exercice");
 
-// TODO 1: Mets le src de elementImagePersonnage à "https://picsum.photos/id/1003/220/90".
+// TODO 1: Mets le href de elementLienPersonnage à "https://fr.wikipedia.org/wiki/Robin_des_Bois".
 </textarea>
           <textarea class="solution-code-html" hidden>
 <div class="alerte-liste">
-  <h4>Image de personnage</h4>
-  <img id="image-personnage-exercice" src="https://picsum.photos/id/1015/220/90" alt="Image avant">
+  <h4>Lien de personnage</h4>
+  <a id="lien-personnage-exercice" href="https://fr.wikipedia.org/wiki/Personnage_de_fiction" rel="noopener noreferrer">Ouvrir le profil</a>
 </div>
 </textarea>
           <textarea class="solution-code-css" hidden>
@@ -181,17 +182,16 @@ let elementImagePersonnage = document.getElementById("image-personnage-exercice"
   color: #0f172a;
 }
 
-.alerte-liste img {
-  display: block;
-  width: 220px;
-  height: 90px;
-  margin: 10px 0;
-  border-radius: 8px;
+.alerte-liste a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #2563eb;
+  text-decoration: underline;
 }
 </textarea>
-          <textarea class="solution-code-js" hidden>
-let elementImagePersonnage = document.getElementById("image-personnage-exercice");
-elementImagePersonnage.setAttribute("src", "https://picsum.photos/id/1003/220/90");
+<textarea class="solution-code-js" hidden>
+let elementLienPersonnage = document.getElementById("lien-personnage-exercice");
+elementLienPersonnage.setAttribute("href", "https://fr.wikipedia.org/wiki/Robin_des_Bois");
 </textarea>
         </div>
       </section>

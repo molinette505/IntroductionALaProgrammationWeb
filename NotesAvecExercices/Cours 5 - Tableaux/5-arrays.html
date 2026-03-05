@@ -52,12 +52,12 @@
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Qu'est-ce qu'un Array ?</h3>
+                    <h3>Qu'est-ce qu'un tableau ?</h3>
                 </div>
 
                 <p>
                     Un <strong>array</strong> (tableau) est une <strong>liste ordonnée</strong> de valeurs.
-                    On l’utilise quand on veut stocker <strong>plusieurs éléments</strong> dans une seule variable.
+                    On l’utilise quand on veut stocker <strong>plusieurs éléments</strong> liés dans une seule variable.
                 </p>
 
                 <div class="info-box info">
@@ -65,55 +65,97 @@
                     <ul>
                         <li>Une liste de noms d’élèves</li>
                         <li>Un inventaire d’objets dans un jeu</li>
-                        <li>Une playlist</li>
+                        <li>Une liste de lecture</li>
                     </ul>
                 </div>
 
-                
-
                 <div class="info-box info">
-                    <h4><i data-lucide="hash"></i> Le concept d'Index</h4>
+                    <h4><i data-lucide="hash"></i> Le concept d'index</h4>
+                     <p>
+                        Chaque élément est identifié par sa position dans le tableau, ce que l'on appelle sont index.
+                    </p>
                     <p>
                         En programmation, on commence toujours à compter à partir de <strong>0</strong>.<br>
                         Donc le <strong>1er élément</strong> est à l’index <code>0</code>.
                     </p>
                 </div>
+
+                                    <table class="parallel-table">
+                        <thead>
+                            <tr>
+                                <th>index</th>
+                                <th>let scores = []</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>[0]</code></td>
+                                <td>250</td>
+                            </tr>
+                            <tr>
+                                <td><code>[1]</code></td>
+                                <td>200</td>
+                            </tr>
+                            <tr>
+                                <td><code>[2]</code></td>
+                                <td>145</td>
+                            </tr>
+                            <tr>
+                                <td><code>[3]</code></td>
+                                <td>110</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
             </section>
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>La Création</h3>
+                    <h3>Créer un tableau</h3>
                 </div>
 
                 <p>Un tableau se crée avec des crochets <code>[]</code>.</p>
-                <p>On peut mettre de tous les types (nombres, chaînes, booléens).</p>
-                <p>On peut aussi mélanger les types, bien que ce soit rare en pratique.</p>
+                <p>On le met générallement dans une variable.</p>
 
                 <div class="grid-2">
                     <div class="info-box info">
-                        <h4>1. Tableau Vide <code>[]</code></h4>
-                        <pre><code class="language-javascript">let panier = [];</code></pre>
+                        <h4>1. Créer un tableau vide <code>[]</code></h4>
+                        <pre><code class="language-javascript">let filmsFavoris = [];</code></pre>
                     </div>
 
                     <div class="info-box success">
-                        <h4>2. Tableau Rempli</h4>
-                        <pre><code class="language-javascript">let notes = [15, 12, 18];</code></pre>
+                        <h4>2. Créer un tableau déjà rempli</h4>
+                        <pre><code class="language-javascript">let notesEtudiants = [15, 12, 18];</code></pre>
                     </div>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Créer deux tableaux">
+                <div class="playground-container" data-type="example" data-title="Créer un tableau vide"
+                    data-auto-height="true"
+                    data-toolbar-text="Crée un tableau vide, puis ajoute des éléments avec push()">
 <textarea class="source-code" hidden>
-let scores = [12, 18, 9];
 let inventaire = [];
 
-console.log(scores);
+inventaire.push("Épée");
+inventaire.push("Bouclier");
+inventaire.push("Potion");
+
 console.log(inventaire);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Créer un tableau déjà rempli"
+                    data-auto-height="true"
+                    data-toolbar-text="Créer un tableau avec des valeurs dès la déclaration">
+<textarea class="source-code" hidden>
+let scores = [12, 18, 9];
+
+console.log(scores);
 </textarea>
                 </div>
 
                 <div class="playground-container" data-type="exercise" data-title="Création rapide">
 <textarea class="source-code" hidden>
-// TODO1: Crée un tableau "villes" avec 3 villes
+// TODO1: Crée un tableau "villes" avec 3 villes, Québec, Montréal et Saguenay
 
 // TODO2: Crée un tableau vide "sauvegardes"
 
@@ -131,12 +173,12 @@ console.log(sauvegardes);
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>La Taille (.length)</h3>
+                    <h3>La taille d'un tableau (.length)</h3>
                 </div>
 
                 <p><code>.length</code> retourne le <strong>nombre d’éléments</strong></p>
 
-                <div class="playground-container" data-type="example" data-title="Vérifier si c'est vide">
+                <div class="playground-container" data-type="example" data-title="Vérifier si un tableau est vide" data-auto-height="true">
 <textarea class="source-code" hidden>
 let notifications = [];
 
@@ -175,56 +217,46 @@ console.log("Nombre total de participants:",nbTotalParticipants);
 
             <section class="section-spy">
                 <div class="section-header">
-                    <h3>Accéder au premier et dernier élément</h3>
+                    <h3>Accéder et modifier les éléments d'un tableau</h3>
                 </div>
 
-                <p>Le premier élément est toujours à l’index <code>0</code>.</p>
-                <p>Le dernier élément est à l’index <code>tableau.length - 1</code>.</p>
+                <h4>Accéder</h4>
+                <p>On accède à un élément en écrivant le nom du tableau qui le contient, suivi de son index entre crochets.</p>
+                <p>Exemple: <code>scores[2]</code> donne le 3e élément dans le tableau let scores = [].</p>
 
-                <div class="playground-container" data-type="example" data-title="Premier et dernier">
-<textarea class="source-code" hidden>
-let scores = [12, 18, 9, 25];
-
-let premier = scores[0];
-let dernier = scores[scores.length - 1];
-
-console.log("Premier:", premier);
-console.log("Dernier:", dernier);
-</textarea>
-                </div>
-
-                <div class="playground-container" data-type="exercise" data-title="Début et fin">
-<textarea class="source-code" hidden>
-let couleurs = ["Rouge", "Vert", "Bleu", "Jaune"];
-
-// TODO1: Affiche la première couleur
-
-// TODO2: Affiche la dernière couleur
-</textarea>
-<textarea class="solution-code" hidden>
-let couleurs = ["Rouge", "Vert", "Bleu", "Jaune"];
-
-console.log(couleurs[0]);
-console.log(couleurs[couleurs.length - 1]);
-</textarea>
-                </div>
-            </section>
-
-            <section class="section-spy">
-                <div class="section-header">
-                    <h3>Lire & Modifier</h3>
-                </div>
-
-                <h4>Lire</h4>
-                <p>On accède à un élément en ajoutant <code>[index]</code> après le nom de la variable qui contient le tableau.</p>
-                <p>Exemple: <code>monTableau[2]</code> donne le 3e élément dans le tableau.</p>
+                                                    <table class="parallel-table">
+                        <thead>
+                            <tr>
+                                <th>index</th>
+                                <th>let scores = []</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>[0]</code></td>
+                                <td>250</td>
+                            </tr>
+                            <tr>
+                                <td><code>[1]</code></td>
+                                <td>200</td>
+                            </tr>
+                            <tr class="row-highlight">
+                                <td><code>[2]</code></td>
+                                <td>145</td>
+                            </tr>
+                            <tr>
+                                <td><code>[3]</code></td>
+                                <td>110</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="parallel-note"><code>scores[2]</code> retourne donc 145</p>
 
                 <div class="playground-container" data-type="example" data-title="Lire un élément">
 <textarea class="source-code" hidden>
 let scores = [10, 20, 30];
 
-let deuxieme = scores[1];
-console.log("Deuxième:", deuxieme);
+console.log("Deuxième score:", scores[1]);
 </textarea>
                 </div>
 
@@ -242,18 +274,10 @@ console.log(equipes[2]);
                 </div>
 
                 <h4>Écrire (modifier)</h4>
-                <p>On peut remplacer l'élément qui se trouve à une position dans le tableau avec <code>=</code>.</p>
-                <p>Exemple: <code>monTableau[2] = 5</code> remplace le 3e élément par 5.</p>
+                <p>On peut modifier la valeur de l'élément qui se trouve à une position dans un tableau, exactement comme on le fait avec une variable. On utilise le symbole <code>=</code>.</p>
+                <p>Exemple: <code>nomsEtudiants[2] = "Maxime"</code> remplace la valeur du 3e nom par "Maxime".</p>
 
-                <div class="info-box error">
-                    <h4><i data-lucide="alert-triangle"></i> Attention aux "trous" !</h4>
-                    <p>
-                        Si vous assignez une valeur à un index trop lointain (ex: <code>monTableau[10] = 2</code> sur un petit tableau), JS crée des <strong>cases vides</strong>.
-                    </p>
-                    <p>Exemple: si le tableau n'a que 2 éléments monTableau[10]=2 donnera [3,1, , , , , , , ,2]</p>
-                </div>
-
-                <div class="playground-container" data-type="example" data-title="Modifier un élément">
+                <div class="playground-container" data-type="example" data-title="Modifier un élément" data-toolbar-text="le deuxième score devient 25">
 <textarea class="source-code" hidden>
 let scores = [10, 20, 30];
 
@@ -271,6 +295,72 @@ let scores = [10, 20, 30];
 let scores = [10, 20, 30];
 scores[2] = 50;
 console.log(scores);
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Accéder au premier et dernier élément d'un tableau</h3>
+                </div>
+
+                <p>Le premier élément est toujours à l’index <code>0</code>.</p>
+                <p>Le dernier élément est à l’index <code>tableau.length - 1</code>.</p>
+
+                <table class="parallel-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>index</th>
+                                <th>let scores = []</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-highlight">
+                                <th>1</th>
+                                <td><code>[0]</code></td>
+                                <td>250</td>
+                            </tr>
+                            <tr>
+                                <th>2</th>
+                                <td><code>[1]</code></td>
+                                <td>200</td>
+                            </tr>
+                            <tr>
+                                <th>3</th>
+                                <td><code>[2]</code></td>
+                                <td>145</td>
+                            </tr>
+                            <tr class="row-highlight">
+                                <th>4</th>
+                                <td><code>[scores.length - 1] = [4 - 1] = [3]</code></td>
+                                <td>110</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                <div class="playground-container" data-type="example" data-title="Premier et dernier éléments d'un tableau">
+<textarea class="source-code" hidden>
+let nomsEtudiants = ["Angelica", "Maxime", "Juliette", "Nicolas"];
+
+console.log("Premier nom:", nomsEtudiants[0]);
+console.log("Dernier nom:", nomsEtudiants[nomsEtudiants.length - 1]);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Premier et dernier éléments d'un tableau">
+<textarea class="source-code" hidden>
+let couleurs = ["Rouge", "Vert", "Bleu", "Jaune"];
+
+// TODO1: Affiche la première couleur
+
+// TODO2: Affiche la dernière couleur
+</textarea>
+<textarea class="solution-code" hidden>
+let couleurs = ["Rouge", "Vert", "Bleu", "Jaune"];
+
+console.log(couleurs[0]);
+console.log(couleurs[couleurs.length - 1]);
 </textarea>
                 </div>
             </section>

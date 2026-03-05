@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - DOM : sélection d'éléments</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS DOM</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>DOM - Sélection</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section class="section-spy">
+        <h2 class="section-title">Sélectionner un élément dans le DOM</h2>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Pourquoi sélectionner un élément HTML ?</h3>
+        </div>
+        <p>Afin de pouvoir modifier un élément HTML, il faut d'abord le sélectionner.</p>
+        <p>Il existe deux méthodes principales que nous allons détailler dans cette page. :</p>
+        <ul>
+          <li><code>document.getElementById("id")</code> : cible directement un élément par son ID.</li>
+          <li><code>document.querySelector("sélecteur-css")</code> : cible le premier élément qui correspond à un sélecteur CSS.</li>
+        </ul>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Sélection par ID avec getElementById</h3>
+        </div>
+
+        <div class="info-box">
+          <pre><code class="language-javascript">document.getElementById("monId")</code></pre>
+          <ul>
+            <li>Cible un élément unique par son ID.</li>
+          </ul>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="Cibler un élément par son id"
+          data-toolbar-text='Commande: document.getElementById("id")'
+          data-instructions="Exécutez pour modifier un seul titre.">
+          <textarea class="source-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Casque audio</h4>
+  <p id="prix-produit">Prix : 79,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+#titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+#prix-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient le titre avec son id.
+let elementTitreProduit = document.getElementById("titre-produit");
+// Met à jour le texte du titre.
+elementTitreProduit.innerText = "Casque audio Bluetooth";
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Modifier un texte par son id"
+          data-toolbar-text='Commande: document.getElementById("id")'>
+          <textarea class="source-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Souris gaming</h4>
+  <p id="prix-produit">Prix : 59,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+#titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+#prix-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementTitreProduit;
+let elementPrixProduit;
+
+// TODO 1: Cible <h4 id="titre-produit"> et stocke-le dans la variable elementTitreProduit.
+
+
+// Remplace son texte par "Souris gaming RGB".
+elementTitreProduit.innerText = "Souris gaming RGB";
+
+// TODO 2: Cible <p id="prix-produit"> et stocke-le dans la variable elementPrixProduit.
+
+
+// Remplace son texte par "Prix : 54,99 $ CA".
+elementPrixProduit.innerText = "Prix : 54,99 $ CA";
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <h4 id="titre-produit">Souris gaming</h4>
+  <p id="prix-produit">Prix : 59,99 $ CA</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+#titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+#prix-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementTitreProduit = document.getElementById("titre-produit");
+elementTitreProduit.innerText = "Souris gaming RGB";
+
+let elementPrixProduit = document.getElementById("prix-produit");
+elementPrixProduit.innerText = "Prix : 54,99 $ CA";
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Sélection par sélecteur CSS avec querySelector</h3>
+        </div>
+
+        <div class="info-box">
+          <pre><code class="language-javascript">document.querySelector("selecteur-css")</code></pre>
+          <ul>
+            <li>Utilise la même syntaxe que les sélecteurs CSS.</li>
+            <li>Retourne le premier élément qui correspond.</li>
+          </ul>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="example" data-console-open="true"
+          data-title="Cibler un élément avec querySelector"
+          data-toolbar-text='Commande: document.querySelector("sélecteur")'
+          data-instructions="Exécutez pour cibler le prix via un sélecteur CSS.">
+          <textarea class="source-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <h4 class="titre-produit">Clavier mécanique</h4>
+  <p class="prix-produit">Prix : 129,00 $ CA</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.titre-produit {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+.prix-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+// Obtient le prix avec querySelector.
+let elementPrixProduit = document.querySelector("#conteneur-carte-produit .prix-produit");
+// Met à jour le texte du prix.
+elementPrixProduit.innerText = "Prix : 119,00 $ CA";
+</textarea>
+        </div>
+
+        <div class="playground-container" data-auto-height="true" data-output-default="render" data-type="exercise" data-console-open="true"
+          data-title="Lire une saisie avec querySelector"
+          data-toolbar-text='Commande: document.querySelector("selecteur")'>
+          <textarea class="source-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <label for="saisie-nom">Nom du produit</label>
+  <input id="saisie-nom" type="text" value="Tablette graphique" />
+  <p class="message-produit">Produit : ...</p>
+</div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.carte-produit-simple label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.carte-produit-simple input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 8px;
+}
+
+.message-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let elementSaisieNom;
+let elementMessageProduit;
+
+// TODO 1: Cible l'input #saisie-nom avec querySelector(...) et stocke-le dans la variable elementSaisieNom.
+
+
+// TODO 2: Cible le paragraphe .message-produit dans #conteneur-carte-produit et stocke-le dans elementMessageProduit.
+
+
+// Mets dans elementMessageProduit le texte: `Produit : ${elementSaisieNom.value}`.
+elementMessageProduit.innerText = `Produit : ${elementSaisieNom.value}`;
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div class="carte-produit-simple" id="conteneur-carte-produit">
+  <label for="saisie-nom">Nom du produit</label>
+  <input id="saisie-nom" type="text" value="Tablette graphique" />
+  <p class="message-produit">Produit : ...</p>
+</div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+.carte-produit-simple {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  color: #0f172a;
+  max-width: 440px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.carte-produit-simple label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.carte-produit-simple input {
+  width: 100%;
+  margin: 6px 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 8px;
+}
+
+.message-produit {
+  margin: 0;
+  color: #475569;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let elementSaisieNom = document.querySelector("#conteneur-carte-produit #saisie-nom");
+let elementMessageProduit = document.querySelector("#conteneur-carte-produit .message-produit");
+
+elementMessageProduit.innerText = `Produit : ${elementSaisieNom.value}`;
+</textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

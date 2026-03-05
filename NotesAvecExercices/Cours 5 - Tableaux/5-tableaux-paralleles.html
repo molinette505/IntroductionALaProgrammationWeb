@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - Tableaux parallèles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../quiz/quiz.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+</head>
+<body>
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">Tableaux parallèles</span>
+  </header>
+  <div class="app-container">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Tableaux parallèles</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Les tableaux parallèles</h3>
+        </div>
+          <p>Les <strong>tableaux parallèles</strong> sont plusieurs tableaux de même longueur.</p>
+          <p>Ils représentent plusieurs informations à propos d'un même élément.</p>
+              <ul>
+                <li>nom, note et groupe d'étudiants</li>
+                <li>titre, durée et genre de films</li>
+                <li>nom, description, prix, quantité d'un item)</li>
+              </ul>
+            <p>Le même indice <code>i</code> représente la même entité dans tous les tableaux.</p>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Exemple</h3>
+        </div>
+
+                <div class="parallel-table-visual">
+          <table class="parallel-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>let nomProduits = []</th>
+                <th>let prixProduits = []</th>
+                <th>let quantiteProduits = []</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>[0]</code></td>
+                <td>Pomme</td>
+                <td>1.50</td>
+                <td>12</td>
+              </tr>
+              <tr class="row-highlight">
+                <td><code>[1]</code></td>
+                <td>Banane</td>
+                <td>0.75</td>
+                <td>18</td>
+              </tr>
+              <tr>
+                <td><code>[2]</code></td>
+                <td>Cerise</td>
+                <td>3.20</td>
+                <td>7</td>
+              </tr>
+              <tr>
+                <td><code>[3]</code></td>
+                <td>Orange</td>
+                <td>1.10</td>
+                <td>9</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="parallel-note">La ligne <code>[1]</code> est surlignée : un même index regroupe les valeurs liées des 3 tableaux.</p>
+        </div>
+        <div class="playground-container" data-type="example" data-title="Produits, prix et quantités" data-auto-height="true" data-toolbar-text="Afficher le produit représenté par l'index de produit 1">
+          <textarea class="source-code" hidden>
+
+            
+// Trois tableaux parallèles : même structure que le tableau HTML ci-dessus.
+let nomProduits = ["Pomme", "Banane", "Cerise", "Orange"];
+let prixProduits = [1.50, 0.75, 3.20, 1.10];
+let quantiteProduits = [12, 18, 7, 9];
+
+// Affiche le produit avec l'index produit 1.
+console.log(
+        `Nom: ${nomProduits[1]} - Prix: ${prixProduits[1]} $ - Qté: ${quantiteProduits[1]}`
+);
+          </textarea>
+        </div>
+
+        <div class="playground-container" data-type="example" data-title="Films, durées et genres" data-auto-height="true" data-toolbar-text="Afficher le film représenté par l'index 3">
+          <textarea class="source-code" hidden>
+// Trois tableaux parallèles sur un autre sujet : les films.
+let titreFilms = ["Inception", "Coco", "Avatar", "Interstellar"];
+let dureeFilms = [148, 105, 162, 169];
+let genreFilms = ["Science-fiction", "Animation", "Science-fiction", "Science-fiction"];
+
+// Affiche le film à l'index 3.
+console.log(
+        `Film: ${titreFilms[3]} - Durée: ${dureeFilms[3]} min - Genre: ${genreFilms[3]}`
+);
+          </textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Pratique</h3>
+        </div>
+        <div class="playground-container" data-type="exercise" data-title="Afficher les informations d'un étudiant"  data-toolbar-text="Afficher l'étudiant représenté par indexEtudiant 2." data-auto-height="true">
+          <textarea class="source-code" hidden>
+let nomEtudiants = ["Alice", "Bob", "Michel", "Sarah"];
+let scoreEtudiants = [92, 78, 65, 85];
+let indexEtudiant = 2;
+
+// TODO: Affiche un seul message avec nomEtudiants[indexEtudiant] et scoreEtudiants[indexEtudiant].
+// Résultat attendu : "L'étudiant Michel a obtenu 65/100."
+
+          </textarea>
+          <textarea class="solution-code" hidden>
+let nomEtudiants = ["Alice", "Bob", "Michel", "Sarah"];
+let scoreEtudiants = [92, 78, 65, 85];
+let indexEtudiant = 2;
+
+console.log(`L'étudiant ${nomEtudiants[indexEtudiant]} a obtenu ${scoreEtudiants[indexEtudiant]}/100.`);
+          </textarea>
+        </div>
+
+        <div class="playground-container" data-type="exercise" data-title="Afficher les infos d'un jeu vidéo" data-toolbar-text="Afficher le jeu représenté par indexJeu 1." data-auto-height="true">
+          <textarea class="source-code" hidden>
+let nomJeux = ["Minecraft", "Portal 2", "Stardew Valley", "Hades"];
+let plateformeJeux = ["Multi", "PC", "PC", "Switch"];
+let noteJeux = [93, 95, 89, 93];
+let indexJeu = 1;
+
+// TODO: Affiche un seul message avec nomJeux[indexJeu], plateformeJeux[indexJeu] et noteJeux[indexJeu].
+// Résultat attendu : "Le jeu Portal 2 est sur PC et a une note de 95/100."
+
+          </textarea>
+          <textarea class="solution-code" hidden>
+let nomJeux = ["Minecraft", "Portal 2", "Stardew Valley", "Hades"];
+let plateformeJeux = ["Multi", "PC", "PC", "Switch"];
+let noteJeux = [93, 95, 89, 93];
+let indexJeu = 1;
+
+console.log(`Le jeu ${nomJeux[indexJeu]} est sur ${plateformeJeux[indexJeu]} et a une note de ${noteJeux[indexJeu]}/100.`);
+          </textarea>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="../quiz/quiz.js"></script>
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

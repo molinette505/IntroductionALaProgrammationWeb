@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - console.log()</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../editor/editor.css">
+    <style>
+        #intro,
+        #output {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS Console</span>
+    </header>
+
+    <div class="app-container">
+
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">OUTILS</span>
+                <h1>console.log()</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section class="section-spy">
+                <h2 class="section-title">Afficher des messages</h2>
+                <p>
+                    <code>console.log()</code> est le premier outil pour voir ce que fait votre programme.
+                    Il sert autant à apprendre qu'à déboguer.
+                </p>
+                <div class="info-box info">
+                    <strong>Rappel :</strong> Quand le programme affiche quelque chose dans la console, cela aide à
+                    vérifier si le code s'exécute comme prévu.
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Afficher un message</h3>
+                </div>
+                <p>Le développeur utilise la console pour afficher et vérifier son code en utilisant
+                    <code>console.log()</code>.
+                </p>
+
+                <div class="info-box info">
+                    <h3><i data-lucide="monitor"></i> Où voir le résultat ?</h3>
+
+                    <p><strong>1. Dans ces notes de cours :</strong><br>
+                        Pour faciliter l'apprentissage, le résultat s'affiche directement dans la <strong>console du
+                            simulateur</strong>.</p>
+
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 10px 0;">
+
+                    <p><strong>2. Dans la « vraie vie » (Navigateur) :</strong><br>
+                        Normalement, le résultat est caché. Pour le voir, le développeur doit ouvrir les outils de
+                        débogage :</p>
+                    <ul>
+                        <li><strong>Clavier :</strong> Appuyez sur la touche <code>F12</code>.</li>
+                        <li><strong>Souris :</strong> Faites un clic droit > <strong>Inspecter</strong>.</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">
+                        Cherchez ensuite l'onglet <strong>Console</strong> (<code
+                            style="background-color: #333; color: white; padding: 2px 5px; border-radius: 3px;">&gt;_</code>).
+                    </p>
+                </div>
+
+                <div class="playground-container" data-type="example" data-title="Afficher un message"
+                    data-toolbar-text="Utiliser console.log(message) pour afficher un message."
+                    data-instructions="N'oubliez pas le point-virgule ; à la fin de chaque ligne de code!"
+                    data-console-open="true">
+                    <textarea class="source-code" hidden>
+// 1. Pour afficher du texte, on met le texte entre guillemets.
+console.log("Ceci affiche du texte.");
+
+// 2. Pour afficher un nombre, on écrit seulement le nombre.
+console.log(150);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise"
+                    data-title="Console.log() pour afficher un message"
+                    data-toolbar-text="Utiliser console.log(message) pour afficher un seul message"
+                    data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de chaque ligne !"
+                    data-console-open="true">
+                    <textarea class="source-code" hidden>
+// TODO: Affiche "Nouvelle quête activée: Trouver l'épée"
+// N'oublie pas de mettre ton message entre guillemets
+
+</textarea>
+                    <textarea class="solution-code" hidden>
+console.log("Nouvelle quête activée: Trouver l'épée");
+</textarea>
+                </div>
+            </section>
+
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>Combiner plusieurs valeurs</h3>
+                </div>
+                <p>On peut afficher plusieurs textes et plusieurs nombres dans un même
+                    <code>console.log()</code> en les séparant avec des virgules.
+                </p>
+
+                <div class="playground-container" data-type="example"
+                    data-title="Afficher un message composé de plusieurs textes et nombres"
+                    data-toolbar-text='Utiliser console.log("texte", nombre, "texte", ...) en séparant chaque élément par des virgules'
+                    data-console-open="true">
+                    <textarea class="source-code" hidden>
+// 1. Affiche "Mon nom est Victor et j'ai" suivi du nombre 15 et du texte "ans!"
+console.log("Mon nom est Victor et j'ai", 15, "ans!");
+
+// 2. Affiche "État du joueur :", suivi du texte "En vie", suivi du texte "| HP :", suivi finalement du nombre 100
+console.log("État du joueur :", "En vie", "| HP :", 100);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-type="exercise" data-title="Console.log() combiner plusieurs messages"
+                    data-toolbar-text='Utiliser console.log("texte", nombre, "texte") pour afficher un message comprenant plusieurs textes et nombres'
+                    data-instructions="⚠️ Attention : N'oubliez pas le point-virgule à la fin de chaque ligne !"
+                    data-console-open="true">
+                    <textarea class="source-code" hidden>
+// TODO: Affiche "Récompense:" suivi du nombre 500 et du mot "écus"
+// Résultat voulu: Récompense: 500 écus
+
+</textarea>
+                    <textarea class="solution-code" hidden>
+console.log("Récompense:", 500, "écus");
+</textarea>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../editor/editor.js"></script>
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>
