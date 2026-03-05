@@ -22,6 +22,7 @@ Le playground utilise aussi les addons suivants:
      data-title="classList + style"
      data-output-default="render"
      data-start-editor="js"
+     data-auto-execute="false"
      data-auto-height>
 
   <textarea class="source-code-html" hidden>...</textarea>
@@ -62,6 +63,10 @@ Si `source-code-js` n'existe pas, le playground accepte aussi le legacy:
   - Ouvre/ferme le tiroir console au depart.
   - Presence simple de l'attribut (`data-console-open`) = ouvert.
   - Valeurs truthy/falsy supportees comme `data-auto-height`.
+- `data-auto-execute="true|false"`
+  - Controle l'execution automatique au chargement et au changement de mode.
+  - Defaut: `true`.
+  - Regle speciale: pour `data-type="exercise"`, le mode `Code` (user) n'auto-execute pas, mais le mode `Solution` auto-execute.
 - `data-auto-height`
   - Si present (meme sans valeur), ajuste la hauteur du code a son contenu.
   - Valeurs truthy: `true, 1, yes, on, auto, fit, content`.
@@ -114,6 +119,11 @@ Quand on clique `Executer`:
 
 Effet pratique: le JS manipule le DOM du rendu (querySelector, addEventListener, etc.) sans polluer la page parent.
 
+Auto-execution:
+- Par defaut, le playground execute automatiquement au chargement.
+- Si `data-auto-execute="false"`, il charge seulement le rendu HTML/CSS sans executer le JS.
+- En mode `exercise`, `Code` n'auto-execute pas; `Solution` auto-execute.
+
 ## 5) Reset
 
 `Reinitialiser` restaure:
@@ -121,6 +131,7 @@ Effet pratique: le JS manipule le DOM du rendu (querySelector, addEventListener,
 - l'onglet de sortie initial
 - l'etat visuel de la console
 - le rendu iframe
+- Le bouton reste actif en mode `Solution`.
 
 ## 6) Architecture JS (hors Visualizer)
 

@@ -205,6 +205,8 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     const isAutoHeight = autoHeightFlag ?? fitCodeFlag ?? hasAutoHeightAttribute;
     const consoleOpenFlag = parseTruthyFlag(container.dataset.consoleOpen);
     const isConsoleInitialOpen = consoleOpenFlag ?? container.hasAttribute('data-console-open');
+    const autoExecuteFlag = parseTruthyFlag(container.dataset.autoExecute);
+    const isAutoExecuteEnabled = autoExecuteFlag ?? true;
     const jsStrictFlag = parseTruthyFlag(container.dataset.jsStrict || container.dataset.strictJs);
     const useStrictJs = jsStrictFlag ?? false;
     container.setAttribute('data-auto-height-enabled', isAutoHeight ? 'true' : 'false');
@@ -316,7 +318,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
                 <button class="btn-visualizer" title="Ouvrir dans JS Visualizer" aria-label="Ouvrir dans JS Visualizer">JSV</button>
                 <button class="btn-expand" title="Plein écran" aria-label="Plein écran"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
                 <button class="btn-reset" title="Réinitialiser" aria-label="Réinitialiser"><i data-lucide="rotate-ccw" class="w-3 h-3"></i></button>
-                <button class="btn-run" title="Exécuter" aria-label="Exécuter"><i data-lucide="play" class="w-3 h-3"></i></button>
+                <button class="btn-run" title="Exécuter" aria-label="Exécuter"><i data-lucide="save" class="w-3 h-3"></i></button>
             </div>
         </div>
         ${instructions ? `<div class="toolbar-secondary"><i data-lucide="info" class="w-3 h-3"></i> ${instructions}</div>` : ''}
@@ -414,6 +416,11 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     let activeFile = initialEditorFile;
     let runCounter = 0;
     const visualizerUrl = resolveVisualizerUrl();
+    const shouldAutoExecuteForMode = (mode = activeMode) => {
+        if (!isAutoExecuteEnabled) return false;
+        if (isExerciseType && mode === 'user') return false;
+        return true;
+    };
 
     const getModeFiles = () => (activeMode === 'solution' ? secondaryFiles : userFiles);
 
@@ -732,11 +739,6 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         editor.setOption('readOnly', isReadOnlyMode);
         editorInputWrapper.classList.toggle('show-badge', isReadOnlyMode);
 
-        if (btnReset) {
-            btnReset.disabled = isReadOnlyMode;
-            btnReset.style.opacity = isReadOnlyMode ? '0.5' : '1';
-        }
-
         setEditorFile(activeFile, { persist: false });
     };
 
@@ -862,7 +864,6 @@ ${html}
     setEditorMode('user');
     setEditorFile(activeFile, { persist: false });
     renderExpandIcon(false);
-    resetPreview(cloneFiles(getModeFiles()));
     if (isAutoHeight) {
         editor.on('changes', syncAutoHeight);
         window.addEventListener('resize', syncAutoHeight, { passive: true });
@@ -898,8 +899,13 @@ ${html}
     });
 
     modeTabButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             setEditorMode(btn.dataset.target);
+            if (shouldAutoExecuteForMode(activeMode)) {
+                await runPlayground(false);
+            } else {
+                await resetPreview(cloneFiles(getModeFiles()));
+            }
         });
     });
 
@@ -925,13 +931,17 @@ ${html}
                 setEditorFile(activeFile, { persist: false });
             }
 
-            await resetPreview(cloneFiles(getModeFiles()));
+            if (shouldAutoExecuteForMode(activeMode)) {
+                await runPlayground(false);
+            } else {
+                await resetPreview(cloneFiles(getModeFiles()));
+            }
         });
     }
 
-    btnRun.addEventListener('click', async () => {
+    const runPlayground = async (forceOpenConsole = true) => {
         persistCurrentEditorValue();
-        toggleConsole(true);
+        if (forceOpenConsole) toggleConsole(true);
         clearConsole();
 
         const SOURCE_FILE = 'file.js';
@@ -1529,7 +1539,17 @@ ${html}
         if (!consolePanel.children.length) {
             showConsolePlaceholder();
         }
+    };
+
+    btnRun.addEventListener('click', async () => {
+        await runPlayground(true);
     });
+
+    if (shouldAutoExecuteForMode(activeMode)) {
+        runPlayground(false);
+    } else {
+        resetPreview(cloneFiles(getModeFiles()));
+    }
 
     if (typeof lucide !== 'undefined') lucide.createIcons({ root: container });
 });

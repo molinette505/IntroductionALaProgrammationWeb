@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Utilisation de guillemets" data-toolbar-text="Pratique pour les textes courts" data-auto-height="true">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Utilisation de guillemets" data-toolbar-text="Pratique pour les textes courts" data-auto-height="true">
 <textarea class="source-code" hidden>
 // Guillemets
 let texte = "Je n'ai pas assez de mana!";
@@ -91,7 +91,7 @@ let texte = "Je n'ai pas assez de mana!";
 console.log(texte);
 </textarea>
                 </div>        
-                            <div class="playground-container" data-type="example" data-title="Utilisation de backticks et template literals" data-toolbar-text="Pratique pour les textes sur plusieurs lignes comme le html et pour insérer des variables." data-auto-height="true">
+                            <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Utilisation de backticks et template literals" data-toolbar-text="Pratique pour les textes sur plusieurs lignes comme le html et pour insérer des variables." data-auto-height="true">
 <textarea class="source-code" hidden>
 // Guillemets
 let nom = "Marcus"
@@ -126,7 +126,7 @@ console.log(html);
                     <p>Pour se faire on additionne deux chaînes de caractères (strings) (<code>+</code>)</p>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Additionner deux strings pour les combiner" data-toolbar-text="Javascript fusionne les deux strings pour en obtenir une seule" data-auto-height="true">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Additionner deux strings pour les combiner" data-toolbar-text="Javascript fusionne les deux strings pour en obtenir une seule" data-auto-height="true">
 <textarea class="source-code" hidden>
 // Nous additionnons deux strings et obtenons une seule string: Chaton
 let mot = "Cha" + "ton";
@@ -135,7 +135,7 @@ console.log(mot);
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Additionner une string et un nombre pour les combiner" data-toolbar-text="Javascript convertit automatiquement le number en string, c'est pourquoi le résultat est '546' et non 60" data-auto-height="true">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Additionner une string et un nombre pour les combiner" data-toolbar-text="Javascript convertit automatiquement le number en string, c'est pourquoi le résultat est '546' et non 60" data-auto-height="true">
 <textarea class="source-code" hidden>
 let concatenation = "54" + 6; // Ici nous additionnons une string et un number : concatenation
 console.log(concatenation);
@@ -145,7 +145,7 @@ console.log(addition)
 </textarea>
                 </div>
 
-<div class="playground-container" data-type="example" data-title="Utile pour ajouter des variables dans le texte, mais pas efficace" data-toolbar-text="Nous verrons dans le prochain exemple que les template literals sont beauocup plus lisibles" data-auto-height="true">
+<div class="playground-container" data-auto-execute="false" data-type="example" data-title="Utile pour ajouter des variables dans le texte, mais pas efficace" data-toolbar-text="Nous verrons dans le prochain exemple que les template literals sont beauocup plus lisibles" data-auto-height="true">
 <textarea class="source-code" hidden>
 // Texte simple en utilisant les guillemets
 let prenom = "Victor";
@@ -158,7 +158,7 @@ console.log(texte);
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="En utilisant les backticks et l'interpolation ${}" data-toolbar-text="Beaucoup plus lisible!" data-auto-height="true">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="En utilisant les backticks et l'interpolation ${}" data-toolbar-text="Beaucoup plus lisible!" data-auto-height="true">
 <textarea class="source-code" hidden>
 // Version moderne avec les template literals (`backticks`)
 let prenom = "Victor";
@@ -170,7 +170,7 @@ console.log(texte);
 </textarea>
                 </div>
 
-                <div class="playground-container"
+                <div class="playground-container" data-auto-execute="false"
                     data-type="exercise"
                     data-title="Exercice - Combiner deux strings"
                     data-toolbar-text="Crée une variable motComplet qui combine les deux morceaux de texte."
@@ -195,7 +195,7 @@ console.log(motComplet);
 </textarea>
                 </div>
 
-                <div class="playground-container"
+                <div class="playground-container" data-auto-execute="false"
                     data-type="exercise"
                     data-title="Exercice - String + nombre"
                     data-toolbar-text="Affiche le score sous la forme: Score: 25"
@@ -224,7 +224,7 @@ console.log(codeSaisi);
 </textarea>
                 </div>
 
-                <div class="playground-container"
+                <div class="playground-container" data-auto-execute="false"
                     data-type="exercise"
                     data-title="Exercice 3 - String avec variables"
                     data-toolbar-text="Utilise la concaténation (+) pour former une phrase complète qui contient des variables."
@@ -248,7 +248,7 @@ console.log(infosProduit);
 </textarea>
                 </div>
 
-                <div class="playground-container" 
+                <div class="playground-container" data-auto-execute="false" 
                     data-type="exercise" 
                     data-title="Utiliser les guillemets et les backticks"  
                     data-toolbar-text="Faire l'exercice précédent, mais utiliser les backticks ` ` et les template literals ${} plutôt que la concaténation"
@@ -299,7 +299,7 @@ console.log(infosProduit);
                     </p>
                 </div>
 
-                <div class="playground-container" data-type="example" data-title="Valider la longueur d'un texte" data-instructions="S'assurer qu'un mot de passe ne soit pas vide ET qu'il contienne au plus 5 caractères." data-auto-height="true">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Valider la longueur d'un texte" data-instructions="S'assurer qu'un mot de passe ne soit pas vide ET qu'il contienne au plus 5 caractères." data-auto-height="true">
 <textarea class="source-code" hidden>
 let motDePasse = "T1M2026!"; // Changer pour T1M pour qu'il soit valide
 
@@ -312,7 +312,7 @@ if(motDePasse.length > 0 && motDePasse.length <= 5)
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Valider la longueur d'un texte" data-toolbar-text="S'assurer qu'un mot de passe ait au moins 8 caractère ET qu'il contienne au plus 12 caractères." data-auto-height="true">
+                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Valider la longueur d'un texte" data-toolbar-text="S'assurer qu'un mot de passe ait au moins 8 caractère ET qu'il contienne au plus 12 caractères." data-auto-height="true">
                     <textarea class="source-code" hidden>
 let motDePasse = "T1M-1Ntr0Pr0graMaT10N"; //Tester avec différentes longueurs
 

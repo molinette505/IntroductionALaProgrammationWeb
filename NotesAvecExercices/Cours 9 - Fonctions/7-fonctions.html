@@ -65,7 +65,7 @@
                     <li>Elle retourne un résultat (avec <code>return</code>).</li>
                 </ul>
 
-                <div class="playground-container" data-type="example"
+                <div class="playground-container" data-auto-execute="false" data-type="example"
                     data-title="Automatisation du calcul d'une moyenne"
                     data-instructions="Une fonction qui calcule la moyenne d'un tableau de notes."
                     data-auto-height="true">
@@ -122,7 +122,7 @@ console.log("Moyenne groupe 2 :", calculerMoyenne([58, 72, 60, 70, 63]));
                 <h4>Appel d'une fonction en JavaScript :</h4>
                 <p>Pour exécuter la fonction, il faut <strong>l'appeler</strong> en écrivant son nom suivi de
                     parenthèses&nbsp;: <code>nomDeLaFonction()</code>.</p>
-                <div class="playground-container" data-type="example"
+                <div class="playground-container" data-auto-execute="false" data-type="example"
                     data-title="Déclarer et exécuter une fonction de bienvenue">
                     <textarea class="source-code" hidden>
 // Déclaration (création) de la fonction
@@ -138,7 +138,7 @@ direBienvenue();
                     </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="Créer une première fonction"
+                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Créer une première fonction"
                     data-instructions='Instructions : Créez une fonction nommée preparerCafe qui affiche "Le café est en cours de préparation...".'>
                     <textarea class="source-code" hidden>
 // TODO: Définir la fonction preparerCafe
@@ -166,7 +166,7 @@ preparerCafe();
                     <li><strong>Paramètre :</strong> C'est la variable "placeholder" écrite dans la <strong>définition</strong> de la fonction (ex : <code>function afficherNom(nom)</code>).</li>
                     <li><strong>Argument :</strong> C'est la valeur réelle que l'on passe lors de l'<strong>appel</strong> (ex : <code>afficherNom("Alice")</code>).</li>
                 </ul>
-                <div class="playground-container" data-type="example" data-title="Fonction saluer(nom) avec un paramètre nom">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Fonction saluer(nom) avec un paramètre nom">
                     <textarea class="source-code" hidden>
 // ici nom est un paramètre, une variable locale à la fonction
 function saluer(nom) {
@@ -180,7 +180,7 @@ saluer("Linus");
 </textarea>
                 </div>
 
-                <div class="playground-container" data-type="exercise" data-title="présenter un joueur"
+                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="présenter un joueur"
                     data-instructions="Créer une fonction qui prend un nom et un nombre de points comme paramètres et affiche 'Le joueur X a Y points'."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
@@ -210,7 +210,7 @@ presenterJoueur("Alex", 80);
                     <li>Une fonction peut <strong>retourner</strong> une valeur grâce à <code>return</code>. Cela permet de réutiliser le résultat ailleurs.</li>
                     <li><code>return</code> est optionnel</li>
                 </ul>
-                <div class="playground-container" data-type="example" data-title="addition()">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="addition()">
                     <textarea class="source-code" hidden>
 function addition(a, b) {
     // retourne le résultat de l'addition
@@ -224,7 +224,7 @@ let resultat = addition(5, 7);
 console.log(`Résultat : ${resultat}`);
 </textarea>
                 </div>
-                <div class="playground-container" data-type="exercise" data-title="retour de valeur (temps de trajet)"
+                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="retour de valeur (temps de trajet)"
                     data-instructions="Complète la fonction pour qu'elle retourne le temps de trajet en heures."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
@@ -255,7 +255,7 @@ console.log(`Temps : ${temps} heures`);
                     <li>Dès que JavaScript rencontre <code>return</code>, il quitte la fonction immédiatement, même s'il reste du code après.</li>
                     <li>C'est utile pour arrêter une boucle ou valider une condition rapidement.</li>
                 </ul>
-                <div class="playground-container" data-type="example" data-title="Sortie anticipée (Early Exit)">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Sortie anticipée (Early Exit)">
                     <textarea class="source-code" hidden>
 function verifierAcces(age) {
     if (age < 18) {
@@ -270,7 +270,7 @@ console.log(verifierAcces(15)); // Affiche "Accès refusé..."
 console.log(verifierAcces(25)); // Affiche "Bienvenue..."
 </textarea>
                 </div>
-                <div class="playground-container" data-type="exercise" data-title="Recherche d'un élément"
+                <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Recherche d'un élément"
                     data-instructions="Créez une fonction rechercherElement qui prend 2 paramètres (un tableau et un élément) et cherche cet élément. Utilisez une boucle et faites un return dès que vous le trouvez."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
@@ -314,7 +314,7 @@ console.log(rechercherElement(stock, "Raisin"));
                     Une variable déclarée dans une fonction n'existe <strong>que dans cette fonction</strong>.
                     On parle de portée (scope).
                 </p>
-                <div class="playground-container" data-type="example" data-title="portée locale">
+                <div class="playground-container" data-auto-execute="false" data-type="example" data-title="portée locale">
                     <textarea class="source-code" hidden>
 let score = 10;
 
