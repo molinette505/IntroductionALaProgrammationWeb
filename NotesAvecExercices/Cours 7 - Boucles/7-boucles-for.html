@@ -64,6 +64,94 @@
           <h3>La boucle <code>for</code> (répéter)</h3>
         </div>
 
+        <div class="playground-container" data-auto-execute="false" data-type="compare"
+          data-title="Comparer : avec boucle for vs sans boucle for"
+          data-toolbar-text="Calculer la moyenne d'un tableau de 50 notes."
+          data-label-a="Avec boucle for" data-label-b="Sans boucle for"
+          data-auto-height="false" data-console-open="true">
+          <textarea class="source-code" hidden>
+let notesEtudiants = [
+  72, 85, 91, 67, 88, 76, 94, 81, 69, 90,
+  73, 86, 79, 92, 84, 71, 95, 77, 83, 68,
+  87, 74, 89, 93, 82, 70, 96, 78, 80, 66,
+  91, 75, 88, 97, 72, 84, 90, 79, 85, 73,
+  92, 81, 76, 94, 69, 87, 83, 71, 95, 80
+];
+
+let somme = 0;
+for (let i = 0; i < notesEtudiants.length; i++) {
+  somme += notesEtudiants[i];
+}
+
+let moyenne = somme / notesEtudiants.length;
+console.log(`Moyenne (avec boucle for) : ${moyenne}`);
+</textarea>
+          <textarea class="compare-code" hidden>
+let notesEtudiants = [
+  72, 85, 91, 67, 88, 76, 94, 81, 69, 90,
+  73, 86, 79, 92, 84, 71, 95, 77, 83, 68,
+  87, 74, 89, 93, 82, 70, 96, 78, 80, 66,
+  91, 75, 88, 97, 72, 84, 90, 79, 85, 73,
+  92, 81, 76, 94, 69, 87, 83, 71, 95, 80
+];
+
+let somme = 0;
+somme += notesEtudiants[0];
+somme += notesEtudiants[1];
+somme += notesEtudiants[2];
+somme += notesEtudiants[3];
+somme += notesEtudiants[4];
+somme += notesEtudiants[5];
+somme += notesEtudiants[6];
+somme += notesEtudiants[7];
+somme += notesEtudiants[8];
+somme += notesEtudiants[9];
+somme += notesEtudiants[10];
+somme += notesEtudiants[11];
+somme += notesEtudiants[12];
+somme += notesEtudiants[13];
+somme += notesEtudiants[14];
+somme += notesEtudiants[15];
+somme += notesEtudiants[16];
+somme += notesEtudiants[17];
+somme += notesEtudiants[18];
+somme += notesEtudiants[19];
+somme += notesEtudiants[20];
+somme += notesEtudiants[21];
+somme += notesEtudiants[22];
+somme += notesEtudiants[23];
+somme += notesEtudiants[24];
+somme += notesEtudiants[25];
+somme += notesEtudiants[26];
+somme += notesEtudiants[27];
+somme += notesEtudiants[28];
+somme += notesEtudiants[29];
+somme += notesEtudiants[30];
+somme += notesEtudiants[31];
+somme += notesEtudiants[32];
+somme += notesEtudiants[33];
+somme += notesEtudiants[34];
+somme += notesEtudiants[35];
+somme += notesEtudiants[36];
+somme += notesEtudiants[37];
+somme += notesEtudiants[38];
+somme += notesEtudiants[39];
+somme += notesEtudiants[40];
+somme += notesEtudiants[41];
+somme += notesEtudiants[42];
+somme += notesEtudiants[43];
+somme += notesEtudiants[44];
+somme += notesEtudiants[45];
+somme += notesEtudiants[46];
+somme += notesEtudiants[47];
+somme += notesEtudiants[48];
+somme += notesEtudiants[49];
+
+let moyenne = somme / notesEtudiants.length;
+console.log(`Moyenne (sans boucle for) : ${moyenne}`);
+</textarea>
+        </div>
+
         <p>
           Une boucle <code>for</code> sert à <strong>répéter</strong> du code.
           Elle est idéale quand on sait “combien de fois” (ou “jusqu’où”) on veut compter.

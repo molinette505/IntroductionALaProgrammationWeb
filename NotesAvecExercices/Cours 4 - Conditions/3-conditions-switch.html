@@ -146,36 +146,55 @@ switch (itemSelectionne) {
                 <div class="playground-container"
                     data-auto-execute="false"
                     data-type="exercise"
-                    data-title="Contrôleur de touches"
-                    data-toolbar-text='Objectif : compléter le switch. Si "ArrowUp" -> "Le personnage monte". Si "ArrowDown" -> "Le personnage descend". Sinon -> "Aucun mouvement".'
+                    data-title="Choisir une porte pour séctionner une classe."
+                    data-toolbar-text="Affiche un message avec console.log selon le code entré en utilisant un switch."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>
-// Simule une touche pressée sur un clavier
-let touchePressee = "ArrowUp";
+let choixPorte = 2;
+let classeHero = "";
+let message = "";
 
-// TODO 1 : Mets touchePressee dans le switch (switch (touchePressee))
-// TODO 2 : case "ArrowUp" -> console.log("Le personnage monte"); + break;
-// TODO 3 : case "ArrowDown" -> console.log("Le personnage descend"); + break;
-// TODO 4 : default -> console.log("Aucun mouvement");
+// TODO: Implémenter un switch permettant de sélectionner une classe
+// et qui affiche un message.
+// choix porte 1 : classe "Guerrier", message "Prends ton épée et ton bouclier !"
+// choix porte 2 : classe "Magicien", message "Tes sorts illumineront les ténèbres."
+// choix porte 3 : classe "Voleur", message "Discrétion et rapidité sont tes alliées."
+// choix porte 4 : classe "Alchimiste", message "Prépare tes fioles et tes mélanges explosifs."
+// tout autre choix : classe "Villageois", message "Tu as décidé de rester en sécurité au village."
 
-switch (touchePressee) {
-  // Écris tes cases ici...
-}
+console.log("Classe : " + classeHero);
+console.log("Message : " + message);
 </textarea>
 
                     <textarea class="solution-code" hidden>
-let touchePressee = "ArrowUp";
+let choixPorte = 2; // Ce chiffre pourrait venir d'un prompt ou d'un bouton
+let classeHero = "";
+let message = "";
 
-switch (touchePressee) {
-  case "ArrowUp":
-    console.log("Le personnage monte");
-    break;
-  case "ArrowDown":
-    console.log("Le personnage descend");
-    break;
-  default:
-    console.log("Aucun mouvement");
+switch (choixPorte) {
+    case 1:
+        classeHero = "Guerrier";
+        message = "Prends ton épée et ton bouclier !";
+        break;
+    case 2:
+        classeHero = "Magicien";
+        message = "Tes sorts illumineront les ténèbres.";
+        break;
+    case 3:
+        classeHero = "Voleur";
+        message = "Discrétion et rapidité sont tes alliées.";
+        break;
+    case 4:
+        classeHero = "Alchimiste";
+        message = "Prépare tes fioles et tes mélanges explosifs.";
+        break;
+    default:
+        classeHero = "Villageois";
+        message = "Tu as décidé de rester en sécurité au village.";
 }
+
+console.log("Classe : " + classeHero);
+console.log("Message : " + message);
 </textarea>
                 </div>
             </section>

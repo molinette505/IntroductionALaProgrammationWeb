@@ -89,9 +89,23 @@
                 <div class="playground-container" data-auto-execute="false" data-type="compare"
                     data-title="Comparaison : sans fonction vs avec fonction"
                     data-toolbar-text="Observe la différence: répétition du code sans fonction, puis version réutilisable avec fonction."
-                    data-label-a="Sans fonction" data-label-b="Avec fonction"
+                    data-label-a="Avec fonction" data-label-b="Sans fonction"
                     data-auto-height="true">
                     <textarea class="source-code" hidden>
+// AVEC FONCTION : on écrit le calcul une seule fois
+function calculerMoyenne(notes) {
+  let total = 0;
+  for (let i = 0; i < notes.length; i++) {
+    total += notes[i];
+  }
+  return total / notes.length;
+}
+
+console.log("Avec fonction - Moyenne groupe 1 :", calculerMoyenne([85, 90, 78, 92, 88]));
+console.log("Avec fonction - Moyenne groupe 2 :", calculerMoyenne([58, 72, 60, 70, 63]));
+console.log("Avec fonction - Moyenne groupe 3 :", calculerMoyenne([30, 70, 89, 58, 75]));
+</textarea>
+                    <textarea class="compare-code" hidden>
 // SANS FONCTION : on répète le même algorithme
 let notesGroupe1 = [85, 90, 78, 92, 88];
 let totalGroupe1 = 0;
@@ -116,20 +130,6 @@ for (let i = 0; i < notesGroupe3.length; i++) {
 }
 let moyenneGroupe3 = totalGroupe3 / notesGroupe3.length;
 console.log("Sans fonction - Moyenne groupe 3 :", moyenneGroupe3);
-</textarea>
-                    <textarea class="compare-code" hidden>
-// AVEC FONCTION : on écrit le calcul une seule fois
-function calculerMoyenne(notes) {
-  let total = 0;
-  for (let i = 0; i < notes.length; i++) {
-    total += notes[i];
-  }
-  return total / notes.length;
-}
-
-console.log("Avec fonction - Moyenne groupe 1 :", calculerMoyenne([85, 90, 78, 92, 88]));
-console.log("Avec fonction - Moyenne groupe 2 :", calculerMoyenne([58, 72, 60, 70, 63]));
-console.log("Avec fonction - Moyenne groupe 3 :", calculerMoyenne([30, 70, 89, 58, 75]));
 </textarea>
                 </div>
             </section>
