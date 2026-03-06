@@ -817,15 +817,21 @@ ${html}
 </html>`;
     };
 
-    const buildVisualizerPayload = (files) => {
+    const buildVisualizerPayload = (files, context = {}) => {
         const js = files.js || '';
+        const css = files.css || '';
         let html = files.html || '';
+        const editorTab = ['html', 'css', 'js'].includes(context.editor) ? context.editor : 'js';
+        const viewTab = context.tab === 'dom' ? 'dom' : 'console';
         if (!/<body[\s>]/i.test(html) && !/<html[\s>]/i.test(html)) {
             html = `<body>\n${html}\n</body>`;
         }
         return {
-            js,
             html,
+            css,
+            js,
+            editor: editorTab,
+            tab: viewTab,
             run: false,
             ui: {
                 flowLineEnabled: false,
@@ -881,7 +887,10 @@ ${html}
     if (btnVisualizer) {
         btnVisualizer.addEventListener('click', () => {
             persistCurrentEditorValue();
-            const payload = buildVisualizerPayload(cloneFiles(getModeFiles()));
+            const payload = buildVisualizerPayload(cloneFiles(getModeFiles()), {
+                editor: activeFile,
+                tab: container.getAttribute('data-output-view') === 'render' ? 'dom' : 'console'
+            });
             getVisualizerOverlay().open(visualizerUrl, payload);
         });
     }
