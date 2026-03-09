@@ -217,6 +217,8 @@ preparerCafe();
 
                 <p>
                     Les paramètres servent à <strong>personnaliser</strong> une fonction.
+                </p>
+                <p>
                     On exécute la même fonction, mais avec des valeurs différentes.
                 </p>
 
@@ -233,16 +235,45 @@ preparerCafe();
                     data-instructions="Même fonction, deux appels avec des arguments différents.">
                     <textarea class="source-code" hidden>
 function saluer(nom) {
-  console.log(`Salut, ${nom} !`);
+    console.log(`Salut, ${nom} !`);
 }
 
 saluer("Victor");
 saluer("Emma");
 </textarea>
                 </div>
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="calculerTempsTrajet(distanceKm, vitesseKmH)"
+                    data-instructions="Même fonction, plusieurs appels avec des arguments différents.">
+                    <textarea class="source-code" hidden>
+function calculerTempsTrajet(distanceKm, vitesseKmH) {
+    const tempsEnHeures = distanceKm / vitesseKmH;
+    console.log(`Pour ${distanceKm} km à ${vitesseKmH} km/h : ${tempsEnHeures} h`);
+}
+
+calculerTempsTrajet(120, 60);
+calculerTempsTrajet(90, 45);
+calculerTempsTrajet(150, 75);
+</textarea>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="calculMontantAvecPourboire(total, pourboir)"
+                    data-instructions="Même fonction, 3 appels avec des montants différents.">
+                    <textarea class="source-code" hidden>
+function calculMontantAvecPourboire(total, pourboir) {
+    const montantFinal = total + (total * pourboir / 100);
+    return montantFinal;
+}
+
+console.log(`Total final (80$, 15%) : ${calculMontantAvecPourboire(80, 15)}$`);
+console.log(`Total final (120$, 18%) : ${calculMontantAvecPourboire(120, 18)}$`);
+console.log(`Total final (45$, 20%) : ${calculMontantAvecPourboire(45, 20)}$`);
+</textarea>
+                </div>
 
                 <div class="playground-container" data-auto-execute="false" data-type="exercise"
-                    data-title="Exercice : présenter un joueur"
+                    data-title="Présenter un joueur"
                     data-toolbar-text="Crée une fonction presenterJoueur(nom, points) qui affiche : Le joueur X a Y points. Puis appelle-la 2 fois."
                     data-auto-height="false">
                     <textarea class="source-code" hidden>

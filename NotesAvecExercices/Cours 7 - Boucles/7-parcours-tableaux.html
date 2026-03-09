@@ -63,25 +63,20 @@
         </div>
 
         <p>
-          Parcourir un tableau = lire chaque élément, un par un, grâce à son <strong>index</strong> (souvent <code>i</code>).
+          Parcourir un tableau = lire chaque élément, un par un, grâce à son <strong>index</strong>.
+        </p>
+        <p>
+          La stratégie est d'utiliser le compteur <code>i</code> d'une boucle for comme l'index du tableau.
         </p>
 
         <div class="info-box info">
           <h4><i data-lucide="info"></i> La recette (à mémoriser)</h4>
           <ul>
-            <li><strong>Départ</strong> : <code>i = 0</code> (premier élément)</li>
-            <li><strong>Condition</strong> : <code>i <= tableau.length - 1</code> ou <code>i < tableau.length</code>(dernier élément)</li>
+            <li><strong>Départ</strong> : <code>i = 0</code> (premier élément du tableau)</li>
+            <li><strong>Condition</strong> : <code>i <= tableau.length - 1</code> ou <code>i < tableau.length</code>(dernier élément du tableau)</li>
             <li><strong>Pas</strong> : <code>i++</code> (on avance d’une case du tableau à chaque itération)</li>
             <li><strong>Lecture</strong> : <code>tableau[i]</code> (on lit le ième élément à chaque répétition)</li>
           </ul>
-        </div>
-
-        <div class="info-box warning">
-          <h4><i data-lucide="shield-alert"></i> Erreur classique</h4>
-          <p>
-            Ne fais pas <code>i &lt;= tableau.length</code> : quand i est égale à tableau.length,
-            <code>tableau[i]</code> est hors du tableau et donne donc <code>undefined</code> .
-          </p>
         </div>
 
         <div class="info-box">
@@ -131,7 +126,7 @@ let etudiants = ["Léa", "Antoine", "Sophie", "Marc"];
 // i commence à 0 et s'arrête à etudiants.length - 1 (donc de 0 à 3)
 for (let i = 0; i <= etudiants.length - 1; i++) {
 
-  console.log(`${etudiants[i]}`);
+  console.log(etudiants[i]);
 }
 </textarea>
         </div>
