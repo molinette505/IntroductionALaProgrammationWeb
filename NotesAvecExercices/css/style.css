@@ -436,6 +436,41 @@ body.lightbox-open {
     font-family: "JetBrains Mono", monospace;
 }
 
+/* Utility: compact table whose width follows its content and stays centered. */
+.table-narrow {
+    width: max-content;
+    min-width: 0;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: auto;
+}
+
+.table-narrow th,
+.table-narrow td {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.parallel-table caption {
+    caption-side: top;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+}
+
+.parallel-table caption code {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(248, 113, 113, 0.35);
+    background: rgba(15, 23, 42, 0.85);
+    color: #fda4af;
+    box-shadow: 0 6px 14px rgba(2, 6, 23, 0.35);
+}
+
 .parallel-table th,
 .parallel-table td {
     border: 1px solid #334155;

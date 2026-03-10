@@ -207,6 +207,10 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     const isConsoleInitialOpen = consoleOpenFlag ?? container.hasAttribute('data-console-open');
     const autoExecuteFlag = parseTruthyFlag(container.dataset.autoExecute);
     const isAutoExecuteEnabled = autoExecuteFlag ?? true;
+    const requestedLibrary = String(container.dataset.lib || '').trim().toLowerCase();
+    const p5Flag = parseTruthyFlag(container.dataset.p5);
+    const shouldLoadP5 = p5Flag ?? (requestedLibrary === 'p5' || requestedLibrary === 'p5js');
+    const p5ScriptSrc = container.dataset.p5Src || 'https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js';
     const jsStrictFlag = parseTruthyFlag(container.dataset.jsStrict || container.dataset.strictJs);
     const useStrictJs = jsStrictFlag ?? false;
     container.setAttribute('data-auto-height-enabled', isAutoHeight ? 'true' : 'false');
@@ -362,7 +366,11 @@ document.querySelectorAll('.playground-container').forEach((container) => {
         mode: 'javascript',
         theme: 'dracula',
         lineNumbers: true,
-        autoCloseBrackets: '()[]{}',
+        // Keep auto-closing only for brackets, never for quotes/backticks.
+        autoCloseBrackets: {
+            pairs: '()[]{}',
+            explode: '[]{}()'
+        },
         lineWrapping: false,
         tabSize: 2,
         viewportMargin: isAutoHeight ? Infinity : 10
@@ -663,7 +671,21 @@ document.querySelectorAll('.playground-container').forEach((container) => {
 
     editor.setOption('extraKeys', {
         ...(editor.getOption('extraKeys') || {}),
-        'Ctrl-Space': () => showAutocomplete(true, true)
+        'Ctrl-Space': () => showAutocomplete(true, true),
+        Enter: (cm) => {
+            if (cm.state.completionActive) {
+                CodeMirror.commands.pickCompletion(cm);
+                return;
+            }
+            return CodeMirror.Pass;
+        },
+        Tab: (cm) => {
+            if (cm.state.completionActive) {
+                CodeMirror.commands.pickCompletion(cm);
+                return;
+            }
+            return CodeMirror.Pass;
+        }
     });
 
     editor.on('inputRead', (cmInstance, change) => {
@@ -672,6 +694,15 @@ document.querySelectorAll('.playground-container').forEach((container) => {
 
         const inserted = Array.isArray(change.text) ? change.text.join('') : '';
         if (inserted.length !== 1) return;
+
+        // Quotes/backticks have no dedicated autocomplete in this editor.
+        // If a list is still open from previous typing, close it immediately.
+        if (inserted === '\'' || inserted === '"' || inserted === '`') {
+            if (editor.state.completionActive) {
+                editor.state.completionActive.close();
+            }
+            return;
+        }
 
         if (inserted === '$') {
             showDelimiterAutocomplete(inserted);
@@ -793,6 +824,9 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     const buildRenderDoc = (files) => {
         const html = files.html || '';
         const css = files.css || '';
+        const p5ScriptTag = shouldLoadP5
+            ? `<script src="${p5ScriptSrc}"></script>`
+            : '';
         const baseCss = `
 html {
   box-sizing: border-box;
@@ -810,6 +844,7 @@ html {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>${baseCss}\n${css}</style>
+${p5ScriptTag}
 </head>
 <body>
 ${html}
@@ -823,6 +858,13 @@ ${html}
         let html = files.html || '';
         const editorTab = ['html', 'css', 'js'].includes(context.editor) ? context.editor : 'js';
         const viewTab = context.tab === 'dom' ? 'dom' : 'console';
+        if (shouldLoadP5 && !/p5(?:\.min)?\.js/i.test(html)) {
+            if (/<\/body>/i.test(html)) {
+                html = html.replace(/<\/body>/i, `<script src="${p5ScriptSrc}"></script>\n</body>`);
+            } else {
+                html = `<script src="${p5ScriptSrc}"></script>\n${html}`;
+            }
+        }
         if (!/<body[\s>]/i.test(html) && !/<html[\s>]/i.test(html)) {
             html = `<body>\n${html}\n</body>`;
         }
@@ -1537,6 +1579,20 @@ ${html}
                 studentScript.textContent = codeWithSource;
                 frameDocument.body.appendChild(studentScript);
                 studentScript.remove();
+
+                // p5.js global mode auto-init may already be passed when user code is
+                // injected after frame load. In that case, explicitly start one p5
+                // instance so setup()/draw() become active.
+                if (shouldLoadP5 && typeof frameWindow.p5 === 'function') {
+                    const hasInstanceMode = /\bnew\s+p5\s*\(/.test(code);
+                    const hasGlobalSketch = typeof frameWindow.setup === 'function'
+                        || typeof frameWindow.draw === 'function'
+                        || typeof frameWindow.preload === 'function';
+
+                    if (!hasInstanceMode && hasGlobalSketch) {
+                        frameWindow.__playgroundP5Instance = new frameWindow.p5();
+                    }
+                }
             }
         } catch (error) {
             print('error', [error], { uncaught: true, error });

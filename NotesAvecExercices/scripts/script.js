@@ -530,8 +530,53 @@ const initIndexLinkBadges = () => {
     });
 };
 
+const initNarrowTables = () => {
+    const tables = Array.from(document.querySelectorAll('table.table-narrow'));
+    if (!tables.length) return;
+
+    const applyNarrowWidth = (table) => {
+        if (!(table instanceof HTMLTableElement)) return;
+
+        const previousWidth = table.style.width;
+        const previousMinWidth = table.style.minWidth;
+
+        // Reset to intrinsic sizing first, then measure table vs caption width.
+        table.style.width = 'max-content';
+        table.style.minWidth = '0px';
+
+        const contentWidth = Math.ceil(table.scrollWidth || 0);
+        const caption = table.caption;
+        let captionWidth = 0;
+
+        if (caption) {
+            const prevWrap = caption.style.whiteSpace;
+            caption.style.whiteSpace = 'nowrap';
+            captionWidth = Math.ceil(caption.scrollWidth || 0);
+            caption.style.whiteSpace = prevWrap;
+        }
+
+        const targetWidth = Math.max(contentWidth, captionWidth);
+        if (!targetWidth) {
+            table.style.width = previousWidth;
+            table.style.minWidth = previousMinWidth;
+            return;
+        }
+
+        table.style.width = `${targetWidth}px`;
+        table.style.minWidth = `${targetWidth}px`;
+    };
+
+    const refreshAll = () => {
+        tables.forEach((table) => applyNarrowWidth(table));
+    };
+
+    refreshAll();
+    window.addEventListener('resize', refreshAll, { passive: true });
+};
+
 buildAutoSectionsAndNav();
 initScrollSpy();
 initImageLightbox();
 initComparisonBlocks();
 initIndexLinkBadges();
+initNarrowTables();

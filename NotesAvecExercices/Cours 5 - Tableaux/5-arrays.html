@@ -69,8 +69,36 @@
           On l’utilise quand on veut mettre <strong>plusieurs éléments</strong> dans une seule variable.
         </p>
 
+        <table class="parallel-table table-narrow">
+          <caption><code>let scores = [250, 200, 145, 110]</code></caption>
+          <thead>
+            <tr>
+              <th>éléments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>250</td>
+            </tr>
+            <tr>
+              <td>200</td>
+            </tr>
+            <tr>
+              <td>145</td>
+            </tr>
+            <tr>
+              <td>110</td>
+            </tr>
+          </tbody>
+        </table>
+        </section>
+        <section class="section-spy">
+        <div class="section-header">
+          <h3>Le concept d'index</h3>
+        </div>
+
         <div class="info-box info">
-          <h4><i data-lucide="hash"></i> Le concept d’index</h4>
+          <h4><i data-lucide="hash"></i> Le concept d’index (la position)</h4>
           <p>
             Chaque élément est identifié par sa position dans le tableau: son <strong>index</strong>.<p/>
            <p> En programmation, on commence à compter à partir de <strong>0</strong>.
@@ -82,11 +110,12 @@
           </ul>
         </div>
 
-        <table class="parallel-table">
+          <table class="parallel-table table-narrow">
+          <caption><code>let scores = [250, 200, 145, 110]</code></caption>
           <thead>
             <tr>
-              <th>index</th>
-              <th><code>let scores = [250, 200, 145, 110]</code></th>
+              <th>indices</th>
+              <th>éléments</th>
             </tr>
           </thead>
           <tbody>
@@ -120,12 +149,12 @@
 
         <div class="grid-2">
           <div class="info-box info">
-            <h4>1) Tableau vide</h4>
+            <h4>1) Créer un tableau vide</h4>
             <pre><code class="language-javascript">let filmsFavoris = [];</code></pre>
           </div>
 
-          <div class="info-box success">
-            <h4>2) Tableau déjà rempli</h4>
+          <div class="info-box info">
+            <h4>2) Créer un tableau déjà rempli</h4>
             <pre><code class="language-javascript">let notesEtudiants = [15, 12, 18];</code></pre>
           </div>
         </div>
@@ -240,17 +269,18 @@ console.log("Total participants :", nbTotal);
           <h3>Accéder et modifier les éléments d’un tableau</h3>
         </div>
 
-        <h4>Accéder (lire)</h4>
-        <p>
-          Pour lire un élément : <code>tableau[index]</code>.
-          Exemple : <code>scores[2]</code> donne le <strong>3e</strong> élément.
-        </p>
+        <div class="info-box info">
+        <h4>Accéder (lire) un élément dans un tableau</h4>
+        <p><code>tableau[index]</code></p>
+        <p>Exemple : <code>scores[2]</code> donne le <strong>3e</strong> élément et retourne 145.</p>
+        </div>
 
-        <table class="parallel-table">
+        <table class="parallel-table table-narrow">
+          <caption><code>let scores = [250, 200, 145, 110]</code></caption>
           <thead>
             <tr>
-              <th>index</th>
-              <th><code>let scores = [250, 200, 145, 110]</code></th>
+              <th>indices</th>
+              <th>éléments</th>
             </tr>
           </thead>
           <tbody>
@@ -272,7 +302,6 @@ console.log("Total participants :", nbTotal);
             </tr>
           </tbody>
         </table>
-        <p class="parallel-note"><code>scores[2]</code> retourne donc 145</p>
 
         <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Lire un élément"
           data-toolbar-text="Lire = tableau[index]. Ici on lit scores[1] (2e élément)"

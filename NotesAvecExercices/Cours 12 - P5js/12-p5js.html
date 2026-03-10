@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - Introduction a P5.js</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS P5.js</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>Introduction a P5.js</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">Demarrer avec P5.js</h2>
+        <p>
+          <strong>P5.js</strong> est une bibliotheque JavaScript pour dessiner facilement avec du code.
+          La fonction <code>setup()</code> s'execute une fois, puis <code>draw()</code> tourne en boucle.
+        </p>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Premier sketch anime</h3>
+        </div>
+
+        <p>
+          Dans cet exemple, une boule rebondit horizontalement dans un canvas.
+          Le playground active P5.js avec <code>data-p5="true"</code>.
+        </p>
+
+        <div class="playground-container" data-type="example" data-output-default="render" data-console-open="false"
+          data-auto-height="true" data-p5="true" data-title="Premier sketch P5.js : boule qui rebondit"
+          data-toolbar-text="Modifier le sketch puis enregistrer pour relancer le rendu.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-sketch"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-sketch {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.2);
+}
+
+canvas {
+  display: block;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+let positionX = 70;
+let vitesseX = 2.8;
+
+function setup() {
+  let zoneSketch = document.getElementById("zone-sketch");
+  let elementCanvas = createCanvas(420, 240);
+  elementCanvas.parent(zoneSketch);
+}
+
+function draw() {
+  background("#0b1229");
+
+  fill("#a78bfa");
+  noStroke();
+  ellipse(positionX, height / 2, 36, 36);
+
+  positionX = positionX + vitesseX;
+
+  if (positionX >= width - 18 || positionX <= 18) {
+    vitesseX = vitesseX * -1;
+  }
+}
+</textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>
