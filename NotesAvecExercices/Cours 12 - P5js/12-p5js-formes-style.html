@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - P5.js Formes et styles</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS 13.2</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>P5.js - Formes et styles</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./12-p5js.html" class="nav-link">Parcours</a>
+        <a href="./12-p5js-demarrage.html" class="nav-link">1) Demarrage</a>
+        <a href="./12-p5js-formes-style.html" class="nav-link">2) Formes et styles</a>
+        <a href="./12-p5js-tableaux-paralleles.html" class="nav-link">3) Boucles + tableaux</a>
+        <a href="./12-p5js-vitesse-delta-time.html" class="nav-link">4) Vitesse + deltaTime</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">2) Dessiner des formes avec styles progressifs</h2>
+        <p>
+          Dans ce cours, on separe clairement le remplissage (<code>fill</code>) et le contour
+          (<code>stroke</code>, similaire a un border), puis on combine les deux.
+        </p>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Etape 1 - formes de base</h3>
+        </div>
+
+        <div class="playground-container" data-type="example" data-output-default="render" data-console-open="false"
+          data-auto-height="true" data-p5="true" data-title="rect, circle, ellipse, line, triangle"
+          data-toolbar-text="Rappels :\n- rect(x, y, l, h) et circle(x, y, d)\n- line et triangle dessinent aussi des formes\n- Petit exemple : triangle(100, 40, 140, 120, 60, 120);"
+          data-instructions="Execute le code, puis modifie les positions pour observer la composition.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-shapes-a"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-shapes-a {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+function setup() {
+  const zone = document.getElementById("zone-p5-shapes-a");
+  const c = createCanvas(460, 260);
+  c.parent(zone);
+}
+
+function draw() {
+  background("#0f172a");
+
+  fill("#22d3ee");
+  rect(30, 40, 110, 60, 8);
+
+  fill("#f59e0b");
+  circle(230, 70, 60);
+
+  fill("#f472b6");
+  ellipse(360, 70, 90, 55);
+
+  stroke("#93c5fd");
+  strokeWeight(3);
+  line(40, 210, 420, 210);
+
+  noStroke();
+  fill("#34d399");
+  triangle(220, 130, 280, 210, 160, 210);
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Etape 2 - fill (remplissage) seulement</h3>
+        </div>
+
+        <p>
+          <code>fill(couleur)</code> applique la couleur interne.
+          Avec <code>noStroke()</code>, il n'y a pas de contour.
+        </p>
+
+        <div class="playground-container" data-type="example" data-output-default="render" data-console-open="false"
+          data-auto-height="true" data-p5="true" data-title="Remplissage sans contour"
+          data-toolbar-text="Rappels :\n- fill(...) definit la couleur interieure\n- noStroke() retire le contour\n- Petit exemple : fill('#fb923c'); rect(40, 40, 80, 50);"
+          data-instructions="Execute le code, puis modifie la couleur de fill pour observer le rendu.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-fill-only"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-fill-only {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+function setup() {
+  const zone = document.getElementById("zone-p5-fill-only");
+  const c = createCanvas(420, 220);
+  c.parent(zone);
+}
+
+function draw() {
+  background("#111827");
+  noStroke();
+
+  fill("#fb923c");
+  rect(40, 70, 90, 80, 10);
+
+  fill("#60a5fa");
+  circle(220, 110, 90);
+
+  fill("#34d399");
+  ellipse(340, 110, 110, 70);
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Etape 3 - stroke (border) et strokeWeight</h3>
+        </div>
+
+        <p>
+          <code>stroke(couleur)</code> regle la couleur du contour,
+          et <code>strokeWeight(epaisseur)</code> regle son epaisseur.
+        </p>
+
+        <div class="playground-container" data-type="example" data-output-default="render" data-console-open="false"
+          data-auto-height="true" data-p5="true" data-title="Contour seulement"
+          data-toolbar-text="Rappels :\n- stroke(...) correspond a la couleur du border\n- strokeWeight(...) regle l'epaisseur\n- Petit exemple : noFill(); stroke('#fff'); rect(20, 20, 80, 50);"
+          data-instructions="Execute le code, puis modifie strokeWeight pour observer l'epaisseur du contour.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-stroke-only"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-stroke-only {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+function setup() {
+  const zone = document.getElementById("zone-p5-stroke-only");
+  const c = createCanvas(420, 220);
+  c.parent(zone);
+}
+
+function draw() {
+  background("#0b1220");
+  noFill();
+
+  stroke("#e2e8f0");
+  strokeWeight(2);
+  rect(35, 60, 95, 95, 8);
+
+  stroke("#f472b6");
+  strokeWeight(5);
+  circle(215, 110, 90);
+
+  stroke("#38bdf8");
+  strokeWeight(8);
+  ellipse(335, 110, 100, 70);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-type="exercise" data-output-default="render" data-console-open="false"
+          data-auto-height="false" data-p5="true" data-title="Exercice - fill et stroke separes"
+          data-toolbar-text="Rappels :\n- Syntaxe a reutiliser : fill(...), stroke(...), strokeWeight(...)\n- Indice de logique : change de style avant chaque forme\n- Exemple court : fill('#22d3ee'); stroke('#0ea5e9');"
+          data-instructions="Complete les TODO dans l'ordre. Teste ensuite avec les valeurs donnees.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-fill-stroke-exo"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-fill-stroke-exo {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+function setup() {
+  const zone = document.getElementById("zone-p5-fill-stroke-exo");
+  const c = createCanvas(420, 230);
+  c.parent(zone);
+}
+
+function draw() {
+  background("#111827");
+
+  // TODO 1 : dessiner un rectangle rempli sans contour
+  // TODO 2 : dessiner un cercle avec contour epais et sans remplissage
+  // TODO 3 : dessiner une ellipse avec fill + stroke en meme temps
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div id="zone-p5-fill-stroke-exo"></div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+#zone-p5-fill-stroke-exo {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="solution-code-js" hidden>
+function setup() {
+  const zone = document.getElementById("zone-p5-fill-stroke-exo");
+  const c = createCanvas(420, 230);
+  c.parent(zone);
+}
+
+function draw() {
+  background("#111827");
+
+  noStroke();
+  fill("#f59e0b");
+  rect(30, 70, 100, 90, 10);
+
+  noFill();
+  stroke("#f472b6");
+  strokeWeight(6);
+  circle(215, 115, 95);
+
+  fill("#34d399");
+  stroke("#10b981");
+  strokeWeight(3);
+  ellipse(335, 115, 110, 70);
+}
+</textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

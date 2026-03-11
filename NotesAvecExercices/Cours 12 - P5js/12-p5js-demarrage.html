@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - P5.js Demarrage</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS 13.1</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>P5.js - Demarrage</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./12-p5js.html" class="nav-link">Parcours</a>
+        <a href="./12-p5js-demarrage.html" class="nav-link">1) Demarrage</a>
+        <a href="./12-p5js-formes-style.html" class="nav-link">2) Formes et styles</a>
+        <a href="./12-p5js-tableaux-paralleles.html" class="nav-link">3) Boucles + tableaux</a>
+        <a href="./12-p5js-vitesse-delta-time.html" class="nav-link">4) Vitesse + deltaTime</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">1) setup(), draw(), background(), frameRate()</h2>
+        <p>
+          On commence tres simple : creer un canvas, dessiner une forme, comprendre la boucle,
+          puis ajuster la vitesse d'affichage.
+        </p>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Etape 1 - setup() et premier cercle</h3>
+        </div>
+
+        <p>
+          <code>setup()</code> s'execute une seule fois. C'est l'endroit pour creer le canvas.
+        </p>
+
+        <div class="playground-container" data-type="example" data-output-default="render" data-console-open="false"
+          data-auto-height="true" data-p5="true" data-title="Premier canvas"
+          data-toolbar-text="Rappels :\n- createCanvas(...) va dans setup()\n- draw() est appelee en boucle\n- Petit exemple : circle(width / 2, height / 2, 50);"
+          data-instructions="Execute le code, puis modifie le rayon du cercle pour observer la taille.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-start-a"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-start-a {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+function setup() {
+  const zone = document.getElementById("zone-p5-start-a");
+  const c = createCanvas(420, 220);
+  c.parent(zone);
+}
+
+function draw() {
+  background("#111827");
+  fill("#22d3ee");
+  noStroke();
+  circle(width / 2, height / 2, 50);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-type="exercise" data-output-default="render" data-console-open="false"
+          data-auto-height="false" data-p5="true" data-title="Exercice - sketch minimal"
+          data-toolbar-text="Rappels :\n- Syntaxe a reutiliser : createCanvas(w, h)\n- Indice de logique : utilise width/2 et height/2\n- Exemple court : circle(60, 80, 30);"
+          data-instructions="Complete les TODO dans l'ordre. Teste ensuite avec les valeurs donnees.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-start-exo-a"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-start-exo-a {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+</textarea>
+          <textarea class="source-code-js" hidden>
+function setup() {
+  // TODO 1 : creer un canvas 360x200 et le placer dans #zone-p5-start-exo-a
+}
+
+function draw() {
+  // TODO 2 : mettre un fond fonce
+  // TODO 3 : dessiner un cercle orange au centre, taille 60
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div id="zone-p5-start-exo-a"></div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+#zone-p5-start-exo-a {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+</textarea>
+          <textarea class="solution-code-js" hidden>
+function setup() {
+  const zone = document.getElementById("zone-p5-start-exo-a");
+  const c = createCanvas(360, 200);
+  c.parent(zone);
+}
+
+function draw() {
+  background("#1f2937");
+  fill("#fb923c");
+  noStroke();
+  circle(width / 2, height / 2, 60);
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Etape 2 - pourquoi background() est important</h3>
+        </div>
+
+        <p>
+          Si <code>background()</code> est dans <code>draw()</code>, on nettoie la frame precedente.
+          Sinon, les dessins s'accumulent.
+        </p>
+
+        <div class="playground-container" data-type="compare" data-label-a="Avec background" data-label-b="Sans background"
+          data-output-default="render" data-console-open="false" data-auto-height="true" data-p5="true"
+          data-title="Nettoyer ou laisser la trace"
+          data-toolbar-text="Rappels :\n- background(...) efface la frame precedente\n- Sans background dans draw(), les traces restent\n- Petit exemple : x = x + 2;"
+          data-instructions="Execute le code, puis modifie la vitesse pour observer la difference de trace.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-bg-a"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-bg-a {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+let x = 0;
+
+function setup() {
+  const zone = document.getElementById("zone-p5-bg-a");
+  const c = createCanvas(420, 220);
+  c.parent(zone);
+}
+
+function draw() {
+  background("#0b132b");
+  fill("#38bdf8");
+  noStroke();
+  circle(x, height / 2, 30);
+  x = x + 2;
+  if (x > width + 15) x = -15;
+}
+</textarea>
+          <textarea class="compare-code-html" hidden>
+<div id="zone-p5-bg-b"></div>
+</textarea>
+          <textarea class="compare-code-css" hidden>
+#zone-p5-bg-b {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="compare-code" hidden>
+let x = 0;
+
+function setup() {
+  const zone = document.getElementById("zone-p5-bg-b");
+  const c = createCanvas(420, 220);
+  c.parent(zone);
+  background("#0b132b");
+}
+
+function draw() {
+  fill("#38bdf8");
+  noStroke();
+  circle(x, height / 2, 30);
+  x = x + 2;
+  if (x > width + 15) x = -15;
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Etape 3 - ralentir ou accelerer avec frameRate()</h3>
+        </div>
+
+        <p>
+          <code>frameRate(n)</code> demande un nombre d'images par seconde.
+          Cette commande aide a rendre l'animation plus lente ou plus rapide.
+        </p>
+
+        <div class="playground-container" data-type="example" data-output-default="render" data-console-open="false"
+          data-auto-height="true" data-p5="true" data-title="Influence du frameRate"
+          data-toolbar-text="Rappels :\n- frameRate(60) est rapide, frameRate(12) est lent\n- draw() suit le rythme demande\n- Petit exemple : text('FPS', 10, 20);"
+          data-instructions="Execute le code, puis modifie frameRate(20) en frameRate(8) pour observer le rythme.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-fps-a"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-fps-a {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+let x = 0;
+
+function setup() {
+  const zone = document.getElementById("zone-p5-fps-a");
+  const c = createCanvas(420, 220);
+  c.parent(zone);
+  frameRate(20);
+}
+
+function draw() {
+  background("#0f172a");
+
+  fill("#f97316");
+  noStroke();
+  rect(x, height / 2 - 15, 60, 30, 6);
+
+  x = x + 3;
+  if (x > width) x = -60;
+
+  fill("#e2e8f0");
+  textSize(14);
+  text("FPS cible: 20", 12, 22);
+}
+</textarea>
+        </div>
+
+        <div class="info-box info">
+          <h4>Recap</h4>
+          <ul>
+            <li><code>setup()</code> prepare le sketch.</li>
+            <li><code>draw()</code> repete le rendu.</li>
+            <li><code>background()</code> evite les traces non voulues.</li>
+            <li><code>frameRate()</code> regle le rythme global.</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

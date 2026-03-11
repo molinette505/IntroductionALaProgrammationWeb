@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - P5.js Vitesse et deltaTime</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../editor/editor.css">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mobile-header">
+    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+    <span class="logo">JS 13.4</span>
+  </header>
+
+  <div class="app-container">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span class="js-badge">JS</span>
+        <h1>P5.js - Vitesse et limites</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="nav-link">Retour</a>
+        <a href="./12-p5js.html" class="nav-link">Parcours</a>
+        <a href="./12-p5js-demarrage.html" class="nav-link">1) Demarrage</a>
+        <a href="./12-p5js-formes-style.html" class="nav-link">2) Formes et styles</a>
+        <a href="./12-p5js-tableaux-paralleles.html" class="nav-link">3) Boucles + tableaux</a>
+        <a href="./12-p5js-vitesse-delta-time.html" class="nav-link">4) Vitesse + deltaTime</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-spy">
+        <h2 class="section-title">4) Vitesse, deltaTime et limites de fenetre</h2>
+        <p>
+          Ici on veut un mouvement stable meme si le framerate change.
+          On utilise la formule : <code>position += vitesse * deltaSecondes</code>.
+        </p>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Etape 1 - vitesse par seconde (deltaTime)</h3>
+        </div>
+
+        <div class="info-box info">
+          <h4>Formule cle</h4>
+          <pre><code class="language-javascript">const dt = deltaTime / 1000; // ms -> s
+x = x + vx * dt;</code></pre>
+        </div>
+
+        <div class="playground-container" data-type="example" data-output-default="render" data-console-open="false"
+          data-auto-height="true" data-p5="true" data-title="Mouvement horizontal avec deltaTime"
+          data-toolbar-text="Rappels :\n- deltaTime est en millisecondes\n- Convertis en secondes avec / 1000\n- Petit exemple : x += vitesse * dt;"
+          data-instructions="Execute le code, puis modifie la vitesse pour observer la distance parcourue par seconde.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-dt-a"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-dt-a {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+let x = 40;
+const vitesseX = 180; // pixels / seconde
+
+function setup() {
+  const zone = document.getElementById("zone-p5-dt-a");
+  const c = createCanvas(460, 220);
+  c.parent(zone);
+}
+
+function draw() {
+  const dt = deltaTime / 1000;
+
+  background("#0f172a");
+  fill("#22d3ee");
+  noStroke();
+  circle(x, height / 2, 32);
+
+  x = x + vitesseX * dt;
+  if (x > width + 16) {
+    x = -16;
+  }
+
+  fill("#e2e8f0");
+  textSize(13);
+  text("vitesseX: " + vitesseX + " px/s", 12, 20);
+}
+</textarea>
+        </div>
+      </section>
+
+      <section class="section-spy">
+        <div class="section-header">
+          <h3>Etape 2 - limites de la fenetre (rebond)</h3>
+        </div>
+
+        <p>
+          On rebondit si la forme depasse une limite.
+          Avec un cercle, on tient compte du rayon : <code>x > width - rayon</code>.
+        </p>
+
+        <div class="playground-container" data-type="example" data-output-default="render" data-console-open="false"
+          data-auto-height="true" data-p5="true" data-title="Rebond avec limites X et Y"
+          data-toolbar-text="Rappels :\n- Teste les limites avec width et height\n- Inverse la vitesse avec vx = -vx\n- Petit exemple : if (x > width - r) vx = -vx;"
+          data-instructions="Execute le code, puis modifie le rayon pour observer l'impact des limites.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-bounds-a"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-bounds-a {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+let x = 90;
+let y = 80;
+let vx = 210; // px/s
+let vy = 150; // px/s
+const rayon = 20;
+
+function setup() {
+  const zone = document.getElementById("zone-p5-bounds-a");
+  const c = createCanvas(460, 250);
+  c.parent(zone);
+}
+
+function draw() {
+  const dt = deltaTime / 1000;
+
+  background("#020617");
+
+  x = x + vx * dt;
+  y = y + vy * dt;
+
+  if (x > width - rayon || x < rayon) {
+    vx = -vx;
+    x = constrain(x, rayon, width - rayon);
+  }
+
+  if (y > height - rayon || y < rayon) {
+    vy = -vy;
+    y = constrain(y, rayon, height - rayon);
+  }
+
+  fill("#c4b5fd");
+  noStroke();
+  circle(x, y, rayon * 2);
+}
+</textarea>
+        </div>
+
+        <div class="playground-container" data-type="exercise" data-output-default="render" data-console-open="false"
+          data-auto-height="false" data-p5="true" data-title="Exercice - deltaTime + limites"
+          data-toolbar-text="Rappels :\n- Syntaxe a reutiliser : const dt = deltaTime / 1000\n- Indice de logique : avance puis teste les limites\n- Exemple court : x += vx * dt;"
+          data-instructions="Complete les TODO dans l'ordre. Teste ensuite avec les valeurs donnees.">
+          <textarea class="source-code-html" hidden>
+<div id="zone-p5-dt-exo"></div>
+</textarea>
+          <textarea class="source-code-css" hidden>
+#zone-p5-dt-exo {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="source-code-js" hidden>
+let x = 110;
+let y = 110;
+let vx = 180;
+let vy = 130;
+const r = 18;
+
+function setup() {
+  const zone = document.getElementById("zone-p5-dt-exo");
+  const c = createCanvas(430, 240);
+  c.parent(zone);
+}
+
+function draw() {
+  // TODO 1 : calculer dt a partir de deltaTime
+
+  background("#111827");
+
+  // TODO 2 : avancer x et y avec vx, vy et dt
+
+  // TODO 3 : rebond horizontal avec limites basees sur r
+
+  // TODO 4 : rebond vertical avec limites basees sur r
+
+  fill("#34d399");
+  noStroke();
+  circle(x, y, r * 2);
+}
+</textarea>
+          <textarea class="solution-code-html" hidden>
+<div id="zone-p5-dt-exo"></div>
+</textarea>
+          <textarea class="solution-code-css" hidden>
+#zone-p5-dt-exo {
+  display: inline-block;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+canvas { display: block; }
+</textarea>
+          <textarea class="solution-code-js" hidden>
+let x = 110;
+let y = 110;
+let vx = 180;
+let vy = 130;
+const r = 18;
+
+function setup() {
+  const zone = document.getElementById("zone-p5-dt-exo");
+  const c = createCanvas(430, 240);
+  c.parent(zone);
+}
+
+function draw() {
+  const dt = deltaTime / 1000;
+
+  background("#111827");
+
+  x = x + vx * dt;
+  y = y + vy * dt;
+
+  if (x > width - r || x < r) {
+    vx = -vx;
+    x = constrain(x, r, width - r);
+  }
+
+  if (y > height - r || y < r) {
+    vy = -vy;
+    y = constrain(y, r, height - r);
+  }
+
+  fill("#34d399");
+  noStroke();
+  circle(x, y, r * 2);
+}
+</textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../editor/editor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>
