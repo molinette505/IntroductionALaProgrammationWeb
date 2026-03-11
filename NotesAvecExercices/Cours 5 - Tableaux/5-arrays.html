@@ -2,462 +2,560 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JS - Les Arrays (Tableaux)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours JavaScript - Fonctions</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/javascript-hint.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../editor/editor.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../editor/editor.css">
 
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-  </style>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 
 <body>
 
-  <header class="mobile-header">
-    <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
-    <span class="logo">JS Arrays</span>
-  </header>
+    <header class="mobile-header">
+        <button id="menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+        <span class="logo">JS 06</span>
+    </header>
 
-  <div class="app-container">
+    <div class="app-container">
 
-    <aside id="sidebar" class="sidebar">
-      <div class="sidebar-header">
-        <span class="js-badge">JS</span>
-        <h1>Les arrays</h1>
-      </div>
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="js-badge">JS</span>
+                <h1>Fonctions classiques</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-link">Retour</a>
+            </nav>
+        </aside>
 
-      <nav class="sidebar-nav">
-        <a href="../../index.html" class="nav-link">Retour</a>
-      </nav>
-    </aside>
+        <main class="main-content">
 
-    <main class="main-content">
+            <!-- INTRO -->
+            <section class="section-spy">
+                <h2 class="section-title">Introduction</h2>
 
-      <!-- INTRO -->
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Qu’est-ce qu’un tableau (array) ?</h3>
-        </div>
+                <p>
+                    Une <strong>fonction</strong> est un bloc de code qu’on peut <strong>réutiliser</strong> pour faire
+                    une tâche précise.</p>
+                    <p>On l’écrit une fois, puis on l’appelle quand on en a besoin.
+                </p>
 
-        <p>
-          Un <strong>array</strong> (tableau) est une <strong>liste ordonnée</strong> de valeurs.
-          On l’utilise quand on veut mettre <strong>plusieurs éléments</strong> dans une seule variable.
-        </p>
+                <div class="info-box info">
+                    <h4>Pourquoi utiliser des fonctions ?</h4>
+                    <ul>
+                        <li><strong>Éviter la répétition</strong> (principe DRY : <em>Don’t Repeat Yourself</em>).</li>
+                        <li><strong>Rendre le code plus clair</strong> (on lit des “actions” :
+                            <code>calculerMoyenne()</code>).
+                        </li>
+                        <li><strong>Faciliter la maintenance</strong> (si on corrige, on corrige à un seul endroit).
+                        </li>
+                    </ul>
+                </div>
 
-        <table class="parallel-table table-narrow">
-          <caption><code>let scores = [250, 200, 145, 110]</code></caption>
-          <thead>
-            <tr>
-              <th>éléments</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>250</td>
-            </tr>
-            <tr>
-              <td>200</td>
-            </tr>
-            <tr>
-              <td>145</td>
-            </tr>
-            <tr>
-              <td>110</td>
-            </tr>
-          </tbody>
-        </table>
-        </section>
-        <section class="section-spy">
-        <div class="section-header">
-          <h3>Le concept d'index</h3>
-        </div>
+                <div class="info-box">
+                    <h4>Image mentale : une petite “machine” dont l’intérieur est invisible</h4>
+                    <ul>
+                        <li>Elle reçoit des <strong>entrées</strong> (paramètres).</li>
+                        <li>Elle fait un travail.</li>
+                        <li>Elle peut renvoyer une <strong>sortie</strong> (avec <code>return</code>).</li>
+                    </ul>
+                </div>
 
-        <div class="info-box info">
-          <h4><i data-lucide="hash"></i> Le concept d’index (la position)</h4>
-          <p>
-            Chaque élément est identifié par sa position dans le tableau: son <strong>index</strong>.<p/>
-           <p> En programmation, on commence à compter à partir de <strong>0</strong>.
-          </p>
-          <ul>
-            <li>1er élément → index <code>0</code></li>
-            <li>2e élément → index <code>1</code></li>
-            <li>3e élément → index <code>2</code></li>
-          </ul>
-        </div>
+                <div class="playground-container" data-auto-execute="false" data-type="compare"
+                    data-title="Comparaison : sans fonction vs avec fonction"
+                    data-toolbar-text="À observer :&#10;- Sans fonction, le même algorithme est répété plusieurs fois.&#10;- Avec fonction, on écrit le calcul une seule fois.&#10;- On peut ensuite réutiliser la fonction avec différentes données."
+                    data-instructions="Exécute les deux versions et compare leur structure. Repère quel bloc de code est répété dans la version sans fonction."
+                    data-label-a="Avec fonction" data-label-b="Sans fonction" data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// AVEC FONCTION : on écrit le calcul une seule fois
+function calculerMoyenne(notes) {
+  let total = 0;
 
-          <table class="parallel-table table-narrow">
-          <caption><code>let scores = [250, 200, 145, 110]</code></caption>
-          <thead>
-            <tr>
-              <th>indices</th>
-              <th>éléments</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>[0]</code></td>
-              <td>250</td>
-            </tr>
-            <tr>
-              <td><code>[1]</code></td>
-              <td>200</td>
-            </tr>
-            <tr>
-              <td><code>[2]</code></td>
-              <td>145</td>
-            </tr>
-            <tr>
-              <td><code>[3]</code></td>
-              <td>110</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+  for (let i = 0; i < notes.length; i++) {
+    total += notes[i];
+  }
 
-      <!-- CRÉER -->
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Créer un tableau</h3>
-        </div>
-
-        <p>Un tableau se crée avec des crochets <code>[]</code>, souvent dans une variable.</p>
-
-        <div class="grid-2">
-          <div class="info-box info">
-            <h4>1) Créer un tableau vide</h4>
-            <pre><code class="language-javascript">let filmsFavoris = [];</code></pre>
-          </div>
-
-          <div class="info-box info">
-            <h4>2) Créer un tableau déjà rempli</h4>
-            <pre><code class="language-javascript">let notesEtudiants = [15, 12, 18];</code></pre>
-          </div>
-        </div>
-
-        <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Créer un tableau vide"
-          data-auto-height="true"
-          data-toolbar-text="Tableau vide + push() : on ajoute des éléments à la fin (inventaire.push(...))">
-          <textarea class="source-code" hidden>
-let inventaire = [];
-
-inventaire.push("Épée");
-inventaire.push("Bouclier");
-inventaire.push("Potion");
-
-console.log(inventaire);
-</textarea>
-        </div>
-
-        <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Créer un tableau déjà rempli"
-          data-auto-height="true"
-          data-toolbar-text="Tableau rempli : on met des valeurs directement entre [ ... ]">
-          <textarea class="source-code" hidden>
-let scores = [12, 18, 9];
-
-console.log(scores);
-</textarea>
-        </div>
-
-        <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Créer un tableau rempli et un tableau vide"
-          data-toolbar-text='Tableau vide : let nomVariable = [] Tableu rempli : let nomVariable = [Élément 1, Élément 2, Élément 3, ...]'
-          data-auto-height="false">
-          <textarea class="source-code" hidden>
-// TODO 1 : Crée un tableau "villes" avec 3 villes : Québec, Montréal et Saguenay
-
-// TODO 2 : Crée un tableau vide "sauvegardes"
-
-// TODO 3 : Affiche les deux tableaux (console.log)
-</textarea>
-          <textarea class="solution-code" hidden>
-let villes = ["Québec", "Montréal", "Saguenay"];
-let sauvegardes = [];
-
-console.log(villes);
-console.log(sauvegardes);
-</textarea>
-        </div>
-      </section>
-
-      <!-- LENGTH -->
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>La taille d’un tableau (<code>.length</code>)</h3>
-        </div>
-
-        <p><code>.length</code> retourne le <strong>nombre d’éléments</strong> dans le tableau.</p>
-
-        <div class="info-box info">
-          <h4>Exemples rapides</h4>
-          <ul>
-            <li><code>[]</code> → <code>length</code> vaut 0</li>
-            <li><code>[10, 20, 30]</code> → <code>length</code> vaut 3</li>
-          </ul>
-        </div>
-
-        <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Vérifier si un tableau est vide"
-          data-auto-height="true"
-          data-toolbar-text="Si notifications.length === 0, alors le tableau est vide">
-          <textarea class="source-code" hidden>
-let notifications = [];
-
-if (notifications.length === 0) {
-  console.log("Aucune notification.");
+  return total / notes.length;
 }
+
+console.log("Avec fonction - Moyenne groupe 1 :", calculerMoyenne([85, 90, 78, 92, 88]));
+console.log("Avec fonction - Moyenne groupe 2 :", calculerMoyenne([58, 72, 60, 70, 63]));
+console.log("Avec fonction - Moyenne groupe 3 :", calculerMoyenne([30, 70, 89, 58, 75]));
 </textarea>
-        </div>
+                    <textarea class="compare-code" hidden>
+// SANS FONCTION : on répète le même algorithme
+let notesGroupe1 = [85, 90, 78, 92, 88];
+let totalGroupe1 = 0;
 
-        <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Exercice : nombre de participants"
-          data-toolbar-text="TODO : utilise .length pour l'équipe rouge, l'équipe bleue, puis calcule le total"
-          data-auto-height="false">
-          <textarea class="source-code" hidden>
-let equipeRouge = ["Jean", "Océane", "Paul", "Roxane", "Adam"];
-let equipeBleue = ["Ariane", "Juliette", "Michaël"];
+for (let i = 0; i < notesGroupe1.length; i++) {
+  totalGroupe1 += notesGroupe1[i];
+}
 
-// TODO 1 : Calcule le nombre de participants dans l'équipe rouge
-// Indice : equipeRouge.length
+let moyenneGroupe1 = totalGroupe1 / notesGroupe1.length;
+console.log("Sans fonction - Moyenne groupe 1 :", moyenneGroupe1);
 
-// TODO 2 : Calcule le nombre de participants dans l'équipe bleue
-// Indice : equipeBleue.length
+let notesGroupe2 = [58, 72, 60, 70, 63];
+let totalGroupe2 = 0;
 
-// TODO 3 : Calcule le nombre total de participants (rouge + bleue)
+for (let i = 0; i < notesGroupe2.length; i++) {
+  totalGroupe2 += notesGroupe2[i];
+}
 
-// TODO 4 : Affiche les 3 résultats avec console.log
+let moyenneGroupe2 = totalGroupe2 / notesGroupe2.length;
+console.log("Sans fonction - Moyenne groupe 2 :", moyenneGroupe2);
+
+let notesGroupe3 = [30, 70, 89, 58, 75];
+let totalGroupe3 = 0;
+
+for (let i = 0; i < notesGroupe3.length; i++) {
+  totalGroupe3 += notesGroupe3[i];
+}
+
+let moyenneGroupe3 = totalGroupe3 / notesGroupe3.length;
+console.log("Sans fonction - Moyenne groupe 3 :", moyenneGroupe3);
 </textarea>
-          <textarea class="solution-code" hidden>
-let equipeRouge = ["Jean", "Océane", "Paul", "Roxane", "Adam"];
-let equipeBleue = ["Ariane", "Juliette", "Michaël"];
+                </div>
+            </section>
 
-let nbRouge = equipeRouge.length;
-let nbBleue = equipeBleue.length;
-let nbTotal = nbRouge + nbBleue;
+            <!-- SECTION : Déclaration et appel -->
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>1) Déclarer et appeler une fonction</h3>
+                </div>
 
-console.log("Participants équipe rouge :", nbRouge);
-console.log("Participants équipe bleue :", nbBleue);
-console.log("Total participants :", nbTotal);
+                <p>
+                    Il y a deux étapes :
+                    <strong>1) déclarer</strong> la fonction (la créer),
+                    puis <strong>2) l’appeler</strong> (l’exécuter).
+                </p>
+
+                <div class="info-box">
+                    <h4>Déclaration (création)</h4>
+                    <pre><code class="language-javascript">function nomFonction(param1, param2) {
+  // instructions à exécuter
+}</code></pre>
+
+                    <ul>
+                        <li><code>function</code> : mot-clé pour créer une fonction.</li>
+                        <li><code>nomFonction</code> : le nom de la fonction (souvent un verbe).</li>
+                        <li><code>param1, param2</code> : les entrées (facultatives).</li>
+                        <li>Le code entre <code>{ ... }</code> s’exécute à chaque appel.</li>
+                    </ul>
+
+                    <p>
+                        Conseil : donne un nom qui décrit l’action :
+                        <code>afficherScore</code>, <code>calculerTotal</code>, <code>verifierAcces</code>.
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <h4>Appel (exécution)</h4>
+                    <p>
+                        Pour exécuter la fonction :
+                        <code>nomFonction()</code>
+                        (le nom suivi de parenthèses).
+                    </p>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Déclarer et appeler une fonction de bienvenue"
+                    data-toolbar-text="Rappels :&#10;- Déclarer une fonction : function nomFonction() { ... }&#10;- Appeler une fonction : nomFonction();"
+                    data-instructions="Exécute le code. Observe que le message ne s’affiche que lorsque la fonction est appelée."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// Déclaration : on crée la fonction
+function direBienvenue() {
+  console.log("Bienvenue dans le programme !");
+}
+
+// Appels : on exécute la fonction
+direBienvenue();
+direBienvenue();
 </textarea>
-        </div>
-      </section>
+                </div>
 
-      <!-- ACCÉDER / MODIFIER -->
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Accéder et modifier les éléments d’un tableau</h3>
-        </div>
+                <div class="playground-container" data-auto-execute="false" data-type="exercise"
+                    data-title="Exercice : créer une première fonction"
+                    data-toolbar-text="Rappels :&#10;- Créer une fonction : function nomFonction() { ... }&#10;- Afficher un message : console.log(&quot;...&quot;)&#10;- Exécuter une fonction : nomFonction();"
+                    data-instructions="Complète les TODO dans l’ordre : crée la fonction, ajoute le message, puis appelle-la une fois."
+                    data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// TODO 1 : Écris la déclaration de la fonction preparerCafe
+// Indice : function preparerCafe() { ... }
 
-        <div class="info-box info">
-        <h4>Accéder (lire) un élément dans un tableau</h4>
-        <p><code>tableau[index]</code></p>
-        <p>Exemple : <code>scores[2]</code> donne le <strong>3e</strong> élément et retourne 145.</p>
-        </div>
+// TODO 2 : À l'intérieur de la fonction, ajoute cette ligne :
+// console.log("Le café est en cours de préparation...");
 
-        <table class="parallel-table table-narrow">
-          <caption><code>let scores = [250, 200, 145, 110]</code></caption>
-          <thead>
-            <tr>
-              <th>indices</th>
-              <th>éléments</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>[0]</code></td>
-              <td>250</td>
-            </tr>
-            <tr>
-              <td><code>[1]</code></td>
-              <td>200</td>
-            </tr>
-            <tr class="row-highlight">
-              <td><code>[2]</code></td>
-              <td>145</td>
-            </tr>
-            <tr>
-              <td><code>[3]</code></td>
-              <td>110</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Lire un élément"
-          data-toolbar-text="Lire = tableau[index]. Ici on lit scores[1] (2e élément)"
-          data-auto-height="true">
-          <textarea class="source-code" hidden>
-let scores = [250, 200, 145, 110];
-
-console.log("Deuxième score :", scores[2]);
+// TODO 3 : Sous la fonction, exécute-la avec :
+// preparerCafe();
 </textarea>
-        </div>
+                    <textarea class="solution-code" hidden>
+function preparerCafe() {
+  console.log("Le café est en cours de préparation...");
+}
 
-        <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Exercice : lire un index"
-          data-toolbar-text='TODO : affiche le 3e nom (index 2) avec console.log()'
-          data-auto-height="false">
-          <textarea class="source-code" hidden>
-let equipes = ["Lions", "Tigres", "Aigles"];
-
-// TODO : Affiche le 3e nom (index 2)
+preparerCafe();
 </textarea>
-          <textarea class="solution-code" hidden>
-let equipes = ["Lions", "Tigres", "Aigles"];
+                </div>
+            </section>
 
-console.log(equipes[2]);
+            <!-- PARAMÈTRES & ARGUMENTS -->
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>2) Paramètres et arguments</h3>
+                </div>
+
+                <p>
+                    Les paramètres servent à <strong>personnaliser</strong> une fonction.
+                </p>
+                <p>
+                    On exécute la même fonction, mais avec des valeurs différentes.
+                </p>
+
+                <div class="info-box info">
+                    <h4>Vocabulaire</h4>
+                    <ul>
+                        <li><strong>Paramètre</strong> : variable écrite dans la définition
+                            <code>function saluer(nom)</code>.
+                        </li>
+                        <li><strong>Argument</strong> : valeur donnée lors de l’appel
+                            <code>saluer("Emma")</code>.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Fonction avec paramètre : saluer(nom)"
+                    data-toolbar-text="Rappels :&#10;- Un paramètre est une variable reçue par la fonction.&#10;- À l’appel, on donne une valeur à ce paramètre.&#10;- Exemple : saluer(&quot;Emma&quot;)"
+                    data-instructions="Exécute le code puis change les prénoms dans les appels pour voir comment le message s’adapte."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+function saluer(nom) {
+  console.log(`Salut, ${nom} !`);
+}
+
+saluer("Victor");
+saluer("Emma");
 </textarea>
-        </div>
+                </div>
 
-        <h4>Écrire (modifier)</h4>
-        <p>
-          Pour modifier un élément : <code>tableau[index] = nouvelleValeur</code>.
-        </p>
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Fonction avec deux paramètres : calculerTempsTrajet(distanceKm, vitesseKmH)"
+                    data-toolbar-text="Rappels :&#10;- Une fonction peut recevoir plusieurs paramètres.&#10;- Ici : temps = distance ÷ vitesse."
+                    data-instructions="Exécute le code. Observe que la même fonction est réutilisée avec différentes distances et vitesses."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+function calculerTempsTrajet(distanceKm, vitesseKmH) {
+  const tempsEnHeures = distanceKm / vitesseKmH;
+  console.log(`Pour ${distanceKm} km à ${vitesseKmH} km/h : ${tempsEnHeures} h`);
+}
 
-        <div class="playground-container" data-auto-execute="false" data-type="example" data-title="Modifier un élément"
-          data-toolbar-text="Ici on remplace le 2e score (index 1) par 25"
-          data-auto-height="true">
-          <textarea class="source-code" hidden>
-let scores = [10, 20, 30];
-
-scores[1] = 25;
-console.log(scores);
+calculerTempsTrajet(120, 60);
+calculerTempsTrajet(90, 45);
+calculerTempsTrajet(150, 75);
 </textarea>
-        </div>
+                </div>
 
-        <div class="playground-container" data-auto-execute="false" data-type="exercise" data-title="Exercice : correction"
-          data-toolbar-text="TODO : change le dernier résultat pour 50. Indice : index 2"
-          data-auto-height="false">
-          <textarea class="source-code" hidden>
-let scores = [10, 20, 30];
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Fonction avec return : calculMontantAvecPourboire(total, pourboire)"
+                    data-toolbar-text="Rappels :&#10;- return renvoie une valeur.&#10;- On peut ensuite l’afficher avec console.log(...).&#10;- Formule : total + (total * pourboire / 100)"
+                    data-instructions="Exécute le code puis change les montants ou les pourcentages pour voir la nouvelle valeur retournée."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+function calculMontantAvecPourboire(total, pourboire) {
+  const montantFinal = total + (total * pourboire / 100);
+  return montantFinal;
+}
 
-// TODO : Change le dernier résultat pour 50
-// Indice : scores[2] = 50;
+console.log(`Total final (80$, 15%) : ${calculMontantAvecPourboire(80, 15)}$`);
+console.log(`Total final (120$, 18%) : ${calculMontantAvecPourboire(120, 18)}$`);
+console.log(`Total final (45$, 20%) : ${calculMontantAvecPourboire(45, 20)}$`);
 </textarea>
-          <textarea class="solution-code" hidden>
-let scores = [10, 20, 30];
+                </div>
 
-scores[2] = 50;
-console.log(scores);
+                <div class="playground-container" data-auto-execute="false" data-type="exercise"
+                    data-title="Exercice : présenter un joueur"
+                    data-toolbar-text="Rappels :&#10;- Déclarer une fonction avec paramètres : function nom(param1, param2) { ... }&#10;- Afficher une phrase avec une template string : `texte ${variable}`"
+                    data-instructions="Crée une fonction presenterJoueur(nom, points), puis appelle-la deux fois avec les valeurs demandées."
+                    data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// TODO 1 : Crée une fonction nommée presenterJoueur avec 2 paramètres : nom et points
+// Indice : function presenterJoueur(nom, points) { ... }
+
+// TODO 2 : Dans la fonction, affiche cette phrase :
+// Le joueur X a Y points
+// Indice : utilise console.log(`Le joueur ${nom} a ${points} points`);
+
+// TODO 3 : Appelle la fonction avec les arguments "Maya" et 120
+
+// TODO 4 : Appelle la fonction avec les arguments "Alex" et 80
 </textarea>
-        </div>
-      </section>
+                    <textarea class="solution-code" hidden>
+function presenterJoueur(nom, points) {
+  console.log(`Le joueur ${nom} a ${points} points`);
+}
 
-      <!-- PREMIER / DERNIER -->
-      <section class="section-spy">
-        <div class="section-header">
-          <h3>Premier et dernier élément</h3>
-        </div>
-
-        <div class="info-box info">
-          <h4>Rappels</h4>
-          <ul>
-            <li>Premier élément : index <code>0</code></li>
-            <li>Dernier élément : index <code>tableau.length - 1</code></li>
-          </ul>
-        </div>
-
-        <table class="parallel-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>index</th>
-              <th><code>let scores = [250, 200, 145, 110]</code></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="row-highlight">
-              <th>1er</th>
-              <td><code>[0]</code></td>
-              <td>250</td>
-            </tr>
-            <tr>
-              <th></th>
-              <td><code>[1]</code></td>
-              <td>200</td>
-            </tr>
-            <tr>
-              <th></th>
-              <td><code>[2]</code></td>
-              <td>145</td>
-            </tr>
-            <tr class="row-highlight">
-              <th>dernier</th>
-              <td><code>[scores.length - 1] = [4 - 1] = [3]</code></td>
-              <td>110</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="playground-container" data-auto-execute="false" data-type="example"
-          data-title="Premier et dernier élément d’un tableau"
-          data-toolbar-text="Premier = [0]. Dernier = [length - 1]"
-          data-auto-height="true">
-          <textarea class="source-code" hidden>
-let nomsEtudiants = ["Angelica", "Maxime", "Juliette", "Nicolas"];
-
-console.log("Premier nom :", nomsEtudiants[0]);
-console.log("Dernier nom :", nomsEtudiants[nomsEtudiants.length - 1]);
+presenterJoueur("Maya", 120);
+presenterJoueur("Alex", 80);
 </textarea>
-        </div>
+                </div>
+            </section>
 
-        <div class="playground-container" data-auto-execute="false" data-type="exercise"
-          data-title="Exercice : premier et dernier"
-          data-toolbar-text="TODO : affiche la première couleur (index 0) et la dernière (length - 1)"
-          data-auto-height="false">
-          <textarea class="source-code" hidden>
-let couleurs = ["Rouge", "Vert", "Bleu", "Jaune"];
+            <!-- RETURN -->
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>3) Retourner une valeur (<code>return</code>)</h3>
+                </div>
 
-// TODO 1 : Affiche la première couleur
+                <p>
+                    Une fonction peut <strong>retourner</strong> un résultat.
+                    Ce résultat peut ensuite être stocké dans une variable, affiché, ou réutilisé ailleurs.
+                </p>
 
-// TODO 2 : Affiche la dernière couleur
+                <div class="info-box info">
+                    <h4>À retenir</h4>
+                    <ul>
+                        <li><code>return</code> renvoie une valeur.</li>
+                        <li>Sans <code>return</code>, la fonction ne renvoie rien d’utile
+                            (souvent <code>undefined</code>).</li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Fonction avec return : calculer des dégâts critiques"
+                    data-toolbar-text="Rappels :&#10;- Une fonction peut faire un calcul puis retourner le résultat avec return.&#10;- Ici : dégâts finaux = dégâts de base + bonus critique."
+                    data-instructions="Exécute le code puis change les valeurs envoyées à la fonction pour voir comment les dégâts totaux changent."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+// Exemple jeu : dégâts critiques avec un bonus multiplicateur
+let degatsTotaux;
+
+function calculerDegatsCritique(degatsBase, bonusCritique) {
+  let degatsBonus = degatsBase * bonusCritique;
+  return degatsBase + degatsBonus;
+}
+
+// 40 de dégâts et 0.5x de bonus
+degatsTotaux = calculerDegatsCritique(40, 0.5);
+console.log(`Dégâts avec bonus critique : ${degatsTotaux}`);
+
+// 30 de dégâts et 1.5x de bonus
+degatsTotaux = calculerDegatsCritique(30, 1.5);
+console.log(`Dégâts avec bonus critique : ${degatsTotaux}`);
 </textarea>
-          <textarea class="solution-code" hidden>
-let couleurs = ["Rouge", "Vert", "Bleu", "Jaune"];
+                </div>
 
-console.log(couleurs[0]);
-console.log(couleurs[couleurs.length - 1]);
+                <div class="playground-container" data-auto-execute="false" data-type="exercise"
+                    data-title="Exercice : acheterProduit(code)"
+                    data-toolbar-text="Rappels :&#10;- switch permet de vérifier plusieurs cas possibles.&#10;- return renvoie immédiatement une réponse.&#10;- default gère les autres cas."
+                    data-instructions="Complète la fonction pour qu’elle retourne le bon produit selon le code. Teste ensuite avec A2, B1 et Z8."
+                    data-auto-height="false">
+                    <textarea class="source-code" hidden>
+// TODO 1 : Crée une fonction nommée acheterProduit avec un paramètre code
+// Indice : function acheterProduit(code) { ... }
+
+// TODO 2 : Dans la fonction, écris :
+// switch (code) {
+//   ...
+// }
+
+// TODO 3 : Ajoute les cas suivants dans le switch :
+// "A1" -> retourner "Tu as acheté : Chips"
+// "A2" -> retourner "Tu as acheté : Chocolat"
+// "B1" -> retourner "Tu as acheté : Jus"
+// "B2" -> retourner "Tu as acheté : Eau"
+
+// TODO 4 : Ajoute un default pour retourner "Code invalide"
+
+// TODO 5 : Affiche le résultat de ces 3 appels :
+// console.log(acheterProduit("A2"));
+// console.log(acheterProduit("B1"));
+// console.log(acheterProduit("Z8"));
 </textarea>
-        </div>
-      </section>
 
-      <!-- MINI RÉCAP -->
-      <section class="section-spy">
-        <div class="info-box info">
-          <h4>Mini récap</h4>
-          <ul>
-            <li>Un array est une <strong>liste ordonnée</strong> : <code>["Victor", "Emma", "Béatrice", "Maxime", "Nicolas", ...]</code></li>
-            <li>Index : <strong>ça commence à 0</strong> → <code>tableau[0]</code></li>
-            <li>Taille : <code>tableau.length</code></li>
-            <li>Lire : <code>tableau[i]</code> / Modifier : <code>tableau[i] = nouvelle valeur</code></li>
-          </ul>
-        </div>
-      </section>
+                    <textarea class="solution-code" hidden>
+function acheterProduit(code) {
+  switch (code) {
+    case "A1":
+      return "Tu as acheté : Chips";
+    case "A2":
+      return "Tu as acheté : Chocolat";
+    case "B1":
+      return "Tu as acheté : Jus";
+    case "B2":
+      return "Tu as acheté : Eau";
+    default:
+      return "Code invalide";
+  }
+}
 
-    </main>
-  </div>
+console.log(acheterProduit("A2"));
+console.log(acheterProduit("B1"));
+console.log(acheterProduit("Z8"));
+</textarea>
+                </div>
 
-  <script src="../editor/editor.js"></script>
-  <script src="../scripts/script.js"></script>
+                <h4>Sortie immédiate (Early Exit)</h4>
+                <p>
+                    Dès que JavaScript rencontre <code>return</code>, il quitte la fonction immédiatement.
+                    C’est utile pour arrêter vite quand une condition est remplie.
+                </p>
+
+                <div class="info-box info">
+                    <ul>
+                        <li>On peut avoir <strong>plusieurs</strong> <code>return</code>.</li>
+                        <li>Le premier <code>return</code> exécuté arrête la fonction.</li>
+                    </ul>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Exemple : return arrête la fonction"
+                    data-toolbar-text="Rappels :&#10;- Dès que JavaScript rencontre return, la fonction s’arrête.&#10;- Le code après ce return ne s’exécute pas."
+                    data-instructions="Exécute le code et observe que la fonction retourne un message différent selon l’âge."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+function verifierAcces(age) {
+  if (age < 18) {
+    return "Accès refusé : trop jeune.";
+  }
+
+  return "Bienvenue dans l’espace membre !";
+}
+
+console.log(verifierAcces(15));
+console.log(verifierAcces(25));
+</textarea>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="exercise"
+                    data-title="Exercice : rechercher un élément dans un tableau"
+                    data-toolbar-text="Rappels :&#10;- Parcourir un tableau : for (...)&#10;- Comparer une valeur : ===&#10;- Retourner immédiatement si trouvé : return &quot;Trouvé !&quot;"
+                    data-instructions="Complète la fonction. Si l’élément est trouvé, retourne immédiatement “Trouvé !”. Sinon, retourne “Non disponible” à la fin."
+                    data-auto-height="false">
+                    <textarea class="source-code" hidden>
+function rechercherElement(tableau, elementRecherche) {
+  for (let i = 0; i < tableau.length; i++) {
+    if (tableau[i] === elementRecherche) {
+      // TODO 1 : Si l'élément courant est égal à elementRecherche,
+      // retourne immédiatement "Trouvé !"
+    }
+  }
+
+  // TODO 2 : Si la boucle se termine sans avoir trouvé l'élément,
+  // retourne "Non disponible"
+}
+
+let stock = ["Banane", "Orange", "Pomme", "Poire"];
+console.log(rechercherElement(stock, "Pomme"));
+console.log(rechercherElement(stock, "Raisin"));
+</textarea>
+                    <textarea class="solution-code" hidden>
+function rechercherElement(tableau, elementRecherche) {
+  for (let i = 0; i < tableau.length; i++) {
+    if (tableau[i] === elementRecherche) {
+      return "Trouvé !";
+    }
+  }
+
+  return "Non disponible";
+}
+
+let stock = ["Banane", "Orange", "Pomme", "Poire"];
+console.log(rechercherElement(stock, "Pomme"));
+console.log(rechercherElement(stock, "Raisin"));
+</textarea>
+                </div>
+            </section>
+
+            <!-- SCOPE -->
+            <section class="section-spy">
+                <div class="section-header">
+                    <h3>4) Portée des variables (scope)</h3>
+                </div>
+
+                <div class="info-box info">
+                    <h4>À retenir</h4>
+                    <p>
+                        Une variable créée <strong>dans</strong> une fonction n’existe que <strong>dans</strong> cette
+                        fonction.
+                        On dit qu’elle est <strong>locale</strong>.
+                    </p>
+                </div>
+
+                <div class="playground-container" data-auto-execute="false" data-type="example"
+                    data-title="Portée locale d’une variable"
+                    data-toolbar-text="Rappels :&#10;- Une variable créée dans une fonction est locale.&#10;- Elle n’existe pas à l’extérieur de cette fonction."
+                    data-instructions="Exécute le code. Observe que score fonctionne à l’extérieur, mais que bonus provoque une erreur car il est local à la fonction."
+                    data-auto-height="true">
+                    <textarea class="source-code" hidden>
+let score = 10;
+
+function ajouterBonus() {
+  let bonus = 5; // bonus est local à la fonction
+  score = score + bonus;
+}
+
+ajouterBonus();
+console.log("Score :", score);
+console.log("Bonus :", bonus); // Erreur : bonus n'existe pas ici
+</textarea>
+                </div>
+
+                <div class="info-box tip">
+                    <p>
+                        <strong>Important :</strong> la variable <code>bonus</code> n’existe pas en dehors de la
+                        fonction.
+                        C’est pour ça que la dernière ligne cause une erreur.
+                    </p>
+                </div>
+            </section>
+
+            <!-- MINI RÉCAP -->
+            <section class="section-spy">
+                <div class="info-box info">
+                    <h4>Mini récap</h4>
+                    <ul>
+                        <li>On <strong>déclare</strong> une fonction, puis on l’<strong>appelle</strong>.</li>
+                        <li><strong>Paramètres</strong> = entrées dans la définition, <strong>arguments</strong> =
+                            valeurs à l’appel.</li>
+                        <li><code>return</code> renvoie un résultat (et peut arrêter la fonction).</li>
+                        <li>Une variable déclarée dans une fonction est <strong>locale</strong> (scope).</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../editor/editor.js"></script>
+    <script src="../scripts/script.js"></script>
 </body>
 
 </html>

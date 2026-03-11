@@ -171,6 +171,18 @@ const getVisualizerOverlay = () => {
 };
 
 document.querySelectorAll('.playground-container').forEach((container) => {
+    const decodeEscapedNewlines = (rawValue) => {
+        if (rawValue == null) return '';
+        const placeholder = '__PLAYGROUND_LITERAL_BACKSLASH_N__';
+        return String(rawValue)
+            // Keep \\n as literal \n
+            .replace(/\\\\n/g, placeholder)
+            // Convert \n to actual line break
+            .replace(/\\n/g, '\n')
+            // Restore escaped literal \n
+            .replace(new RegExp(placeholder, 'g'), '\\n');
+    };
+
     const type = container.dataset.type;
     const isExerciseType = type === 'exercise';
     const isCompareType = type === 'compare';
@@ -178,10 +190,12 @@ document.querySelectorAll('.playground-container').forEach((container) => {
     const title = String(rawTitle)
         .replace(/^\s*(?:exemple|exercice|exercise|example)\s*:\s*/i, '')
         .trim() || 'Script JavaScript';
-    const instructions = container.dataset.instructions || null;
-    const toolbarInfoText = container.dataset.toolbarText
+    const rawInstructions = container.dataset.instructions || null;
+    const rawToolbarInfoText = container.dataset.toolbarText
         || container.dataset.runText
         || 'Modifiez le code ci-dessous et testez-le ->';
+    const instructions = rawInstructions ? decodeEscapedNewlines(rawInstructions) : null;
+    const toolbarInfoText = decodeEscapedNewlines(rawToolbarInfoText);
     const parseTruthyFlag = (rawValue) => {
         if (rawValue == null) return null;
         const value = String(rawValue).trim().toLowerCase();
