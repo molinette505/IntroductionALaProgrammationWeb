@@ -542,6 +542,7 @@ document.querySelectorAll('.playground-container').forEach((container) => {
             dotQualifier
         };
     };
+    
 
     const getHintListByFile = (file, prefix, afterDot, force, dotQualifier = null) => {
         if (file === 'js') {
@@ -561,7 +562,6 @@ document.querySelectorAll('.playground-container').forEach((container) => {
 
             return buildSuggestionList(basePool, prefix, force || afterDot);
         }
-
         if (file === 'html') {
             return buildSuggestionList(HTML_SUGGESTIONS, prefix, force);
         }
